@@ -1,0 +1,19 @@
+item,candidate,quantity,unit_budget_usd,source_status,selection_note
+MCU,NUCLEO-L432KC,1,0,course board,Confirm board available
+FPGA,UPduino v3.1,1,0,course board,Confirm board available
+Wi-Fi,Course ESP8266 board,1,0,stockroom availability unconfirmed,Use existing server firmware
+Hall sensor,DRV5055A3 or A4 linear analog,2,3,planning allowance,Full ordering code and range after field test
+ADC,MCP3204-CI/P,1,6,planning allowance,12-bit four channel DIP
+Current amplifier,INA240A1 SOIC candidate,1,4,planning allowance,Needs adapter or breakout and full ordering code
+Shunt,0.100 ohm 1 percent >=1 W,1,1,planning allowance,Verify pulse and thermal ratings
+Gate driver,UCC27511 candidate,1,2,planning allowance,Confirm package and input truth table
+MOSFET,5 V gate-rated N-channel >=30 V candidate,1,2,planning allowance,Select after coil and clamp characterization
+Flyback diode,Schottky candidate,1,1,planning allowance,Select voltage/current after coil test
+Comparator,3.3 V comparator candidate,1,2,planning allowance,Offset and threshold fit actual current limit
+Interlock logic,3.3 V AND logic,1,1,planning allowance,Defined low output for all power-up states
+Adapters and passives,SOIC adapters resistors capacitors,1,4,planning allowance,Check stockroom first
+Electromagnet,Stockroom wound coil or test coil,1,8,planning allowance,Lift and heating at air gap must be measured
+Object,Permanent magnet in lightweight carrier,1,2,planning allowance,Orientation and Hall observability require testing
+Mechanical frame and catch tray,Nonmagnetic frame,1,0,stockroom availability unconfirmed,Size after test geometry
+Supply fuse E-stop connectors,Current-limited bench supply and interlock,1,0,stockroom availability unconfirmed,Obtain quotes if unavailable
+Shipping and tax,Unquoted,1,,not included,Required before purchase or proposal submission

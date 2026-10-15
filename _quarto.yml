@@ -1,0 +1,51 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - index.qmd
+    - docs/*.md
+  resources:
+    - hardware/**
+    - firmware/**
+    - fpga/rtl/**
+    - fpga/tb/**
+    - fpga/constraints/**
+    - data/results/**
+    - tools/calibrate.py
+    - tests/**
+website:
+  title: "E155 · Magnetic Levitation"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Overview
+      - href: docs/design.md
+        text: Design
+      - href: docs/hardware.md
+        text: Hardware
+      - href: docs/build.md
+        text: Build
+      - href: docs/verification.md
+        text: Validation
+  sidebar:
+    style: docked
+    contents:
+      - docs/design.md
+      - docs/hardware.md
+      - docs/protocol.md
+      - docs/build.md
+      - docs/bringup.md
+      - docs/calibration.md
+      - docs/course.md
+      - docs/proposal.md
+      - docs/design-review.md
+      - docs/midpoint.md
+      - docs/checkoff.md
+      - docs/verification.md
+      - docs/references.md
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-copy: true
+    link-external-newwindow: true

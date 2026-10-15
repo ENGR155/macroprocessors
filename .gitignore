@@ -1,0 +1,37 @@
+# Codex local state and scratch material (keep project source tracked)
+.codex/
+.agents/
+AGENTS.md
+work/
+outputs/
+.env
+.env.*
+!.env.example
+
+# Compilers, FPGA tools, Quarto, editors
+build/
+_site/
+.quarto/
+.venv/
+__pycache__/
+*.pyc
+*.o
+*.elf
+*.bin
+*.hex
+*.vcd
+*.fst
+*.asc
+*.map
+*.log
+*.bak
+.vscode/
+*.emSession
+Output/
+fpga/impl_*/
+
+# Local hardware measurements may be added deliberately to data/results/
+data/raw/
+
+/.quarto/
+**/*.quarto_ipynb
