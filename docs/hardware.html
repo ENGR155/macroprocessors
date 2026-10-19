@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Candidate hardware and proposed wiring – FIELD / 155</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-9f43a20c679eb76b4703ca291990b4b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ba037b2a1395a26410b88d627e3aaf08.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+
+<body class="nav-fixed guide-page quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">FIELD <span class="brand-slash">/</span> 155</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Overview</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Design</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-design">    
+        <li>
+    <a class="dropdown-item" href="../design.html">
+ <span class="dropdown-text">System architecture</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../mcu.html">
+ <span class="dropdown-text">MCU design</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../fpga.html">
+ <span class="dropdown-text">FPGA design</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../hardware.html">
+ <span class="dropdown-text">Hardware &amp; materials</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../documentation.html"> 
+<span class="menu-text">Documentation</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../results.html"> 
+<span class="menu-text">Results</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../docs/build.html"> 
+<span class="menu-text">Build guide</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#candidate-hardware-and-proposed-wiring" id="toc-candidate-hardware-and-proposed-wiring" class="nav-link active" data-scroll-target="#candidate-hardware-and-proposed-wiring">Candidate hardware and proposed wiring</a>
+  <ul class="collapse">
+  <li><a href="#parts-and-early-decision" id="toc-parts-and-early-decision" class="nav-link" data-scroll-target="#parts-and-early-decision">Parts and early decision</a></li>
+  <li><a href="#logic-wiring" id="toc-logic-wiring" class="nav-link" data-scroll-target="#logic-wiring">Logic wiring</a></li>
+  <li><a href="#power-circuit-connectivity" id="toc-power-circuit-connectivity" class="nav-link" data-scroll-target="#power-circuit-connectivity">Power circuit connectivity</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<a class="skip-link" href="#quarto-document-content">Skip to content</a>
+
+<noscript><style>.system-tabs{display:none}.explorer-panels>[hidden]{display:grid!important}.explorer-panels>[role="tabpanel"]{margin-bottom:2rem}</style></noscript>
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Candidate hardware and proposed wiring</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="../documentation.html">Documentation</a> / Technical guide</p>
+<section id="candidate-hardware-and-proposed-wiring" class="level1">
+<h1>Candidate hardware and proposed wiring</h1>
+<p>Nothing in this document asserts an assembled circuit. Use the course boards; all other items are candidates. Keep <code>power_stage_ready=false</code>, <code>calibration_ready=false</code>, and <code>LEV_COMMISSIONED=0</code> until the corresponding bring-up gates pass.</p>
+<section id="parts-and-early-decision" class="level2">
+<h2 class="anchored" data-anchor-id="parts-and-early-decision">Parts and early decision</h2>
+<ul>
+<li>Two <strong>TI DRV5055 linear analog Hall sensors</strong>, initially evaluate A3 or A4 sensitivity. Choose the full ordering code/package after measuring field range. These are analog sensors, not magnetic switches. Power them at 3.3 V with local 100 nF bypassing; use the same quiet rail for the ADC reference. The <a href="https://www.ti.com/lit/ds/symlink/drv5055.pdf">manufacturer datasheet</a> specifies the transfer range, orientation, and bandwidth. Verify package pin numbering; TO-92 and SOT-23 differ.</li>
+<li>One <strong>MCP3204-CI/P</strong> 12-bit ADC at 3.3 V, with CH0 current, CH1 primary Hall, CH2 reference Hall, and unused CH3 tied to analog ground. See the <a href="https://ww1.microchip.com/downloads/en/DeviceDoc/21298e.pdf">MCP3204 datasheet</a>. The FPGA drives this bus independently of the MCU bus.</li>
+<li>One <strong>INA240A1</strong> amplifier, gain 20, and a <strong>0.100 ohm precision shunt</strong> in series with the coil. At 3.3 V, ground both REF inputs for unidirectional measurement. Account for zero-current output headroom/offset in calibration. Its <a href="https://www.ti.com/lit/ds/symlink/ina240.pdf">datasheet</a> describes common-mode behavior and PWM rejection. An SOIC adapter or assembled board is needed if using a bare IC.</li>
+<li>A MOSFET with verified on-resistance at the actual gate voltage, a gate driver such as <strong>UCC27511</strong>, and a flyback diode rated above coil current and supply/transient voltage. Driver inputs, supply bypassing, and gate discharge follow its <a href="https://www.ti.com/lit/ds/symlink/ucc27511.pdf">datasheet</a>. A 5 V driver supply is a candidate, subject to the selected MOSFET.</li>
+<li>A separate current-limited coil supply, fuse, physical E-stop, current comparator, output logic, and a nonmagnetic frame with a catch tray. Coil voltage/current, fuse, diode/clamp, MOSFET, threshold circuit, and thermal ratings remain contingent on the coil.</li>
+</ul>
+<p>Start with an instructor-approved stockroom coil or one inexpensive test coil. Determine the usable gap with a force measurement and temperature test. A manufacturer’s holding force at contact does not establish levitation capacity. Check whether a permanent-magnet object rotates, sticks to the core, or produces ambiguous Hall readings. A steel-only object requires a different field identification experiment before this estimator can be adopted.</p>
+<p>The <a href="../hardware/bom.csv">candidate BOM</a> contains budget allowances, not live supplier quotes. Replace all allowance values with dated quotes, full ordering numbers, stockroom availability, shipping, and tax before submitting or purchasing. The course currently marks the purchasing policy as under construction; confirm it with the instructors.</p>
+</section>
+<section id="logic-wiring" class="level2">
+<h2 class="anchored" data-anchor-id="logic-wiring">Logic wiring</h2>
+<p>These are <strong>explicit jumper connections</strong>, with MCU–FPGA bridge DIP switches open. Confirm continuity against the <a href="https://hmc-e155.github.io/assets/doc/E155%20Development%20Board%20Schematic.pdf">E155 board schematic</a>. FPGA numbers are SG48 silicon pad labels printed as <code>Pxx</code>/<code>GPIO_xx</code>, not UPduino header contact numbers. Avoid connecting two outputs together.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 30%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Signal</th>
+<th>MCU pin / Nucleo label</th>
+<th style="text-align: right;">FPGA pad</th>
+<th>Other endpoint</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Host SCK</td>
+<td>PA5 / A4</td>
+<td style="text-align: right;">23</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>Host CS active low</td>
+<td>PA4 / A3</td>
+<td style="text-align: right;">25</td>
+<td>10k pull-up to 3.3 V</td>
+</tr>
+<tr class="odd">
+<td>Host MOSI</td>
+<td>PA7 / A6</td>
+<td style="text-align: right;">26</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>Host MISO</td>
+<td>PA6 / A5</td>
+<td style="text-align: right;">27</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>MCU permit active high</td>
+<td>PA0 / A0</td>
+<td style="text-align: right;">34</td>
+<td>hardware interlock; external 10k pulldown</td>
+</tr>
+<tr class="even">
+<td>UART TX</td>
+<td>PA9 / D1</td>
+<td style="text-align: right;">—</td>
+<td>ESP RX (3.3 V)</td>
+</tr>
+<tr class="odd">
+<td>UART RX</td>
+<td>PA10 / D0</td>
+<td style="text-align: right;">—</td>
+<td>ESP TX (3.3 V)</td>
+</tr>
+<tr class="even">
+<td>ADC CS</td>
+<td>—</td>
+<td style="text-align: right;">32</td>
+<td>MCP3204 pin 8; 10k pull-up</td>
+</tr>
+<tr class="odd">
+<td>ADC CLK</td>
+<td>—</td>
+<td style="text-align: right;">35</td>
+<td>MCP3204 pin 11</td>
+</tr>
+<tr class="even">
+<td>ADC DIN</td>
+<td>—</td>
+<td style="text-align: right;">31</td>
+<td>MCP3204 pin 9</td>
+</tr>
+<tr class="odd">
+<td>ADC DOUT</td>
+<td>—</td>
+<td style="text-align: right;">37</td>
+<td>MCP3204 pin 10</td>
+</tr>
+<tr class="even">
+<td>External healthy / fault_n</td>
+<td>—</td>
+<td style="text-align: right;">43</td>
+<td>hardware interlock status, active high healthy</td>
+</tr>
+<tr class="odd">
+<td>PWM</td>
+<td>—</td>
+<td style="text-align: right;">36</td>
+<td>output logic then gate driver</td>
+</tr>
+<tr class="even">
+<td>FPGA gate enable</td>
+<td>—</td>
+<td style="text-align: right;">42</td>
+<td>output logic</td>
+</tr>
+<tr class="odd">
+<td>Scan complete debug</td>
+<td>—</td>
+<td style="text-align: right;">38</td>
+<td>scope/logic analyzer</td>
+</tr>
+</tbody>
+</table>
+<p>All signal grounds share a reference; keep coil current out of ADC/sensor ground wiring. Logic is 3.3 V. Verify the Nucleo A4/A5 solder-bridge arrangement and I2C pull-up/loading on your board; no I2C is used here. The mikroBUS socket may already route the course ESP UART correctly; check RX/TX labels and the board’s TX selection jumper rather than adding duplicate wiring.</p>
+<p>MCP3204 DIP: CH0 pin 1, CH1 pin 2, CH2 pin 3, CH3 pin 4, NC pins 5/6, DGND 7, CS 8, DIN 9, DOUT 10, CLK 11, AGND 12, VREF 13, VDD 14. Bypass VDD and VREF near the IC. Add only an RC network that settles within the ADC acquisition time; choose it from the source-impedance calculation and measured bandwidth. Pin numbers follow Table 3-1 of the manufacturer datasheet; MCP3208 has a different pinout.</p>
+</section>
+<section id="power-circuit-connectivity" class="level2">
+<h2 class="anchored" data-anchor-id="power-circuit-connectivity">Power circuit connectivity</h2>
+<p>The <a href="../hardware/netlist.md">netlist</a> defines the circuit nodes. This is a design sketch; it must become a labeled KiCad schematic using the selected packages and ratings before the final report.</p>
+<pre class="mermaid"><code>flowchart LR
+    PS[Coil supply positive] --&gt; F[Fuse / E-stop power contact]
+    F --&gt; V[Node VCOIL]
+    V --&gt; R[Inline shunt 0.100 ohm]
+    R --&gt; L[Coil]
+    L --&gt; D[MOSFET drain]
+    D --&gt; Q[MOSFET source to power ground]
+    D --&gt;|flyback: anode → cathode| V
+    R -. Kelvin sense .-&gt; A[Current amplifier]
+    A --&gt; ADC[ADC CH0]
+    A --&gt; C[Overcurrent comparator]
+    C --&gt; E[Healthy interlock]</code></pre>
+<p><strong>The flyback diode cathode connects to VCOIL before the shunt.</strong> That places both coil and shunt inside the recirculation loop, so off-time current is measured. A shunt placed only in the supply lead outside that loop does not measure recirculating current. The diode protects the MOSFET but yields slow decay; measure whether this is adequate. Replacing it with a higher-voltage clamp requires rechecking MOSFET/common-mode/supply stress and retuning.</p>
+<p>Hardware must force the driver inactive whenever PWM is low, FPGA enable is low, MCU permit is low, or the physical interlock is unhealthy. For example, use 3.3 V AND logic to combine these conditions into the driver’s noninverting input; tie its inverting input low. Keep a gate-source pulldown and logic-input pulldowns so an unconfigured FPGA cannot energize the coil. The physical E-stop also opens coil power. Derive <code>fault_n</code> from the E-stop auxiliary contact and an overcurrent comparator with a defined safe default; its exact schematic/threshold depends on the chosen current limit. Never tie <code>fault_n</code> permanently high in the powered levitator.</p>
+<p>For the numerical example, 0.5 A produces about 1.0 V at the current amplifier, or 1241 ADC counts. A <strong>separate comparator threshold</strong> must be established from actual offsets, gain tolerance, and thermal/current ratings. FPGA sampling is not a substitute for this physical cutoff. Software shutdown removes drive; stored magnetic energy still decays through the flyback path.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script src="../assets/site.js" defer=""></script>
+
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>FIELD / 155 · Hall-sensed magnetic levitation</p>
+</div>   
+    <div class="nav-footer-center">
+<p>Harvey Mudd College · ENGR 155</p>
+</div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../references.html">
+<p>References</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../ai.html">
+<p>AI use</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

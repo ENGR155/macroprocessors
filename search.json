@@ -1,0 +1,632 @@
+[
+  {
+    "objectID": "results.html",
+    "href": "results.html",
+    "title": "Evidence before claims.",
+    "section": "",
+    "text": "Skip to content\nRESULTS / RECORD DATED 15 OCTOBER 2026"
+  },
+  {
+    "objectID": "results.html#fpga-implementation",
+    "href": "results.html#fpga-implementation",
+    "title": "Evidence before claims.",
+    "section": "FPGA implementation",
+    "text": "FPGA implementation\n\n37%UP5K logic utilization1971 / 5280 logic cells\n25%DSP utilization2 / 8 blocks\n45.79MHz · routed maximum clock estimate24 MHz nominal requirement\n\nRecorded with YoWASP Yosys 0.70 and nextpnr-ice40 0.11.1 for the enabled top-level design. These are tool estimates, not measured board performance.\nThe verification build overrides top.COMMISSIONED=1 for a meaningful active-design resource check. Source defaults remain disabled. The default disabled top-level was also built and routed separately."
+  },
+  {
+    "objectID": "results.html#recorded-checks",
+    "href": "results.html#recorded-checks",
+    "title": "Evidence before claims.",
+    "section": "Recorded checks",
+    "text": "Recorded checks\nThe following summarizes the existing verification record. These engineering checks were recorded on October 15; they are distinct from checks performed on this website.\n\n\n\n\n\n\n\n\nCheck\nRecorded result\nWhat it establishes\n\n\n\n\nNative C compilation\nPassed; warnings treated as errors\nHost compilation using Zig / Clang\n\n\nC behavior tests\nPassed\nCRC, packet layout, controller direction, saturation, ramps, faults, web route and buffer handling\n\n\nCortex-M4F compilation\nSeven translation units compiled\nSource compatibility with the checked headers and runtime\n\n\nHDL elaboration\nChecked with slang and Icarus\nSystemVerilog elaboration\n\n\nFPGA integration simulation\nPassed\nADC command sequencing, telemetry, regulation, timeout and fault behavior, disabled defaults\n\n\nCalibration tests\nThree tests passed\nIdentifiable-model recovery, degenerate-signal rejection, nonlinear-fit residuals\n\n\nFPGA synthesis and routing\n24 MHz requirement passed\nInternal synchronous timing estimate for the checked implementation"
+  },
+  {
+    "objectID": "results.html#what-has-not-been-measured",
+    "href": "results.html#what-has-not-been-measured",
+    "title": "Evidence before claims.",
+    "section": "What has not been measured",
+    "text": "What has not been measured\n\n\n\n\n\n\n\n\nPhysical outcome\nStatus\nEvidence needed\n\n\n\n\nLevitation duration\nNot measured\nContinuous supported-to-free suspension trial\n\n\nGap accuracy and repeatability\nNot measured\nIndependent reference position measurements\n\n\nSettling and disturbance rejection\nNot measured\nRecorded step and disturbance responses\n\n\nHall observability during current changes\nNot measured\nFixed-object current sweeps and transient tests\n\n\nExternal timing and shutdown delay\nNot measured\nScope captures of buses, PWM, and interlock\n\n\nCoil and power-stage temperature\nNot measured\nLogged thermal run at the intended operating point\n\n\n\nThe full GNU Arm executable/runtime link and board-programming workflow also remain unverified. Simulation uses ideal ADC inputs and a fixed clock, not a validated physical coil model."
+  },
+  {
+    "objectID": "results.html#the-next-experiment",
+    "href": "results.html#the-next-experiment",
+    "title": "Evidence before claims.",
+    "section": "The next experiment",
+    "text": "The next experiment\nThe first decisive result is whether the sensor arrangement distinguishes object position from coil-current changes. A static numerical fit is insufficient. Hold the object at known gaps, sweep current, reserve independent holdout data, and test transient compensation before closing the position loop.\nFollow the calibration procedure →"
+  },
+  {
+    "objectID": "results.html#demonstration-and-measurement-record",
+    "href": "results.html#demonstration-and-measurement-record",
+    "title": "Evidence before claims.",
+    "section": "Demonstration and measurement record",
+    "text": "Demonstration and measurement record\nPHYSICAL DEMONSTRATION / PENDINGNo prototype photographs or demonstration video have been recorded. This section will hold genuine build and levitation evidence after hardware testing.\nDownload the blank measurement log CSV ↧\nOpen the planned checkoff matrix Test plan ↗\nRead the full verification record Technical note ↗"
+  },
+  {
+    "objectID": "mcu.html",
+    "href": "mcu.html",
+    "title": "Make sense of the field.",
+    "section": "",
+    "text": "Skip to content\nFIRMWARE / 02"
+  },
+  {
+    "objectID": "mcu.html#one-control-tick",
+    "href": "mcu.html#one-control-tick",
+    "title": "Make sense of the field.",
+    "section": "One control tick",
+    "text": "One control tick\nThe board driver establishes a nominal 16 MHz HSI clock, 1 MHz SPI1, 125000-baud USART1, a 1 MHz TIM2 timestamp, and a 1 ms SysTick. The main scheduler exchanges a 16-byte packet with the FPGA, checks its validity and freshness, and then updates control state.\nExchange and validate.Send the previous current request; receive the next telemetry snapshot. Check checksum, faults, and sample progression.Estimate the state.Convert current and Hall readings using measured scaling and calibration. Estimate and filter downward velocity.Compute the request.Ramp the gap target and apply position feedback, saturation, and anti-windup.Service the interface.Poll UART without waiting for characters. Continue page transmission across control ticks."
+  },
+  {
+    "objectID": "mcu.html#control-law",
+    "href": "mcu.html#control-law",
+    "title": "Make sense of the field.",
+    "section": "Control law",
+    "text": "Control law\nerror = measured_gap − ramped_target\ncurrent_request = clamp(\n    hover_current + Kp·error + Kd·filtered_velocity + integral,\n    0, maximum_current\n)\nDerivative acts on measurement to avoid a setpoint kick. The integrator updates only when the request is unsaturated or the error drives it out of saturation. Current-test mode uses a separate current ramp and requires the object to be supported.\nDefault gains and bias are zero. Scaling, calibration coefficients, operating bounds, and gains are configuration inputs awaiting measurements. They are not working levitation settings."
+  },
+  {
+    "objectID": "mcu.html#the-operator-interface",
+    "href": "mcu.html#the-operator-interface",
+    "title": "Make sense of the field.",
+    "section": "The operator interface",
+    "text": "The operator interface\nThe existing course ESP8266 firmware is used unchanged. The MCU serves a compact interface with height and current-test modes, arm/clear/stop controls, and raw plus engineering-unit telemetry. A five-second browser lease stops an abandoned session.\nThis portfolio documents that interface; it does not connect to or energize a physical coil."
+  },
+  {
+    "objectID": "mcu.html#deadlines-are-part-of-the-design",
+    "href": "mcu.html#deadlines-are-part-of-the-design",
+    "title": "Make sense of the field.",
+    "section": "Deadlines are part of the design",
+    "text": "Deadlines are part of the design\nA missed update, invalid telemetry, stalled sample ID, or reported fault stops the coil. The design budgets roughly 2–3 ms worst-case outer measurement-to-actuation delay, including scanning, scheduling, packet transfer, and PWM boundaries. That estimate must be checked on the bench.\nAt 1 MHz, a 128-clock exchange plus chip-select guards takes at least 132 µs, before software gaps. Page formatting and transmission must fit alongside control work; overruns are faults rather than silently skipped updates."
+  },
+  {
+    "objectID": "mcu.html#source-map",
+    "href": "mcu.html#source-map",
+    "title": "Make sense of the field.",
+    "section": "Source map",
+    "text": "Source map\n\n\n\nFile\nRole\n\n\n\n\nmain.c\nScheduler and system state\n\n\ncontrol.c\nEstimation, filtering, trajectories, feedback\n\n\nboard_stm32l432.c\nCMSIS register-level board driver\n\n\nprotocol.c\nPacket encoding and checksum\n\n\nweb.c\nRequest handling and embedded interface\n\n\nconfig.c\nScaling, local model, bounds, and gains"
+  },
+  {
+    "objectID": "mcu.html#verification-scope",
+    "href": "mcu.html#verification-scope",
+    "title": "Make sense of the field.",
+    "section": "Verification scope",
+    "text": "Verification scope\nThe record dated October 15, 2026 reports passing native behavior tests and Cortex-M4F compilation of all seven C translation units. A full GNU Arm executable/runtime link and programming workflow remain unverified. Object compilation alone does not establish a flashable image.\nBuild and program the design → · Read the packet protocol →"
+  },
+  {
+    "objectID": "hardware.html",
+    "href": "hardware.html",
+    "title": "Where code meets the coil.",
+    "section": "",
+    "text": "Skip to content\nHARDWARE / 04"
+  },
+  {
+    "objectID": "hardware.html#the-course-boards",
+    "href": "hardware.html#the-course-boards",
+    "title": "Where code meets the coil.",
+    "section": "The course boards",
+    "text": "The course boards\nThe STM32L432KC handles position estimation and control. The UPduino v3.1 handles acquisition and current regulation. The existing course ESP8266 provides the wireless interface using its unchanged firmware."
+  },
+  {
+    "objectID": "hardware.html#sensing-and-power",
+    "href": "hardware.html#sensing-and-power",
+    "title": "Where code meets the coil.",
+    "section": "Sensing and power",
+    "text": "Sensing and power\n\n\n\n\n\n\n\n\nFunction\nCandidate\nSelection constraint\n\n\n\n\nPrimary + reference magnetic field\nTwo TI DRV5055 linear Hall sensors\nEvaluate A3/A4 sensitivity against the measured field range\n\n\nAnalog conversion\nMCP3204-CI/P\n12-bit, 3.3 V; three channels used\n\n\nInline coil current\nINA240A1 + 0.100 Ω precision shunt\nGain 20 candidate; calibrate offset and verify range\n\n\nGate drive\nUCC27511\nSupply and drive must suit the selected MOSFET\n\n\nPower switch + flyback path\nMOSFET and rated diode/clamp\nChoose from coil current, supply, and transient measurements\n\n\nMechanical system\nNonmagnetic frame + catch tray\nEstablish repeatable gap and object orientation\n\n\nIndependent shutdown\nE-stop, current comparator, output logic\nValidate propagation and fail-off behavior physically\n\n\n\nAt the example 0.100 Ω shunt and gain of 20, the ideal current conversion is 2 V/A. With a 3.3 V ADC reference, the ideal resolution is approximately 0.403 mA/count. Actual offsets and scale factors require calibration."
+  },
+  {
+    "objectID": "hardware.html#coil-and-object-come-first",
+    "href": "hardware.html#coil-and-object-come-first",
+    "title": "Where code meets the coil.",
+    "section": "Coil and object come first",
+    "text": "Coil and object come first\nA holding-force rating at contact does not establish useful levitation force across an air gap. Start with an instructor-approved test coil and measure force versus current and gap, winding resistance, inductance, and steady temperature.\nThe proposed estimator assumes an object containing a permanent magnet with repeatable orientation. Rotation, attraction to the core, and ambiguous Hall readings are experimental risks. A steel-only object requires a different identification experiment."
+  },
+  {
+    "objectID": "hardware.html#connectivity-and-commissioning",
+    "href": "hardware.html#connectivity-and-commissioning",
+    "title": "Where code meets the coil.",
+    "section": "Connectivity and commissioning",
+    "text": "Connectivity and commissioning\nThe proposed netlist documents two separate SPI buses: MCU-to-FPGA commands and FPGA-to-ADC acquisition. The hardware guide includes explicit jumpers, power domains, analog grounding, and interlock constraints.\nKeep power_stage_ready=false, calibration_ready=false, and LEV_COMMISSIONED=0 until their corresponding bring-up gates pass.\nWIRINGHardware integration ↗Pin assignments, signal levels, power, and sensor integration.BENCH SEQUENCEBring-up procedure ↗Move from passive checks to supported-object current tests.\nDownload candidate bill of materials CSV ↧\nDownload proposed circuit netlist Markdown ↧\nCAD schematics, supplier quotes, assembly photographs, and measured component ratings remain future deliverables. The portfolio illustration is conceptual and does not depict assembled hardware."
+  },
+  {
+    "objectID": "documentation.html",
+    "href": "documentation.html",
+    "title": "The project notebook.",
+    "section": "",
+    "text": "Skip to content\nDOCUMENTATION / 05\nStart with the system design. For bench work, read hardware integration and the bring-up sequence before calibration or control tuning. The detailed guides retain the repository’s engineering notes as their source of truth."
+  },
+  {
+    "objectID": "documentation.html#verification-and-course-deliverables",
+    "href": "documentation.html#verification-and-course-deliverables",
+    "title": "The project notebook.",
+    "section": "Verification and course deliverables",
+    "text": "Verification and course deliverables\n\n\n\nDocument\nPurpose\n\n\n\n\nVerification record\nExecuted checks, tool estimates, and remaining limitations\n\n\nCheckoff matrix\nPlanned physical measurements and acceptance evidence\n\n\nCourse evidence map\nDeliverables and their supporting artifacts\n\n\nProject proposal\nScope, experimental risks, and intended system\n\n\nDesign review\nDecisions and review preparation\n\n\nMidpoint report\nDevelopment-stage progress and outstanding work\n\n\nTechnical references\nCourse material and manufacturer documentation"
+  },
+  {
+    "objectID": "documentation.html#source-and-experiment-files",
+    "href": "documentation.html#source-and-experiment-files",
+    "title": "The project notebook.",
+    "section": "Source and experiment files",
+    "text": "Source and experiment files\nThe downloads below are the actual repository resources. For a complete build, use the repository checkout and the build guide; these individual files are useful for inspection.\nMCU estimation and control C source ↧\nFPGA integration core SystemVerilog ↧\nFPGA integration testbench SystemVerilog ↧\nOffline Hall calibration Python ↧\nCandidate bill of materials CSV ↧\nBlank measurement log CSV ↧"
+  },
+  {
+    "objectID": "docs/references.html",
+    "href": "docs/references.html",
+    "title": "Design references",
+    "section": "",
+    "text": "Skip to content\n\n\n\n\n\n\n\nDocumentation / Technical guide\n\nDesign references\nAccessed 2026-10-15 unless noted. Manufacturer datasheets govern electrical limits; links identify candidate hardware, not approved purchases.\n\nHMC E155, Project and Final project requirements. Scope and deliverables; confirm dates/budget with instructors.\nHMC E155, proposal, presentation, midpoint, checkoff, and portfolio rubrics.\nHMC E155, Lab 6: IoT and SPI. Course ESP8266 UART/HTML protocol. The user called this Lab 7; the linked public course edition labels it Lab 6.\nHMC E155, Resources and development board schematic. Board identities, labels, and routing reference.\nSTMicroelectronics, STM32L432KC datasheet; RM0394 reference manual linked from the course resources. Register definitions were compile-checked against the local course CMSIS headers.\nLattice, iCE40 oscillator usage guide. Nominal 24 MHz oscillator and Yosys/Radiant primitive naming.\nMicrochip, MCP3204/MCP3208 datasheet, DS21298E. Mode-0 conversion framing, acquisition, voltage and timing limits.\nTexas Instruments, DRV5055 datasheet. Linear analog Hall response, sensitivity, supply and bandwidth.\nTexas Instruments, INA240 datasheet. Inline current-amplifier characteristics and PWM rejection.\nTexas Instruments, UCC2751x datasheet. Candidate low-side gate driver.\nUzzors2k, Magnetic levitation. User-supplied inspiration. This page repeatedly timed out during research; its exact circuit, component ratings, and performance were not verified or copied. This repository’s digital control and sensing design is independently specified.\n\nCode in this repository was prepared with Codex assistance and requires team review, measured tuning, and course-policy compliance. It contains no claimed laboratory observations. Acknowledge actual collaborators and course assistance in the final portfolio."
+  },
+  {
+    "objectID": "docs/proposal.html",
+    "href": "docs/proposal.html",
+    "title": "Proposal working draft: Hall-sensed magnetic levitator",
+    "section": "",
+    "text": "Skip to content\n\n\n\n\n\n\n\nDocumentation / Technical guide\n\nProposal working draft: Hall-sensed magnetic levitator\nReadiness: an implementation proposal for team review, not an already validated promise. First confirm the feasible object and gap interval; then replace candidate numerical specifications with the team’s committed values and paginate the prose to the course limit. Supporting diagrams, calculations, schedule, and BOM are linked below.\nWe will build a single-axis magnetic suspension using the E155 STM32L432KC and UPduino v3.1. An overhead electromagnet will support an object containing a permanent magnet. Two linear Hall sensors and a measured coil-current signal will estimate its vertical gap. A local Wi-Fi webpage will select a bounded gap target, show estimated gap/current/fault status, and stop operation. A capped current-test mode will support calibration and debugging while the object is mechanically supported.\nThe proposed acceptance specification is continuous suspension for 30 seconds, operation at three commanded gaps in a validated interval initially targeted at 8–14 mm, steady mean gap error no greater than 0.5 mm after settling, and recovery from a small recorded disturbance. A current cap, loss-of-command timeout, and physical interlock will remove drive when required. A separate reference measurement will evaluate actual height; the Hall estimate alone will not establish accuracy. Feasibility testing may require a narrower interval before this proposal is committed.\nThe MCU will perform calibrated field compensation, filtered velocity estimation, 1 kHz PD/PID position control, target ramping, UART communication with the course ESP8266, and 1 MHz SPI exchanges with the FPGA. The FPGA will acquire current and both Hall channels through an MCP3204, run a fixed-point 10 kHz PI current controller, generate 20 kHz PWM, validate commands, and apply autonomous fault/watchdog supervision. These functions continue while the MCU formats and transmits pages.\nThe largest technical risk is separating object position from coil field across changing current, temperature, and object orientation. We will test this first using known gaps and currents, then validate a local estimator on an independent sweep. If the estimator cannot meet the proposed error bound, the geometry/object/sensor arrangement must change before claiming a working height loop. A steel-only sphere requires explicit current-dependent characterization and is not assumed compatible with the initial estimator.\nThe power circuit uses a separately supplied coil, low-side MOSFET and gate driver, an inline current shunt/amplifier inside the flyback loop, and a physical E-stop/current comparator interlock. Coil force across an air gap, current response, and continuous heating will determine final component ratings. Default firmware and HDL are disabled until bring-up gates pass.\nSee system diagram, control equations, and performance calculations, candidate BOM, and six-week division of work. All non-course parts remain unpurchased; budget entries are allowances awaiting exact quotes and stockroom confirmation. Team names, confirmed budget, and the feasible operating interval must be settled before submission."
+  },
+  {
+    "objectID": "docs/hardware.html",
+    "href": "docs/hardware.html",
+    "title": "Candidate hardware and proposed wiring",
+    "section": "",
+    "text": "Skip to content\nDocumentation / Technical guide"
+  },
+  {
+    "objectID": "docs/hardware.html#parts-and-early-decision",
+    "href": "docs/hardware.html#parts-and-early-decision",
+    "title": "Candidate hardware and proposed wiring",
+    "section": "Parts and early decision",
+    "text": "Parts and early decision\n\nTwo TI DRV5055 linear analog Hall sensors, initially evaluate A3 or A4 sensitivity. Choose the full ordering code/package after measuring field range. These are analog sensors, not magnetic switches. Power them at 3.3 V with local 100 nF bypassing; use the same quiet rail for the ADC reference. The manufacturer datasheet specifies the transfer range, orientation, and bandwidth. Verify package pin numbering; TO-92 and SOT-23 differ.\nOne MCP3204-CI/P 12-bit ADC at 3.3 V, with CH0 current, CH1 primary Hall, CH2 reference Hall, and unused CH3 tied to analog ground. See the MCP3204 datasheet. The FPGA drives this bus independently of the MCU bus.\nOne INA240A1 amplifier, gain 20, and a 0.100 ohm precision shunt in series with the coil. At 3.3 V, ground both REF inputs for unidirectional measurement. Account for zero-current output headroom/offset in calibration. Its datasheet describes common-mode behavior and PWM rejection. An SOIC adapter or assembled board is needed if using a bare IC.\nA MOSFET with verified on-resistance at the actual gate voltage, a gate driver such as UCC27511, and a flyback diode rated above coil current and supply/transient voltage. Driver inputs, supply bypassing, and gate discharge follow its datasheet. A 5 V driver supply is a candidate, subject to the selected MOSFET.\nA separate current-limited coil supply, fuse, physical E-stop, current comparator, output logic, and a nonmagnetic frame with a catch tray. Coil voltage/current, fuse, diode/clamp, MOSFET, threshold circuit, and thermal ratings remain contingent on the coil.\n\nStart with an instructor-approved stockroom coil or one inexpensive test coil. Determine the usable gap with a force measurement and temperature test. A manufacturer’s holding force at contact does not establish levitation capacity. Check whether a permanent-magnet object rotates, sticks to the core, or produces ambiguous Hall readings. A steel-only object requires a different field identification experiment before this estimator can be adopted.\nThe candidate BOM contains budget allowances, not live supplier quotes. Replace all allowance values with dated quotes, full ordering numbers, stockroom availability, shipping, and tax before submitting or purchasing. The course currently marks the purchasing policy as under construction; confirm it with the instructors."
+  },
+  {
+    "objectID": "docs/hardware.html#logic-wiring",
+    "href": "docs/hardware.html#logic-wiring",
+    "title": "Candidate hardware and proposed wiring",
+    "section": "Logic wiring",
+    "text": "Logic wiring\nThese are explicit jumper connections, with MCU–FPGA bridge DIP switches open. Confirm continuity against the E155 board schematic. FPGA numbers are SG48 silicon pad labels printed as Pxx/GPIO_xx, not UPduino header contact numbers. Avoid connecting two outputs together.\n\n\n\n\n\n\n\n\n\nSignal\nMCU pin / Nucleo label\nFPGA pad\nOther endpoint\n\n\n\n\nHost SCK\nPA5 / A4\n23\n—\n\n\nHost CS active low\nPA4 / A3\n25\n10k pull-up to 3.3 V\n\n\nHost MOSI\nPA7 / A6\n26\n—\n\n\nHost MISO\nPA6 / A5\n27\n—\n\n\nMCU permit active high\nPA0 / A0\n34\nhardware interlock; external 10k pulldown\n\n\nUART TX\nPA9 / D1\n—\nESP RX (3.3 V)\n\n\nUART RX\nPA10 / D0\n—\nESP TX (3.3 V)\n\n\nADC CS\n—\n32\nMCP3204 pin 8; 10k pull-up\n\n\nADC CLK\n—\n35\nMCP3204 pin 11\n\n\nADC DIN\n—\n31\nMCP3204 pin 9\n\n\nADC DOUT\n—\n37\nMCP3204 pin 10\n\n\nExternal healthy / fault_n\n—\n43\nhardware interlock status, active high healthy\n\n\nPWM\n—\n36\noutput logic then gate driver\n\n\nFPGA gate enable\n—\n42\noutput logic\n\n\nScan complete debug\n—\n38\nscope/logic analyzer\n\n\n\nAll signal grounds share a reference; keep coil current out of ADC/sensor ground wiring. Logic is 3.3 V. Verify the Nucleo A4/A5 solder-bridge arrangement and I2C pull-up/loading on your board; no I2C is used here. The mikroBUS socket may already route the course ESP UART correctly; check RX/TX labels and the board’s TX selection jumper rather than adding duplicate wiring.\nMCP3204 DIP: CH0 pin 1, CH1 pin 2, CH2 pin 3, CH3 pin 4, NC pins 5/6, DGND 7, CS 8, DIN 9, DOUT 10, CLK 11, AGND 12, VREF 13, VDD 14. Bypass VDD and VREF near the IC. Add only an RC network that settles within the ADC acquisition time; choose it from the source-impedance calculation and measured bandwidth. Pin numbers follow Table 3-1 of the manufacturer datasheet; MCP3208 has a different pinout."
+  },
+  {
+    "objectID": "docs/hardware.html#power-circuit-connectivity",
+    "href": "docs/hardware.html#power-circuit-connectivity",
+    "title": "Candidate hardware and proposed wiring",
+    "section": "Power circuit connectivity",
+    "text": "Power circuit connectivity\nThe netlist defines the circuit nodes. This is a design sketch; it must become a labeled KiCad schematic using the selected packages and ratings before the final report.\nflowchart LR\n    PS[Coil supply positive] --&gt; F[Fuse / E-stop power contact]\n    F --&gt; V[Node VCOIL]\n    V --&gt; R[Inline shunt 0.100 ohm]\n    R --&gt; L[Coil]\n    L --&gt; D[MOSFET drain]\n    D --&gt; Q[MOSFET source to power ground]\n    D --&gt;|flyback: anode → cathode| V\n    R -. Kelvin sense .-&gt; A[Current amplifier]\n    A --&gt; ADC[ADC CH0]\n    A --&gt; C[Overcurrent comparator]\n    C --&gt; E[Healthy interlock]\nThe flyback diode cathode connects to VCOIL before the shunt. That places both coil and shunt inside the recirculation loop, so off-time current is measured. A shunt placed only in the supply lead outside that loop does not measure recirculating current. The diode protects the MOSFET but yields slow decay; measure whether this is adequate. Replacing it with a higher-voltage clamp requires rechecking MOSFET/common-mode/supply stress and retuning.\nHardware must force the driver inactive whenever PWM is low, FPGA enable is low, MCU permit is low, or the physical interlock is unhealthy. For example, use 3.3 V AND logic to combine these conditions into the driver’s noninverting input; tie its inverting input low. Keep a gate-source pulldown and logic-input pulldowns so an unconfigured FPGA cannot energize the coil. The physical E-stop also opens coil power. Derive fault_n from the E-stop auxiliary contact and an overcurrent comparator with a defined safe default; its exact schematic/threshold depends on the chosen current limit. Never tie fault_n permanently high in the powered levitator.\nFor the numerical example, 0.5 A produces about 1.0 V at the current amplifier, or 1241 ADC counts. A separate comparator threshold must be established from actual offsets, gain tolerance, and thermal/current ratings. FPGA sampling is not a substitute for this physical cutoff. Software shutdown removes drive; stored magnetic energy still decays through the flyback path."
+  },
+  {
+    "objectID": "docs/design-review.html",
+    "href": "docs/design-review.html",
+    "title": "Design review speaking outline",
+    "section": "",
+    "text": "Skip to content\n\n\n\n\n\n\n\nDocumentation / Technical guide\n\nDesign review speaking outline\nUse the course presentation rubric. This is content for a 10-minute team review, not a slide deck or a completed presentation.\n\n\n\n\n\n\n\nTime\nContent / visual\n\n\n\n\n0:00–1:00\nShow desired suspension and commanded vertical motion; define downward gap\n\n\n1:00–3:00\nPresent measurable targets and the MCU/FPGA/interface block diagram\n\n\n3:00–5:00\nExplain Hall mixing: object field + coil field, sequential ADC apertures, current transients\n\n\n5:00–7:00\nShow the actual clamped-object calibration sweeps and residuals when available; discuss estimator conditioning\n\n\n7:00–9:00\nAsk classmates to compare improving sensor placement versus restricting the interval; solicit specific sampling/model suggestions\n\n\n9:00–10:00\nState the next experiment and take questions\n\n\n\nTechnical question: How can we detect whether a compensated Hall estimate is responding to object motion or merely to changing coil current? Hold position fixed during a measured current step, then compare transient apparent motion against the true motion sensitivity/noise floor. Discuss whether alternate placement, filtering, or timing reduces this error without destabilizing the position loop. Include real data when it exists; no illustrative curve should be labeled a measurement."
+  },
+  {
+    "objectID": "docs/checkoff.html",
+    "href": "docs/checkoff.html",
+    "title": "Specification and evidence record",
+    "section": "",
+    "text": "Skip to content\n\n\n\n\n\n\n\nDocumentation / Technical guide\n\nSpecification and evidence record\nAll hardware results below are not tested as of 2026-10-15. Replace status with a short factual explanation and evidence for each agreed specification before final checkoff. The candidate numerical targets must first be accepted in the proposal.\n\n\n\n\n\n\n\n\n\nID\nProposed specification\nVerification\nStatus\n\n\n\n\nS1\nSuspend one magnetic object for ≥30 s\nContinuous video plus actual gap/current trace\nNot tested\n\n\nS2\nThree targets within validated range, initially 8–14 mm\nIndependent gap reference; mean error ≤0.5 mm after settling\nNot tested\n\n\nS3\nBounded current request and stable inner feedback\nMeter/scope versus target across allowed range\nNot tested\n\n\nS4\nFPGA 20 kHz PWM and 10 kHz complete scans\nScope PWM and scan debug with actual ADC\nNot tested\n\n\nS5\nMCU 1 kHz control while serving pages\nMeasure maximum loop time and missed-tick behavior under web load\nNot tested\n\n\nS6\nPosition model passes independent data\nRMSE ≤0.25 mm, worst error ≤0.5 mm over accepted range\nNot tested\n\n\nS7\nLost/frozen command removes drive within 20 ms nominal plus clock tolerance\nHalt MCU / repeat exact packets; scope gate and current\nSimulation passed; hardware not tested\n\n\nS8\nExternal trip, reset, and permit loss disable drive\nOpen interlock/reset devices at several PWM phases\nSimulation passed; hardware not tested\n\n\nS9\nWeb changes gap, selects supported current test, shows state, and stops\nOn-board ESP8266/MCU demonstration\nC behavior tested; hardware not tested\n\n\nS10\nElectrical/thermal limits hold for demonstration duration\nCoil temperature, switch/clamp/current measurements\nNot tested\n\n\n\nFor each final specification, record what was demonstrated, the measurement conditions, uncertainty, any unmet part, and the reason. Bring source, schematics, block diagrams, build/configuration details, measurement plots, and completed explanations to the instructor checkoff. See the checkoff rubric."
+  },
+  {
+    "objectID": "docs/build.html",
+    "href": "docs/build.html",
+    "title": "Build, simulate, and program",
+    "section": "",
+    "text": "Skip to content\nDocumentation / Technical guide"
+  },
+  {
+    "objectID": "docs/build.html#mcu-gnu-arm-toolchain",
+    "href": "docs/build.html#mcu-gnu-arm-toolchain",
+    "title": "Build, simulate, and program",
+    "section": "MCU: GNU Arm toolchain",
+    "text": "MCU: GNU Arm toolchain\nInstall CMake, Ninja or Make, and GNU Arm Embedded GCC. Supply the device headers containing stm32l432xx.h/system_stm32l4xx.h and the CMSIS core headers containing core_cm4.h. Your course repository already contains both under lab/lab07/lab07_mcu/lab07_proj. Do not copy generated lab outputs into this repository.\nFrom the repository root in PowerShell:\n$course = '..\\hmc-e155\\lab\\lab07\\lab07_mcu\\lab07_proj'\ncmake -S firmware -B build/mcu -G Ninja `\n  -DCMAKE_TOOLCHAIN_FILE=arm-gcc.cmake `\n  -DSTM32_DEVICE_INCLUDE=\"$((Resolve-Path \"$course/STM32L4xx/Device/Include\").Path)\" `\n  -DCMSIS_CORE_INCLUDE=\"$((Resolve-Path \"$course/CMSIS_5/CMSIS/Core/Include\").Path)\"\ncmake --build build/mcu\nOutputs: build/mcu/maglev.elf, maglev.hex, and maglev.map. GNU extensions are used for the vector table. The linker reserves the main 48 KiB SRAM bank and at least 4 KiB stack; the separate 16 KiB SRAM2 is unused. Standard C library support is supplied by GNU Arm with nosys stubs; floating-point printf is unnecessary.\nProgram the HEX through ST-LINK using STM32CubeProgrammer or your lab’s established programming workflow. Select STM32L432KC, connect/reset, load the built image, verify, then run with coil power disconnected. The ST-LINK serial port is not the ESP8266 link used here."
+  },
+  {
+    "objectID": "docs/build.html#mcu-segger-project-integration",
+    "href": "docs/build.html#mcu-segger-project-integration",
+    "title": "Build, simulate, and program",
+    "section": "MCU: SEGGER project integration",
+    "text": "MCU: SEGGER project integration\nIf using Embedded Studio, create an STM32L432KC Cortex-M4F C project, enable hard-float FPv4-SP-D16, and add firmware/include, device CMSIS, and core CMSIS paths. Add main.c, board_stm32l432.c, config.c, control.c, protocol.c, and web.c. Use the IDE’s device startup/system files instead of src/startup.c and its linker script. Ensure its SysTick vector reaches SysTick_Handler and SystemCoreClock is provided once. board_init establishes its own 16 MHz peripheral clock. The provided CMake target is for GNU Arm; it is not a SEGGER project file."
+  },
+  {
+    "objectID": "docs/build.html#fpga",
+    "href": "docs/build.html#fpga",
+    "title": "Build, simulate, and program",
+    "section": "FPGA",
+    "text": "FPGA\nWith OSS CAD Suite (yosys, nextpnr-ice40, icepack) on PATH:\n./fpga/build.ps1\nThe script targets UP5K SG48 and nominal 24 MHz. Preserve the synthesis/resource report and nextpnr timing report. The default LEV_COMMISSIONED=0 makes the output gate constant off; synthesize and verify both default and commissioned configurations. Do not judge operational resource use from the disabled build. Keep the default disabled until bring-up authorizes changing it. Load fpga/build/top.bin with the UPduino programming method used in your lab, after reviewing the pad map and disconnecting coil power.\nFor Lattice Radiant, create an iCE40UP5K-SG48 SystemVerilog project, add all fpga/rtl/*.sv, set top as top level, add the fpga/rtl include path and RADIANT define, translate upduino.pcf assignments into the Radiant pin editor, select LVCMOS33, and constrain the internal oscillator at 24 MHz. The wrapper selects HSOSC for Radiant and SB_HFOSC for Yosys. Check timing, resource use, oscillator inference, and unused-pin behavior before producing a bitstream."
+  },
+  {
+    "objectID": "docs/build.html#host-checks",
+    "href": "docs/build.html#host-checks",
+    "title": "Build, simulate, and program",
+    "section": "Host checks",
+    "text": "Host checks\nUse a native C compiler, Icarus Verilog supporting SystemVerilog, Python 3, and NumPy (python -m pip install -r tools/requirements.txt):\n./tests/run.ps1 -CC gcc\nThis runs the C behavior tests, full FPGA integration simulation with a behavioral ADC, and calibration tests. On Linux/macOS use equivalent compiler commands from the script and link -lm when required. No FPGA primitive library is needed for tb_system; it instantiates lev_core under a simulated clock. Top-level oscillator/pin configuration still requires the board toolchain."
+  },
+  {
+    "objectID": "docs/build.html#web-controls",
+    "href": "docs/build.html#web-controls",
+    "title": "Build, simulate, and program",
+    "section": "Web controls",
+    "text": "Web controls\nKeep the course ESP8266 firmware unchanged. Connect its UART and 3.3 V supply as documented, join its labeled Wi-Fi network, and open http://192.168.4.1/. Current-test and height modes are selected while stopped. Clear a fault, then arm explicitly after checks pass. Default configuration refuses arming. The browser is an operating interface, not a remote programming interface or a safety-rated stop."
+  },
+  {
+    "objectID": "docs/build.html#portfolio",
+    "href": "docs/build.html#portfolio",
+    "title": "Build, simulate, and program",
+    "section": "Portfolio",
+    "text": "Portfolio\nquarto render\nThe local HTML appears under _site. Review it locally before using Quarto’s normal GitHub Pages publishing workflow. No deployment action is included in the scripts. Add actual photos, video links, team biographies, schematics, and measured results before presenting it as the final report."
+  },
+  {
+    "objectID": "design.html",
+    "href": "design.html",
+    "title": "The architecture of balance.",
+    "section": "",
+    "text": "Skip to content\nSYSTEM DESIGN / 01"
+  },
+  {
+    "objectID": "design.html#the-complete-path",
+    "href": "design.html#the-complete-path",
+    "title": "The architecture of balance.",
+    "section": "The complete path",
+    "text": "The complete path\n\nBrowserGap target · HTTP→ESP8266Course Wi-Fi server→STM32Position estimation→UPduinoCurrent regulation\n\nThe FPGA drives the power stage through an interlock. Current and two Hall measurements return through an MCP3204 ADC. The MCU compensates the Hall readings for coil current before calculating its next request. The complete system diagram includes the analog feedback and physical interlock paths.\n\n\n\n\n\n\n\n\nLayer\nResponsibility\nNominal timing\n\n\n\n\nBrowser + ESP8266\nGap target, operating state, operator lease\n125000-baud UART to MCU\n\n\nSTM32L432KC\nGap estimate, filtered velocity, bounded position control\n1 kHz update\n\n\nUPduino v3.1 / UP5K\nADC scan, current PI, packet validation, fault logic\n10 kHz scan and current update\n\n\nCoil driver\nSwitch coil power under independent permission\n20 kHz PWM\n\n\n\nThese are design rates, not measured bandwidths. External timing and control stability still require bench measurements."
+  },
+  {
+    "objectID": "design.html#define-the-direction-first",
+    "href": "design.html#define-the-direction-first",
+    "title": "The architecture of balance.",
+    "section": "Define the direction first",
+    "text": "Define the direction first\nThe gap xx is measured downward from the coil reference plane. Increasing the target lowers the object. A simplified local force balance is\nmẍ=mg−F(i,x).m\\ddot{x}=mg-F(i,x).\nThe rough relation F≈ki2/x2F\\approx ki^2/x^2 helps identify the system, but it is not a validated model of the eventual coil. Mass, lift, resistance, inductance, and temperature must be measured for the chosen geometry."
+  },
+  {
+    "objectID": "design.html#two-loops-different-responsibilities",
+    "href": "design.html#two-loops-different-responsibilities",
+    "title": "The architecture of balance.",
+    "section": "Two loops, different responsibilities",
+    "text": "Two loops, different responsibilities\nThe position loop uses the measured gap error and filtered downward velocity to request current. A positive error means the object is too low, so the controller requests more lift. A rate-limited target, saturation, and anti-windup bound that request.\nThe inner loop regulates measured current in ADC counts. Its fixed-point PI calculation updates the next PWM duty. Normal updates occur at period boundaries; a fault can remove the output immediately.\nSTM32L432KCMCU design ↗Follow the estimate, control law, scheduler, and interface.LATTICE iCE40UP5KFPGA design ↗Inspect acquisition, arithmetic, PWM, and fault supervision."
+  },
+  {
+    "objectID": "design.html#the-central-experiment-observability",
+    "href": "design.html#the-central-experiment-observability",
+    "title": "The architecture of balance.",
+    "section": "The central experiment: observability",
+    "text": "The central experiment: observability\nBoth Hall sensors see the coil and the suspended object. Two readings do not automatically cancel the coil field. The local estimator also uses measured current:\ngap_mm = c0 + c1·Hall1_counts + c2·Hall2_counts + c3·current_A\nCalibration requires known mechanical gaps, current sweeps, and independent holdout measurements. Because channels are sampled sequentially, changing current during a scan may corrupt compensation. Fixed-object current steps are a necessary test before feedback tuning.\nThe first object should contain a permanent magnet with repeatable orientation. A plain steel sphere is not interchangeable with that design assumption."
+  },
+  {
+    "objectID": "design.html#build-the-evidence-in-order",
+    "href": "design.html#build-the-evidence-in-order",
+    "title": "The architecture of balance.",
+    "section": "Build the evidence in order",
+    "text": "Build the evidence in order\nEstablish the physical system.Select a coil and object; measure force, field range, and heating.Validate sensing and shutdown.Check analog scaling, Hall observability, interlock behavior, and timing.Close the current loop.Use supported-object current steps and measured response to tune the PI controller.Close the position loop.Tune PD first, then evaluate settling, disturbance rejection, and operating limits.\nRead the detailed implementation and timing calculations →\nContinue to the bring-up procedure →"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "A study in feedback.",
+    "section": "",
+    "text": "Skip to content\nABOUT THE PROJECT"
+  },
+  {
+    "objectID": "about.html#scope",
+    "href": "about.html#scope",
+    "title": "A study in feedback.",
+    "section": "Scope",
+    "text": "Scope\nThe design uses the course STM32L432KC and UPduino v3.1 boards, a browser interface through the course ESP8266, and three analog measurement channels. It divides floating-point position estimation and control from autonomous current regulation and fault supervision.\nThe repository currently contains a digital implementation, engineering documentation, software and HDL tests, calibration tooling, and a bench plan. Physical component selection and hardware validation remain ahead."
+  },
+  {
+    "objectID": "about.html#authors",
+    "href": "about.html#authors",
+    "title": "A study in feedback.",
+    "section": "Authors",
+    "text": "Authors\nStephen Kanti Mahanty and Ben Lertwachara are the authors of this ENGR 155 project at Harvey Mudd College.\n\n  \n    ENGINEERING\n    Stephen Kanti Mahanty\n    Stephen studies engineering at Harvey Mudd College, with interests in electrical and computer engineering. His experience includes PCB design, wireless networking and benchmarking, and an Electrical and Communications Engineering internship with Argonne National Laboratory’s Transportation and Power Systems division.\n    \n      Portfolio ↗\n      LinkedIn ↗\n      GitHub ↗\n    \n  \n  \n    COMPUTER SCIENCE\n    Ben Lertwachara\n    Ben studies computer science at Harvey Mudd College. His ENGR 155 portfolio collects his course lab reports and provides links to his work on GitHub.\n    \n      Portfolio ↗\n      LinkedIn ↗\n      GitHub ↗\n    \n  \n\nBiographical details are drawn from the authors’ linked portfolios."
+  },
+  {
+    "objectID": "about.html#acknowledgements",
+    "href": "about.html#acknowledgements",
+    "title": "A study in feedback.",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\nCourse materials and manufacturer documentation inform the design and are credited in the technical reference list. Specific people who assisted the project have not yet been named.\nThe implementation and website were prepared with Codex assistance. The AI-use statement describes the role and limits of that assistance."
+  },
+  {
+    "objectID": "about.html#about-this-website",
+    "href": "about.html#about-this-website",
+    "title": "A study in feedback.",
+    "section": "About this website",
+    "text": "About this website\nThe report is authored in Quarto .qmd files. Its organization follows the supplied E155 portfolio reference: documentation, separate MCU and FPGA designs, results, AI use, and acknowledgements. Original technical notes remain available as detailed guides.\nThe visual system uses system typography, copper and muted green accents, a locally generated vector illustration, and responsive layouts. Interaction follows the supplied apple-design skill: immediate press feedback, familiar navigation, restrained motion, and accommodations for reduced motion, transparency, and increased contrast.\nView design sources and credits →"
+  },
+  {
+    "objectID": "ai.html",
+    "href": "ai.html",
+    "title": "AI use, made explicit.",
+    "section": "",
+    "text": "Skip to content"
+  },
+  {
+    "objectID": "ai.html#project-assistance",
+    "href": "ai.html#project-assistance",
+    "title": "AI use, made explicit.",
+    "section": "Project assistance",
+    "text": "Project assistance\nThe repository states that its implementation was prepared with Codex assistance. It contains generated implementation work, documentation, and automated verification tooling. That assistance does not establish physical feasibility or replace engineering review and measurements."
+  },
+  {
+    "objectID": "ai.html#website-assistance",
+    "href": "ai.html#website-assistance",
+    "title": "AI use, made explicit.",
+    "section": "Website assistance",
+    "text": "Website assistance\nCodex prepared this Quarto portfolio’s layout, styles, vector artwork, interactions, and page summaries using the existing repository as the technical source. The user supplied the apple-design skill and requested Awwwards, Impeccable, Magic UI, Material UI, Untitled UI, and an existing E155 project site as references.\nThe website’s components are original HTML, CSS, and JavaScript implementations of the referenced design patterns. The site does not bundle those React component libraries or claim their code as original work. The field artwork is a conceptual vector illustration, not a photograph or a physical simulation."
+  },
+  {
+    "objectID": "ai.html#verification-boundaries",
+    "href": "ai.html#verification-boundaries",
+    "title": "AI use, made explicit.",
+    "section": "Verification boundaries",
+    "text": "Verification boundaries\nRecorded engineering test outcomes are attributed to the repository’s dated verification record. Unmeasured physical performance and unavailable demonstration media are identified as pending. Author biographies are based on their linked portfolios. There are no invented experimental measurements or team biographies.\nThe project team remains responsible for reviewing the implementation, reproducing builds and tests, commissioning the hardware, and following the course’s disclosure and submission requirements.\nRead the verification record → · View references →"
+  },
+  {
+    "objectID": "docs/bringup.html",
+    "href": "docs/bringup.html",
+    "title": "Staged bring-up and acceptance gates",
+    "section": "",
+    "text": "Skip to content\nDocumentation / Technical guide"
+  },
+  {
+    "objectID": "docs/bringup.html#establish-sensing-feasibility-before-a-parts-commitment",
+    "href": "docs/bringup.html#establish-sensing-feasibility-before-a-parts-commitment",
+    "title": "Staged bring-up and acceptance gates",
+    "section": "1. Establish sensing feasibility before a parts commitment",
+    "text": "1. Establish sensing feasibility before a parts commitment\nMount the candidate coil and actual object at known gaps using nonmagnetic spacers. Measure both Hall voltages with no object, with the object, and at multiple coil currents. Choose sensor orientation/sensitivity so signals remain in their linear range and neither clips. Measure whether object position remains distinguishable after coil-current effects and noise are included. Sweep the gap in both directions to expose hysteresis, rotation, and ambiguous responses. For a plain steel sphere, explicitly check the current-dependent magnetization model rather than adopting the permanent-magnet assumptions.\nAcceptance: at least one contiguous operating interval has repeatable position estimates with independent holdout RMSE ≤0.25 mm and worst error ≤0.5 mm. These are proposed design thresholds; revise the committed specification with the team/instructor before proposal submission if feasibility measurements require it. Stop expanding the system if observability fails; change geometry/sensor arrangement/object first."
+  },
+  {
+    "objectID": "docs/bringup.html#characterize-coil-and-driver",
+    "href": "docs/bringup.html#characterize-coil-and-driver",
+    "title": "Staged bring-up and acceptance gates",
+    "section": "2. Characterize coil and driver",
+    "text": "2. Characterize coil and driver\nMeasure coil DC resistance cold and hot, inductance or current step response, lift force versus current and gap, current needed to support the measured object mass, and temperature rise. Select supply, switch, clamp, wiring, fuse, current cap, and mechanical clearance from those measurements. Establish a continuous-duty current rating or add a thermal cutoff in the physical interlock. The supplied code does not measure coil temperature.\nAcceptance: lift exceeds weight with operating margin throughout the chosen interval; thermal and electrical ratings support the intended demo duration. Document tau=L/R, maximum current rise/decay rates, Pcoil=I²R, switch/shunt dissipation, and clamp voltage. Do not power the coil through the development board or a solderless breadboard power rail."
+  },
+  {
+    "objectID": "docs/bringup.html#verify-digital-paths-with-coil-power-disconnected",
+    "href": "docs/bringup.html#verify-digital-paths-with-coil-power-disconnected",
+    "title": "Staged bring-up and acceptance gates",
+    "section": "3. Verify digital paths with coil power disconnected",
+    "text": "3. Verify digital paths with coil power disconnected\nCheck bridge switches open and every jumper by continuity. Program default-disabled devices. Confirm the UART baud and complete HTML. Capture host SPI and ADC SPI: mode 0, clock rates, CS guards, 128-bit host frames, CRC byte ordering, 24 ADC clocks, channel order, and CS high interval. Apply known analog voltages to the ADC channels. Compare raw telemetry against a meter. A plausible constant ADC code is not sufficient proof that an ADC is connected.\nAcceptance: decoded measurements match applied voltages and the C/SV packet tests. Scope sample_debug and PWM to verify rate and acquisition phase; output remains low during reset, programming, power loss, and disconnected permit/interlock."
+  },
+  {
+    "objectID": "docs/bringup.html#calibrate-and-prove-the-physical-cutoff",
+    "href": "docs/bringup.html#calibrate-and-prove-the-physical-cutoff",
+    "title": "Staged bring-up and acceptance gates",
+    "section": "4. Calibrate and prove the physical cutoff",
+    "text": "4. Calibrate and prove the physical cutoff\nSupport the object; initially replace the coil with a resistive load if suitable for the driver. Calibrate current zero and gain against a meter, including low-current output headroom. Compute the firmware absolute code limit and FPGA compiled ceiling from actual calibration; account for tolerances. Check the inline shunt measures flyback current. Set and measure the comparator threshold/hysteresis independently. Operate the E-stop and break each interlock wire while monitoring the actual MOSFET gate.\nAcceptance: no unintended pulse at startup; physical fault removes gate drive promptly even if the MCU and FPGA are halted. Record the measured gate-off delay and coil-current decay separately. Only then set power_stage_ready=true and LEV_COMMISSIONED=1 with low supply/current limits, still supported mechanically. Keep calibration_ready=false."
+  },
+  {
+    "objectID": "docs/bringup.html#tune-the-inner-current-loop",
+    "href": "docs/bringup.html#tune-the-inner-current-loop",
+    "title": "Staged bring-up and acceptance gates",
+    "section": "5. Tune the inner current loop",
+    "text": "5. Tune the inner current loop\nSelect current-test mode while stopped. Start at zero target. Begin with Ki zero and small Kp; increase until current follows small supported-load steps without sustained ringing. Add a modest Ki to remove steady error. Convert gains into the documented Q8.8 per-sample units. Examine response across PWM duty and supply voltage. Avoid integral gains below one representable step unless a different fixed-point scale is implemented.\nAcceptance: no sustained oscillation, no saturation under nominal commands, bounded overshoot, and measured response sufficiently faster than the intended position loop. Sweep current through the allowed range and verify the cap. Test MCU cable removal, identical frozen packets, checksum errors, missed updates, ADC disconnect, comparator trip, permit loss, and E-stop. An ADC disconnect can yield a plausible stuck value; the physical cutoff remains necessary. Retain scope captures, not just a pass checkbox."
+  },
+  {
+    "objectID": "docs/bringup.html#fit-hall-calibration-and-tune-the-position-loop",
+    "href": "docs/bringup.html#fit-hall-calibration-and-tune-the-position-loop",
+    "title": "Staged bring-up and acceptance gates",
+    "section": "6. Fit Hall calibration and tune the position loop",
+    "text": "6. Fit Hall calibration and tune the position loop\nFollow docs/calibration.md with current control already characterized. Fit only a validated local operating region. Verify sensor sign by moving the supported object downward at fixed current: reported gap must increase. Measure false position change after a current step with the object clamped. Set measured operating range, coefficients, hover current, and candidate PD gains in config.c. Validate by recompiling and running host checks before setting calibration_ready=true.\nAt the nominal gap, use a catch tray, a current-limited supply, and a supported release. Tune PD for damping before adding integral. Expand the commanded range gradually. Record recovery from small disturbances and current saturation. Test the full path while refreshing web pages repeatedly to check the MCU deadline budget."
+  },
+  {
+    "objectID": "docs/bringup.html#demonstrate-and-preserve-evidence",
+    "href": "docs/bringup.html#demonstrate-and-preserve-evidence",
+    "title": "Staged bring-up and acceptance gates",
+    "section": "7. Demonstrate and preserve evidence",
+    "text": "7. Demonstrate and preserve evidence\nProposed final demonstration: stable suspension for 30 seconds; three gap targets in the measured usable interval; mean error ≤0.5 mm at each after settling; recovery from a small documented disturbance; page-based stop and current cap; and physical interlock operation. Record target/estimated gap versus an independent ruler/camera reference, current, PWM, peak error, settling time, RMS noise, and coil temperature. Do not call the Hall estimate independent ground truth.\nComplete the checkoff matrix, final KiCad schematics, photos, team information, and demo video. Upload/publish only when the team has reviewed the actual evidence and the instructor’s current submission requirements."
+  },
+  {
+    "objectID": "docs/calibration.html",
+    "href": "docs/calibration.html",
+    "title": "Hall/current calibration and controller tuning",
+    "section": "",
+    "text": "Skip to content\nDocumentation / Technical guide"
+  },
+  {
+    "objectID": "docs/calibration.html#measurements",
+    "href": "docs/calibration.html#measurements",
+    "title": "Hall/current calibration and controller tuning",
+    "section": "Measurements",
+    "text": "Measurements\nUse a fixed jig and known gap reference. Log gap_mm,hall1,hall2,current_a rows in CSV; data/calibration-format.csv gives the header. Measure actual current, not just commanded current. Sample a grid of gaps and currents spanning the proposed operating interval, with repeated measurements after reversing each sweep. Include coil-only baseline, object orientation, supply, temperature, sensor mount dimensions, and ADC filter components in the experiment notes.\nUse a second independently collected sweep for holdout validation. Randomly splitting adjacent samples from one stationary measurement understates error. Repeat across relevant coil temperatures and several current trajectories. Hold the object fixed during current steps to quantify how much coil-field change leaks into estimated position. A static fit may pass while sequential-channel transient error makes feedback unusable.\nThe local affine model is a practical first model, not a physical cancellation guarantee. Nonmonotonic or degenerate sensor responses require a change of placement, object, sensitivity, or estimator. A table/nonlinear estimator is a future design change if the local fit fails; it is not silently implemented by the calibration script. Restrict the committed gap/current interval to where this model has been validated."
+  },
+  {
+    "objectID": "docs/calibration.html#fit-and-validate",
+    "href": "docs/calibration.html#fit-and-validate",
+    "title": "Hall/current calibration and controller tuning",
+    "section": "Fit and validate",
+    "text": "Fit and validate\npython -m pip install -r tools/requirements.txt\npython tools/calibrate.py data/raw/training.csv data/raw/holdout.csv\nThe script normalizes inputs, checks matrix rank and conditioning, fits least squares, prints training/holdout errors, and emits candidate hall_c coefficients only when numerical acceptance passes. It rejects near-rail Hall samples and a holdout current/gap range outside the training range. It does not change firmware or enable outputs. Save reviewed coefficients and measured validity ranges in config.c; preserve data deliberately under data/results when suitable for the public repository. Files under data/raw are ignored by default.\nCurrent conversion is I=(ADC-current_zero)/counts_per_amp. Fit zero/gain against an independent meter over the intended range. Convert an absolute trip current into round(current_zero + counts_per_amp * Itrip) and choose a conservative threshold accounting for uncertainty. Keep the FPGA ceiling, command limit, comparator, and firmware cap consistent. The runtime cap should remain below the physical trip threshold."
+  },
+  {
+    "objectID": "docs/calibration.html#gains-and-practical-limits",
+    "href": "docs/calibration.html#gains-and-practical-limits",
+    "title": "Hall/current calibration and controller tuning",
+    "section": "Gains and practical limits",
+    "text": "Gains and practical limits\nThe height loop uses mm, A, and seconds: Kp has A/mm; Kd has A·s/mm; Ki has A/(mm·s). Begin with Ki zero. Verify lift direction on a supported object before release. The current loop uses ADC counts and PWM ticks, with Ki already multiplied by 0.0001 s. Quantizing a small Ki to zero changes loop behavior; verify the quantized loop rather than only the floating-point design.\nTune around one measured equilibrium. The force model may change significantly with gap. hover_a is a constant bias in this implementation; there is no unvalidated gain scheduling or feedforward lookup. The feasible height interval may therefore be smaller than the candidate 8–14 mm values. Browser targets and fault limits must be updated to match the tested interval. Sampling rate, delay, sensor filtering, coil decay, object mass, and lateral/orientation motion all affect stability."
+  },
+  {
+    "objectID": "docs/course.html",
+    "href": "docs/course.html",
+    "title": "ENGR 155 deliverables and evidence map",
+    "section": "",
+    "text": "Skip to content\nDocumentation / Technical guide"
+  },
+  {
+    "objectID": "docs/course.html#relative-six-week-work-plan",
+    "href": "docs/course.html#relative-six-week-work-plan",
+    "title": "ENGR 155 deliverables and evidence map",
+    "section": "Relative six-week work plan",
+    "text": "Relative six-week work plan\nRole A is the sensor/control lead; Role B is the power/FPGA lead. Assign actual team names before submitting; both review integration and evidence. Adapt week boundaries to verified course deadlines.\n\n\n\n\n\n\n\n\n\nWeek\nRole A\nRole B\nDependency / exit\n\n\n\n\n1\nHall/object observability experiments, 6 h\nCoil force/thermal characterization, 6 h\nUsable object/gap/current interval; freeze proposal scope\n\n\n2\nMCU UART/SPI and independent current scaling, 5 h\nADC/PWM/interlock on supported load, 7 h\nDigital captures and physical cutoff verified\n\n\n3\nCurrent calibration logging and web checks, 5 h\nQuantized current PI tuning, 6 h\nStable measured current response\n\n\n4\nHall holdout calibration and supported PD tuning, 8 h\nSensor timing/noise and current-decay improvements, 6 h\nRiskiest sensing/control problem demonstrated at midpoint\n\n\n5\nExpand/test commanded gap interval, 6 h\nDisturbance/fault/thermal tests, 6 h\nAll agreed performance targets evaluated\n\n\n6\nQuantitative results, portfolio, 6 h\nFinal CAD, photos/video, 6 h\nReproducible final checkoff and published team report\n\n\n\nDo not order extra channels or expand to two levitators before the single-object sensing and stability gates pass."
+  },
+  {
+    "objectID": "docs/design.html",
+    "href": "docs/design.html",
+    "title": "Implementation and control design",
+    "section": "",
+    "text": "Skip to content\nDocumentation / Technical guide"
+  },
+  {
+    "objectID": "docs/design.html#system-boundary",
+    "href": "docs/design.html#system-boundary",
+    "title": "Implementation and control design",
+    "section": "System boundary",
+    "text": "System boundary\nOne coil controls vertical motion. The initial object should contain a permanent magnet with a repeatable orientation, so its field can be distinguished from the coil field. A plain steel sphere is not a drop-in equivalent: its induced field varies with current and gap. Do not assume the supplied affine estimator can sense it. Validate the actual object and geometry before committing the proposal.\n\n\n\n\n\n%%{init: {\"theme\":\"base\",\"themeVariables\":{\"primaryColor\":\"#edf0e8\",\"primaryTextColor\":\"#202824\",\"primaryBorderColor\":\"#95a08d\",\"lineColor\":\"#77846f\",\"fontFamily\":\"Segoe UI\",\"fontSize\":\"16px\"}}}%%\nflowchart TB\n    B[Browser: gap/current target] &lt;--&gt;|HTTP over local Wi-Fi| E[Course ESP8266 server]\n    E &lt;--&gt;|UART: 125000 baud, 8N1| M[STM32L432KC: 1 kHz position loop]\n    M &lt;--&gt;|SPI mode 0: 1 MHz, 16 bytes full duplex| F[UP5K: acquisition, current PI, PWM, faults]\n    H1[Primary linear Hall] --&gt;|0–3.3 V CH1| A[MCP3204: 12 bits]\n    H2[Reference linear Hall] --&gt;|0–3.3 V CH2| A\n    S[Inline shunt + amplifier] --&gt;|0–3.3 V CH0| A\n    A &lt;--&gt;|SPI mode 0: 0.857 MHz| F\n    M --&gt;|PA0 permit| G[Hardware output interlock]\n    F --&gt;|PWM + enable| G\n    X[Current comparator + E-stop] --&gt;|fault_n| G\n    X --&gt;|fault_n| F\n    G --&gt; D[Gate driver + MOSFET + flyback path]\n    D --&gt; C[Electromagnet and suspended object]\n    C -. magnetic field .-&gt; H1\n    C -. magnetic field .-&gt; H2\n    C --&gt; S\n\n\n\n\n\n\nThis is a useful hardware/software partition, not a claim that an STM32 cannot generate 20 kHz PWM. The FPGA’s substantial work is autonomous ADC sequencing, fixed-point feedback, packet validation, independent watchdogs, and output gating. The MCU contributes sensor compensation, filtered velocity estimation, floating-point position control, trajectories, and communication."
+  },
+  {
+    "objectID": "docs/design.html#coordinates-and-model",
+    "href": "docs/design.html#coordinates-and-model",
+    "title": "Implementation and control design",
+    "section": "Coordinates and model",
+    "text": "Coordinates and model\nLet x be the gap in mm measured downward from the coil reference plane. Increasing the web target lowers the object. Locally,\nm*x_ddot = m*g - F(i,x), with a rough magnetic model F ≈ k*i²/x².\nThe force law is an identification aid, not a validated model of a stock electromagnet. Equilibrium requires measured force at the actual air gap, not a zero-gap holding-force rating. Record mass, lift versus current/gap, resistance, inductance, and steady temperature. Current dynamics approximately satisfy L*di/dt = Vdrive - R*i; off-time decay depends on the clamp.\nHall outputs contain the object field, the coil field, offsets, and noise. The supplied local estimator is\ngap_mm = c0 + c1*H1_counts + c2*H2_counts + c3*measured_current_A.\nCoefficients come from a mechanically fixed object swept through known gaps and currents. Two Hall sensors do not automatically cancel the coil. The ADC is multiplexed, so changing current during the scan can also corrupt this compensation. Validate transient errors; narrow the operating range or change sensing/model if necessary.\nThe MCU uses e = measured_gap - ramped_target and\nIrequest = clamp(Ihover + Kp*e + Kd*filtered_velocity + integral, 0, Imax).\nPositive error and positive downward velocity request more lift. Derivative acts on measurement to avoid setpoint kick. Target gap moves at a bounded rate. Integral updates only when the output is unsaturated or the error drives it out of saturation. Default gains and bias are zero; tune PD first. Height-mode arming initializes the ramp at the requested gap, so initially hold the object close to that target. Current-test mode ramps current separately and requires a supported object."
+  },
+  {
+    "objectID": "docs/design.html#fpga-pipeline",
+    "href": "docs/design.html#fpga-pipeline",
+    "title": "Implementation and control design",
+    "section": "FPGA pipeline",
+    "text": "FPGA pipeline\n\n\n\n\n\n%%{init: {\"theme\":\"base\",\"themeVariables\":{\"primaryColor\":\"#edf0e8\",\"primaryTextColor\":\"#202824\",\"primaryBorderColor\":\"#95a08d\",\"lineColor\":\"#77846f\",\"fontFamily\":\"Segoe UI\",\"fontSize\":\"16px\"}}}%%\nflowchart TB\n    T[24 MHz timebase] --&gt; P[1200-cycle PWM phase]\n    T --&gt; Q[2400-cycle ADC frame]\n    Q --&gt; A[CH0 current → CH1 Hall → CH2 Hall]\n    A --&gt; R[Coherent scan snapshot + sample ID]\n    A --&gt; I[Signed Q8.8 current PI]\n    I --&gt; L[Clamp 0…1080 ticks]\n    L --&gt; P\n    S[SPI frame + CRC + sequence check] --&gt; I\n    S --&gt; W[20 ms command watchdog]\n    A --&gt; V[250 us scan watchdog + current limit]\n    W --&gt; G[Latched fault/output gate]\n    V --&gt; G\n    P --&gt; G\n\n\n\n\n\n\nCurrent PI takes error in raw ADC counts. kp_q8/256 is duty ticks per count. ki_q8/256 is duty ticks per count per 100 us update, already including the sample interval. Signed intermediate widths are bounded explicitly (13-bit error, 27-bit proportional product, 24-bit integral increment, 28-bit sums, and 21-bit integrator); accepted gain bounds are 4096 and 1024, and the integrator is bounded to ±1080×256. PWM duty changes only at a period boundary. A fault or loss of permit can truncate a pulse immediately. Zero enable clears PI history. Seven registered arithmetic stages finish in less than 0.3 us. CRC engines process one payload bit per clock; command validation completes about 5 us after CS rises. Status is assembled once per 100 us frame and its checksum is completed before the next scan. Fault decisions have a few system clocks of register latency beyond the nominal intervals; physical output gating is independent of telemetry refresh.\nFault bits are 0 external interlock, 1 sampled overcurrent, 2 command timeout, and 3 ADC scan timeout. Faults latch. Clearing requires a disabled valid command, recent completed scan, healthy external input, and current below the requested hard limit. Clear and arm are separate actions. A bad checksum, malformed frame, or repeated sequence cannot refresh the command watchdog."
+  },
+  {
+    "objectID": "docs/design.html#nominal-timing-and-performance-calculations",
+    "href": "docs/design.html#nominal-timing-and-performance-calculations",
+    "title": "Implementation and control design",
+    "section": "Nominal timing and performance calculations",
+    "text": "Nominal timing and performance calculations\n\n\n\n\n\n\n\n\nItem\nCalculation\nDesign result\n\n\n\n\nPWM\n24 MHz / 1200\n20 kHz, 50 us; 0.0833% duty step\n\n\nMaximum duty\n1080 / 1200\n90%; deliberate off-time\n\n\nADC SPI\n24 MHz / (2×14)\n0.857 MHz, with margin below 1 MHz\n\n\nScan occupancy\n3×(28 us conversion + 1 us CS high)\napproximately 87 us / 100 us frame\n\n\nAcquisition trigger\n60 cycles / 24 MHz\n2.5 us after every other PWM start\n\n\nADC reference\n3.3 V / 4096\n0.806 mV/count, ideal\n\n\nExample current scale\n0.1 ohm × gain 20\n2 V/A; 0.403 mA/count, ideal\n\n\nExample 0.5 A shunt loss\nI²R\n25 mW; use a rated part with margin\n\n\nMCU exchange\n128 clocks / 1 MHz + CS guards\nat least 132 us, plus software gaps\n\n\nMCU link utilization\none exchange per 1 ms\nat least 13.2%\n\n\nUART payload\n125000/10\n12500 bytes/s; a 2 KiB page takes about 164 ms\n\n\n\n24 MHz is the nominal internal oscillator frequency; measure it. ADC aperture times differ between channels. Sampling begins at a fixed PWM phase but the variable falling edge can move across the acquisition window. No claim of universally quiet sampling is made. Use suitable analog filtering and verify captures while sweeping duty. MCP3204 analog source impedance must meet its acquisition requirements.\nTelemetry is frozen at CS assertion and may be almost 1 ms old when fetched; the MCU sends the previous tick’s current request and calculates the next after receiving. Budget roughly 2–3 ms worst-case outer measurement-to-actuation delay including scan, scheduling, packet, and PWM boundary effects, then measure it. Do not infer stability from sample rates alone. Tune the current loop to be several times faster than the position loop, and measure frequency/step response rather than assuming a 10:1 bandwidth ratio from the update rates."
+  },
+  {
+    "objectID": "docs/design.html#mcu-routine-responsibilities",
+    "href": "docs/design.html#mcu-routine-responsibilities",
+    "title": "Implementation and control design",
+    "section": "MCU routine responsibilities",
+    "text": "MCU routine responsibilities\nboard_init establishes a 16 MHz HSI clock, 1 MHz SPI1, 125000-baud USART1, 1 MHz TIM2 timestamp, and 1 ms SysTick. Main checks elapsed ticks, exchanges one packet, detects stalled sample IDs, estimates gap/current, and computes the next output. Missing a tick or seeing invalid/stale telemetry stops the coil. UART RX/TX are polled without waiting for characters; page transmission continues across control updates. Requests are bounded and matched exactly. A 5-second browser lease stops an abandoned session. Measure worst-case execution time including page formatting; an overrun is a fault, not skipped control work."
+  },
+  {
+    "objectID": "docs/midpoint.html",
+    "href": "docs/midpoint.html",
+    "title": "Midpoint status report framework",
+    "section": "",
+    "text": "Skip to content\n\n\n\n\n\n\n\nDocumentation / Technical guide\n\nMidpoint status report framework\nCurrent factual status: C firmware, HDL, protocol, tests, and implementation documentation are prepared. Parts are unselected and hardware operation has not been demonstrated. This status does not meet the working-hardware midpoint gate yet.\nPrepare the course-length midpoint narrative with these sections, using actual dates and evidence:\n\nSpecifications and scope agreed with the instructor; any renegotiated interval or object.\nCurrent functioning hardware and measured performance, with instrument captures.\nMCU routine flow and FPGA acquisition/control diagram from docs/design.md.\nA labeled CAD schematic of every assembled circuit, including interlocks and supplies.\nThe riskiest issue: Hall observability and transient compensation; current findings and next experiment.\nRemaining work, owner, estimate, and dependency for each item in docs/course.md.\n\nAppend the relevant C and/or HDL source and explain how the demonstrated configuration was built. Keep absent measurements explicitly marked “not measured” rather than estimating completion percentages from file count. Preserve raw data and note firmware/FPGA configuration for reproducibility."
+  },
+  {
+    "objectID": "docs/protocol.html",
+    "href": "docs/protocol.html",
+    "title": "Communication contract v1",
+    "section": "",
+    "text": "Skip to content\nDocumentation / Technical guide"
+  },
+  {
+    "objectID": "docs/protocol.html#mcu-fpga-spi",
+    "href": "docs/protocol.html#mcu-fpga-spi",
+    "title": "Communication contract v1",
+    "section": "MCU ↔︎ FPGA SPI",
+    "text": "MCU ↔︎ FPGA SPI\nSeparate bus from the ADC. Mode 0 (CPOL=0, CPHA=0), MSB first, 1 MHz maximum. CS leads the first rising SCK and follows the last falling SCK by at least 2 us. Clock exactly 128 bits under one CS. No bytes are read from MCU struct memory directly: the C codec packs explicit big-endian fields.\nCRC is CRC-16/CCITT-FALSE: polynomial 0x1021, initial 0xffff, no reflection, no final XOR, over bytes 0–13; stored high byte first at 14–15. Check vector 123456789 → 0x29b1.\n\n\n\n\n\n\n\n\nByte\nMCU MOSI\nFPGA MISO\n\n\n\n\n0\n0xa5\n0x5a\n\n\n1\nprotocol 1\nprotocol 1\n\n\n2–3\nmonotonically incrementing 16-bit command ID\ncompleted-scan sample ID, wraps at 65536\n\n\n4\nenable: 0 or 1\nHall1 high byte\n\n\n5\nclear fault: 0 or 1\nHall1 low byte\n\n\n6–7\ncurrent target ADC counts, 0…hard limit\nHall2 counts\n\n\n8–9\ncurrent Kp Q8.8, 0…4096\ncurrent counts\n\n\n10–11\ncurrent Ki Q8.8 per update, 0…1024\nactive duty ticks, 0…1080\n\n\n12\ncurrent hard limit high byte\nlatched fault bits\n\n\n13\ncurrent hard limit low byte\nflags: bit 0 scan ready; bit 1 enabled\n\n\n14–15\nCRC\nCRC\n\n\n\nTelemetry is the most recently prepared coherent scan/status snapshot, frozen at CS assertion; it is not the response to the command currently being transmitted. Status is rebuilt every 100 us. The command is accepted about 5 us after CS rises once its frame/CRC/bounds are valid. There is no command ACK field; confirm actual enable/fault state in subsequent telemetry. A rejected command cannot keep the output enabled indefinitely: the 20 ms watchdog still runs. MCU command IDs change every tick, including disabled packets; the FPGA rejects the immediately repeated ID. This detects frozen retransmission, not arbitrary network replay/security attacks.\nThe accepted hard limit must be positive and no greater than the compiled FPGA ceiling. Targets use the ADC’s absolute code, including measured current zero offset. The hard limit also uses absolute counts; update both firmware and FPGA configuration together. Gain formats and fault bits are defined in docs/design.md. The MCU faults on invalid telemetry or on a sample ID unchanged for 3 ms. Flags indicate a completed scan, not electrical proof that an ADC is connected: a stuck but plausible MISO level cannot be fully diagnosed digitally."
+  },
+  {
+    "objectID": "docs/protocol.html#esp8266-mcu",
+    "href": "docs/protocol.html#esp8266-mcu",
+    "title": "Communication contract v1",
+    "section": "ESP8266 ↔︎ MCU",
+    "text": "ESP8266 ↔︎ MCU\nUse the course IoT server at 125000 baud, 8 data bits, no parity, one stop bit. Its line format is /REQ:&lt;route&gt;\\n. This implementation accepts CRLF too. Routes are short, exact strings: empty route reads the page; arm, stop, clear, modegap, modeamp, up, and down perform controls. Query parameters are unnecessary. Connect to the board’s existing SSID, then open http://192.168.4.1/.\nEach response is one HTML document from &lt;!DOCTYPE html&gt; through &lt;/html&gt;. The course bridge forwards HTML rather than a general JSON API. The page refreshes the root once per second so a refresh does not repeat an arm or increment command. Every recognized request renews the 5-second browser lease. A backgrounded browser or lost Wi-Fi therefore stops the system. The UART page path never blocks while waiting for bytes. Web STOP depends on communications and is distinct from the physical interlock."
+  },
+  {
+    "objectID": "docs/verification.html",
+    "href": "docs/verification.html",
+    "title": "Verification record — 2026-10-15",
+    "section": "",
+    "text": "Skip to content\nDocumentation / Technical guide"
+  },
+  {
+    "objectID": "docs/verification.html#executed-software-and-hdl-checks",
+    "href": "docs/verification.html#executed-software-and-hdl-checks",
+    "title": "Verification record — 2026-10-15",
+    "section": "Executed software and HDL checks",
+    "text": "Executed software and HDL checks\n\n\n\n\n\n\n\nCheck\nResult and scope\n\n\n\n\nNative C compile with warnings treated as errors\nPassed using Zig 0.16.0 / Clang on Windows\n\n\nC behavior tests\nPassed: CRC known vector/corruption, packet packing, control direction, saturation/anti-windup, current ramp, derivative initialization, missed-update fault, rail/fault handling, exact web routes, HTML termination and buffer bounds\n\n\nCortex-M4F source compilation\nAll seven C translation units compiled, using the course’s CMSIS device/core headers and installed embedded runtime headers\n\n\nSystemVerilog elaboration\nChecked with slang and Icarus; final integration compiled with Icarus Verilog 13.0\n\n\nFPGA integration simulation\nPassed: actual mode-0 ADC commands/channel ordering, telemetry CRC, enabled regulation, malformed/short packets, frozen-ID timeout, immediate external gate removal, latched faults, sampled overcurrent, scan timeout, and permanently disabled uncommissioned build\n\n\nCalibration tests\nThree Python/NumPy tests passed: recover an identifiable affine model, reject degenerate signals, expose an inadequate nonlinear fit through residuals\n\n\nFPGA implementation\nActive top-level design synthesized and routed for iCE40UP5K-SG48; final resource and timing summary below\n\n\n\nThe final design uses the internal oscillator divided to nominal 24 MHz, while retaining nominal 20 kHz PWM and 10 kHz scans/current updates. Serial CRC and registered arithmetic/control paths avoid long combinational feedback paths. The ADC SPI clock is nominal 0.857 MHz to leave margin below its conservative 1 MHz limit.\nImplementation tools: YoWASP Yosys 0.70 and nextpnr-ice40 0.11.1. Resource/timing checks explicitly override top.COMMISSIONED=1; source defaults remain disabled. Reproduce by adding chparam -set COMMISSIONED 1 top before synth_ice40 -dsp in a verification build, then routing with the supplied PCF and --freq 24. Do not flash a verification build as authorization to skip bring-up.\n\n\n\nEnabled top-level implementation\nFinal result\n\n\n\n\nUP5K logic cells\n1971 / 5280 (37%)\n\n\nDSP blocks\n2 / 8 (25%)\n\n\nRouted maximum internal clock estimate\n45.79 MHz\n\n\nRequired nominal internal clock\n24.00 MHz — passed\n\n\n\nThese are tool estimates for the checked source, pin map, and placement, not measured board performance. The divided internal clock leaves substantial margin beyond the 24 MHz nominal rate. The default disabled top-level was also built and routed separately; the active result above is the meaningful resource check."
+  },
+  {
+    "objectID": "docs/verification.html#limits-of-these-checks",
+    "href": "docs/verification.html#limits-of-these-checks",
+    "title": "Verification record — 2026-10-15",
+    "section": "Limits of these checks",
+    "text": "Limits of these checks\nNo boards or instruments were attached. No real lift, height accuracy, thermal behavior, analog bandwidth, wiring continuity, current-sense scale, gate-off time, or external serial timing has been measured. The full GNU Arm CMake executable/runtime link and programming workflow have not been executed in this environment; object compilation is not a verified flash image. The linker/build files are provided for the installed course toolchain workflow and need its final build/program check.\nSimulation uses ideal ADC values and a fixed clock, not a physical coil/field model. Static timing checks internal synchronous paths for the selected tool/device model; external interlock propagation and SPI setup/hold still require the scope tests in docs/bringup.md. Yosys reports its usual limited tri-state-support warning for MISO; the top-level pad is routed successfully and must be checked on the board.\nThe report is rendered and local navigation checked as part of delivery. Course-final evidence remains outstanding: actual parts and quotes, CAD schematics, measured results, team biographies, photographs, demo video, instructor checkoff, and publication. See docs/checkoff.md for the proposed test matrix."
+  },
+  {
+    "objectID": "fpga.html",
+    "href": "fpga.html",
+    "title": "Control, clock by clock.",
+    "section": "",
+    "text": "Skip to content\nDIGITAL LOGIC / 03"
+  },
+  {
+    "objectID": "fpga.html#the-acquisition-pipeline",
+    "href": "fpga.html#the-acquisition-pipeline",
+    "title": "Control, clock by clock.",
+    "section": "The acquisition pipeline",
+    "text": "The acquisition pipeline\nThe nominal 24 MHz internal timebase produces a 100 µs scan frame. The MCP3204 sequencer acquires CH0 current → CH1 primary Hall → CH2 reference Hall, then exposes a coherent snapshot and sample identifier.\nADC SPI runs at approximately 0.857 MHz. Three conversions and chip-select gaps occupy approximately 87 µs. Sampling begins 2.5 µs after every other PWM start, but the variable falling edge can still cross the acquisition window. Analog filtering and scope captures remain necessary."
+  },
+  {
+    "objectID": "fpga.html#fixed-point-regulation",
+    "href": "fpga.html#fixed-point-regulation",
+    "title": "Control, clock by clock.",
+    "section": "Fixed-point regulation",
+    "text": "Fixed-point regulation\nThe PI controller works in raw ADC counts and PWM ticks. Gains use Q8.8 scaling: kp_q8 / 256 is ticks per count, while ki_q8 / 256 is ticks per count per 100 µs update.\nSeven registered arithmetic stages complete in less than 0.3 µs at the nominal clock. Intermediate widths and gain bounds are explicit; the integrator is limited to ±1080 × 256. Removing enable clears PI history.\n\n\n\n\n\n\n\n\nTiming element\nDesign value\nMeaning\n\n\n\n\nInternal clock\n24 MHz nominal\nDivided internal oscillator; measure on hardware\n\n\nCurrent update\n2400 cycles\n10 kHz\n\n\nPWM period\n1200 cycles\n20 kHz\n\n\nMaximum duty\n1080 ticks\n90%; deliberate off-time\n\n\nCommand watchdog\n20 ms\nValid, advancing commands required\n\n\nADC watchdog\n250 µs\nCompleted scans required"
+  },
+  {
+    "objectID": "fpga.html#faults-stay-latched",
+    "href": "fpga.html#faults-stay-latched",
+    "title": "Control, clock by clock.",
+    "section": "Faults stay latched",
+    "text": "Faults stay latched\n\nPacket integrity and freshnessSerial CRC logic checks the command payload; malformed, short, corrupted, or repeated-sequence commands cannot refresh the watchdog. Command validation completes about 5 µs after chip select rises.\nFour fault sourcesFault bits report external interlock loss, sampled overcurrent, command timeout, and ADC scan timeout. Faults remain latched until a valid clear sequence satisfies the health conditions.\nClear is separate from armClearing requires a disabled valid command, a recent scan, a healthy external input, and current below the requested hard limit. Arming is a subsequent action. Default uncommissioned builds keep output disabled.\n\nPWM duty changes at a period boundary during normal operation. A fault or loss of permission can truncate a pulse. The proposed physical interlock is independent of telemetry refresh and must be validated on the actual board."
+  },
+  {
+    "objectID": "fpga.html#source-map",
+    "href": "fpga.html#source-map",
+    "title": "Control, clock by clock.",
+    "section": "Source map",
+    "text": "Source map\n\n\n\nFile\nRole\n\n\n\n\ntop.sv\nOscillator wrapper and board-level connections\n\n\nlev_core.sv\nIntegration, timebase, output gating, faults\n\n\nmcp3204_scan.sv\nAutonomous three-channel ADC sequencing\n\n\ncurrent_pi.sv\nRegistered signed fixed-point regulation\n\n\nspi_frame.sv\nMCU SPI interface\n\n\ncrc112.sv\nSerial payload checksum\n\n\nupduino.pcf\nProposed jumper pad assignments"
+  },
+  {
+    "objectID": "fpga.html#implementation-evidence",
+    "href": "fpga.html#implementation-evidence",
+    "title": "Control, clock by clock.",
+    "section": "Implementation evidence",
+    "text": "Implementation evidence\nThe recorded enabled design uses 1971 of 5280 logic cells and 2 of 8 DSP blocks. The routed maximum internal clock estimate is 45.79 MHz, above the 24 MHz requirement. These are implementation-tool estimates, not physical measurements.\nInspect results and their limits → · Read detailed pipeline calculations →"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Hall-sensed magnetic levitation",
+    "section": "",
+    "text": "Skip to content\n\n\n\n\n\n\n\n\n  \n    ENGR 155 / EMBEDDED SYSTEMS\n    Holding space.Closing the loop.\n    A magnetic levitation experiment at the intersection of sensing, silicon, and control.\n    One electromagnet. Two control loops. A design that turns magnetic measurements into a precisely timed response.\n    Explore the design ↗View the evidence →\n    Implementation stage / Hardware validation ahead\n  \n  \n    01 / THE LEVITATION CONCEPT+   +\n    \n    Magnetic attraction ↑   Gravity ↓Concept illustration · not a prototype\n  \n\n\n  1 kHzPosition loop / STM32\n  10 kHzCurrent loop / FPGA\n  20 kHzPWM / power stage\n  Designed update rates.See timing assumptions ↗\n\n\n  THE IDEA\n  A balancing act,every millisecond.Magnetic suspension is an unstable equilibrium. Pull too hard and the object rises into the coil. Pull too little and gravity takes over.This project explores that balance with Hall sensing and nested feedback. The STM32 estimates the gap and requests current. The UPduino regulates that current and supervises the output independently.Follow the control loop →\n\n\n  \n    INSIDE THE SYSTEMDifferent jobs.One feedback loop.Select a stage to explore how the design senses, decides, and responds.\n    \n      \n        01SenseHall sensors + ADC\n        02EstimateSTM32L432KC\n        03RegulateUPduino v3.1\n        04ProtectIndependent interlock\n      \n      \n        ◎THREE ANALOG CHANNELSMeasure the field. Account for the current.Two linear Hall sensors and an inline current sensor feed a 12-bit MCP3204. The FPGA sequences all three channels into a coherent scan. Separating object motion from the coil’s own field is the first experimental challenge.Explore the sensing hardware →\n        x̂1 kHz / POSITION CONTROLTranslate a field into a gap.The STM32 combines both Hall readings with measured current using a calibrated local model. Filtered velocity and a bounded position controller produce the next current request. Calibration coefficients and gains await physical measurements.Read the MCU design →\n        ∿10 kHz / CURRENT CONTROLMake every switching cycle count.A fixed-point PI controller on the FPGA compares requested and measured current. Duty updates land at PWM period boundaries; autonomous acquisition and packet checks continue independently of the MCU.Read the FPGA design →\n        ⊣OUTPUT SUPERVISIONA missed deadline means stop.Command and ADC watchdogs, latched faults, MCU permission, and a proposed physical interlock supervise the coil. Default builds keep output disabled. Clearing a fault and arming the system are separate actions.Review the bring-up sequence →\n      \n    \n  \n\n\n  PROJECT NOTEBOOKFrom first principlesto the workbench.All documentation ↗\n  \n    01 / FIRMWAREThe positioncontroller.Estimation, timing, trajectories, and the operator interface.MCU design ↗\n    02 / DIGITAL LOGICThe currentcontroller.ADC sequencing, fixed-point regulation, PWM, and watchdogs.FPGA design ↗\n    03 / PHYSICAL SYSTEMWhere codemeets the coil.Candidate components, circuit connectivity, and the bench plan.Hardware & materials ↗\n  \n\nEVIDENCE, WITH CONTEXTDesigned. Simulated.Next: measured.The repository records passing software and HDL checks, plus a routed FPGA implementation. Levitation, thermal behavior, and physical timing have not yet been measured.Read the verification record ↗"
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "Sources & acknowledgements.",
+    "section": "",
+    "text": "Skip to content"
+  },
+  {
+    "objectID": "references.html#engineering-references",
+    "href": "references.html#engineering-references",
+    "title": "Sources & acknowledgements.",
+    "section": "Engineering references",
+    "text": "Engineering references\nThe complete technical reference list links course materials and manufacturer documentation for the STM32L432KC, UPduino, DRV5055, MCP3204, INA240, and UCC27511. Candidate part information is documented in the hardware guide.\nProject claims on this site derive from the repository’s design, hardware, protocol, and verification notes. Quantitative implementation results are attributed to the October 15, 2026 record."
+  },
+  {
+    "objectID": "references.html#portfolio-structure",
+    "href": "references.html#portfolio-structure",
+    "title": "Sources & acknowledgements.",
+    "section": "Portfolio structure",
+    "text": "Portfolio structure\nCarlos and Maynor’s E155 project site provided the page-organization reference: documentation, MCU design, FPGA design, results, AI use, and acknowledgements. Its public Quarto source was reviewed when the hosted site could not be fetched. Its portable DJ project content, measurements, and media are not reused here."
+  },
+  {
+    "objectID": "references.html#design-references",
+    "href": "references.html#design-references",
+    "title": "Sources & acknowledgements.",
+    "section": "Design references",
+    "text": "Design references\n\n\n\nReference\nApplication in this site\n\n\n\n\nAwwwards and its portfolio inspiration\nEditorial hierarchy, generous spacing, and project-specific art direction\n\n\nImpeccable\nClear hierarchy, readable text, restrained effects, and concrete labels\n\n\nUser-supplied apple-design skill\nSystem typography, translucent navigation, immediate feedback, accessibility preferences\n\n\nMagic UI components\nConnected-system presentation and modular chapter navigation\n\n\nMaterial UI tabs\nFamiliar tab semantics, selected states, and keyboard interaction\n\n\nUntitled UI components\nDocumentation navigation, disclosure rows, and consistent spacing\n\n\n\nThese are design and interaction references. The site implements its own lightweight components for Quarto; no paid assets or React library code are included."
+  },
+  {
+    "objectID": "references.html#illustration-and-acknowledgements",
+    "href": "references.html#illustration-and-acknowledgements",
+    "title": "Sources & acknowledgements.",
+    "section": "Illustration and acknowledgements",
+    "text": "Illustration and acknowledgements\nThe magnetic-field illustration and favicon were created for this website as SVG assets. The illustration describes the concept and does not represent measured fields or an assembled prototype.\nNamed acknowledgements and team contribution details are pending confirmation from the project team. See the project information and AI-use disclosure."
+  }
+]

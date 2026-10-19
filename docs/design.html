@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Implementation and control design – FIELD / 155</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../assets/favicon.svg" rel="icon" type="image/svg+xml">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-9f43a20c679eb76b4703ca291990b4b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ba037b2a1395a26410b88d627e3aaf08.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+
+<body class="nav-fixed guide-page quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">FIELD <span class="brand-slash">/</span> 155</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Overview</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Design</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-design">    
+        <li>
+    <a class="dropdown-item" href="../design.html">
+ <span class="dropdown-text">System architecture</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../mcu.html">
+ <span class="dropdown-text">MCU design</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../fpga.html">
+ <span class="dropdown-text">FPGA design</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../hardware.html">
+ <span class="dropdown-text">Hardware &amp; materials</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../documentation.html"> 
+<span class="menu-text">Documentation</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../results.html"> 
+<span class="menu-text">Results</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../docs/build.html"> 
+<span class="menu-text">Build guide</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#implementation-and-control-design" id="toc-implementation-and-control-design" class="nav-link active" data-scroll-target="#implementation-and-control-design">Implementation and control design</a>
+  <ul class="collapse">
+  <li><a href="#system-boundary" id="toc-system-boundary" class="nav-link" data-scroll-target="#system-boundary">System boundary</a></li>
+  <li><a href="#coordinates-and-model" id="toc-coordinates-and-model" class="nav-link" data-scroll-target="#coordinates-and-model">Coordinates and model</a></li>
+  <li><a href="#fpga-pipeline" id="toc-fpga-pipeline" class="nav-link" data-scroll-target="#fpga-pipeline">FPGA pipeline</a></li>
+  <li><a href="#nominal-timing-and-performance-calculations" id="toc-nominal-timing-and-performance-calculations" class="nav-link" data-scroll-target="#nominal-timing-and-performance-calculations">Nominal timing and performance calculations</a></li>
+  <li><a href="#mcu-routine-responsibilities" id="toc-mcu-routine-responsibilities" class="nav-link" data-scroll-target="#mcu-routine-responsibilities">MCU routine responsibilities</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<a class="skip-link" href="#quarto-document-content">Skip to content</a>
+
+<noscript><style>.system-tabs{display:none}.explorer-panels>[hidden]{display:grid!important}.explorer-panels>[role="tabpanel"]{margin-bottom:2rem}</style></noscript>
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Implementation and control design</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="../documentation.html">Documentation</a> / Technical guide</p>
+<section id="implementation-and-control-design" class="level1">
+<h1>Implementation and control design</h1>
+<section id="system-boundary" class="level2">
+<h2 class="anchored" data-anchor-id="system-boundary">System boundary</h2>
+<p>One coil controls vertical motion. The initial object should contain a permanent magnet with a repeatable orientation, so its field can be distinguished from the coil field. A plain steel sphere is not a drop-in equivalent: its induced field varies with current and gap. Do not assume the supplied affine estimator can sense it. Validate the actual object and geometry before committing the proposal.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {"theme":"base","themeVariables":{"primaryColor":"#edf0e8","primaryTextColor":"#202824","primaryBorderColor":"#95a08d","lineColor":"#77846f","fontFamily":"Segoe UI","fontSize":"16px"}}}%%
+flowchart TB
+    B[Browser: gap/current target] &lt;--&gt;|HTTP over local Wi-Fi| E[Course ESP8266 server]
+    E &lt;--&gt;|UART: 125000 baud, 8N1| M[STM32L432KC: 1 kHz position loop]
+    M &lt;--&gt;|SPI mode 0: 1 MHz, 16 bytes full duplex| F[UP5K: acquisition, current PI, PWM, faults]
+    H1[Primary linear Hall] --&gt;|0–3.3 V CH1| A[MCP3204: 12 bits]
+    H2[Reference linear Hall] --&gt;|0–3.3 V CH2| A
+    S[Inline shunt + amplifier] --&gt;|0–3.3 V CH0| A
+    A &lt;--&gt;|SPI mode 0: 0.857 MHz| F
+    M --&gt;|PA0 permit| G[Hardware output interlock]
+    F --&gt;|PWM + enable| G
+    X[Current comparator + E-stop] --&gt;|fault_n| G
+    X --&gt;|fault_n| F
+    G --&gt; D[Gate driver + MOSFET + flyback path]
+    D --&gt; C[Electromagnet and suspended object]
+    C -. magnetic field .-&gt; H1
+    C -. magnetic field .-&gt; H2
+    C --&gt; S
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>This is a useful hardware/software partition, not a claim that an STM32 cannot generate 20 kHz PWM. The FPGA’s substantial work is autonomous ADC sequencing, fixed-point feedback, packet validation, independent watchdogs, and output gating. The MCU contributes sensor compensation, filtered velocity estimation, floating-point position control, trajectories, and communication.</p>
+</section>
+<section id="coordinates-and-model" class="level2">
+<h2 class="anchored" data-anchor-id="coordinates-and-model">Coordinates and model</h2>
+<p>Let <code>x</code> be the gap in mm measured <strong>downward</strong> from the coil reference plane. Increasing the web target lowers the object. Locally,</p>
+<p><code>m*x_ddot = m*g - F(i,x)</code>, with a rough magnetic model <code>F ≈ k*i²/x²</code>.</p>
+<p>The force law is an identification aid, not a validated model of a stock electromagnet. Equilibrium requires measured force at the actual air gap, not a zero-gap holding-force rating. Record mass, lift versus current/gap, resistance, inductance, and steady temperature. Current dynamics approximately satisfy <code>L*di/dt = Vdrive - R*i</code>; off-time decay depends on the clamp.</p>
+<p>Hall outputs contain the object field, the coil field, offsets, and noise. The supplied local estimator is</p>
+<p><code>gap_mm = c0 + c1*H1_counts + c2*H2_counts + c3*measured_current_A</code>.</p>
+<p>Coefficients come from a mechanically fixed object swept through known gaps and currents. Two Hall sensors do not automatically cancel the coil. The ADC is multiplexed, so changing current during the scan can also corrupt this compensation. Validate transient errors; narrow the operating range or change sensing/model if necessary.</p>
+<p>The MCU uses <code>e = measured_gap - ramped_target</code> and</p>
+<p><code>Irequest = clamp(Ihover + Kp*e + Kd*filtered_velocity + integral, 0, Imax)</code>.</p>
+<p>Positive error and positive downward velocity request more lift. Derivative acts on measurement to avoid setpoint kick. Target gap moves at a bounded rate. Integral updates only when the output is unsaturated or the error drives it out of saturation. Default gains and bias are zero; tune PD first. Height-mode arming initializes the ramp at the requested gap, so initially hold the object close to that target. Current-test mode ramps current separately and requires a supported object.</p>
+</section>
+<section id="fpga-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="fpga-pipeline">FPGA pipeline</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {"theme":"base","themeVariables":{"primaryColor":"#edf0e8","primaryTextColor":"#202824","primaryBorderColor":"#95a08d","lineColor":"#77846f","fontFamily":"Segoe UI","fontSize":"16px"}}}%%
+flowchart TB
+    T[24 MHz timebase] --&gt; P[1200-cycle PWM phase]
+    T --&gt; Q[2400-cycle ADC frame]
+    Q --&gt; A[CH0 current → CH1 Hall → CH2 Hall]
+    A --&gt; R[Coherent scan snapshot + sample ID]
+    A --&gt; I[Signed Q8.8 current PI]
+    I --&gt; L[Clamp 0…1080 ticks]
+    L --&gt; P
+    S[SPI frame + CRC + sequence check] --&gt; I
+    S --&gt; W[20 ms command watchdog]
+    A --&gt; V[250 us scan watchdog + current limit]
+    W --&gt; G[Latched fault/output gate]
+    V --&gt; G
+    P --&gt; G
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Current PI takes error in raw ADC counts. <code>kp_q8/256</code> is duty ticks per count. <code>ki_q8/256</code> is duty ticks per count <strong>per 100 us update</strong>, already including the sample interval. Signed intermediate widths are bounded explicitly (13-bit error, 27-bit proportional product, 24-bit integral increment, 28-bit sums, and 21-bit integrator); accepted gain bounds are 4096 and 1024, and the integrator is bounded to ±1080×256. PWM duty changes only at a period boundary. A fault or loss of permit can truncate a pulse immediately. Zero enable clears PI history. Seven registered arithmetic stages finish in less than 0.3 us. CRC engines process one payload bit per clock; command validation completes about 5 us after CS rises. Status is assembled once per 100 us frame and its checksum is completed before the next scan. Fault decisions have a few system clocks of register latency beyond the nominal intervals; physical output gating is independent of telemetry refresh.</p>
+<p>Fault bits are 0 external interlock, 1 sampled overcurrent, 2 command timeout, and 3 ADC scan timeout. Faults latch. Clearing requires a disabled valid command, recent completed scan, healthy external input, and current below the requested hard limit. Clear and arm are separate actions. A bad checksum, malformed frame, or repeated sequence cannot refresh the command watchdog.</p>
+</section>
+<section id="nominal-timing-and-performance-calculations" class="level2">
+<h2 class="anchored" data-anchor-id="nominal-timing-and-performance-calculations">Nominal timing and performance calculations</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Calculation</th>
+<th>Design result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PWM</td>
+<td>24 MHz / 1200</td>
+<td>20 kHz, 50 us; 0.0833% duty step</td>
+</tr>
+<tr class="even">
+<td>Maximum duty</td>
+<td>1080 / 1200</td>
+<td>90%; deliberate off-time</td>
+</tr>
+<tr class="odd">
+<td>ADC SPI</td>
+<td>24 MHz / (2×14)</td>
+<td>0.857 MHz, with margin below 1 MHz</td>
+</tr>
+<tr class="even">
+<td>Scan occupancy</td>
+<td>3×(28 us conversion + 1 us CS high)</td>
+<td>approximately 87 us / 100 us frame</td>
+</tr>
+<tr class="odd">
+<td>Acquisition trigger</td>
+<td>60 cycles / 24 MHz</td>
+<td>2.5 us after every other PWM start</td>
+</tr>
+<tr class="even">
+<td>ADC reference</td>
+<td>3.3 V / 4096</td>
+<td>0.806 mV/count, ideal</td>
+</tr>
+<tr class="odd">
+<td>Example current scale</td>
+<td>0.1 ohm × gain 20</td>
+<td>2 V/A; 0.403 mA/count, ideal</td>
+</tr>
+<tr class="even">
+<td>Example 0.5 A shunt loss</td>
+<td>I²R</td>
+<td>25 mW; use a rated part with margin</td>
+</tr>
+<tr class="odd">
+<td>MCU exchange</td>
+<td>128 clocks / 1 MHz + CS guards</td>
+<td>at least 132 us, plus software gaps</td>
+</tr>
+<tr class="even">
+<td>MCU link utilization</td>
+<td>one exchange per 1 ms</td>
+<td>at least 13.2%</td>
+</tr>
+<tr class="odd">
+<td>UART payload</td>
+<td>125000/10</td>
+<td>12500 bytes/s; a 2 KiB page takes about 164 ms</td>
+</tr>
+</tbody>
+</table>
+<p>24 MHz is the nominal internal oscillator frequency; measure it. ADC aperture times differ between channels. Sampling begins at a fixed PWM phase but the variable falling edge can move across the acquisition window. No claim of universally quiet sampling is made. Use suitable analog filtering and verify captures while sweeping duty. MCP3204 analog source impedance must meet its acquisition requirements.</p>
+<p>Telemetry is frozen at CS assertion and may be almost 1 ms old when fetched; the MCU sends the previous tick’s current request and calculates the next after receiving. Budget roughly 2–3 ms worst-case outer measurement-to-actuation delay including scan, scheduling, packet, and PWM boundary effects, then measure it. Do not infer stability from sample rates alone. Tune the current loop to be several times faster than the position loop, and measure frequency/step response rather than assuming a 10:1 bandwidth ratio from the update rates.</p>
+</section>
+<section id="mcu-routine-responsibilities" class="level2">
+<h2 class="anchored" data-anchor-id="mcu-routine-responsibilities">MCU routine responsibilities</h2>
+<p><code>board_init</code> establishes a 16 MHz HSI clock, 1 MHz SPI1, 125000-baud USART1, 1 MHz TIM2 timestamp, and 1 ms SysTick. Main checks elapsed ticks, exchanges one packet, detects stalled sample IDs, estimates gap/current, and computes the next output. Missing a tick or seeing invalid/stale telemetry stops the coil. UART RX/TX are polled without waiting for characters; page transmission continues across control updates. Requests are bounded and matched exactly. A 5-second browser lease stops an abandoned session. Measure worst-case execution time including page formatting; an overrun is a fault, not skipped control work.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script src="../assets/site.js" defer=""></script>
+
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>FIELD / 155 · Hall-sensed magnetic levitation</p>
+</div>   
+    <div class="nav-footer-center">
+<p>Harvey Mudd College · ENGR 155</p>
+</div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="../references.html">
+<p>References</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../ai.html">
+<p>AI use</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
