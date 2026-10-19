@@ -1,0 +1,8 @@
+---
+title: 'Build, simulate, and program'
+body-classes: guide-page
+---
+
+[Documentation](../documentation.qmd) / Technical guide
+
+{{< include build.md >}}

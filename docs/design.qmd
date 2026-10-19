@@ -1,0 +1,8 @@
+---
+title: 'Implementation and control design'
+body-classes: guide-page
+---
+
+[Documentation](../documentation.qmd) / Technical guide
+
+{{< include design.md >}}

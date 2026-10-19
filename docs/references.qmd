@@ -1,0 +1,8 @@
+---
+title: 'Design references'
+body-classes: guide-page
+---
+
+[Documentation](../documentation.qmd) / Technical guide
+
+{{< include references.md >}}

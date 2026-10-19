@@ -1,0 +1,62 @@
+---
+title: "A study in feedback."
+subtitle: "Hall-sensed magnetic levitation · Harvey Mudd College · ENGR 155"
+description: "Project scope, development status, team information, and acknowledgements."
+---
+
+[ABOUT THE PROJECT]{.article-label}
+
+::: {.lead}
+This project investigates how embedded software and digital logic can cooperate to suspend a magnetic object beneath an electromagnet.
+:::
+
+## Scope
+
+The design uses the course STM32L432KC and UPduino v3.1 boards, a browser interface through the course ESP8266, and three analog measurement channels. It divides floating-point position estimation and control from autonomous current regulation and fault supervision.
+
+The repository currently contains a digital implementation, engineering documentation, software and HDL tests, calibration tooling, and a bench plan. Physical component selection and hardware validation remain ahead.
+
+## Authors
+
+Stephen Kanti Mahanty and Ben Lertwachara are the authors of this ENGR 155 project at Harvey Mudd College.
+
+```{=html}
+<div class="doc-grid author-grid">
+  <article class="author-card" aria-labelledby="author-stephen">
+    <p class="article-label">ENGINEERING</p>
+    <h3 id="author-stephen">Stephen Kanti Mahanty</h3>
+    <p>Stephen studies engineering at Harvey Mudd College, with interests in electrical and computer engineering. His experience includes PCB design, wireless networking and benchmarking, and an Electrical and Communications Engineering internship with Argonne National Laboratory’s Transportation and Power Systems division.</p>
+    <nav class="author-links" aria-label="Stephen’s profiles">
+      <a href="https://stephenthecoder.github.io/engr155-portfolio/">Portfolio <span aria-hidden="true">↗</span></a>
+      <a href="https://www.linkedin.com/in/stephen-kanti-mahanty/">LinkedIn <span aria-hidden="true">↗</span></a>
+      <a href="https://github.com/StephenTheCoder">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </article>
+  <article class="author-card" aria-labelledby="author-ben">
+    <p class="article-label">COMPUTER SCIENCE</p>
+    <h3 id="author-ben">Ben Lertwachara</h3>
+    <p>Ben studies computer science at Harvey Mudd College. His ENGR 155 portfolio collects his course lab reports and provides links to his work on GitHub.</p>
+    <nav class="author-links" aria-label="Ben’s profiles">
+      <a href="https://jebeandiah.github.io/hmc-e155-portfolio/">Portfolio <span aria-hidden="true">↗</span></a>
+      <a href="https://www.linkedin.com/in/benjamin-lertwachara-0b8251288/">LinkedIn <span aria-hidden="true">↗</span></a>
+      <a href="https://github.com/jebeandiah">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </article>
+</div>
+```
+
+Biographical details are drawn from the authors’ linked portfolios.
+
+## Acknowledgements
+
+Course materials and manufacturer documentation inform the design and are credited in the [technical reference list](docs/references.qmd). Specific people who assisted the project have not yet been named.
+
+The implementation and website were prepared with Codex assistance. The [AI-use statement](ai.qmd) describes the role and limits of that assistance.
+
+## About this website
+
+The report is authored in Quarto `.qmd` files. Its organization follows the supplied E155 portfolio reference: documentation, separate MCU and FPGA designs, results, AI use, and acknowledgements. Original technical notes remain available as detailed guides.
+
+The visual system uses system typography, copper and muted green accents, a locally generated vector illustration, and responsive layouts. Interaction follows the supplied apple-design skill: immediate press feedback, familiar navigation, restrained motion, and accommodations for reduced motion, transparency, and increased contrast.
+
+[View design sources and credits →](references.qmd)

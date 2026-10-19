@@ -1,0 +1,8 @@
+---
+title: 'Hall/current calibration and controller tuning'
+body-classes: guide-page
+---
+
+[Documentation](../documentation.qmd) / Technical guide
+
+{{< include calibration.md >}}

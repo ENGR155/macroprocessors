@@ -1,0 +1,8 @@
+---
+title: 'ENGR 155 deliverables and evidence map'
+body-classes: guide-page
+---
+
+[Documentation](../documentation.qmd) / Technical guide
+
+{{< include course.md >}}

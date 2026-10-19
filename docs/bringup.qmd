@@ -1,0 +1,8 @@
+---
+title: 'Staged bring-up and acceptance gates'
+body-classes: guide-page
+---
+
+[Documentation](../documentation.qmd) / Technical guide
+
+{{< include bringup.md >}}

@@ -1,0 +1,62 @@
+---
+title: "Make sense of the field."
+subtitle: "MCU design · STM32L432KC"
+description: "Position estimation, control law, scheduling, and the browser interface on the STM32L432KC."
+---
+
+[FIRMWARE / 02]{.article-label}
+
+::: {.lead}
+Every millisecond, the STM32 reads a coherent sensor snapshot, estimates the gap, and computes the next bounded current request.
+:::
+
+## One control tick
+
+The board driver establishes a nominal 16 MHz HSI clock, 1 MHz SPI1, 125000-baud USART1, a 1 MHz TIM2 timestamp, and a 1 ms SysTick. The main scheduler exchanges a 16-byte packet with the FPGA, checks its validity and freshness, and then updates control state.
+
+```{=html}
+<ol class="process-list"><li><div><strong>Exchange and validate.</strong><p>Send the previous current request; receive the next telemetry snapshot. Check checksum, faults, and sample progression.</p></div></li><li><div><strong>Estimate the state.</strong><p>Convert current and Hall readings using measured scaling and calibration. Estimate and filter downward velocity.</p></div></li><li><div><strong>Compute the request.</strong><p>Ramp the gap target and apply position feedback, saturation, and anti-windup.</p></div></li><li><div><strong>Service the interface.</strong><p>Poll UART without waiting for characters. Continue page transmission across control ticks.</p></div></li></ol>
+```
+
+## Control law
+
+```text
+error = measured_gap − ramped_target
+current_request = clamp(
+    hover_current + Kp·error + Kd·filtered_velocity + integral,
+    0, maximum_current
+)
+```
+
+Derivative acts on measurement to avoid a setpoint kick. The integrator updates only when the request is unsaturated or the error drives it out of saturation. Current-test mode uses a separate current ramp and requires the object to be supported.
+
+**Default gains and bias are zero.** Scaling, calibration coefficients, operating bounds, and gains are configuration inputs awaiting measurements. They are not working levitation settings.
+
+## The operator interface
+
+The existing course ESP8266 firmware is used unchanged. The MCU serves a compact interface with height and current-test modes, arm/clear/stop controls, and raw plus engineering-unit telemetry. A five-second browser lease stops an abandoned session.
+
+This portfolio documents that interface; it does not connect to or energize a physical coil.
+
+## Deadlines are part of the design
+
+A missed update, invalid telemetry, stalled sample ID, or reported fault stops the coil. The design budgets roughly 2–3 ms worst-case outer measurement-to-actuation delay, including scanning, scheduling, packet transfer, and PWM boundaries. That estimate must be checked on the bench.
+
+At 1 MHz, a 128-clock exchange plus chip-select guards takes at least 132 µs, before software gaps. Page formatting and transmission must fit alongside control work; overruns are faults rather than silently skipped updates.
+
+## Source map
+
+| File | Role |
+|---|---|
+| [main.c](firmware/src/main.c) | Scheduler and system state |
+| [control.c](firmware/src/control.c) | Estimation, filtering, trajectories, feedback |
+| [board_stm32l432.c](firmware/src/board_stm32l432.c) | CMSIS register-level board driver |
+| [protocol.c](firmware/src/protocol.c) | Packet encoding and checksum |
+| [web.c](firmware/src/web.c) | Request handling and embedded interface |
+| [config.c](firmware/src/config.c) | Scaling, local model, bounds, and gains |
+
+## Verification scope
+
+The [record dated October 15, 2026](docs/verification.qmd) reports passing native behavior tests and Cortex-M4F compilation of all seven C translation units. A full GNU Arm executable/runtime link and programming workflow remain unverified. Object compilation alone does not establish a flashable image.
+
+[Build and program the design →](docs/build.qmd) · [Read the packet protocol →](docs/protocol.qmd)

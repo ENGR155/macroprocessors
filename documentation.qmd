@@ -1,0 +1,46 @@
+---
+title: "The project notebook."
+subtitle: "Implementation details, reproducible steps, and the experiments that connect them."
+description: "Technical guides, build instructions, calibration procedures, course deliverables, and downloadable source."
+toc: false
+---
+
+[DOCUMENTATION / 05]{.article-label}
+
+Start with the system design. For bench work, read hardware integration and the bring-up sequence before calibration or control tuning. The detailed guides retain the repository’s engineering notes as their source of truth.
+
+```{=html}
+<div class="doc-grid">
+<a class="doc-card" href="docs/design.html"><span class="article-label">01 / UNDERSTAND</span><h2>Implementation & timing ↗</h2><p>Control equations, architecture, loop responsibilities, and latency estimates.</p></a>
+<a class="doc-card" href="docs/hardware.html"><span class="article-label">02 / CONNECT</span><h2>Hardware & wiring ↗</h2><p>Candidate parts, power domains, explicit jumpers, and integration constraints.</p></a>
+<a class="doc-card" href="docs/build.html"><span class="article-label">03 / REPRODUCE</span><h2>Build & programming ↗</h2><p>Toolchains, CMSIS setup, FPGA implementation, and programming workflow.</p></a>
+<a class="doc-card" href="docs/protocol.html"><span class="article-label">04 / COMMUNICATE</span><h2>Packet protocol ↗</h2><p>Command and telemetry layout, checksums, sequence validation, and faults.</p></a>
+<a class="doc-card" href="docs/bringup.html"><span class="article-label">05 / COMMISSION</span><h2>Bench bring-up ↗</h2><p>Passive checks, current-limited experiments, timing captures, and output gates.</p></a>
+<a class="doc-card" href="docs/calibration.html"><span class="article-label">06 / MEASURE</span><h2>Hall calibration ↗</h2><p>Reference gaps, current sweeps, model fitting, and independent holdout validation.</p></a>
+</div>
+```
+
+## Verification and course deliverables
+
+| Document | Purpose |
+|---|---|
+| [Verification record](docs/verification.qmd) | Executed checks, tool estimates, and remaining limitations |
+| [Checkoff matrix](docs/checkoff.qmd) | Planned physical measurements and acceptance evidence |
+| [Course evidence map](docs/course.qmd) | Deliverables and their supporting artifacts |
+| [Project proposal](docs/proposal.qmd) | Scope, experimental risks, and intended system |
+| [Design review](docs/design-review.qmd) | Decisions and review preparation |
+| [Midpoint report](docs/midpoint.qmd) | Development-stage progress and outstanding work |
+| [Technical references](docs/references.qmd) | Course material and manufacturer documentation |
+
+## Source and experiment files
+
+The downloads below are the actual repository resources. For a complete build, use the repository checkout and the [build guide](docs/build.qmd); these individual files are useful for inspection.
+
+```{=html}
+<a class="download-row" href="firmware/src/control.c" download>MCU estimation and control <span>C source ↧</span></a>
+<a class="download-row" href="fpga/rtl/lev_core.sv" download>FPGA integration core <span>SystemVerilog ↧</span></a>
+<a class="download-row" href="fpga/tb/tb_system.sv" download>FPGA integration testbench <span>SystemVerilog ↧</span></a>
+<a class="download-row" href="tools/calibrate.py" download>Offline Hall calibration <span>Python ↧</span></a>
+<a class="download-row" href="hardware/bom.csv" download>Candidate bill of materials <span>CSV ↧</span></a>
+<a class="download-row" href="data/results/measurements.csv" download>Blank measurement log <span>CSV ↧</span></a>
+```

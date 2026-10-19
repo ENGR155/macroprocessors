@@ -1,0 +1,23 @@
+---
+title: "AI use, made explicit."
+subtitle: "Assistance, authorship, and the limits of generated work."
+description: "Disclosure of Codex assistance in the project implementation and portfolio."
+---
+
+## Project assistance
+
+The repository states that its implementation was prepared with Codex assistance. It contains generated implementation work, documentation, and automated verification tooling. That assistance does not establish physical feasibility or replace engineering review and measurements.
+
+## Website assistance
+
+Codex prepared this Quarto portfolio’s layout, styles, vector artwork, interactions, and page summaries using the existing repository as the technical source. The user supplied the apple-design skill and requested Awwwards, Impeccable, Magic UI, Material UI, Untitled UI, and an existing E155 project site as references.
+
+The website’s components are original HTML, CSS, and JavaScript implementations of the referenced design patterns. The site does not bundle those React component libraries or claim their code as original work. The field artwork is a conceptual vector illustration, not a photograph or a physical simulation.
+
+## Verification boundaries
+
+Recorded engineering test outcomes are attributed to the repository’s dated verification record. Unmeasured physical performance and unavailable demonstration media are identified as pending. Author biographies are based on their linked portfolios. There are no invented experimental measurements or team biographies.
+
+The project team remains responsible for reviewing the implementation, reproducing builds and tests, commissioning the hardware, and following the course’s disclosure and submission requirements.
+
+[Read the verification record →](docs/verification.qmd) · [View references →](references.qmd)

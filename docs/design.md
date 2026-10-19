@@ -4,8 +4,9 @@
 
 One coil controls vertical motion. The initial object should contain a permanent magnet with a repeatable orientation, so its field can be distinguished from the coil field. A plain steel sphere is not a drop-in equivalent: its induced field varies with current and gap. Do not assume the supplied affine estimator can sense it. Validate the actual object and geometry before committing the proposal.
 
-```mermaid
-flowchart LR
+```{mermaid}
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#edf0e8","primaryTextColor":"#202824","primaryBorderColor":"#95a08d","lineColor":"#77846f","fontFamily":"Segoe UI","fontSize":"16px"}}}%%
+flowchart TB
     B[Browser: gap/current target] <-->|HTTP over local Wi-Fi| E[Course ESP8266 server]
     E <-->|UART: 125000 baud, 8N1| M[STM32L432KC: 1 kHz position loop]
     M <-->|SPI mode 0: 1 MHz, 16 bytes full duplex| F[UP5K: acquisition, current PI, PWM, faults]
@@ -48,8 +49,9 @@ Positive error and positive downward velocity request more lift. Derivative acts
 
 ## FPGA pipeline
 
-```mermaid
-flowchart LR
+```{mermaid}
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#edf0e8","primaryTextColor":"#202824","primaryBorderColor":"#95a08d","lineColor":"#77846f","fontFamily":"Segoe UI","fontSize":"16px"}}}%%
+flowchart TB
     T[24 MHz timebase] --> P[1200-cycle PWM phase]
     T --> Q[2400-cycle ADC frame]
     Q --> A[CH0 current → CH1 Hall → CH2 Hall]

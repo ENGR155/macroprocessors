@@ -1,0 +1,34 @@
+---
+title: "Sources & acknowledgements."
+subtitle: "The engineering references and design ideas behind this portfolio."
+description: "Technical and visual design credits for the magnetic levitation project website."
+---
+
+## Engineering references
+
+The [complete technical reference list](docs/references.qmd) links course materials and manufacturer documentation for the STM32L432KC, UPduino, DRV5055, MCP3204, INA240, and UCC27511. Candidate part information is documented in the [hardware guide](docs/hardware.qmd).
+
+Project claims on this site derive from the repository’s design, hardware, protocol, and verification notes. Quantitative implementation results are attributed to the [October 15, 2026 record](docs/verification.qmd).
+
+## Portfolio structure
+
+[Carlos and Maynor’s E155 project site](https://maynorb.github.io/E155ProjectSite/) provided the page-organization reference: documentation, MCU design, FPGA design, results, AI use, and acknowledgements. Its [public Quarto source](https://github.com/MaynorB/E155ProjectSite) was reviewed when the hosted site could not be fetched. Its portable DJ project content, measurements, and media are not reused here.
+
+## Design references
+
+| Reference | Application in this site |
+|---|---|
+| [Awwwards](https://www.awwwards.com/) and its [portfolio inspiration](https://www.awwwards.com/inspiration/scroll-portfolio) | Editorial hierarchy, generous spacing, and project-specific art direction |
+| [Impeccable](https://impeccable.style/#downloads) | Clear hierarchy, readable text, restrained effects, and concrete labels |
+| User-supplied apple-design skill | System typography, translucent navigation, immediate feedback, accessibility preferences |
+| [Magic UI components](https://magicui.design/docs/components) | Connected-system presentation and modular chapter navigation |
+| [Material UI tabs](https://mui.com/material-ui/react-tabs/) | Familiar tab semantics, selected states, and keyboard interaction |
+| [Untitled UI components](https://www.untitledui.com/react/components) | Documentation navigation, disclosure rows, and consistent spacing |
+
+These are design and interaction references. The site implements its own lightweight components for Quarto; no paid assets or React library code are included.
+
+## Illustration and acknowledgements
+
+The magnetic-field illustration and favicon were created for this website as SVG assets. The illustration describes the concept and does not represent measured fields or an assembled prototype.
+
+Named acknowledgements and team contribution details are pending confirmation from the project team. [See the project information](about.qmd) and [AI-use disclosure](ai.qmd).

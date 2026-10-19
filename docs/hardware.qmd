@@ -1,0 +1,8 @@
+---
+title: 'Candidate hardware and proposed wiring'
+body-classes: guide-page
+---
+
+[Documentation](../documentation.qmd) / Technical guide
+
+{{< include hardware.md >}}

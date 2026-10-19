@@ -1,0 +1,62 @@
+---
+title: "Control, clock by clock."
+subtitle: "FPGA design · UPduino v3.1 / Lattice iCE40UP5K"
+description: "Autonomous ADC acquisition, fixed-point current control, PWM, and fault supervision."
+---
+
+[DIGITAL LOGIC / 03]{.article-label}
+
+::: {.lead}
+Acquisition, current regulation, and fault supervision run in hardware, independently of the MCU’s position calculations.
+:::
+
+## The acquisition pipeline
+
+The nominal 24 MHz internal timebase produces a 100 µs scan frame. The MCP3204 sequencer acquires **CH0 current → CH1 primary Hall → CH2 reference Hall**, then exposes a coherent snapshot and sample identifier.
+
+ADC SPI runs at approximately 0.857 MHz. Three conversions and chip-select gaps occupy approximately 87 µs. Sampling begins 2.5 µs after every other PWM start, but the variable falling edge can still cross the acquisition window. Analog filtering and scope captures remain necessary.
+
+## Fixed-point regulation
+
+The PI controller works in raw ADC counts and PWM ticks. Gains use Q8.8 scaling: `kp_q8 / 256` is ticks per count, while `ki_q8 / 256` is ticks per count **per 100 µs update**.
+
+Seven registered arithmetic stages complete in less than 0.3 µs at the nominal clock. Intermediate widths and gain bounds are explicit; the integrator is limited to ±1080 × 256. Removing enable clears PI history.
+
+| Timing element | Design value | Meaning |
+|---|---:|---|
+| Internal clock | 24 MHz nominal | Divided internal oscillator; measure on hardware |
+| Current update | 2400 cycles | 10 kHz |
+| PWM period | 1200 cycles | 20 kHz |
+| Maximum duty | 1080 ticks | 90%; deliberate off-time |
+| Command watchdog | 20 ms | Valid, advancing commands required |
+| ADC watchdog | 250 µs | Completed scans required |
+
+## Faults stay latched
+
+```{=html}
+<div class="native-accordion">
+<details open><summary>Packet integrity and freshness</summary><div><p>Serial CRC logic checks the command payload; malformed, short, corrupted, or repeated-sequence commands cannot refresh the watchdog. Command validation completes about 5 µs after chip select rises.</p></div></details>
+<details><summary>Four fault sources</summary><div><p>Fault bits report external interlock loss, sampled overcurrent, command timeout, and ADC scan timeout. Faults remain latched until a valid clear sequence satisfies the health conditions.</p></div></details>
+<details><summary>Clear is separate from arm</summary><div><p>Clearing requires a disabled valid command, a recent scan, a healthy external input, and current below the requested hard limit. Arming is a subsequent action. Default uncommissioned builds keep output disabled.</p></div></details>
+</div>
+```
+
+PWM duty changes at a period boundary during normal operation. A fault or loss of permission can truncate a pulse. The proposed physical interlock is independent of telemetry refresh and must be validated on the actual board.
+
+## Source map
+
+| File | Role |
+|---|---|
+| [top.sv](fpga/rtl/top.sv) | Oscillator wrapper and board-level connections |
+| [lev_core.sv](fpga/rtl/lev_core.sv) | Integration, timebase, output gating, faults |
+| [mcp3204_scan.sv](fpga/rtl/mcp3204_scan.sv) | Autonomous three-channel ADC sequencing |
+| [current_pi.sv](fpga/rtl/current_pi.sv) | Registered signed fixed-point regulation |
+| [spi_frame.sv](fpga/rtl/spi_frame.sv) | MCU SPI interface |
+| [crc112.sv](fpga/rtl/crc112.sv) | Serial payload checksum |
+| [upduino.pcf](fpga/constraints/upduino.pcf) | Proposed jumper pad assignments |
+
+## Implementation evidence
+
+The recorded enabled design uses **1971 of 5280 logic cells** and **2 of 8 DSP blocks**. The routed maximum internal clock estimate is **45.79 MHz**, above the 24 MHz requirement. These are implementation-tool estimates, not physical measurements.
+
+[Inspect results and their limits →](results.qmd) · [Read detailed pipeline calculations →](docs/design.qmd#fpga-pipeline)

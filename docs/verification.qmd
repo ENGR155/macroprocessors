@@ -1,0 +1,8 @@
+---
+title: 'Verification record — 2026-10-15'
+body-classes: guide-page
+---
+
+[Documentation](../documentation.qmd) / Technical guide
+
+{{< include verification.md >}}

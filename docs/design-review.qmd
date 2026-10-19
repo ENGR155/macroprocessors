@@ -1,0 +1,8 @@
+---
+title: 'Design review speaking outline'
+body-classes: guide-page
+---
+
+[Documentation](../documentation.qmd) / Technical guide
+
+{{< include design-review.md >}}

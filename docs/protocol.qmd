@@ -1,0 +1,8 @@
+---
+title: 'Communication contract v1'
+body-classes: guide-page
+---
+
+[Documentation](../documentation.qmd) / Technical guide
+
+{{< include protocol.md >}}

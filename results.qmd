@@ -1,0 +1,66 @@
+---
+title: "Evidence before claims."
+subtitle: "What the implementation establishes—and what the workbench still needs to answer."
+description: "Recorded software and FPGA verification results, limitations, and planned physical measurements."
+---
+
+[RESULTS / RECORD DATED 15 OCTOBER 2026]{.article-label}
+
+::: {.lead}
+The digital implementation has a verification record. Physical levitation performance has not yet been measured.
+:::
+
+## FPGA implementation
+
+```{=html}
+<div class="metric-grid">
+<div class="metric"><strong>37%</strong><span>UP5K logic utilization</span><small>1971 / 5280 logic cells</small><div class="resource-meter" aria-hidden="true"><span style="width:37.33%"></span></div></div>
+<div class="metric"><strong>25%</strong><span>DSP utilization</span><small>2 / 8 blocks</small><div class="resource-meter" aria-hidden="true"><span style="width:25%"></span></div></div>
+<div class="metric"><strong>45.79</strong><span>MHz · routed maximum clock estimate</span><small>24 MHz nominal requirement</small></div>
+</div>
+<p class="evidence-caption">Recorded with YoWASP Yosys 0.70 and nextpnr-ice40 0.11.1 for the enabled top-level design. These are tool estimates, not measured board performance.</p>
+```
+
+The verification build overrides `top.COMMISSIONED=1` for a meaningful active-design resource check. Source defaults remain disabled. The default disabled top-level was also built and routed separately.
+
+## Recorded checks
+
+The following summarizes the existing [verification record](docs/verification.qmd). These engineering checks were recorded on October 15; they are distinct from checks performed on this website.
+
+| Check | Recorded result | What it establishes |
+|---|---|---|
+| Native C compilation | Passed; warnings treated as errors | Host compilation using Zig / Clang |
+| C behavior tests | Passed | CRC, packet layout, controller direction, saturation, ramps, faults, web route and buffer handling |
+| Cortex-M4F compilation | Seven translation units compiled | Source compatibility with the checked headers and runtime |
+| HDL elaboration | Checked with slang and Icarus | SystemVerilog elaboration |
+| FPGA integration simulation | Passed | ADC command sequencing, telemetry, regulation, timeout and fault behavior, disabled defaults |
+| Calibration tests | Three tests passed | Identifiable-model recovery, degenerate-signal rejection, nonlinear-fit residuals |
+| FPGA synthesis and routing | 24 MHz requirement passed | Internal synchronous timing estimate for the checked implementation |
+
+## What has not been measured
+
+| Physical outcome | Status | Evidence needed |
+|---|---|---|
+| Levitation duration | Not measured | Continuous supported-to-free suspension trial |
+| Gap accuracy and repeatability | Not measured | Independent reference position measurements |
+| Settling and disturbance rejection | Not measured | Recorded step and disturbance responses |
+| Hall observability during current changes | Not measured | Fixed-object current sweeps and transient tests |
+| External timing and shutdown delay | Not measured | Scope captures of buses, PWM, and interlock |
+| Coil and power-stage temperature | Not measured | Logged thermal run at the intended operating point |
+
+The full GNU Arm executable/runtime link and board-programming workflow also remain unverified. Simulation uses ideal ADC inputs and a fixed clock, not a validated physical coil model.
+
+## The next experiment
+
+The first decisive result is whether the sensor arrangement distinguishes object position from coil-current changes. A static numerical fit is insufficient. Hold the object at known gaps, sweep current, reserve independent holdout data, and test transient compensation before closing the position loop.
+
+[Follow the calibration procedure →](docs/calibration.qmd)
+
+## Demonstration and measurement record
+
+```{=html}
+<div class="empty-media"><p class="eyebrow">PHYSICAL DEMONSTRATION / PENDING</p><p>No prototype photographs or demonstration video have been recorded. This section will hold genuine build and levitation evidence after hardware testing.</p></div>
+<a class="download-row" href="data/results/measurements.csv" download>Download the blank measurement log <span>CSV ↧</span></a>
+<a class="download-row" href="docs/checkoff.html">Open the planned checkoff matrix <span>Test plan ↗</span></a>
+<a class="download-row" href="docs/verification.html">Read the full verification record <span>Technical note ↗</span></a>
+```
