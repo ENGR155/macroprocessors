@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Recorded software and FPGA verification results, limitations, and planned physical measurements.">
+<meta name="description" content="Recorded software and FPGA checks and the remaining hardware tests.">
 
-<title>Evidence before claims. – FIELD / 155</title>
+<title>Results – E155 Magnetic Levitation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -37,17 +37,16 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./assets/favicon.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-9f43a20c679eb76b4703ca291990b4b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ba037b2a1395a26410b88d627e3aaf08.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-773a29bda851b1c8227aab6a71954f29.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -87,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">FIELD <span class="brand-slash">/</span> 155</span>
+    <span class="navbar-title">E155 Project</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -98,7 +97,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Overview</span></a>
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
@@ -107,19 +106,19 @@ ul.task-list li input[type="checkbox"] {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-design">    
         <li>
     <a class="dropdown-item" href="./design.html">
- <span class="dropdown-text">System architecture</span></a>
+ <span class="dropdown-text">System Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./mcu.html">
- <span class="dropdown-text">MCU design</span></a>
+ <span class="dropdown-text">MCU Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./fpga.html">
- <span class="dropdown-text">FPGA design</span></a>
+ <span class="dropdown-text">FPGA Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./hardware.html">
- <span class="dropdown-text">Hardware &amp; materials</span></a>
+ <span class="dropdown-text">Hardware</span></a>
   </li>  
     </ul>
   </li>
@@ -134,12 +133,6 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
-  </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./docs/build.html"> 
-<span class="menu-text">Build guide</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -157,11 +150,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#fpga-implementation" id="toc-fpga-implementation" class="nav-link active" data-scroll-target="#fpga-implementation">FPGA implementation</a></li>
-  <li><a href="#recorded-checks" id="toc-recorded-checks" class="nav-link" data-scroll-target="#recorded-checks">Recorded checks</a></li>
-  <li><a href="#what-has-not-been-measured" id="toc-what-has-not-been-measured" class="nav-link" data-scroll-target="#what-has-not-been-measured">What has not been measured</a></li>
-  <li><a href="#the-next-experiment" id="toc-the-next-experiment" class="nav-link" data-scroll-target="#the-next-experiment">The next experiment</a></li>
-  <li><a href="#demonstration-and-measurement-record" id="toc-demonstration-and-measurement-record" class="nav-link" data-scroll-target="#demonstration-and-measurement-record">Demonstration and measurement record</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#fpga-implementation" id="toc-fpga-implementation" class="nav-link" data-scroll-target="#fpga-implementation">FPGA Implementation</a></li>
+  <li><a href="#software-and-simulation-tests" id="toc-software-and-simulation-tests" class="nav-link" data-scroll-target="#software-and-simulation-tests">Software and Simulation Tests</a></li>
+  <li><a href="#remaining-hardware-tests" id="toc-remaining-hardware-tests" class="nav-link" data-scroll-target="#remaining-hardware-tests">Remaining Hardware Tests</a></li>
+  <li><a href="#demonstration" id="toc-demonstration" class="nav-link" data-scroll-target="#demonstration">Demonstration</a></li>
   </ul>
 </nav>
     </div>
@@ -169,18 +162,15 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 <a class="skip-link" href="#quarto-document-content">Skip to content</a>
 
-<noscript><style>.system-tabs{display:none}.explorer-panels>[hidden]{display:grid!important}.explorer-panels>[role="tabpanel"]{margin-bottom:2rem}</style></noscript>
-
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Evidence before claims.</h1>
-<p class="subtitle lead">What the implementation establishes—and what the workbench still needs to answer.</p>
+<h1 class="title">Results</h1>
 </div>
 
 <div>
   <div class="description">
-    Recorded software and FPGA verification results, limitations, and planned physical measurements.
+    Recorded software and FPGA checks and the remaining hardware tests.
   </div>
 </div>
 
@@ -197,23 +187,43 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><span class="article-label">RESULTS / RECORD DATED 15 OCTOBER 2026</span></p>
-<div class="lead">
-<p>The digital implementation has a verification record. Physical levitation performance has not yet been measured.</p>
-</div>
-<section id="fpga-implementation" class="level2">
-<h2 class="anchored" data-anchor-id="fpga-implementation">FPGA implementation</h2>
-<div class="metric-grid">
-<div class="metric"><strong>37%</strong><span>UP5K logic utilization</span><small>1971 / 5280 logic cells</small><div class="resource-meter" aria-hidden="true"><span style="width:37.33%"></span></div></div>
-<div class="metric"><strong>25%</strong><span>DSP utilization</span><small>2 / 8 blocks</small><div class="resource-meter" aria-hidden="true"><span style="width:25%"></span></div></div>
-<div class="metric"><strong>45.79</strong><span>MHz · routed maximum clock estimate</span><small>24 MHz nominal requirement</small></div>
-</div>
-<p class="evidence-caption">Recorded with YoWASP Yosys 0.70 and nextpnr-ice40 0.11.1 for the enabled top-level design. These are tool estimates, not measured board performance.</p>
-<p>The verification build overrides <code>top.COMMISSIONED=1</code> for a meaningful active-design resource check. Source defaults remain disabled. The default disabled top-level was also built and routed separately.</p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>The following results summarize the <a href="./docs/verification.html">verification record from October 15, 2026</a>. Software and HDL checks have been recorded, but the hardware has not been assembled or tested. We have not demonstrated levitation or measured its performance.</p>
 </section>
-<section id="recorded-checks" class="level2">
-<h2 class="anchored" data-anchor-id="recorded-checks">Recorded checks</h2>
-<p>The following summarizes the existing <a href="./docs/verification.html">verification record</a>. These engineering checks were recorded on October 15; they are distinct from checks performed on this website.</p>
+<section id="fpga-implementation" class="level2">
+<h2 class="anchored" data-anchor-id="fpga-implementation">FPGA Implementation</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Resource or timing check</th>
+<th>Recorded result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Logic cells</td>
+<td>1971 / 5280 (37%)</td>
+</tr>
+<tr class="even">
+<td>DSP blocks</td>
+<td>2 / 8 (25%)</td>
+</tr>
+<tr class="odd">
+<td>Routed maximum clock estimate</td>
+<td>45.79 MHz</td>
+</tr>
+<tr class="even">
+<td>Required clock</td>
+<td>24 MHz; passed</td>
+</tr>
+</tbody>
+</table>
+<p>These results were recorded with YoWASP Yosys 0.70 and nextpnr-ice40 0.11.1. The verification build sets <code>top.COMMISSIONED=1</code> so that the tools include the active design. The source defaults keep the output disabled, and that version was built separately as well.</p>
+<p>The timing result is an implementation-tool estimate. We still need to check the clock and external signals on the board.</p>
+</section>
+<section id="software-and-simulation-tests" class="level2">
+<h2 class="anchored" data-anchor-id="software-and-simulation-tests">Software and Simulation Tests</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -224,23 +234,23 @@ ul.task-list li input[type="checkbox"] {
 <tr class="header">
 <th>Check</th>
 <th>Recorded result</th>
-<th>What it establishes</th>
+<th>Scope</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Native C compilation</td>
-<td>Passed; warnings treated as errors</td>
-<td>Host compilation using Zig / Clang</td>
+<td>Passed</td>
+<td>Host compilation with warnings treated as errors</td>
 </tr>
 <tr class="even">
 <td>C behavior tests</td>
 <td>Passed</td>
-<td>CRC, packet layout, controller direction, saturation, ramps, faults, web route and buffer handling</td>
+<td>CRC, packets, controller direction, limits, ramps, faults, and webpage handling</td>
 </tr>
 <tr class="odd">
 <td>Cortex-M4F compilation</td>
-<td>Seven translation units compiled</td>
+<td>Seven C files compiled</td>
 <td>Source compatibility with the checked headers and runtime</td>
 </tr>
 <tr class="even">
@@ -251,23 +261,24 @@ ul.task-list li input[type="checkbox"] {
 <tr class="odd">
 <td>FPGA integration simulation</td>
 <td>Passed</td>
-<td>ADC command sequencing, telemetry, regulation, timeout and fault behavior, disabled defaults</td>
+<td>ADC sequencing, telemetry, regulation, timeouts, faults, and disabled defaults</td>
 </tr>
 <tr class="even">
 <td>Calibration tests</td>
 <td>Three tests passed</td>
-<td>Identifiable-model recovery, degenerate-signal rejection, nonlinear-fit residuals</td>
+<td>Model recovery, degenerate-signal rejection, and nonlinear-fit residuals</td>
 </tr>
 <tr class="odd">
 <td>FPGA synthesis and routing</td>
-<td>24 MHz requirement passed</td>
-<td>Internal synchronous timing estimate for the checked implementation</td>
+<td>Passed at 24 MHz</td>
+<td>Estimated internal synchronous timing</td>
 </tr>
 </tbody>
 </table>
+<p>The full GNU Arm executable link and board programming have not been verified. The simulation uses ideal ADC readings and a fixed clock. It does not include a validated model of the physical coil.</p>
 </section>
-<section id="what-has-not-been-measured" class="level2">
-<h2 class="anchored" data-anchor-id="what-has-not-been-measured">What has not been measured</h2>
+<section id="remaining-hardware-tests" class="level2">
+<h2 class="anchored" data-anchor-id="remaining-hardware-tests">Remaining Hardware Tests</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -276,57 +287,55 @@ ul.task-list li input[type="checkbox"] {
 </colgroup>
 <thead>
 <tr class="header">
-<th>Physical outcome</th>
-<th>Status</th>
-<th>Evidence needed</th>
+<th>Measurement</th>
+<th>Current status</th>
+<th>Planned test</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Levitation duration</td>
 <td>Not measured</td>
-<td>Continuous supported-to-free suspension trial</td>
+<td>Record a continuous suspension trial</td>
 </tr>
 <tr class="even">
 <td>Gap accuracy and repeatability</td>
 <td>Not measured</td>
-<td>Independent reference position measurements</td>
+<td>Compare the estimate with an independent position measurement</td>
 </tr>
 <tr class="odd">
-<td>Settling and disturbance rejection</td>
+<td>Settling and disturbance response</td>
 <td>Not measured</td>
-<td>Recorded step and disturbance responses</td>
+<td>Record target steps and disturbances</td>
 </tr>
 <tr class="even">
-<td>Hall observability during current changes</td>
+<td>Hall estimate during current changes</td>
 <td>Not measured</td>
-<td>Fixed-object current sweeps and transient tests</td>
+<td>Hold the object at known gaps and vary the current</td>
 </tr>
 <tr class="odd">
 <td>External timing and shutdown delay</td>
 <td>Not measured</td>
-<td>Scope captures of buses, PWM, and interlock</td>
+<td>Capture SPI, PWM, and interlock signals on an oscilloscope</td>
 </tr>
 <tr class="even">
 <td>Coil and power-stage temperature</td>
 <td>Not measured</td>
-<td>Logged thermal run at the intended operating point</td>
+<td>Log temperature at the intended operating point</td>
 </tr>
 </tbody>
 </table>
-<p>The full GNU Arm executable/runtime link and board-programming workflow also remain unverified. Simulation uses ideal ADC inputs and a fixed clock, not a validated physical coil model.</p>
+<p>The first test is to check whether the Hall readings can distinguish changes in object position from changes in coil current. We plan to collect readings at known gaps, fit the calibration model, and validate it with separate data. Current-step tests with a fixed object will check whether the estimate also works during transients.</p>
+<p><a href="./docs/calibration.html">Calibration Procedure</a></p>
 </section>
-<section id="the-next-experiment" class="level2">
-<h2 class="anchored" data-anchor-id="the-next-experiment">The next experiment</h2>
-<p>The first decisive result is whether the sensor arrangement distinguishes object position from coil-current changes. A static numerical fit is insufficient. Hold the object at known gaps, sweep current, reserve independent holdout data, and test transient compensation before closing the position loop.</p>
-<p><a href="./docs/calibration.html">Follow the calibration procedure →</a></p>
-</section>
-<section id="demonstration-and-measurement-record" class="level2">
-<h2 class="anchored" data-anchor-id="demonstration-and-measurement-record">Demonstration and measurement record</h2>
-<div class="empty-media"><p class="eyebrow">PHYSICAL DEMONSTRATION / PENDING</p><p>No prototype photographs or demonstration video have been recorded. This section will hold genuine build and levitation evidence after hardware testing.</p></div>
-<a class="download-row" href="data/results/measurements.csv" download="">Download the blank measurement log <span>CSV ↧</span></a>
-<a class="download-row" href="docs/checkoff.html">Open the planned checkoff matrix <span>Test plan ↗</span></a>
-<a class="download-row" href="docs/verification.html">Read the full verification record <span>Technical note ↗</span></a>
+<section id="demonstration" class="level2">
+<h2 class="anchored" data-anchor-id="demonstration">Demonstration</h2>
+<p>There are no prototype photographs or demonstration videos yet. We will add these after assembling and testing the hardware.</p>
+<ul>
+<li><a href="data/results/measurements.csv">Blank Measurement Log</a></li>
+<li><a href="./docs/checkoff.html">Planned Checkoff Tests</a></li>
+<li><a href="./docs/verification.html">Full Verification Record</a></li>
+</ul>
 
 
 </section>
@@ -407,7 +416,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/ENGR155\.github\.io\/macroprocessors\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -743,11 +752,11 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>FIELD / 155 · Hall-sensed magnetic levitation</p>
+<p>Stephen Kanti Mahanty and Ben Lertwachara · ENGR 155</p>
 </div>   
     <div class="nav-footer-center">
-<p>Harvey Mudd College · ENGR 155</p>
-</div>
+      &nbsp;
+    </div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">

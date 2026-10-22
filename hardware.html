@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Candidate components and hardware bring-up for Hall-sensed magnetic levitation.">
+<meta name="description" content="Candidate components and wiring for the magnetic levitation system.">
 
-<title>Where code meets the coil. – FIELD / 155</title>
+<title>Hardware – E155 Magnetic Levitation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -37,17 +37,16 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./assets/favicon.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-9f43a20c679eb76b4703ca291990b4b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ba037b2a1395a26410b88d627e3aaf08.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-773a29bda851b1c8227aab6a71954f29.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -87,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">FIELD <span class="brand-slash">/</span> 155</span>
+    <span class="navbar-title">E155 Project</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -98,7 +97,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Overview</span></a>
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
@@ -107,19 +106,19 @@ ul.task-list li input[type="checkbox"] {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-design">    
         <li>
     <a class="dropdown-item" href="./design.html">
- <span class="dropdown-text">System architecture</span></a>
+ <span class="dropdown-text">System Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./mcu.html">
- <span class="dropdown-text">MCU design</span></a>
+ <span class="dropdown-text">MCU Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./fpga.html">
- <span class="dropdown-text">FPGA design</span></a>
+ <span class="dropdown-text">FPGA Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./hardware.html">
- <span class="dropdown-text">Hardware &amp; materials</span></a>
+ <span class="dropdown-text">Hardware</span></a>
   </li>  
     </ul>
   </li>
@@ -134,12 +133,6 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
-  </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./docs/build.html"> 
-<span class="menu-text">Build guide</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -157,10 +150,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-course-boards" id="toc-the-course-boards" class="nav-link active" data-scroll-target="#the-course-boards">The course boards</a></li>
-  <li><a href="#sensing-and-power" id="toc-sensing-and-power" class="nav-link" data-scroll-target="#sensing-and-power">Sensing and power</a></li>
-  <li><a href="#coil-and-object-come-first" id="toc-coil-and-object-come-first" class="nav-link" data-scroll-target="#coil-and-object-come-first">Coil and object come first</a></li>
-  <li><a href="#connectivity-and-commissioning" id="toc-connectivity-and-commissioning" class="nav-link" data-scroll-target="#connectivity-and-commissioning">Connectivity and commissioning</a></li>
+  <li><a href="#current-status" id="toc-current-status" class="nav-link active" data-scroll-target="#current-status">Current Status</a></li>
+  <li><a href="#course-boards" id="toc-course-boards" class="nav-link" data-scroll-target="#course-boards">Course Boards</a></li>
+  <li><a href="#candidate-components" id="toc-candidate-components" class="nav-link" data-scroll-target="#candidate-components">Candidate Components</a></li>
+  <li><a href="#coil-and-suspended-object" id="toc-coil-and-suspended-object" class="nav-link" data-scroll-target="#coil-and-suspended-object">Coil and Suspended Object</a></li>
+  <li><a href="#wiring-and-initial-tests" id="toc-wiring-and-initial-tests" class="nav-link" data-scroll-target="#wiring-and-initial-tests">Wiring and Initial Tests</a></li>
   </ul>
 </nav>
     </div>
@@ -168,18 +162,15 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 <a class="skip-link" href="#quarto-document-content">Skip to content</a>
 
-<noscript><style>.system-tabs{display:none}.explorer-panels>[hidden]{display:grid!important}.explorer-panels>[role="tabpanel"]{margin-bottom:2rem}</style></noscript>
-
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Where code meets the coil.</h1>
-<p class="subtitle lead">Candidate hardware, connectivity, and a measured path to commissioning.</p>
+<h1 class="title">Hardware</h1>
 </div>
 
 <div>
   <div class="description">
-    Candidate components and hardware bring-up for Hall-sensed magnetic levitation.
+    Candidate components and wiring for the magnetic levitation system.
   </div>
 </div>
 
@@ -196,16 +187,16 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><span class="article-label">HARDWARE / 04</span></p>
-<div class="status-banner">
-<p><strong>Selection stage.</strong> The physical components have not been selected, assembled, or tested. Part numbers below are candidates; the bill of materials contains planning allowances.</p>
-</div>
-<section id="the-course-boards" class="level2">
-<h2 class="anchored" data-anchor-id="the-course-boards">The course boards</h2>
-<p>The STM32L432KC handles position estimation and control. The UPduino v3.1 handles acquisition and current regulation. The existing course ESP8266 provides the wireless interface using its unchanged firmware.</p>
+<section id="current-status" class="level2">
+<h2 class="anchored" data-anchor-id="current-status">Current Status</h2>
+<p>We have not selected, assembled, or tested the physical components. The parts below are candidates, and the bill of materials contains estimated allowances.</p>
 </section>
-<section id="sensing-and-power" class="level2">
-<h2 class="anchored" data-anchor-id="sensing-and-power">Sensing and power</h2>
+<section id="course-boards" class="level2">
+<h2 class="anchored" data-anchor-id="course-boards">Course Boards</h2>
+<p>The design uses the STM32L432KC for position estimation and control, the UPduino v3.1 for sensor acquisition and current control, and the course ESP8266 for the webpage interface. The existing ESP8266 firmware is used unchanged.</p>
+</section>
+<section id="candidate-components" class="level2">
+<h2 class="anchored" data-anchor-id="candidate-components">Candidate Components</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -216,62 +207,65 @@ ul.task-list li input[type="checkbox"] {
 <tr class="header">
 <th>Function</th>
 <th>Candidate</th>
-<th>Selection constraint</th>
+<th>What we need to check</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Primary + reference magnetic field</td>
-<td>Two TI DRV5055 linear Hall sensors</td>
-<td>Evaluate A3/A4 sensitivity against the measured field range</td>
+<td>Magnetic field sensing</td>
+<td>Two TI DRV5055 Hall sensors</td>
+<td>Choose A3/A4 sensitivity based on the measured field range</td>
 </tr>
 <tr class="even">
 <td>Analog conversion</td>
 <td>MCP3204-CI/P</td>
-<td>12-bit, 3.3 V; three channels used</td>
+<td>12-bit, 3.3 V operation with three channels</td>
 </tr>
 <tr class="odd">
-<td>Inline coil current</td>
-<td>INA240A1 + 0.100 Ω precision shunt</td>
-<td>Gain 20 candidate; calibrate offset and verify range</td>
+<td>Coil current sensing</td>
+<td>INA240A1 and 0.100 ohm shunt</td>
+<td>Offset, gain, and usable current range</td>
 </tr>
 <tr class="even">
-<td>Gate drive</td>
+<td>Gate driver</td>
 <td>UCC27511</td>
-<td>Supply and drive must suit the selected MOSFET</td>
+<td>Compatibility with the selected MOSFET and supply</td>
 </tr>
 <tr class="odd">
-<td>Power switch + flyback path</td>
-<td>MOSFET and rated diode/clamp</td>
-<td>Choose from coil current, supply, and transient measurements</td>
+<td>Power switching</td>
+<td>MOSFET and flyback diode or clamp</td>
+<td>Coil current, supply voltage, and switching transients</td>
 </tr>
 <tr class="even">
-<td>Mechanical system</td>
-<td>Nonmagnetic frame + catch tray</td>
-<td>Establish repeatable gap and object orientation</td>
+<td>Mechanical support</td>
+<td>Nonmagnetic frame and catch tray</td>
+<td>Repeatable gap and object orientation</td>
 </tr>
 <tr class="odd">
 <td>Independent shutdown</td>
-<td>E-stop, current comparator, output logic</td>
-<td>Validate propagation and fail-off behavior physically</td>
+<td>E-stop, current comparator, and output logic</td>
+<td>Shutdown delay and behavior when a connection is lost</td>
 </tr>
 </tbody>
 </table>
-<p>At the example 0.100 Ω shunt and gain of 20, the ideal current conversion is 2 V/A. With a 3.3 V ADC reference, the ideal resolution is approximately 0.403 mA/count. Actual offsets and scale factors require calibration.</p>
+<p>With a 0.100 ohm shunt and a gain of 20, the ideal current-sense output is 2 V/A. A 3.3 V ADC reference gives approximately 0.403 mA per count. The actual offset and scale will need calibration.</p>
 </section>
-<section id="coil-and-object-come-first" class="level2">
-<h2 class="anchored" data-anchor-id="coil-and-object-come-first">Coil and object come first</h2>
-<p>A holding-force rating at contact does not establish useful levitation force across an air gap. Start with an instructor-approved test coil and measure force versus current and gap, winding resistance, inductance, and steady temperature.</p>
-<p>The proposed estimator assumes an object containing a permanent magnet with repeatable orientation. Rotation, attraction to the core, and ambiguous Hall readings are experimental risks. A steel-only object requires a different identification experiment.</p>
+<section id="coil-and-suspended-object" class="level2">
+<h2 class="anchored" data-anchor-id="coil-and-suspended-object">Coil and Suspended Object</h2>
+<p>A coil’s holding-force rating at contact does not tell us how much force it can produce across an air gap. We plan to start with an instructor-approved test coil and measure force versus current and gap, winding resistance, inductance, and temperature.</p>
+<p>The position estimate assumes that the object contains a permanent magnet with a repeatable orientation. We also need to check for rotation, attraction to the core, and gaps that produce similar Hall readings. A steel-only object would require a different characterization procedure.</p>
 </section>
-<section id="connectivity-and-commissioning" class="level2">
-<h2 class="anchored" data-anchor-id="connectivity-and-commissioning">Connectivity and commissioning</h2>
-<p>The proposed netlist documents two separate SPI buses: MCU-to-FPGA commands and FPGA-to-ADC acquisition. The hardware guide includes explicit jumpers, power domains, analog grounding, and interlock constraints.</p>
-<p>Keep <code>power_stage_ready=false</code>, <code>calibration_ready=false</code>, and <code>LEV_COMMISSIONED=0</code> until their corresponding bring-up gates pass.</p>
-<div class="doc-grid"><a class="doc-card" href="docs/hardware.html"><span class="article-label">WIRING</span><h3 class="anchored">Hardware integration ↗</h3><p>Pin assignments, signal levels, power, and sensor integration.</p></a><a class="doc-card" href="docs/bringup.html"><span class="article-label">BENCH SEQUENCE</span><h3 class="anchored">Bring-up procedure ↗</h3><p>Move from passive checks to supported-object current tests.</p></a></div>
-<a class="download-row" href="hardware/bom.csv" download="">Download candidate bill of materials <span>CSV ↧</span></a>
-<a class="download-row" href="hardware/netlist.md" download="">Download proposed circuit netlist <span>Markdown ↧</span></a>
-<p>CAD schematics, supplier quotes, assembly photographs, and measured component ratings remain future deliverables. The portfolio illustration is conceptual and does not depict assembled hardware.</p>
+<section id="wiring-and-initial-tests" class="level2">
+<h2 class="anchored" data-anchor-id="wiring-and-initial-tests">Wiring and Initial Tests</h2>
+<p>The proposed netlist uses separate SPI buses for MCU-to-FPGA communication and FPGA-to-ADC acquisition. The hardware guide lists the jumpers, voltage levels, power connections, and interlock wiring.</p>
+<p>The configuration values <code>power_stage_ready=false</code>, <code>calibration_ready=false</code>, and <code>LEV_COMMISSIONED=0</code> keep the output disabled until the corresponding bring-up checks are complete.</p>
+<ul>
+<li><a href="./docs/hardware.html">Hardware and Wiring Guide</a></li>
+<li><a href="./docs/bringup.html">Bring-up Procedure</a></li>
+<li><a href="hardware/bom.csv">Candidate Bill of Materials</a></li>
+<li><a href="hardware/netlist.md">Proposed Circuit Netlist</a></li>
+</ul>
+<p>CAD schematics, supplier quotes, assembly photographs, and measured component ratings still need to be added.</p>
 
 
 </section>
@@ -352,7 +346,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/ENGR155\.github\.io\/macroprocessors\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -688,11 +682,11 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>FIELD / 155 · Hall-sensed magnetic levitation</p>
+<p>Stephen Kanti Mahanty and Ben Lertwachara · ENGR 155</p>
 </div>   
     <div class="nav-footer-center">
-<p>Harvey Mudd College · ENGR 155</p>
-</div>
+      &nbsp;
+    </div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">

@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="A magnetic levitation design combining STM32 position control with FPGA current regulation. Explore the architecture, implementation, and verification record.">
+<meta name="description" content="ENGR 155 project by Stephen Kanti Mahanty and Ben Lertwachara.">
 
-<title>Hall-sensed magnetic levitation – FIELD / 155</title>
+<title>Magnetic Levitation – E155 Magnetic Levitation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -37,17 +37,16 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./assets/favicon.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-9f43a20c679eb76b4703ca291990b4b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ba037b2a1395a26410b88d627e3aaf08.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-773a29bda851b1c8227aab6a71954f29.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -79,7 +78,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="assets/site.css">
 </head>
 
-<body class="nav-fixed landing-page quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -87,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">FIELD <span class="brand-slash">/</span> 155</span>
+    <span class="navbar-title">E155 Project</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -98,7 +97,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link active" href="./index.html" aria-current="page"> 
-<span class="menu-text">Overview</span></a>
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
@@ -107,19 +106,19 @@ ul.task-list li input[type="checkbox"] {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-design">    
         <li>
     <a class="dropdown-item" href="./design.html">
- <span class="dropdown-text">System architecture</span></a>
+ <span class="dropdown-text">System Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./mcu.html">
- <span class="dropdown-text">MCU design</span></a>
+ <span class="dropdown-text">MCU Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./fpga.html">
- <span class="dropdown-text">FPGA design</span></a>
+ <span class="dropdown-text">FPGA Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./hardware.html">
- <span class="dropdown-text">Hardware &amp; materials</span></a>
+ <span class="dropdown-text">Hardware</span></a>
   </li>  
     </ul>
   </li>
@@ -136,12 +135,6 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./docs/build.html"> 
-<span class="menu-text">Build guide</span></a>
-  </li>  
-</ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
@@ -149,30 +142,28 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 <a class="skip-link" href="#quarto-document-content">Skip to content</a>
-
-<noscript><style>.system-tabs{display:none}.explorer-panels>[hidden]{display:grid!important}.explorer-panels>[role="tabpanel"]{margin-bottom:2rem}</style></noscript>
 
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Hall-sensed magnetic levitation</h1>
+<h1 class="title">Magnetic Levitation</h1>
 </div>
 
 <div>
   <div class="description">
-    A magnetic levitation design combining STM32 position control with FPGA current regulation. Explore the architecture, implementation, and verification record.
+    ENGR 155 project by Stephen Kanti Mahanty and Ben Lertwachara.
   </div>
 </div>
 
 
-<div class="quarto-title-meta column-page">
+<div class="quarto-title-meta">
 
     
   
@@ -184,61 +175,36 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section class="hero site-width" aria-labelledby="hero-title">
-  <div class="hero-copy">
-    <p class="eyebrow">ENGR 155 / EMBEDDED SYSTEMS</p>
-    <h1 id="hero-title">Holding space.<br><span>Closing the loop.</span></h1>
-    <p class="hero-description">A magnetic levitation experiment at the intersection of sensing, silicon, and control.</p>
-    <p class="hero-detail">One electromagnet. Two control loops. A design that turns magnetic measurements into a precisely timed response.</p>
-    <div class="hero-actions"><a class="action primary" href="design.html">Explore the design <span aria-hidden="true">↗</span></a><a class="action text-action" href="results.html">View the evidence <span aria-hidden="true">→</span></a></div>
-    <div class="development-note"><span class="status-mark" aria-hidden="true"></span><span>Implementation stage <span class="note-divider">/</span> Hardware validation ahead</span></div>
-  </div>
-  <figure class="field-figure figure">
-    <div class="figure-topline"><span>01 / THE LEVITATION CONCEPT</span><span aria-hidden="true">+ &nbsp; +</span></div>
-    <img src="assets/field.svg" width="640" height="620" alt="Conceptual illustration of a copper electromagnet above a suspended magnetic object, surrounded by field lines. The downward air gap is marked x." fetchpriority="high" class="figure-img">
-    <figcaption><span>Magnetic attraction ↑ &nbsp; Gravity ↓</span><span>Concept illustration · not a prototype</span></figcaption>
-  </figure>
+<p>We are Stephen Kanti Mahanty and Ben Lertwachara, engineering and computer science students at Harvey Mudd College. For our ENGR 155 project, we are designing a magnetic levitation system using the STM32L432KC MCU and the UPduino FPGA.</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>The goal of this project is to suspend a magnetic object below an electromagnet and control its height through a webpage. Two Hall sensors measure the magnetic field, and a current sensor measures the coil current. The MCU uses these readings to estimate the gap between the object and the coil and calculate the current needed to hold the object at the requested height. The FPGA reads the sensors and controls the coil current using PWM.</p>
+<p>We split the control between the MCU and FPGA so that the current controller can run faster than the position controller. The design uses a 1 kHz position loop, a 10 kHz current loop, and 20 kHz PWM. These are the intended operating rates and still need to be checked on hardware.</p>
 </section>
-<section class="spec-strip site-width" aria-label="Nominal design rates">
-  <div><span class="spec-number">1 <span>kHz</span></span><span class="spec-label">Position loop / STM32</span></div>
-  <div><span class="spec-number">10 <span>kHz</span></span><span class="spec-label">Current loop / FPGA</span></div>
-  <div><span class="spec-number">20 <span>kHz</span></span><span class="spec-label">PWM / power stage</span></div>
-  <p>Designed update rates.<br><a href="docs/design.html#nominal-timing-and-performance-calculations">See timing assumptions ↗</a></p>
+<section id="project-status" class="level2">
+<h2 class="anchored" data-anchor-id="project-status">Project Status</h2>
+<p>The repository contains firmware, FPGA logic, tests, and a plan for building and testing the hardware. Software and HDL checks are documented in the <a href="./docs/verification.html">October 15, 2026 verification record</a>. The physical components have not been selected, assembled, or tested, and levitation has not been demonstrated.</p>
 </section>
-<section class="intro-section site-width">
-  <p class="eyebrow">THE IDEA</p>
-  <div><h2 class="anchored">A balancing act,<br>every millisecond.</h2><p class="large-copy">Magnetic suspension is an unstable equilibrium. Pull too hard and the object rises into the coil. Pull too little and gravity takes over.</p><p>This project explores that balance with Hall sensing and nested feedback. The STM32 estimates the gap and requests current. The UPduino regulates that current and supervises the output independently.</p><a class="inline-link" href="design.html">Follow the control loop <span aria-hidden="true">→</span></a></div>
+<section id="documentation" class="level2">
+<h2 class="anchored" data-anchor-id="documentation">Documentation</h2>
+<ul>
+<li><a href="./design.html">System Design</a>: system diagram, control loops, and calibration approach.</li>
+<li><a href="./mcu.html">MCU Design</a>: position estimation, control, and the webpage interface.</li>
+<li><a href="./fpga.html">FPGA Design</a>: sensor acquisition, current control, PWM, and fault handling.</li>
+<li><a href="./hardware.html">Hardware</a>: candidate components and proposed wiring.</li>
+<li><a href="./documentation.html">Technical Documentation</a>: build instructions, detailed notes, and source files.</li>
+<li><a href="./results.html">Results</a>: recorded tests and the measurements we still need to take.</li>
+</ul>
 </section>
-<section class="architecture-section" aria-labelledby="architecture-title">
-  <div class="site-width">
-    <div class="section-heading"><div><p class="eyebrow">INSIDE THE SYSTEM</p><h2 id="architecture-title" class="anchored">Different jobs.<br>One feedback loop.</h2></div><p>Select a stage to explore how the design senses, decides, and responds.</p></div>
-    <div class="system-explorer" data-tabs="">
-      <div class="system-tabs" role="tablist" aria-label="Control loop stages">
-        <button id="tab-sense" role="tab" aria-selected="true" aria-controls="panel-sense" tabindex="0"><span class="tab-number">01</span>Sense<span class="tab-meta">Hall sensors + ADC</span></button>
-        <button id="tab-estimate" role="tab" aria-selected="false" aria-controls="panel-estimate" tabindex="-1"><span class="tab-number">02</span>Estimate<span class="tab-meta">STM32L432KC</span></button>
-        <button id="tab-regulate" role="tab" aria-selected="false" aria-controls="panel-regulate" tabindex="-1"><span class="tab-number">03</span>Regulate<span class="tab-meta">UPduino v3.1</span></button>
-        <button id="tab-protect" role="tab" aria-selected="false" aria-controls="panel-protect" tabindex="-1"><span class="tab-number">04</span>Protect<span class="tab-meta">Independent interlock</span></button>
-      </div>
-      <div class="explorer-panels">
-        <div id="panel-sense" role="tabpanel" aria-labelledby="tab-sense" tabindex="0"><span class="panel-symbol" aria-hidden="true">◎</span><div><p class="eyebrow">THREE ANALOG CHANNELS</p><h3 class="anchored">Measure the field. Account for the current.</h3><p>Two linear Hall sensors and an inline current sensor feed a 12-bit MCP3204. The FPGA sequences all three channels into a coherent scan. Separating object motion from the coil’s own field is the first experimental challenge.</p><a href="hardware.html">Explore the sensing hardware →</a></div></div>
-        <div id="panel-estimate" role="tabpanel" aria-labelledby="tab-estimate" tabindex="0" hidden=""><span class="panel-symbol" aria-hidden="true">x̂</span><div><p class="eyebrow">1 kHz / POSITION CONTROL</p><h3 class="anchored">Translate a field into a gap.</h3><p>The STM32 combines both Hall readings with measured current using a calibrated local model. Filtered velocity and a bounded position controller produce the next current request. Calibration coefficients and gains await physical measurements.</p><a href="mcu.html">Read the MCU design →</a></div></div>
-        <div id="panel-regulate" role="tabpanel" aria-labelledby="tab-regulate" tabindex="0" hidden=""><span class="panel-symbol" aria-hidden="true">∿</span><div><p class="eyebrow">10 kHz / CURRENT CONTROL</p><h3 class="anchored">Make every switching cycle count.</h3><p>A fixed-point PI controller on the FPGA compares requested and measured current. Duty updates land at PWM period boundaries; autonomous acquisition and packet checks continue independently of the MCU.</p><a href="fpga.html">Read the FPGA design →</a></div></div>
-        <div id="panel-protect" role="tabpanel" aria-labelledby="tab-protect" tabindex="0" hidden=""><span class="panel-symbol" aria-hidden="true">⊣</span><div><p class="eyebrow">OUTPUT SUPERVISION</p><h3 class="anchored">A missed deadline means stop.</h3><p>Command and ADC watchdogs, latched faults, MCU permission, and a proposed physical interlock supervise the coil. Default builds keep output disabled. Clearing a fault and arming the system are separate actions.</p><a href="docs/bringup.html">Review the bring-up sequence →</a></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="site-width reading-section">
-  <div class="section-heading"><div><p class="eyebrow">PROJECT NOTEBOOK</p><h2 class="anchored">From first principles<br>to the workbench.</h2></div><a class="inline-link" href="documentation.html">All documentation ↗</a></div>
-  <div class="chapter-grid">
-    <a class="chapter" href="mcu.html"><span class="chapter-index">01 / FIRMWARE</span><h3 class="anchored">The position<br>controller.</h3><p>Estimation, timing, trajectories, and the operator interface.</p><span class="chapter-bottom">MCU design <span aria-hidden="true">↗</span></span></a>
-    <a class="chapter" href="fpga.html"><span class="chapter-index">02 / DIGITAL LOGIC</span><h3 class="anchored">The current<br>controller.</h3><p>ADC sequencing, fixed-point regulation, PWM, and watchdogs.</p><span class="chapter-bottom">FPGA design <span aria-hidden="true">↗</span></span></a>
-    <a class="chapter" href="hardware.html"><span class="chapter-index">03 / PHYSICAL SYSTEM</span><h3 class="anchored">Where code<br>meets the coil.</h3><p>Candidate components, circuit connectivity, and the bench plan.</p><span class="chapter-bottom">Hardware &amp; materials <span aria-hidden="true">↗</span></span></a>
-  </div>
-</section>
-<section class="site-width evidence-band"><div><p class="eyebrow">EVIDENCE, WITH CONTEXT</p><h2 class="anchored">Designed. Simulated.<br>Next: measured.</h2></div><div><p>The repository records passing software and HDL checks, plus a routed FPGA implementation. Levitation, thermal behavior, and physical timing have not yet been measured.</p><a class="action primary" href="results.html">Read the verification record <span aria-hidden="true">↗</span></a></div></section>
+<section id="authors" class="level2">
+<h2 class="anchored" data-anchor-id="authors">Authors</h2>
+<ul>
+<li>Stephen: <a href="https://stephenthecoder.github.io/engr155-portfolio/">E155 Portfolio</a> and <a href="https://github.com/StephenTheCoder">GitHub</a></li>
+<li>Ben: <a href="https://jebeandiah.github.io/hmc-e155-portfolio/">E155 Portfolio</a> and <a href="https://github.com/jebeandiah">GitHub</a></li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script src="./assets/site.js" defer=""></script>
@@ -316,7 +282,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/ENGR155\.github\.io\/macroprocessors\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -652,11 +618,11 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>FIELD / 155 · Hall-sensed magnetic levitation</p>
+<p>Stephen Kanti Mahanty and Ben Lertwachara · ENGR 155</p>
 </div>   
     <div class="nav-footer-center">
-<p>Harvey Mudd College · ENGR 155</p>
-</div>
+      &nbsp;
+    </div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">

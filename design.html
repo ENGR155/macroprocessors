@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="System architecture and control strategy for the Hall-sensed magnetic levitation project.">
+<meta name="description" content="System architecture and control loops for the magnetic levitation project.">
 
-<title>The architecture of balance. – FIELD / 155</title>
+<title>System Design – E155 Magnetic Levitation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -37,17 +37,16 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./assets/favicon.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-9f43a20c679eb76b4703ca291990b4b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ba037b2a1395a26410b88d627e3aaf08.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-773a29bda851b1c8227aab6a71954f29.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -87,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">FIELD <span class="brand-slash">/</span> 155</span>
+    <span class="navbar-title">E155 Project</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -98,7 +97,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Overview</span></a>
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
@@ -107,19 +106,19 @@ ul.task-list li input[type="checkbox"] {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-design">    
         <li>
     <a class="dropdown-item" href="./design.html">
- <span class="dropdown-text">System architecture</span></a>
+ <span class="dropdown-text">System Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./mcu.html">
- <span class="dropdown-text">MCU design</span></a>
+ <span class="dropdown-text">MCU Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./fpga.html">
- <span class="dropdown-text">FPGA design</span></a>
+ <span class="dropdown-text">FPGA Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./hardware.html">
- <span class="dropdown-text">Hardware &amp; materials</span></a>
+ <span class="dropdown-text">Hardware</span></a>
   </li>  
     </ul>
   </li>
@@ -134,12 +133,6 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
-  </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./docs/build.html"> 
-<span class="menu-text">Build guide</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -157,11 +150,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-complete-path" id="toc-the-complete-path" class="nav-link active" data-scroll-target="#the-complete-path">The complete path</a></li>
-  <li><a href="#define-the-direction-first" id="toc-define-the-direction-first" class="nav-link" data-scroll-target="#define-the-direction-first">Define the direction first</a></li>
-  <li><a href="#two-loops-different-responsibilities" id="toc-two-loops-different-responsibilities" class="nav-link" data-scroll-target="#two-loops-different-responsibilities">Two loops, different responsibilities</a></li>
-  <li><a href="#the-central-experiment-observability" id="toc-the-central-experiment-observability" class="nav-link" data-scroll-target="#the-central-experiment-observability">The central experiment: observability</a></li>
-  <li><a href="#build-the-evidence-in-order" id="toc-build-the-evidence-in-order" class="nav-link" data-scroll-target="#build-the-evidence-in-order">Build the evidence in order</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#position-control" id="toc-position-control" class="nav-link" data-scroll-target="#position-control">Position Control</a></li>
+  <li><a href="#current-control" id="toc-current-control" class="nav-link" data-scroll-target="#current-control">Current Control</a></li>
+  <li><a href="#hall-sensor-calibration" id="toc-hall-sensor-calibration" class="nav-link" data-scroll-target="#hall-sensor-calibration">Hall Sensor Calibration</a></li>
+  <li><a href="#testing-plan" id="toc-testing-plan" class="nav-link" data-scroll-target="#testing-plan">Testing Plan</a></li>
   </ul>
 </nav>
     </div>
@@ -169,18 +162,15 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 <a class="skip-link" href="#quarto-document-content">Skip to content</a>
 
-<noscript><style>.system-tabs{display:none}.explorer-panels>[hidden]{display:grid!important}.explorer-panels>[role="tabpanel"]{margin-bottom:2rem}</style></noscript>
-
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">The architecture of balance.</h1>
-<p class="subtitle lead">A fast current loop inside a slower position loop, with independent output supervision.</p>
+<h1 class="title">System Design</h1>
 </div>
 
 <div>
   <div class="description">
-    System architecture and control strategy for the Hall-sensed magnetic levitation project.
+    System architecture and control loops for the magnetic levitation project.
   </div>
 </div>
 
@@ -197,16 +187,11 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><span class="article-label">SYSTEM DESIGN / 01</span></p>
-<div class="lead">
-<p>The browser chooses a gap. The STM32 decides how much lift to request. The FPGA turns that request into regulated coil current.</p>
-</div>
-<section id="the-complete-path" class="level2">
-<h2 class="anchored" data-anchor-id="the-complete-path">The complete path</h2>
-<div class="flow-diagram" aria-label="Command path: browser to ESP8266 to STM32 to FPGA">
-<div class="flow-node"><strong>Browser</strong><span>Gap target · HTTP</span></div><span class="flow-arrow" aria-hidden="true">→</span><div class="flow-node"><strong>ESP8266</strong><span>Course Wi-Fi server</span></div><span class="flow-arrow" aria-hidden="true">→</span><div class="flow-node"><strong>STM32</strong><span>Position estimation</span></div><span class="flow-arrow" aria-hidden="true">→</span><div class="flow-node"><strong>UPduino</strong><span>Current regulation</span></div>
-</div>
-<p>The FPGA drives the power stage through an interlock. Current and two Hall measurements return through an MCP3204 ADC. The MCU compensates the Hall readings for coil current before calculating its next request. The <a href="./docs/design.html#system-boundary">complete system diagram</a> includes the analog feedback and physical interlock paths.</p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>We designed the system with two control loops. The MCU estimates the position of the object and calculates a current request. The FPGA uses that request to regulate the coil current. The webpage lets the user change the target gap through the course ESP8266 module.</p>
+<pre class="text"><code>Webpage -&gt; ESP8266 -&gt; STM32 MCU -&gt; UPduino FPGA -&gt; Coil driver</code></pre>
+<p>The FPGA reads the current sensor and two Hall sensors through an MCP3204 ADC. These readings are sent to the MCU, which uses them to calculate the next current request. The <a href="./docs/design.html#system-boundary">full system diagram</a> shows the feedback connections and physical interlock.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -215,60 +200,65 @@ ul.task-list li input[type="checkbox"] {
 </colgroup>
 <thead>
 <tr class="header">
-<th>Layer</th>
-<th>Responsibility</th>
-<th>Nominal timing</th>
+<th>Component</th>
+<th>Function</th>
+<th>Design rate</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Browser + ESP8266</td>
-<td>Gap target, operating state, operator lease</td>
+<td>Webpage and ESP8266</td>
+<td>Send the target gap and operating commands</td>
 <td>125000-baud UART to MCU</td>
 </tr>
 <tr class="even">
 <td>STM32L432KC</td>
-<td>Gap estimate, filtered velocity, bounded position control</td>
-<td>1 kHz update</td>
+<td>Estimate position and run the position controller</td>
+<td>1 kHz</td>
 </tr>
 <tr class="odd">
-<td>UPduino v3.1 / UP5K</td>
-<td>ADC scan, current PI, packet validation, fault logic</td>
-<td>10 kHz scan and current update</td>
+<td>UPduino v3.1</td>
+<td>Read the ADC and run the current controller</td>
+<td>10 kHz</td>
 </tr>
 <tr class="even">
 <td>Coil driver</td>
-<td>Switch coil power under independent permission</td>
+<td>Switch power to the coil</td>
 <td>20 kHz PWM</td>
 </tr>
 </tbody>
 </table>
-<p>These are design rates, not measured bandwidths. External timing and control stability still require bench measurements.</p>
+<p>These rates are design values. We still need to measure timing and stability on hardware.</p>
 </section>
-<section id="define-the-direction-first" class="level2">
-<h2 class="anchored" data-anchor-id="define-the-direction-first">Define the direction first</h2>
-<p>The gap <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> is measured <strong>downward</strong> from the coil reference plane. Increasing the target lowers the object. A simplified local force balance is</p>
+<section id="position-control" class="level2">
+<h2 class="anchored" data-anchor-id="position-control">Position Control</h2>
+<p>The gap <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> is measured downward from the coil. A larger gap means the object is farther below the coil. The force balance is</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mover><mi>x</mi><mo accent="true">̈</mo></mover><mo>=</mo><mi>m</mi><mi>g</mi><mo>−</mo><mi>F</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">m\ddot{x}=mg-F(i,x).</annotation></semantics></math></p>
-<p>The rough relation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>≈</mo><mi>k</mi><msup><mi>i</mi><mn>2</mn></msup><mi>/</mi><msup><mi>x</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">F\approx ki^2/x^2</annotation></semantics></math> helps identify the system, but it is not a validated model of the eventual coil. Mass, lift, resistance, inductance, and temperature must be measured for the chosen geometry.</p>
+<p>The approximate relationship <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>≈</mo><mi>k</mi><msup><mi>i</mi><mn>2</mn></msup><mi>/</mi><msup><mi>x</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">F\approx ki^2/x^2</annotation></semantics></math> is useful for planning, but the actual force will depend on the coil and object we select. We need to measure mass, lifting force, resistance, inductance, and temperature before tuning the controller.</p>
+<p>The position controller compares the measured gap with the target gap and requests more current when the object is too low. It also uses filtered velocity to reduce oscillation. The target changes gradually, and the current request is limited to the configured operating range.</p>
+<p><a href="./mcu.html">MCU Design</a></p>
 </section>
-<section id="two-loops-different-responsibilities" class="level2">
-<h2 class="anchored" data-anchor-id="two-loops-different-responsibilities">Two loops, different responsibilities</h2>
-<p>The position loop uses the measured gap error and filtered downward velocity to request current. A positive error means the object is too low, so the controller requests more lift. A rate-limited target, saturation, and anti-windup bound that request.</p>
-<p>The inner loop regulates measured current in ADC counts. Its fixed-point PI calculation updates the next PWM duty. Normal updates occur at period boundaries; a fault can remove the output immediately.</p>
-<div class="doc-grid"><a class="doc-card" href="mcu.html"><span class="article-label">STM32L432KC</span><h3 class="anchored">MCU design ↗</h3><p>Follow the estimate, control law, scheduler, and interface.</p></a><a class="doc-card" href="fpga.html"><span class="article-label">LATTICE iCE40UP5K</span><h3 class="anchored">FPGA design ↗</h3><p>Inspect acquisition, arithmetic, PWM, and fault supervision.</p></a></div>
+<section id="current-control" class="level2">
+<h2 class="anchored" data-anchor-id="current-control">Current Control</h2>
+<p>The FPGA compares the requested current with the measured current and uses a PI controller to calculate the PWM duty cycle. The controller works in ADC counts and PWM ticks. Normal duty changes happen at the start of a PWM period. A fault can disable the output immediately.</p>
+<p><a href="./fpga.html">FPGA Design</a></p>
 </section>
-<section id="the-central-experiment-observability" class="level2">
-<h2 class="anchored" data-anchor-id="the-central-experiment-observability">The central experiment: observability</h2>
-<p>Both Hall sensors see the coil and the suspended object. Two readings do not automatically cancel the coil field. The local estimator also uses measured current:</p>
-<pre class="text"><code>gap_mm = c0 + c1·Hall1_counts + c2·Hall2_counts + c3·current_A</code></pre>
-<p>Calibration requires known mechanical gaps, current sweeps, and independent holdout measurements. Because channels are sampled sequentially, changing current during a scan may corrupt compensation. Fixed-object current steps are a necessary test before feedback tuning.</p>
-<p>The first object should contain a permanent magnet with repeatable orientation. A plain steel sphere is not interchangeable with that design assumption.</p>
+<section id="hall-sensor-calibration" class="level2">
+<h2 class="anchored" data-anchor-id="hall-sensor-calibration">Hall Sensor Calibration</h2>
+<p>Both Hall sensors measure the field from the coil as well as the suspended object. Using two sensors does not guarantee that the coil field cancels out. The gap estimate also includes the measured coil current:</p>
+<pre class="text"><code>gap_mm = c0 + c1*Hall1_counts + c2*Hall2_counts + c3*current_A</code></pre>
+<p>We plan to fit these coefficients using readings at known gaps and currents, then check the model with separate measurements. Since the ADC reads the channels one at a time, we also need to check whether current changes during a scan affect the estimate.</p>
+<p>The initial design assumes that the suspended object contains a permanent magnet with a repeatable orientation. A plain steel sphere would need a different characterization procedure.</p>
 </section>
-<section id="build-the-evidence-in-order" class="level2">
-<h2 class="anchored" data-anchor-id="build-the-evidence-in-order">Build the evidence in order</h2>
-<ol class="process-list"><li><div><strong>Establish the physical system.</strong><p>Select a coil and object; measure force, field range, and heating.</p></div></li><li><div><strong>Validate sensing and shutdown.</strong><p>Check analog scaling, Hall observability, interlock behavior, and timing.</p></div></li><li><div><strong>Close the current loop.</strong><p>Use supported-object current steps and measured response to tune the PI controller.</p></div></li><li><div><strong>Close the position loop.</strong><p>Tune PD first, then evaluate settling, disturbance rejection, and operating limits.</p></div></li></ol>
-<p><a href="./docs/design.html">Read the detailed implementation and timing calculations →</a></p>
-<p><a href="./docs/bringup.html">Continue to the bring-up procedure →</a></p>
+<section id="testing-plan" class="level2">
+<h2 class="anchored" data-anchor-id="testing-plan">Testing Plan</h2>
+<ol type="1">
+<li>Select the coil and object, then measure force, sensor range, and heating.</li>
+<li>Check the sensor scaling, gap estimate, shutdown circuit, and timing.</li>
+<li>Support the object and tune the current controller using current steps.</li>
+<li>Tune the position controller, starting with proportional and derivative control, then measure settling and disturbance response.</li>
+</ol>
+<p>The <a href="./docs/design.html">detailed design</a> contains the control equations and timing calculations. The <a href="./docs/bringup.html">bring-up procedure</a> describes the planned bench tests.</p>
 
 
 </section>
@@ -349,7 +339,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/ENGR155\.github\.io\/macroprocessors\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -685,11 +675,11 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>FIELD / 155 · Hall-sensed magnetic levitation</p>
+<p>Stephen Kanti Mahanty and Ben Lertwachara · ENGR 155</p>
 </div>   
     <div class="nav-footer-center">
-<p>Harvey Mudd College · ENGR 155</p>
-</div>
+      &nbsp;
+    </div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">

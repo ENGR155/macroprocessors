@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Technical and visual design credits for the magnetic levitation project website.">
+<meta name="description" content="Engineering sources and website references for the project.">
 
-<title>Sources &amp; acknowledgements. – FIELD / 155</title>
+<title>References and Acknowledgements – E155 Magnetic Levitation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -37,17 +37,16 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./assets/favicon.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-9f43a20c679eb76b4703ca291990b4b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ba037b2a1395a26410b88d627e3aaf08.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-773a29bda851b1c8227aab6a71954f29.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -87,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">FIELD <span class="brand-slash">/</span> 155</span>
+    <span class="navbar-title">E155 Project</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -98,7 +97,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Overview</span></a>
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
@@ -107,19 +106,19 @@ ul.task-list li input[type="checkbox"] {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-design">    
         <li>
     <a class="dropdown-item" href="./design.html">
- <span class="dropdown-text">System architecture</span></a>
+ <span class="dropdown-text">System Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./mcu.html">
- <span class="dropdown-text">MCU design</span></a>
+ <span class="dropdown-text">MCU Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./fpga.html">
- <span class="dropdown-text">FPGA design</span></a>
+ <span class="dropdown-text">FPGA Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./hardware.html">
- <span class="dropdown-text">Hardware &amp; materials</span></a>
+ <span class="dropdown-text">Hardware</span></a>
   </li>  
     </ul>
   </li>
@@ -134,12 +133,6 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
-  </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./docs/build.html"> 
-<span class="menu-text">Build guide</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -157,10 +150,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#engineering-references" id="toc-engineering-references" class="nav-link active" data-scroll-target="#engineering-references">Engineering references</a></li>
-  <li><a href="#portfolio-structure" id="toc-portfolio-structure" class="nav-link" data-scroll-target="#portfolio-structure">Portfolio structure</a></li>
-  <li><a href="#design-references" id="toc-design-references" class="nav-link" data-scroll-target="#design-references">Design references</a></li>
-  <li><a href="#illustration-and-acknowledgements" id="toc-illustration-and-acknowledgements" class="nav-link" data-scroll-target="#illustration-and-acknowledgements">Illustration and acknowledgements</a></li>
+  <li><a href="#technical-references" id="toc-technical-references" class="nav-link active" data-scroll-target="#technical-references">Technical References</a></li>
+  <li><a href="#website-references" id="toc-website-references" class="nav-link" data-scroll-target="#website-references">Website References</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   </ul>
 </nav>
     </div>
@@ -168,18 +160,15 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 <a class="skip-link" href="#quarto-document-content">Skip to content</a>
 
-<noscript><style>.system-tabs{display:none}.explorer-panels>[hidden]{display:grid!important}.explorer-panels>[role="tabpanel"]{margin-bottom:2rem}</style></noscript>
-
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Sources &amp; acknowledgements.</h1>
-<p class="subtitle lead">The engineering references and design ideas behind this portfolio.</p>
+<h1 class="title">References and Acknowledgements</h1>
 </div>
 
 <div>
   <div class="description">
-    Technical and visual design credits for the magnetic levitation project website.
+    Engineering sources and website references for the project.
   </div>
 </div>
 
@@ -196,57 +185,25 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="engineering-references" class="level2">
-<h2 class="anchored" data-anchor-id="engineering-references">Engineering references</h2>
-<p>The <a href="./docs/references.html">complete technical reference list</a> links course materials and manufacturer documentation for the STM32L432KC, UPduino, DRV5055, MCP3204, INA240, and UCC27511. Candidate part information is documented in the <a href="./docs/hardware.html">hardware guide</a>.</p>
-<p>Project claims on this site derive from the repository’s design, hardware, protocol, and verification notes. Quantitative implementation results are attributed to the <a href="./docs/verification.html">October 15, 2026 record</a>.</p>
+<section id="technical-references" class="level2">
+<h2 class="anchored" data-anchor-id="technical-references">Technical References</h2>
+<p>The <a href="./docs/references.html">technical reference list</a> contains links to the course materials and manufacturer documentation for the STM32L432KC, UPduino, DRV5055, MCP3204, INA240, and UCC27511. The <a href="./docs/hardware.html">hardware guide</a> explains the candidate part choices.</p>
+<p>The system descriptions on this website are based on the repository’s design, hardware, and protocol notes. The recorded test results come from the <a href="./docs/verification.html">October 15, 2026 verification record</a>.</p>
 </section>
-<section id="portfolio-structure" class="level2">
-<h2 class="anchored" data-anchor-id="portfolio-structure">Portfolio structure</h2>
-<p><a href="https://maynorb.github.io/E155ProjectSite/">Carlos and Maynor’s E155 project site</a> provided the page-organization reference: documentation, MCU design, FPGA design, results, AI use, and acknowledgements. Its <a href="https://github.com/MaynorB/E155ProjectSite">public Quarto source</a> was reviewed when the hosted site could not be fetched. Its portable DJ project content, measurements, and media are not reused here.</p>
+<section id="website-references" class="level2">
+<h2 class="anchored" data-anchor-id="website-references">Website References</h2>
+<p>We used the following websites as references for the layout and writing:</p>
+<ul>
+<li><a href="https://maynorb.github.io/E155ProjectSite/">Carlos and Maynor’s E155 Project</a>: simple project pages organized around documentation, MCU design, FPGA design, results, and acknowledgements.</li>
+<li><a href="https://hmc-e155.github.io/">HMC E155</a>: basic Quarto navigation, headings, tables, and documentation links.</li>
+<li><a href="https://stephenthecoder.github.io/engr155-portfolio/">Stephen’s E155 Portfolio</a>: writing style and author information.</li>
+<li><a href="https://jebeandiah.github.io/hmc-e155-portfolio/">Ben’s E155 Portfolio</a>: writing style and author information.</li>
+</ul>
+<p>The website uses Quarto’s Cosmo theme with a few local style adjustments. The technical content describes our magnetic levitation design; it does not reuse the reference project’s results or media.</p>
 </section>
-<section id="design-references" class="level2">
-<h2 class="anchored" data-anchor-id="design-references">Design references</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Reference</th>
-<th>Application in this site</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="https://www.awwwards.com/">Awwwards</a> and its <a href="https://www.awwwards.com/inspiration/scroll-portfolio">portfolio inspiration</a></td>
-<td>Editorial hierarchy, generous spacing, and project-specific art direction</td>
-</tr>
-<tr class="even">
-<td><a href="https://impeccable.style/#downloads">Impeccable</a></td>
-<td>Clear hierarchy, readable text, restrained effects, and concrete labels</td>
-</tr>
-<tr class="odd">
-<td>User-supplied apple-design skill</td>
-<td>System typography, translucent navigation, immediate feedback, accessibility preferences</td>
-</tr>
-<tr class="even">
-<td><a href="https://magicui.design/docs/components">Magic UI components</a></td>
-<td>Connected-system presentation and modular chapter navigation</td>
-</tr>
-<tr class="odd">
-<td><a href="https://mui.com/material-ui/react-tabs/">Material UI tabs</a></td>
-<td>Familiar tab semantics, selected states, and keyboard interaction</td>
-</tr>
-<tr class="even">
-<td><a href="https://www.untitledui.com/react/components">Untitled UI components</a></td>
-<td>Documentation navigation, disclosure rows, and consistent spacing</td>
-</tr>
-</tbody>
-</table>
-<p>These are design and interaction references. The site implements its own lightweight components for Quarto; no paid assets or React library code are included.</p>
-</section>
-<section id="illustration-and-acknowledgements" class="level2">
-<h2 class="anchored" data-anchor-id="illustration-and-acknowledgements">Illustration and acknowledgements</h2>
-<p>The magnetic-field illustration and favicon were created for this website as SVG assets. The illustration describes the concept and does not represent measured fields or an assembled prototype.</p>
-<p>Named acknowledgements and team contribution details are pending confirmation from the project team. <a href="./about.html">See the project information</a> and <a href="./ai.html">AI-use disclosure</a>.</p>
+<section id="acknowledgements" class="level2">
+<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>Course materials and manufacturer datasheets informed the design. Codex assisted with the implementation, documentation, and website, as described on the <a href="./ai.html">AI Use</a> page.</p>
 
 
 </section>
@@ -327,7 +284,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/ENGR155\.github\.io\/macroprocessors\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -663,11 +620,11 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>FIELD / 155 · Hall-sensed magnetic levitation</p>
+<p>Stephen Kanti Mahanty and Ben Lertwachara · ENGR 155</p>
 </div>   
     <div class="nav-footer-center">
-<p>Harvey Mudd College · ENGR 155</p>
-</div>
+      &nbsp;
+    </div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">

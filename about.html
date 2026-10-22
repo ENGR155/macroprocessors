@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Project scope, development status, team information, and acknowledgements.">
+<meta name="description" content="Authors and scope of the ENGR 155 magnetic levitation project.">
 
-<title>A study in feedback. – FIELD / 155</title>
+<title>About – E155 Magnetic Levitation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -37,17 +37,16 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./assets/favicon.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-9f43a20c679eb76b4703ca291990b4b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ba037b2a1395a26410b88d627e3aaf08.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-773a29bda851b1c8227aab6a71954f29.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -87,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">FIELD <span class="brand-slash">/</span> 155</span>
+    <span class="navbar-title">E155 Project</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -98,7 +97,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Overview</span></a>
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
@@ -107,19 +106,19 @@ ul.task-list li input[type="checkbox"] {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-design">    
         <li>
     <a class="dropdown-item" href="./design.html">
- <span class="dropdown-text">System architecture</span></a>
+ <span class="dropdown-text">System Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./mcu.html">
- <span class="dropdown-text">MCU design</span></a>
+ <span class="dropdown-text">MCU Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./fpga.html">
- <span class="dropdown-text">FPGA design</span></a>
+ <span class="dropdown-text">FPGA Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./hardware.html">
- <span class="dropdown-text">Hardware &amp; materials</span></a>
+ <span class="dropdown-text">Hardware</span></a>
   </li>  
     </ul>
   </li>
@@ -134,12 +133,6 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link active" href="./about.html" aria-current="page"> 
 <span class="menu-text">About</span></a>
-  </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./docs/build.html"> 
-<span class="menu-text">Build guide</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -157,10 +150,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#scope" id="toc-scope" class="nav-link active" data-scroll-target="#scope">Scope</a></li>
-  <li><a href="#authors" id="toc-authors" class="nav-link" data-scroll-target="#authors">Authors</a></li>
+  <li><a href="#the-project" id="toc-the-project" class="nav-link active" data-scroll-target="#the-project">The Project</a></li>
+  <li><a href="#authors" id="toc-authors" class="nav-link" data-scroll-target="#authors">Authors</a>
+  <ul class="collapse">
+  <li><a href="#stephen-kanti-mahanty" id="toc-stephen-kanti-mahanty" class="nav-link" data-scroll-target="#stephen-kanti-mahanty">Stephen Kanti Mahanty</a></li>
+  <li><a href="#ben-lertwachara" id="toc-ben-lertwachara" class="nav-link" data-scroll-target="#ben-lertwachara">Ben Lertwachara</a></li>
+  </ul></li>
   <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
-  <li><a href="#about-this-website" id="toc-about-this-website" class="nav-link" data-scroll-target="#about-this-website">About this website</a></li>
+  <li><a href="#website" id="toc-website" class="nav-link" data-scroll-target="#website">Website</a></li>
   </ul>
 </nav>
     </div>
@@ -168,18 +165,15 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 <a class="skip-link" href="#quarto-document-content">Skip to content</a>
 
-<noscript><style>.system-tabs{display:none}.explorer-panels>[hidden]{display:grid!important}.explorer-panels>[role="tabpanel"]{margin-bottom:2rem}</style></noscript>
-
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">A study in feedback.</h1>
-<p class="subtitle lead">Hall-sensed magnetic levitation · Harvey Mudd College · ENGR 155</p>
+<h1 class="title">About</h1>
 </div>
 
 <div>
   <div class="description">
-    Project scope, development status, team information, and acknowledgements.
+    Authors and scope of the ENGR 155 magnetic levitation project.
   </div>
 </div>
 
@@ -196,52 +190,31 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><span class="article-label">ABOUT THE PROJECT</span></p>
-<div class="lead">
-<p>This project investigates how embedded software and digital logic can cooperate to suspend a magnetic object beneath an electromagnet.</p>
-</div>
-<section id="scope" class="level2">
-<h2 class="anchored" data-anchor-id="scope">Scope</h2>
-<p>The design uses the course STM32L432KC and UPduino v3.1 boards, a browser interface through the course ESP8266, and three analog measurement channels. It divides floating-point position estimation and control from autonomous current regulation and fault supervision.</p>
-<p>The repository currently contains a digital implementation, engineering documentation, software and HDL tests, calibration tooling, and a bench plan. Physical component selection and hardware validation remain ahead.</p>
+<section id="the-project" class="level2">
+<h2 class="anchored" data-anchor-id="the-project">The Project</h2>
+<p>This is our project for ENGR 155 at Harvey Mudd College. We are using the course MCU, FPGA, and ESP8266 boards to design a system that controls the height of a suspended magnetic object. The <a href="./design.html">system design</a> explains how we divide the work between the boards.</p>
 </section>
 <section id="authors" class="level2">
 <h2 class="anchored" data-anchor-id="authors">Authors</h2>
-<p>Stephen Kanti Mahanty and Ben Lertwachara are the authors of this ENGR 155 project at Harvey Mudd College.</p>
-<div class="doc-grid author-grid">
-  <article class="author-card" aria-labelledby="author-stephen">
-    <p class="article-label">ENGINEERING</p>
-    <h3 id="author-stephen" class="anchored">Stephen Kanti Mahanty</h3>
-    <p>Stephen studies engineering at Harvey Mudd College, with interests in electrical and computer engineering. His experience includes PCB design, wireless networking and benchmarking, and an Electrical and Communications Engineering internship with Argonne National Laboratory’s Transportation and Power Systems division.</p>
-    <nav class="author-links" aria-label="Stephen’s profiles">
-      <a href="https://stephenthecoder.github.io/engr155-portfolio/">Portfolio <span aria-hidden="true">↗</span></a>
-      <a href="https://www.linkedin.com/in/stephen-kanti-mahanty/">LinkedIn <span aria-hidden="true">↗</span></a>
-      <a href="https://github.com/StephenTheCoder">GitHub <span aria-hidden="true">↗</span></a>
-    </nav>
-  </article>
-  <article class="author-card" aria-labelledby="author-ben">
-    <p class="article-label">COMPUTER SCIENCE</p>
-    <h3 id="author-ben" class="anchored">Ben Lertwachara</h3>
-    <p>Ben studies computer science at Harvey Mudd College. His ENGR 155 portfolio collects his course lab reports and provides links to his work on GitHub.</p>
-    <nav class="author-links" aria-label="Ben’s profiles">
-      <a href="https://jebeandiah.github.io/hmc-e155-portfolio/">Portfolio <span aria-hidden="true">↗</span></a>
-      <a href="https://www.linkedin.com/in/benjamin-lertwachara-0b8251288/">LinkedIn <span aria-hidden="true">↗</span></a>
-      <a href="https://github.com/jebeandiah">GitHub <span aria-hidden="true">↗</span></a>
-    </nav>
-  </article>
-</div>
-<p>Biographical details are drawn from the authors’ linked portfolios.</p>
+<section id="stephen-kanti-mahanty" class="level3">
+<h3 class="anchored" data-anchor-id="stephen-kanti-mahanty">Stephen Kanti Mahanty</h3>
+<p>Stephen studies engineering at Harvey Mudd College and is interested in electrical and computer engineering. His experience includes PCB design and wireless networking, as well as an Electrical and Communications Engineering internship at Argonne National Laboratory.</p>
+<p><a href="https://stephenthecoder.github.io/engr155-portfolio/">E155 Portfolio</a> | <a href="https://github.com/StephenTheCoder">GitHub</a> | <a href="https://www.linkedin.com/in/stephen-kanti-mahanty/">LinkedIn</a></p>
+</section>
+<section id="ben-lertwachara" class="level3">
+<h3 class="anchored" data-anchor-id="ben-lertwachara">Ben Lertwachara</h3>
+<p>Ben is a computer science major at Harvey Mudd College. His E155 portfolio contains his lab reports for the course.</p>
+<p><a href="https://jebeandiah.github.io/hmc-e155-portfolio/">E155 Portfolio</a> | <a href="https://github.com/jebeandiah">GitHub</a> | <a href="https://www.linkedin.com/in/benjamin-lertwachara-0b8251288/">LinkedIn</a></p>
+</section>
 </section>
 <section id="acknowledgements" class="level2">
 <h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
-<p>Course materials and manufacturer documentation inform the design and are credited in the <a href="./docs/references.html">technical reference list</a>. Specific people who assisted the project have not yet been named.</p>
-<p>The implementation and website were prepared with Codex assistance. The <a href="./ai.html">AI-use statement</a> describes the role and limits of that assistance.</p>
+<p>The course materials and manufacturer datasheets are listed in the <a href="./docs/references.html">technical references</a>. We used Codex to help prepare the implementation, documentation, and website. The <a href="./ai.html">AI Use</a> page describes this assistance.</p>
 </section>
-<section id="about-this-website" class="level2">
-<h2 class="anchored" data-anchor-id="about-this-website">About this website</h2>
-<p>The report is authored in Quarto <code>.qmd</code> files. Its organization follows the supplied E155 portfolio reference: documentation, separate MCU and FPGA designs, results, AI use, and acknowledgements. Original technical notes remain available as detailed guides.</p>
-<p>The visual system uses system typography, copper and muted green accents, a locally generated vector illustration, and responsive layouts. Interaction follows the supplied apple-design skill: immediate press feedback, familiar navigation, restrained motion, and accommodations for reduced motion, transparency, and increased contrast.</p>
-<p><a href="./references.html">View design sources and credits →</a></p>
+<section id="website" class="level2">
+<h2 class="anchored" data-anchor-id="website">Website</h2>
+<p>This website is built with Quarto. Its layout follows the E155 course website and Carlos and Maynor’s project website. The pages summarize the project, with links to more detailed engineering notes and source files.</p>
+<p><a href="./references.html">References</a></p>
 
 
 </section>
@@ -322,7 +295,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/ENGR155\.github\.io\/macroprocessors\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -658,11 +631,11 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>FIELD / 155 · Hall-sensed magnetic levitation</p>
+<p>Stephen Kanti Mahanty and Ben Lertwachara · ENGR 155</p>
 </div>   
     <div class="nav-footer-center">
-<p>Harvey Mudd College · ENGR 155</p>
-</div>
+      &nbsp;
+    </div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">

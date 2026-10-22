@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Autonomous ADC acquisition, fixed-point current control, PWM, and fault supervision.">
+<meta name="description" content="ADC acquisition, current control, PWM, and fault handling on the UPduino.">
 
-<title>Control, clock by clock. – FIELD / 155</title>
+<title>FPGA Design – E155 Magnetic Levitation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -37,17 +37,16 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./assets/favicon.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-9f43a20c679eb76b4703ca291990b4b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ba037b2a1395a26410b88d627e3aaf08.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-773a29bda851b1c8227aab6a71954f29.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -87,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">FIELD <span class="brand-slash">/</span> 155</span>
+    <span class="navbar-title">E155 Project</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -98,7 +97,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Overview</span></a>
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
@@ -107,19 +106,19 @@ ul.task-list li input[type="checkbox"] {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-design">    
         <li>
     <a class="dropdown-item" href="./design.html">
- <span class="dropdown-text">System architecture</span></a>
+ <span class="dropdown-text">System Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./mcu.html">
- <span class="dropdown-text">MCU design</span></a>
+ <span class="dropdown-text">MCU Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./fpga.html">
- <span class="dropdown-text">FPGA design</span></a>
+ <span class="dropdown-text">FPGA Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./hardware.html">
- <span class="dropdown-text">Hardware &amp; materials</span></a>
+ <span class="dropdown-text">Hardware</span></a>
   </li>  
     </ul>
   </li>
@@ -134,12 +133,6 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
-  </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./docs/build.html"> 
-<span class="menu-text">Build guide</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -157,11 +150,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-acquisition-pipeline" id="toc-the-acquisition-pipeline" class="nav-link active" data-scroll-target="#the-acquisition-pipeline">The acquisition pipeline</a></li>
-  <li><a href="#fixed-point-regulation" id="toc-fixed-point-regulation" class="nav-link" data-scroll-target="#fixed-point-regulation">Fixed-point regulation</a></li>
-  <li><a href="#faults-stay-latched" id="toc-faults-stay-latched" class="nav-link" data-scroll-target="#faults-stay-latched">Faults stay latched</a></li>
-  <li><a href="#source-map" id="toc-source-map" class="nav-link" data-scroll-target="#source-map">Source map</a></li>
-  <li><a href="#implementation-evidence" id="toc-implementation-evidence" class="nav-link" data-scroll-target="#implementation-evidence">Implementation evidence</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#reading-the-adc" id="toc-reading-the-adc" class="nav-link" data-scroll-target="#reading-the-adc">Reading the ADC</a></li>
+  <li><a href="#current-controller" id="toc-current-controller" class="nav-link" data-scroll-target="#current-controller">Current Controller</a></li>
+  <li><a href="#fault-handling" id="toc-fault-handling" class="nav-link" data-scroll-target="#fault-handling">Fault Handling</a></li>
+  <li><a href="#source-files" id="toc-source-files" class="nav-link" data-scroll-target="#source-files">Source Files</a></li>
+  <li><a href="#testing" id="toc-testing" class="nav-link" data-scroll-target="#testing">Testing</a></li>
   </ul>
 </nav>
     </div>
@@ -169,18 +163,15 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 <a class="skip-link" href="#quarto-document-content">Skip to content</a>
 
-<noscript><style>.system-tabs{display:none}.explorer-panels>[hidden]{display:grid!important}.explorer-panels>[role="tabpanel"]{margin-bottom:2rem}</style></noscript>
-
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Control, clock by clock.</h1>
-<p class="subtitle lead">FPGA design · UPduino v3.1 / Lattice iCE40UP5K</p>
+<h1 class="title">FPGA Design</h1>
 </div>
 
 <div>
   <div class="description">
-    Autonomous ADC acquisition, fixed-point current control, PWM, and fault supervision.
+    ADC acquisition, current control, PWM, and fault handling on the UPduino.
   </div>
 </div>
 
@@ -197,100 +188,85 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><span class="article-label">DIGITAL LOGIC / 03</span></p>
-<div class="lead">
-<p>Acquisition, current regulation, and fault supervision run in hardware, independently of the MCU’s position calculations.</p>
-</div>
-<section id="the-acquisition-pipeline" class="level2">
-<h2 class="anchored" data-anchor-id="the-acquisition-pipeline">The acquisition pipeline</h2>
-<p>The nominal 24 MHz internal timebase produces a 100 µs scan frame. The MCP3204 sequencer acquires <strong>CH0 current → CH1 primary Hall → CH2 reference Hall</strong>, then exposes a coherent snapshot and sample identifier.</p>
-<p>ADC SPI runs at approximately 0.857 MHz. Three conversions and chip-select gaps occupy approximately 87 µs. Sampling begins 2.5 µs after every other PWM start, but the variable falling edge can still cross the acquisition window. Analog filtering and scope captures remain necessary.</p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>The UPduino FPGA reads the sensors and regulates the coil current. We placed the current controller on the FPGA so that it can run independently of the MCU’s position calculations and webpage communication.</p>
 </section>
-<section id="fixed-point-regulation" class="level2">
-<h2 class="anchored" data-anchor-id="fixed-point-regulation">Fixed-point regulation</h2>
-<p>The PI controller works in raw ADC counts and PWM ticks. Gains use Q8.8 scaling: <code>kp_q8 / 256</code> is ticks per count, while <code>ki_q8 / 256</code> is ticks per count <strong>per 100 µs update</strong>.</p>
-<p>Seven registered arithmetic stages complete in less than 0.3 µs at the nominal clock. Intermediate widths and gain bounds are explicit; the integrator is limited to ±1080 × 256. Removing enable clears PI history.</p>
+<section id="reading-the-adc" class="level2">
+<h2 class="anchored" data-anchor-id="reading-the-adc">Reading the ADC</h2>
+<p>The design uses a nominal 24 MHz internal clock and starts an ADC scan every 100 microseconds. The MCP3204 reads three channels in order: coil current on CH0, the primary Hall sensor on CH1, and the reference Hall sensor on CH2. The completed readings are stored together with a sample ID for the MCU.</p>
+<p>The ADC SPI clock is approximately 0.857 MHz. Three conversions and the chip-select gaps take approximately 87 microseconds. Sampling starts 2.5 microseconds after every other PWM period begins. The PWM falling edge can still occur during a scan, so filtering and oscilloscope measurements are needed to check for switching noise.</p>
+</section>
+<section id="current-controller" class="level2">
+<h2 class="anchored" data-anchor-id="current-controller">Current Controller</h2>
+<p>The PI controller calculates the PWM duty using ADC counts and PWM ticks. The gains use Q8.8 fixed-point values. Dividing <code>kp_q8</code> by 256 gives ticks per count, and dividing <code>ki_q8</code> by 256 gives ticks per count per 100 microseconds update.</p>
+<p>The calculation uses seven registered arithmetic stages and completes in less than 0.3 microseconds at the nominal clock rate. The integrator is limited to +/-1080 * 256. Disabling the controller clears its history.</p>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 30%">
-<col style="width: 40%">
-<col style="width: 30%">
-</colgroup>
 <thead>
 <tr class="header">
-<th>Timing element</th>
-<th style="text-align: right;">Design value</th>
-<th>Meaning</th>
+<th>Parameter</th>
+<th>Design value</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Internal clock</td>
-<td style="text-align: right;">24 MHz nominal</td>
-<td>Divided internal oscillator; measure on hardware</td>
+<td>24 MHz nominal</td>
 </tr>
 <tr class="even">
-<td>Current update</td>
-<td style="text-align: right;">2400 cycles</td>
-<td>10 kHz</td>
+<td>Current update period</td>
+<td>2400 cycles, or 100 microseconds</td>
 </tr>
 <tr class="odd">
 <td>PWM period</td>
-<td style="text-align: right;">1200 cycles</td>
-<td>20 kHz</td>
+<td>1200 cycles, or 50 microseconds</td>
 </tr>
 <tr class="even">
 <td>Maximum duty</td>
-<td style="text-align: right;">1080 ticks</td>
-<td>90%; deliberate off-time</td>
+<td>1080 ticks, or 90%</td>
 </tr>
 <tr class="odd">
-<td>Command watchdog</td>
-<td style="text-align: right;">20 ms</td>
-<td>Valid, advancing commands required</td>
+<td>Command timeout</td>
+<td>20 ms</td>
 </tr>
 <tr class="even">
-<td>ADC watchdog</td>
-<td style="text-align: right;">250 µs</td>
-<td>Completed scans required</td>
+<td>ADC timeout</td>
+<td>250 microseconds</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="faults-stay-latched" class="level2">
-<h2 class="anchored" data-anchor-id="faults-stay-latched">Faults stay latched</h2>
-<div class="native-accordion">
-<details open=""><summary>Packet integrity and freshness</summary><div><p>Serial CRC logic checks the command payload; malformed, short, corrupted, or repeated-sequence commands cannot refresh the watchdog. Command validation completes about 5 µs after chip select rises.</p></div></details>
-<details><summary>Four fault sources</summary><div><p>Fault bits report external interlock loss, sampled overcurrent, command timeout, and ADC scan timeout. Faults remain latched until a valid clear sequence satisfies the health conditions.</p></div></details>
-<details><summary>Clear is separate from arm</summary><div><p>Clearing requires a disabled valid command, a recent scan, a healthy external input, and current below the requested hard limit. Arming is a subsequent action. Default uncommissioned builds keep output disabled.</p></div></details>
-</div>
-<p>PWM duty changes at a period boundary during normal operation. A fault or loss of permission can truncate a pulse. The proposed physical interlock is independent of telemetry refresh and must be validated on the actual board.</p>
+<section id="fault-handling" class="level2">
+<h2 class="anchored" data-anchor-id="fault-handling">Fault Handling</h2>
+<p>The FPGA checks command packets using a serial CRC. A malformed packet or repeated sequence number does not reset the command timeout. Validation finishes approximately 5 microseconds after chip select rises.</p>
+<p>Four conditions can latch a fault: loss of the external interlock, sampled overcurrent, command timeout, and ADC timeout. Clearing a fault requires a valid disabled command, a recent ADC scan, a healthy external input, and current below the requested hard limit. Arming the controller is a separate command.</p>
+<p>Normal PWM updates happen at period boundaries. A fault or loss of permission can stop a pulse immediately. The default build keeps the output disabled, and the proposed physical interlock still needs to be tested on the board.</p>
 </section>
-<section id="source-map" class="level2">
-<h2 class="anchored" data-anchor-id="source-map">Source map</h2>
+<section id="source-files" class="level2">
+<h2 class="anchored" data-anchor-id="source-files">Source Files</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th>File</th>
-<th>Role</th>
+<th>Function</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><a href="fpga/rtl/top.sv">top.sv</a></td>
-<td>Oscillator wrapper and board-level connections</td>
+<td>Oscillator and board connections</td>
 </tr>
 <tr class="even">
 <td><a href="fpga/rtl/lev_core.sv">lev_core.sv</a></td>
-<td>Integration, timebase, output gating, faults</td>
+<td>Integration, timing, output gating, and faults</td>
 </tr>
 <tr class="odd">
 <td><a href="fpga/rtl/mcp3204_scan.sv">mcp3204_scan.sv</a></td>
-<td>Autonomous three-channel ADC sequencing</td>
+<td>Three-channel ADC sequencing</td>
 </tr>
 <tr class="even">
 <td><a href="fpga/rtl/current_pi.sv">current_pi.sv</a></td>
-<td>Registered signed fixed-point regulation</td>
+<td>Fixed-point PI controller</td>
 </tr>
 <tr class="odd">
 <td><a href="fpga/rtl/spi_frame.sv">spi_frame.sv</a></td>
@@ -298,19 +274,19 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td><a href="fpga/rtl/crc112.sv">crc112.sv</a></td>
-<td>Serial payload checksum</td>
+<td>Packet checksum</td>
 </tr>
 <tr class="odd">
 <td><a href="fpga/constraints/upduino.pcf">upduino.pcf</a></td>
-<td>Proposed jumper pad assignments</td>
+<td>Proposed pin assignments</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="implementation-evidence" class="level2">
-<h2 class="anchored" data-anchor-id="implementation-evidence">Implementation evidence</h2>
-<p>The recorded enabled design uses <strong>1971 of 5280 logic cells</strong> and <strong>2 of 8 DSP blocks</strong>. The routed maximum internal clock estimate is <strong>45.79 MHz</strong>, above the 24 MHz requirement. These are implementation-tool estimates, not physical measurements.</p>
-<p><a href="./results.html">Inspect results and their limits →</a> · <a href="./docs/design.html#fpga-pipeline">Read detailed pipeline calculations →</a></p>
+<section id="testing" class="level2">
+<h2 class="anchored" data-anchor-id="testing">Testing</h2>
+<p>The recorded enabled build uses 1971 of 5280 logic cells and 2 of 8 DSP blocks. The routed maximum clock estimate is 45.79 MHz, which is above the 24 MHz design requirement. These values come from the implementation tools and have not been measured on a board.</p>
+<p><a href="./results.html">Results</a> | <a href="./docs/design.html#fpga-pipeline">Detailed Timing Calculations</a></p>
 
 
 </section>
@@ -391,7 +367,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/ENGR155\.github\.io\/macroprocessors\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -727,11 +703,11 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>FIELD / 155 · Hall-sensed magnetic levitation</p>
+<p>Stephen Kanti Mahanty and Ben Lertwachara · ENGR 155</p>
 </div>   
     <div class="nav-footer-center">
-<p>Harvey Mudd College · ENGR 155</p>
-</div>
+      &nbsp;
+    </div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">

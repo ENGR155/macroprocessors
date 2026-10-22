@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Disclosure of Codex assistance in the project implementation and portfolio.">
+<meta name="description" content="Use of Codex in the project implementation, documentation, and website.">
 
-<title>AI use, made explicit. – FIELD / 155</title>
+<title>AI Use – E155 Magnetic Levitation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -37,17 +37,16 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./assets/favicon.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-9f43a20c679eb76b4703ca291990b4b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ba037b2a1395a26410b88d627e3aaf08.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-773a29bda851b1c8227aab6a71954f29.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -87,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">FIELD <span class="brand-slash">/</span> 155</span>
+    <span class="navbar-title">E155 Project</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -98,7 +97,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Overview</span></a>
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
@@ -107,19 +106,19 @@ ul.task-list li input[type="checkbox"] {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-design">    
         <li>
     <a class="dropdown-item" href="./design.html">
- <span class="dropdown-text">System architecture</span></a>
+ <span class="dropdown-text">System Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./mcu.html">
- <span class="dropdown-text">MCU design</span></a>
+ <span class="dropdown-text">MCU Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./fpga.html">
- <span class="dropdown-text">FPGA design</span></a>
+ <span class="dropdown-text">FPGA Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./hardware.html">
- <span class="dropdown-text">Hardware &amp; materials</span></a>
+ <span class="dropdown-text">Hardware</span></a>
   </li>  
     </ul>
   </li>
@@ -134,12 +133,6 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
-  </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./docs/build.html"> 
-<span class="menu-text">Build guide</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -157,9 +150,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#project-assistance" id="toc-project-assistance" class="nav-link active" data-scroll-target="#project-assistance">Project assistance</a></li>
-  <li><a href="#website-assistance" id="toc-website-assistance" class="nav-link" data-scroll-target="#website-assistance">Website assistance</a></li>
-  <li><a href="#verification-boundaries" id="toc-verification-boundaries" class="nav-link" data-scroll-target="#verification-boundaries">Verification boundaries</a></li>
+  <li><a href="#project-implementation" id="toc-project-implementation" class="nav-link active" data-scroll-target="#project-implementation">Project Implementation</a></li>
+  <li><a href="#website" id="toc-website" class="nav-link" data-scroll-target="#website">Website</a></li>
+  <li><a href="#reviewing-the-work" id="toc-reviewing-the-work" class="nav-link" data-scroll-target="#reviewing-the-work">Reviewing the Work</a></li>
   </ul>
 </nav>
     </div>
@@ -167,18 +160,15 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 <a class="skip-link" href="#quarto-document-content">Skip to content</a>
 
-<noscript><style>.system-tabs{display:none}.explorer-panels>[hidden]{display:grid!important}.explorer-panels>[role="tabpanel"]{margin-bottom:2rem}</style></noscript>
-
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">AI use, made explicit.</h1>
-<p class="subtitle lead">Assistance, authorship, and the limits of generated work.</p>
+<h1 class="title">AI Use</h1>
 </div>
 
 <div>
   <div class="description">
-    Disclosure of Codex assistance in the project implementation and portfolio.
+    Use of Codex in the project implementation, documentation, and website.
   </div>
 </div>
 
@@ -195,20 +185,19 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="project-assistance" class="level2">
-<h2 class="anchored" data-anchor-id="project-assistance">Project assistance</h2>
-<p>The repository states that its implementation was prepared with Codex assistance. It contains generated implementation work, documentation, and automated verification tooling. That assistance does not establish physical feasibility or replace engineering review and measurements.</p>
+<section id="project-implementation" class="level2">
+<h2 class="anchored" data-anchor-id="project-implementation">Project Implementation</h2>
+<p>We used Codex to help prepare the firmware, FPGA implementation, documentation, and automated verification tools. Generated code still needs engineering review and hardware testing. Passing software tests does not establish that the physical system will levitate an object.</p>
 </section>
-<section id="website-assistance" class="level2">
-<h2 class="anchored" data-anchor-id="website-assistance">Website assistance</h2>
-<p>Codex prepared this Quarto portfolio’s layout, styles, vector artwork, interactions, and page summaries using the existing repository as the technical source. The user supplied the apple-design skill and requested Awwwards, Impeccable, Magic UI, Material UI, Untitled UI, and an existing E155 project site as references.</p>
-<p>The website’s components are original HTML, CSS, and JavaScript implementations of the referenced design patterns. The site does not bundle those React component libraries or claim their code as original work. The field artwork is a conceptual vector illustration, not a photograph or a physical simulation.</p>
+<section id="website" class="level2">
+<h2 class="anchored" data-anchor-id="website">Website</h2>
+<p>Codex helped build this Quarto website and summarize the existing project notes. It also revised the layout using the E155 course and project websites as references, and revised the writing using our E155 portfolios as style references.</p>
+<p>The earlier version included a generated SVG concept illustration and custom interactive components. The current version uses a basic Quarto layout with text, tables, and links.</p>
 </section>
-<section id="verification-boundaries" class="level2">
-<h2 class="anchored" data-anchor-id="verification-boundaries">Verification boundaries</h2>
-<p>Recorded engineering test outcomes are attributed to the repository’s dated verification record. Unmeasured physical performance and unavailable demonstration media are identified as pending. Author biographies are based on their linked portfolios. There are no invented experimental measurements or team biographies.</p>
-<p>The project team remains responsible for reviewing the implementation, reproducing builds and tests, commissioning the hardware, and following the course’s disclosure and submission requirements.</p>
-<p><a href="./docs/verification.html">Read the verification record →</a> · <a href="./references.html">View references →</a></p>
+<section id="reviewing-the-work" class="level2">
+<h2 class="anchored" data-anchor-id="reviewing-the-work">Reviewing the Work</h2>
+<p>The test results on this website come from the dated verification record. Hardware measurements, photographs, and a demonstration video still need to be added. We are responsible for reviewing the generated work, reproducing the builds and tests, and checking the hardware before use.</p>
+<p><a href="./docs/verification.html">Verification Record</a> | <a href="./references.html">References</a></p>
 
 
 </section>
@@ -289,7 +278,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/ENGR155\.github\.io\/macroprocessors\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -625,11 +614,11 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>FIELD / 155 · Hall-sensed magnetic levitation</p>
+<p>Stephen Kanti Mahanty and Ben Lertwachara · ENGR 155</p>
 </div>   
     <div class="nav-footer-center">
-<p>Harvey Mudd College · ENGR 155</p>
-</div>
+      &nbsp;
+    </div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">

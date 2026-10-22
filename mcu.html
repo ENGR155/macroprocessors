@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Position estimation, control law, scheduling, and the browser interface on the STM32L432KC.">
+<meta name="description" content="Position estimation, control, and communication on the STM32L432KC.">
 
-<title>Make sense of the field. – FIELD / 155</title>
+<title>MCU Design – E155 Magnetic Levitation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -37,17 +37,16 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./assets/favicon.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-9f43a20c679eb76b4703ca291990b4b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ba037b2a1395a26410b88d627e3aaf08.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-773a29bda851b1c8227aab6a71954f29.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -87,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">FIELD <span class="brand-slash">/</span> 155</span>
+    <span class="navbar-title">E155 Project</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -98,7 +97,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Overview</span></a>
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
@@ -107,19 +106,19 @@ ul.task-list li input[type="checkbox"] {
     <ul class="dropdown-menu" aria-labelledby="nav-menu-design">    
         <li>
     <a class="dropdown-item" href="./design.html">
- <span class="dropdown-text">System architecture</span></a>
+ <span class="dropdown-text">System Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./mcu.html">
- <span class="dropdown-text">MCU design</span></a>
+ <span class="dropdown-text">MCU Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./fpga.html">
- <span class="dropdown-text">FPGA design</span></a>
+ <span class="dropdown-text">FPGA Design</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./hardware.html">
- <span class="dropdown-text">Hardware &amp; materials</span></a>
+ <span class="dropdown-text">Hardware</span></a>
   </li>  
     </ul>
   </li>
@@ -134,12 +133,6 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
-  </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./docs/build.html"> 
-<span class="menu-text">Build guide</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -157,12 +150,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#one-control-tick" id="toc-one-control-tick" class="nav-link active" data-scroll-target="#one-control-tick">One control tick</a></li>
-  <li><a href="#control-law" id="toc-control-law" class="nav-link" data-scroll-target="#control-law">Control law</a></li>
-  <li><a href="#the-operator-interface" id="toc-the-operator-interface" class="nav-link" data-scroll-target="#the-operator-interface">The operator interface</a></li>
-  <li><a href="#deadlines-are-part-of-the-design" id="toc-deadlines-are-part-of-the-design" class="nav-link" data-scroll-target="#deadlines-are-part-of-the-design">Deadlines are part of the design</a></li>
-  <li><a href="#source-map" id="toc-source-map" class="nav-link" data-scroll-target="#source-map">Source map</a></li>
-  <li><a href="#verification-scope" id="toc-verification-scope" class="nav-link" data-scroll-target="#verification-scope">Verification scope</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#control-update" id="toc-control-update" class="nav-link" data-scroll-target="#control-update">Control Update</a></li>
+  <li><a href="#position-controller" id="toc-position-controller" class="nav-link" data-scroll-target="#position-controller">Position Controller</a></li>
+  <li><a href="#webpage-interface" id="toc-webpage-interface" class="nav-link" data-scroll-target="#webpage-interface">Webpage Interface</a></li>
+  <li><a href="#timing-and-fault-handling" id="toc-timing-and-fault-handling" class="nav-link" data-scroll-target="#timing-and-fault-handling">Timing and Fault Handling</a></li>
+  <li><a href="#source-files" id="toc-source-files" class="nav-link" data-scroll-target="#source-files">Source Files</a></li>
+  <li><a href="#testing" id="toc-testing" class="nav-link" data-scroll-target="#testing">Testing</a></li>
   </ul>
 </nav>
     </div>
@@ -170,18 +164,15 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 <a class="skip-link" href="#quarto-document-content">Skip to content</a>
 
-<noscript><style>.system-tabs{display:none}.explorer-panels>[hidden]{display:grid!important}.explorer-panels>[role="tabpanel"]{margin-bottom:2rem}</style></noscript>
-
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Make sense of the field.</h1>
-<p class="subtitle lead">MCU design · STM32L432KC</p>
+<h1 class="title">MCU Design</h1>
 </div>
 
 <div>
   <div class="description">
-    Position estimation, control law, scheduling, and the browser interface on the STM32L432KC.
+    Position estimation, control, and communication on the STM32L432KC.
   </div>
 </div>
 
@@ -198,42 +189,49 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><span class="article-label">FIRMWARE / 02</span></p>
-<div class="lead">
-<p>Every millisecond, the STM32 reads a coherent sensor snapshot, estimates the gap, and computes the next bounded current request.</p>
-</div>
-<section id="one-control-tick" class="level2">
-<h2 class="anchored" data-anchor-id="one-control-tick">One control tick</h2>
-<p>The board driver establishes a nominal 16 MHz HSI clock, 1 MHz SPI1, 125000-baud USART1, a 1 MHz TIM2 timestamp, and a 1 ms SysTick. The main scheduler exchanges a 16-byte packet with the FPGA, checks its validity and freshness, and then updates control state.</p>
-<ol class="process-list"><li><div><strong>Exchange and validate.</strong><p>Send the previous current request; receive the next telemetry snapshot. Check checksum, faults, and sample progression.</p></div></li><li><div><strong>Estimate the state.</strong><p>Convert current and Hall readings using measured scaling and calibration. Estimate and filter downward velocity.</p></div></li><li><div><strong>Compute the request.</strong><p>Ramp the gap target and apply position feedback, saturation, and anti-windup.</p></div></li><li><div><strong>Service the interface.</strong><p>Poll UART without waiting for characters. Continue page transmission across control ticks.</p></div></li></ol>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>The STM32L432KC estimates the gap between the object and the coil and calculates the current needed to reach the target gap. It also communicates with the FPGA over SPI and the ESP8266 over UART.</p>
 </section>
-<section id="control-law" class="level2">
-<h2 class="anchored" data-anchor-id="control-law">Control law</h2>
-<pre class="text"><code>error = measured_gap − ramped_target
+<section id="control-update" class="level2">
+<h2 class="anchored" data-anchor-id="control-update">Control Update</h2>
+<p>The board driver configures a nominal 16 MHz HSI clock, 1 MHz SPI1, 125000-baud USART1, a 1 MHz TIM2 timestamp, and a 1 ms SysTick. Each control update exchanges a 16-byte packet with the FPGA.</p>
+<p>The update has four main steps:</p>
+<ol type="1">
+<li>Send the previous current request and receive the sensor readings. Check the checksum, fault bits, and sample ID.</li>
+<li>Convert the sensor readings to current and gap using the configured scaling and calibration. Calculate and filter the downward velocity.</li>
+<li>Update the target gap and calculate the next current request.</li>
+<li>Handle webpage requests and transmit the response over UART without blocking the next control update.</li>
+</ol>
+</section>
+<section id="position-controller" class="level2">
+<h2 class="anchored" data-anchor-id="position-controller">Position Controller</h2>
+<p>The current request is calculated using the gap error, filtered velocity, and an integral term:</p>
+<pre class="text"><code>error = measured_gap - ramped_target
 current_request = clamp(
-    hover_current + Kp·error + Kd·filtered_velocity + integral,
+    hover_current + Kp*error + Kd*filtered_velocity + integral,
     0, maximum_current
 )</code></pre>
-<p>Derivative acts on measurement to avoid a setpoint kick. The integrator updates only when the request is unsaturated or the error drives it out of saturation. Current-test mode uses a separate current ramp and requires the object to be supported.</p>
-<p><strong>Default gains and bias are zero.</strong> Scaling, calibration coefficients, operating bounds, and gains are configuration inputs awaiting measurements. They are not working levitation settings.</p>
+<p>The derivative term uses the measured velocity so that changing the target does not cause a derivative kick. The integral updates only when the current request is within its limits or the error would bring it back within those limits.</p>
+<p>The default gains and hover current are zero. We still need to measure the sensor scaling, fit the gap model, and tune the gains. The current-test mode uses a separate current ramp with the object supported.</p>
 </section>
-<section id="the-operator-interface" class="level2">
-<h2 class="anchored" data-anchor-id="the-operator-interface">The operator interface</h2>
-<p>The existing course ESP8266 firmware is used unchanged. The MCU serves a compact interface with height and current-test modes, arm/clear/stop controls, and raw plus engineering-unit telemetry. A five-second browser lease stops an abandoned session.</p>
-<p>This portfolio documents that interface; it does not connect to or energize a physical coil.</p>
+<section id="webpage-interface" class="level2">
+<h2 class="anchored" data-anchor-id="webpage-interface">Webpage Interface</h2>
+<p>We use the existing ESP8266 firmware from the course. The MCU sends the HTML over UART and handles the returned commands. The interface includes height and current-test modes, arm, clear, and stop controls, and sensor readings. If the browser stops renewing its five-second lease, the controller stops the output.</p>
+<p>This website documents the project. The hardware control page is served separately by the MCU and ESP8266.</p>
 </section>
-<section id="deadlines-are-part-of-the-design" class="level2">
-<h2 class="anchored" data-anchor-id="deadlines-are-part-of-the-design">Deadlines are part of the design</h2>
-<p>A missed update, invalid telemetry, stalled sample ID, or reported fault stops the coil. The design budgets roughly 2–3 ms worst-case outer measurement-to-actuation delay, including scanning, scheduling, packet transfer, and PWM boundaries. That estimate must be checked on the bench.</p>
-<p>At 1 MHz, a 128-clock exchange plus chip-select guards takes at least 132 µs, before software gaps. Page formatting and transmission must fit alongside control work; overruns are faults rather than silently skipped updates.</p>
+<section id="timing-and-fault-handling" class="level2">
+<h2 class="anchored" data-anchor-id="timing-and-fault-handling">Timing and Fault Handling</h2>
+<p>A missed update, invalid telemetry, stalled sample ID, or reported fault stops the coil. At 1 MHz, a 128-clock SPI exchange with chip-select guards takes at least 132 microseconds before software delays. The estimated worst-case delay from measurement to output is roughly 2-3 ms, including ADC scanning, scheduling, SPI transfer, and PWM updates.</p>
+<p>We still need to measure these delays on hardware. Formatting and sending the webpage also need to fit around the control updates.</p>
 </section>
-<section id="source-map" class="level2">
-<h2 class="anchored" data-anchor-id="source-map">Source map</h2>
+<section id="source-files" class="level2">
+<h2 class="anchored" data-anchor-id="source-files">Source Files</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th>File</th>
-<th>Role</th>
+<th>Function</th>
 </tr>
 </thead>
 <tbody>
@@ -243,11 +241,11 @@ current_request = clamp(
 </tr>
 <tr class="even">
 <td><a href="firmware/src/control.c">control.c</a></td>
-<td>Estimation, filtering, trajectories, feedback</td>
+<td>Position estimate, filtering, and control</td>
 </tr>
 <tr class="odd">
 <td><a href="firmware/src/board_stm32l432.c">board_stm32l432.c</a></td>
-<td>CMSIS register-level board driver</td>
+<td>CMSIS board driver</td>
 </tr>
 <tr class="even">
 <td><a href="firmware/src/protocol.c">protocol.c</a></td>
@@ -255,19 +253,19 @@ current_request = clamp(
 </tr>
 <tr class="odd">
 <td><a href="firmware/src/web.c">web.c</a></td>
-<td>Request handling and embedded interface</td>
+<td>Webpage and request handling</td>
 </tr>
 <tr class="even">
 <td><a href="firmware/src/config.c">config.c</a></td>
-<td>Scaling, local model, bounds, and gains</td>
+<td>Scaling, calibration, limits, and gains</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="verification-scope" class="level2">
-<h2 class="anchored" data-anchor-id="verification-scope">Verification scope</h2>
-<p>The <a href="./docs/verification.html">record dated October 15, 2026</a> reports passing native behavior tests and Cortex-M4F compilation of all seven C translation units. A full GNU Arm executable/runtime link and programming workflow remain unverified. Object compilation alone does not establish a flashable image.</p>
-<p><a href="./docs/build.html">Build and program the design →</a> · <a href="./docs/protocol.html">Read the packet protocol →</a></p>
+<section id="testing" class="level2">
+<h2 class="anchored" data-anchor-id="testing">Testing</h2>
+<p>The <a href="./docs/verification.html">October 15 verification record</a> reports passing host-side behavior tests and Cortex-M4F compilation of all seven C source files. The full GNU Arm executable link and board programming have not been verified. Compiling the source files alone does not confirm that the firmware can be flashed and run.</p>
+<p><a href="./docs/build.html">Build Instructions</a> | <a href="./docs/protocol.html">Packet Protocol</a></p>
 
 
 </section>
@@ -348,7 +346,7 @@ current_request = clamp(
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/ENGR155\.github\.io\/macroprocessors\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -684,11 +682,11 @@ current_request = clamp(
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>FIELD / 155 · Hall-sensed magnetic levitation</p>
+<p>Stephen Kanti Mahanty and Ben Lertwachara · ENGR 155</p>
 </div>   
     <div class="nav-footer-center">
-<p>Harvey Mudd College · ENGR 155</p>
-</div>
+      &nbsp;
+    </div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">
