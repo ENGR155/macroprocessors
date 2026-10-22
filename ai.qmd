@@ -1,23 +1,20 @@
 ---
-title: "AI use, made explicit."
-subtitle: "Assistance, authorship, and the limits of generated work."
-description: "Disclosure of Codex assistance in the project implementation and portfolio."
+title: "AI Use"
+description: "Use of Codex in the project implementation, documentation, and website."
 ---
 
-## Project assistance
+## Project Implementation
 
-The repository states that its implementation was prepared with Codex assistance. It contains generated implementation work, documentation, and automated verification tooling. That assistance does not establish physical feasibility or replace engineering review and measurements.
+We used Codex to help prepare the firmware, FPGA implementation, documentation, and automated verification tools. Generated code still needs engineering review and hardware testing. Passing software tests does not establish that the physical system will levitate an object.
 
-## Website assistance
+## Website
 
-Codex prepared this Quarto portfolio’s layout, styles, vector artwork, interactions, and page summaries using the existing repository as the technical source. The user supplied the apple-design skill and requested Awwwards, Impeccable, Magic UI, Material UI, Untitled UI, and an existing E155 project site as references.
+Codex helped build this Quarto website and summarize the existing project notes. It also revised the layout using the E155 course and project websites as references, and revised the writing using our E155 portfolios as style references.
 
-The website’s components are original HTML, CSS, and JavaScript implementations of the referenced design patterns. The site does not bundle those React component libraries or claim their code as original work. The field artwork is a conceptual vector illustration, not a photograph or a physical simulation.
+The earlier version included a generated SVG concept illustration and custom interactive components. The current version uses a basic Quarto layout with text, tables, and links.
 
-## Verification boundaries
+## Reviewing the Work
 
-Recorded engineering test outcomes are attributed to the repository’s dated verification record. Unmeasured physical performance and unavailable demonstration media are identified as pending. Author biographies are based on their linked portfolios. There are no invented experimental measurements or team biographies.
+The test results on this website come from the dated verification record. Hardware measurements, photographs, and a demonstration video still need to be added. We are responsible for reviewing the generated work, reproducing the builds and tests, and checking the hardware before use.
 
-The project team remains responsible for reviewing the implementation, reproducing builds and tests, commissioning the hardware, and following the course’s disclosure and submission requirements.
-
-[Read the verification record →](docs/verification.qmd) · [View references →](references.qmd)
+[Verification Record](docs/verification.qmd) | [References](references.qmd)

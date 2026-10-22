@@ -24,7 +24,7 @@ Implementation design for one overhead electromagnet and one suspended magnetic 
 | `tools/calibrate.py` | Offline Hall calibration with independent holdout validation |
 | `hardware/bom.csv`, `hardware/netlist.md` | Candidate parts, budget allowances, circuit connectivity |
 | `docs` | Implementation, experiments, schedule, and course deliverables |
-| `*.qmd`, `_quarto.yml`, `assets` | FIELD / 155 Quarto portfolio, visual system, and interactions |
+| `*.qmd`, `_quarto.yml`, `assets` | Quarto project website, theme settings, and navigation |
 | `data/results` | Measurement log schema; no fabricated measurements |
 
 The report site can be rendered with `quarto render` and checked with `node tools/check-site.mjs`. See [website editing and preview](WEBSITE.md) for the page map and workflow. Enable GitHub Pages only after reviewing the contents and adding actual results, team details, CAD schematics, photographs, and a demo video. The project has not been published.

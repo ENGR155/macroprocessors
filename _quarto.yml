@@ -15,41 +15,36 @@ project:
     - tools/calibrate.py
     - tests/**
 website:
-  title: 'FIELD / 155'
-  description: 'Hall-sensed magnetic levitation. An ENGR 155 project exploring feedback, embedded control, and FPGA design.'
-  favicon: assets/favicon.svg
+  title: 'E155 Magnetic Levitation'
+  description: 'Magnetic levitation project for ENGR 155 by Stephen Kanti Mahanty and Ben Lertwachara.'
   navbar:
     background: light
     collapse-below: lg
-    title: "FIELD <span class='brand-slash'>/</span> 155"
+    title: 'E155 Project'
     left:
       - href: index.qmd
-        text: Overview
+        text: Home
       - text: Design
         menu:
           - href: design.qmd
-            text: System architecture
+            text: System Design
           - href: mcu.qmd
-            text: MCU design
+            text: MCU Design
           - href: fpga.qmd
-            text: FPGA design
+            text: FPGA Design
           - href: hardware.qmd
-            text: Hardware & materials
+            text: Hardware
       - href: documentation.qmd
         text: Documentation
       - href: results.qmd
         text: Results
       - href: about.qmd
         text: About
-    right:
-      - href: docs/build.qmd
-        text: Build guide
   search:
     location: navbar
     type: overlay
   page-footer:
-    left: 'FIELD / 155 · Hall-sensed magnetic levitation'
-    center: 'Harvey Mudd College · ENGR 155'
+    left: 'Stephen Kanti Mahanty and Ben Lertwachara · ENGR 155'
     right:
       - href: references.qmd
         text: References
@@ -71,4 +66,4 @@ format:
     filters:
       - assets/doc-links.lua
     lang: en
-    title-prefix: 'FIELD / 155'
+    title-prefix: 'E155 Magnetic Levitation'

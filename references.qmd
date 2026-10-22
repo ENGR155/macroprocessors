@@ -1,34 +1,25 @@
 ---
-title: "Sources & acknowledgements."
-subtitle: "The engineering references and design ideas behind this portfolio."
-description: "Technical and visual design credits for the magnetic levitation project website."
+title: "References and Acknowledgements"
+description: "Engineering sources and website references for the project."
 ---
 
-## Engineering references
+## Technical References
 
-The [complete technical reference list](docs/references.qmd) links course materials and manufacturer documentation for the STM32L432KC, UPduino, DRV5055, MCP3204, INA240, and UCC27511. Candidate part information is documented in the [hardware guide](docs/hardware.qmd).
+The [technical reference list](docs/references.qmd) contains links to the course materials and manufacturer documentation for the STM32L432KC, UPduino, DRV5055, MCP3204, INA240, and UCC27511. The [hardware guide](docs/hardware.qmd) explains the candidate part choices.
 
-Project claims on this site derive from the repository’s design, hardware, protocol, and verification notes. Quantitative implementation results are attributed to the [October 15, 2026 record](docs/verification.qmd).
+The system descriptions on this website are based on the repository's design, hardware, and protocol notes. The recorded test results come from the [October 15, 2026 verification record](docs/verification.qmd).
 
-## Portfolio structure
+## Website References
 
-[Carlos and Maynor’s E155 project site](https://maynorb.github.io/E155ProjectSite/) provided the page-organization reference: documentation, MCU design, FPGA design, results, AI use, and acknowledgements. Its [public Quarto source](https://github.com/MaynorB/E155ProjectSite) was reviewed when the hosted site could not be fetched. Its portable DJ project content, measurements, and media are not reused here.
+We used the following websites as references for the layout and writing:
 
-## Design references
+- [Carlos and Maynor's E155 Project](https://maynorb.github.io/E155ProjectSite/): simple project pages organized around documentation, MCU design, FPGA design, results, and acknowledgements.
+- [HMC E155](https://hmc-e155.github.io/): basic Quarto navigation, headings, tables, and documentation links.
+- [Stephen's E155 Portfolio](https://stephenthecoder.github.io/engr155-portfolio/): writing style and author information.
+- [Ben's E155 Portfolio](https://jebeandiah.github.io/hmc-e155-portfolio/): writing style and author information.
 
-| Reference | Application in this site |
-|---|---|
-| [Awwwards](https://www.awwwards.com/) and its [portfolio inspiration](https://www.awwwards.com/inspiration/scroll-portfolio) | Editorial hierarchy, generous spacing, and project-specific art direction |
-| [Impeccable](https://impeccable.style/#downloads) | Clear hierarchy, readable text, restrained effects, and concrete labels |
-| User-supplied apple-design skill | System typography, translucent navigation, immediate feedback, accessibility preferences |
-| [Magic UI components](https://magicui.design/docs/components) | Connected-system presentation and modular chapter navigation |
-| [Material UI tabs](https://mui.com/material-ui/react-tabs/) | Familiar tab semantics, selected states, and keyboard interaction |
-| [Untitled UI components](https://www.untitledui.com/react/components) | Documentation navigation, disclosure rows, and consistent spacing |
+The website uses Quarto's Cosmo theme with a few local style adjustments. The technical content describes our magnetic levitation design; it does not reuse the reference project's results or media.
 
-These are design and interaction references. The site implements its own lightweight components for Quarto; no paid assets or React library code are included.
+## Acknowledgements
 
-## Illustration and acknowledgements
-
-The magnetic-field illustration and favicon were created for this website as SVG assets. The illustration describes the concept and does not represent measured fields or an assembled prototype.
-
-Named acknowledgements and team contribution details are pending confirmation from the project team. [See the project information](about.qmd) and [AI-use disclosure](ai.qmd).
+Course materials and manufacturer datasheets informed the design. Codex assisted with the implementation, documentation, and website, as described on the [AI Use](ai.qmd) page.

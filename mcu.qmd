@@ -1,62 +1,64 @@
 ---
-title: "Make sense of the field."
-subtitle: "MCU design · STM32L432KC"
-description: "Position estimation, control law, scheduling, and the browser interface on the STM32L432KC."
+title: "MCU Design"
+description: "Position estimation, control, and communication on the STM32L432KC."
 ---
 
-[FIRMWARE / 02]{.article-label}
+## Overview
 
-::: {.lead}
-Every millisecond, the STM32 reads a coherent sensor snapshot, estimates the gap, and computes the next bounded current request.
-:::
+The STM32L432KC estimates the gap between the object and the coil and calculates the current needed to reach the target gap. It also communicates with the FPGA over SPI and the ESP8266 over UART.
 
-## One control tick
+## Control Update
 
-The board driver establishes a nominal 16 MHz HSI clock, 1 MHz SPI1, 125000-baud USART1, a 1 MHz TIM2 timestamp, and a 1 ms SysTick. The main scheduler exchanges a 16-byte packet with the FPGA, checks its validity and freshness, and then updates control state.
+The board driver configures a nominal 16 MHz HSI clock, 1 MHz SPI1, 125000-baud USART1, a 1 MHz TIM2 timestamp, and a 1 ms SysTick. Each control update exchanges a 16-byte packet with the FPGA.
 
-```{=html}
-<ol class="process-list"><li><div><strong>Exchange and validate.</strong><p>Send the previous current request; receive the next telemetry snapshot. Check checksum, faults, and sample progression.</p></div></li><li><div><strong>Estimate the state.</strong><p>Convert current and Hall readings using measured scaling and calibration. Estimate and filter downward velocity.</p></div></li><li><div><strong>Compute the request.</strong><p>Ramp the gap target and apply position feedback, saturation, and anti-windup.</p></div></li><li><div><strong>Service the interface.</strong><p>Poll UART without waiting for characters. Continue page transmission across control ticks.</p></div></li></ol>
-```
+The update has four main steps:
 
-## Control law
+1. Send the previous current request and receive the sensor readings. Check the checksum, fault bits, and sample ID.
+2. Convert the sensor readings to current and gap using the configured scaling and calibration. Calculate and filter the downward velocity.
+3. Update the target gap and calculate the next current request.
+4. Handle webpage requests and transmit the response over UART without blocking the next control update.
+
+## Position Controller
+
+The current request is calculated using the gap error, filtered velocity, and an integral term:
 
 ```text
-error = measured_gap − ramped_target
+error = measured_gap - ramped_target
 current_request = clamp(
-    hover_current + Kp·error + Kd·filtered_velocity + integral,
+    hover_current + Kp*error + Kd*filtered_velocity + integral,
     0, maximum_current
 )
 ```
 
-Derivative acts on measurement to avoid a setpoint kick. The integrator updates only when the request is unsaturated or the error drives it out of saturation. Current-test mode uses a separate current ramp and requires the object to be supported.
+The derivative term uses the measured velocity so that changing the target does not cause a derivative kick. The integral updates only when the current request is within its limits or the error would bring it back within those limits.
 
-**Default gains and bias are zero.** Scaling, calibration coefficients, operating bounds, and gains are configuration inputs awaiting measurements. They are not working levitation settings.
+The default gains and hover current are zero. We still need to measure the sensor scaling, fit the gap model, and tune the gains. The current-test mode uses a separate current ramp with the object supported.
 
-## The operator interface
+## Webpage Interface
 
-The existing course ESP8266 firmware is used unchanged. The MCU serves a compact interface with height and current-test modes, arm/clear/stop controls, and raw plus engineering-unit telemetry. A five-second browser lease stops an abandoned session.
+We use the existing ESP8266 firmware from the course. The MCU sends the HTML over UART and handles the returned commands. The interface includes height and current-test modes, arm, clear, and stop controls, and sensor readings. If the browser stops renewing its five-second lease, the controller stops the output.
 
-This portfolio documents that interface; it does not connect to or energize a physical coil.
+This website documents the project. The hardware control page is served separately by the MCU and ESP8266.
 
-## Deadlines are part of the design
+## Timing and Fault Handling
 
-A missed update, invalid telemetry, stalled sample ID, or reported fault stops the coil. The design budgets roughly 2–3 ms worst-case outer measurement-to-actuation delay, including scanning, scheduling, packet transfer, and PWM boundaries. That estimate must be checked on the bench.
+A missed update, invalid telemetry, stalled sample ID, or reported fault stops the coil. At 1 MHz, a 128-clock SPI exchange with chip-select guards takes at least 132 microseconds before software delays. The estimated worst-case delay from measurement to output is roughly 2-3 ms, including ADC scanning, scheduling, SPI transfer, and PWM updates.
 
-At 1 MHz, a 128-clock exchange plus chip-select guards takes at least 132 µs, before software gaps. Page formatting and transmission must fit alongside control work; overruns are faults rather than silently skipped updates.
+We still need to measure these delays on hardware. Formatting and sending the webpage also need to fit around the control updates.
 
-## Source map
+## Source Files
 
-| File | Role |
+| File | Function |
 |---|---|
 | [main.c](firmware/src/main.c) | Scheduler and system state |
-| [control.c](firmware/src/control.c) | Estimation, filtering, trajectories, feedback |
-| [board_stm32l432.c](firmware/src/board_stm32l432.c) | CMSIS register-level board driver |
+| [control.c](firmware/src/control.c) | Position estimate, filtering, and control |
+| [board_stm32l432.c](firmware/src/board_stm32l432.c) | CMSIS board driver |
 | [protocol.c](firmware/src/protocol.c) | Packet encoding and checksum |
-| [web.c](firmware/src/web.c) | Request handling and embedded interface |
-| [config.c](firmware/src/config.c) | Scaling, local model, bounds, and gains |
+| [web.c](firmware/src/web.c) | Webpage and request handling |
+| [config.c](firmware/src/config.c) | Scaling, calibration, limits, and gains |
 
-## Verification scope
+## Testing
 
-The [record dated October 15, 2026](docs/verification.qmd) reports passing native behavior tests and Cortex-M4F compilation of all seven C translation units. A full GNU Arm executable/runtime link and programming workflow remain unverified. Object compilation alone does not establish a flashable image.
+The [October 15 verification record](docs/verification.qmd) reports passing host-side behavior tests and Cortex-M4F compilation of all seven C source files. The full GNU Arm executable link and board programming have not been verified. Compiling the source files alone does not confirm that the firmware can be flashed and run.
 
-[Build and program the design →](docs/build.qmd) · [Read the packet protocol →](docs/protocol.qmd)
+[Build Instructions](docs/build.qmd) | [Packet Protocol](docs/protocol.qmd)

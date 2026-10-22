@@ -1,49 +1,45 @@
 ---
-title: "Where code meets the coil."
-subtitle: "Candidate hardware, connectivity, and a measured path to commissioning."
-description: "Candidate components and hardware bring-up for Hall-sensed magnetic levitation."
+title: "Hardware"
+description: "Candidate components and wiring for the magnetic levitation system."
 ---
 
-[HARDWARE / 04]{.article-label}
+## Current Status
 
-::: {.status-banner}
-**Selection stage.** The physical components have not been selected, assembled, or tested. Part numbers below are candidates; the bill of materials contains planning allowances.
-:::
+We have not selected, assembled, or tested the physical components. The parts below are candidates, and the bill of materials contains estimated allowances.
 
-## The course boards
+## Course Boards
 
-The STM32L432KC handles position estimation and control. The UPduino v3.1 handles acquisition and current regulation. The existing course ESP8266 provides the wireless interface using its unchanged firmware.
+The design uses the STM32L432KC for position estimation and control, the UPduino v3.1 for sensor acquisition and current control, and the course ESP8266 for the webpage interface. The existing ESP8266 firmware is used unchanged.
 
-## Sensing and power
+## Candidate Components
 
-| Function | Candidate | Selection constraint |
+| Function | Candidate | What we need to check |
 |---|---|---|
-| Primary + reference magnetic field | Two TI DRV5055 linear Hall sensors | Evaluate A3/A4 sensitivity against the measured field range |
-| Analog conversion | MCP3204-CI/P | 12-bit, 3.3 V; three channels used |
-| Inline coil current | INA240A1 + 0.100 Ω precision shunt | Gain 20 candidate; calibrate offset and verify range |
-| Gate drive | UCC27511 | Supply and drive must suit the selected MOSFET |
-| Power switch + flyback path | MOSFET and rated diode/clamp | Choose from coil current, supply, and transient measurements |
-| Mechanical system | Nonmagnetic frame + catch tray | Establish repeatable gap and object orientation |
-| Independent shutdown | E-stop, current comparator, output logic | Validate propagation and fail-off behavior physically |
+| Magnetic field sensing | Two TI DRV5055 Hall sensors | Choose A3/A4 sensitivity based on the measured field range |
+| Analog conversion | MCP3204-CI/P | 12-bit, 3.3 V operation with three channels |
+| Coil current sensing | INA240A1 and 0.100 ohm shunt | Offset, gain, and usable current range |
+| Gate driver | UCC27511 | Compatibility with the selected MOSFET and supply |
+| Power switching | MOSFET and flyback diode or clamp | Coil current, supply voltage, and switching transients |
+| Mechanical support | Nonmagnetic frame and catch tray | Repeatable gap and object orientation |
+| Independent shutdown | E-stop, current comparator, and output logic | Shutdown delay and behavior when a connection is lost |
 
-At the example 0.100 Ω shunt and gain of 20, the ideal current conversion is 2 V/A. With a 3.3 V ADC reference, the ideal resolution is approximately 0.403 mA/count. Actual offsets and scale factors require calibration.
+With a 0.100 ohm shunt and a gain of 20, the ideal current-sense output is 2 V/A. A 3.3 V ADC reference gives approximately 0.403 mA per count. The actual offset and scale will need calibration.
 
-## Coil and object come first
+## Coil and Suspended Object
 
-A holding-force rating at contact does not establish useful levitation force across an air gap. Start with an instructor-approved test coil and measure force versus current and gap, winding resistance, inductance, and steady temperature.
+A coil's holding-force rating at contact does not tell us how much force it can produce across an air gap. We plan to start with an instructor-approved test coil and measure force versus current and gap, winding resistance, inductance, and temperature.
 
-The proposed estimator assumes an object containing a permanent magnet with repeatable orientation. Rotation, attraction to the core, and ambiguous Hall readings are experimental risks. A steel-only object requires a different identification experiment.
+The position estimate assumes that the object contains a permanent magnet with a repeatable orientation. We also need to check for rotation, attraction to the core, and gaps that produce similar Hall readings. A steel-only object would require a different characterization procedure.
 
-## Connectivity and commissioning
+## Wiring and Initial Tests
 
-The proposed netlist documents two separate SPI buses: MCU-to-FPGA commands and FPGA-to-ADC acquisition. The hardware guide includes explicit jumpers, power domains, analog grounding, and interlock constraints.
+The proposed netlist uses separate SPI buses for MCU-to-FPGA communication and FPGA-to-ADC acquisition. The hardware guide lists the jumpers, voltage levels, power connections, and interlock wiring.
 
-Keep `power_stage_ready=false`, `calibration_ready=false`, and `LEV_COMMISSIONED=0` until their corresponding bring-up gates pass.
+The configuration values `power_stage_ready=false`, `calibration_ready=false`, and `LEV_COMMISSIONED=0` keep the output disabled until the corresponding bring-up checks are complete.
 
-```{=html}
-<div class="doc-grid"><a class="doc-card" href="docs/hardware.html"><span class="article-label">WIRING</span><h3>Hardware integration ↗</h3><p>Pin assignments, signal levels, power, and sensor integration.</p></a><a class="doc-card" href="docs/bringup.html"><span class="article-label">BENCH SEQUENCE</span><h3>Bring-up procedure ↗</h3><p>Move from passive checks to supported-object current tests.</p></a></div>
-<a class="download-row" href="hardware/bom.csv" download>Download candidate bill of materials <span>CSV ↧</span></a>
-<a class="download-row" href="hardware/netlist.md" download>Download proposed circuit netlist <span>Markdown ↧</span></a>
-```
+- [Hardware and Wiring Guide](docs/hardware.qmd)
+- [Bring-up Procedure](docs/bringup.qmd)
+- [Candidate Bill of Materials](hardware/bom.csv)
+- [Proposed Circuit Netlist](hardware/netlist.md)
 
-CAD schematics, supplier quotes, assembly photographs, and measured component ratings remain future deliverables. The portfolio illustration is conceptual and does not depict assembled hardware.
+CAD schematics, supplier quotes, assembly photographs, and measured component ratings still need to be added.

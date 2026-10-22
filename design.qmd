@@ -1,70 +1,62 @@
 ---
-title: "The architecture of balance."
-subtitle: "A fast current loop inside a slower position loop, with independent output supervision."
-description: "System architecture and control strategy for the Hall-sensed magnetic levitation project."
+title: "System Design"
+description: "System architecture and control loops for the magnetic levitation project."
 ---
 
-[SYSTEM DESIGN / 01]{.article-label}
+## Overview
 
-::: {.lead}
-The browser chooses a gap. The STM32 decides how much lift to request. The FPGA turns that request into regulated coil current.
-:::
+We designed the system with two control loops. The MCU estimates the position of the object and calculates a current request. The FPGA uses that request to regulate the coil current. The webpage lets the user change the target gap through the course ESP8266 module.
 
-## The complete path
-
-```{=html}
-<div class="flow-diagram" aria-label="Command path: browser to ESP8266 to STM32 to FPGA">
-<div class="flow-node"><strong>Browser</strong><span>Gap target · HTTP</span></div><span class="flow-arrow" aria-hidden="true">→</span><div class="flow-node"><strong>ESP8266</strong><span>Course Wi-Fi server</span></div><span class="flow-arrow" aria-hidden="true">→</span><div class="flow-node"><strong>STM32</strong><span>Position estimation</span></div><span class="flow-arrow" aria-hidden="true">→</span><div class="flow-node"><strong>UPduino</strong><span>Current regulation</span></div>
-</div>
+```text
+Webpage -> ESP8266 -> STM32 MCU -> UPduino FPGA -> Coil driver
 ```
 
-The FPGA drives the power stage through an interlock. Current and two Hall measurements return through an MCP3204 ADC. The MCU compensates the Hall readings for coil current before calculating its next request. The [complete system diagram](docs/design.qmd#system-boundary) includes the analog feedback and physical interlock paths.
+The FPGA reads the current sensor and two Hall sensors through an MCP3204 ADC. These readings are sent to the MCU, which uses them to calculate the next current request. The [full system diagram](docs/design.qmd#system-boundary) shows the feedback connections and physical interlock.
 
-| Layer | Responsibility | Nominal timing |
+| Component | Function | Design rate |
 |---|---|---|
-| Browser + ESP8266 | Gap target, operating state, operator lease | 125000-baud UART to MCU |
-| STM32L432KC | Gap estimate, filtered velocity, bounded position control | 1 kHz update |
-| UPduino v3.1 / UP5K | ADC scan, current PI, packet validation, fault logic | 10 kHz scan and current update |
-| Coil driver | Switch coil power under independent permission | 20 kHz PWM |
+| Webpage and ESP8266 | Send the target gap and operating commands | 125000-baud UART to MCU |
+| STM32L432KC | Estimate position and run the position controller | 1 kHz |
+| UPduino v3.1 | Read the ADC and run the current controller | 10 kHz |
+| Coil driver | Switch power to the coil | 20 kHz PWM |
 
-These are design rates, not measured bandwidths. External timing and control stability still require bench measurements.
+These rates are design values. We still need to measure timing and stability on hardware.
 
-## Define the direction first
+## Position Control
 
-The gap $x$ is measured **downward** from the coil reference plane. Increasing the target lowers the object. A simplified local force balance is
+The gap $x$ is measured downward from the coil. A larger gap means the object is farther below the coil. The force balance is
 
 $$m\ddot{x}=mg-F(i,x).$$
 
-The rough relation $F\approx ki^2/x^2$ helps identify the system, but it is not a validated model of the eventual coil. Mass, lift, resistance, inductance, and temperature must be measured for the chosen geometry.
+The approximate relationship $F\approx ki^2/x^2$ is useful for planning, but the actual force will depend on the coil and object we select. We need to measure mass, lifting force, resistance, inductance, and temperature before tuning the controller.
 
-## Two loops, different responsibilities
+The position controller compares the measured gap with the target gap and requests more current when the object is too low. It also uses filtered velocity to reduce oscillation. The target changes gradually, and the current request is limited to the configured operating range.
 
-The position loop uses the measured gap error and filtered downward velocity to request current. A positive error means the object is too low, so the controller requests more lift. A rate-limited target, saturation, and anti-windup bound that request.
+[MCU Design](mcu.qmd)
 
-The inner loop regulates measured current in ADC counts. Its fixed-point PI calculation updates the next PWM duty. Normal updates occur at period boundaries; a fault can remove the output immediately.
+## Current Control
 
-```{=html}
-<div class="doc-grid"><a class="doc-card" href="mcu.html"><span class="article-label">STM32L432KC</span><h3>MCU design ↗</h3><p>Follow the estimate, control law, scheduler, and interface.</p></a><a class="doc-card" href="fpga.html"><span class="article-label">LATTICE iCE40UP5K</span><h3>FPGA design ↗</h3><p>Inspect acquisition, arithmetic, PWM, and fault supervision.</p></a></div>
-```
+The FPGA compares the requested current with the measured current and uses a PI controller to calculate the PWM duty cycle. The controller works in ADC counts and PWM ticks. Normal duty changes happen at the start of a PWM period. A fault can disable the output immediately.
 
-## The central experiment: observability
+[FPGA Design](fpga.qmd)
 
-Both Hall sensors see the coil and the suspended object. Two readings do not automatically cancel the coil field. The local estimator also uses measured current:
+## Hall Sensor Calibration
+
+Both Hall sensors measure the field from the coil as well as the suspended object. Using two sensors does not guarantee that the coil field cancels out. The gap estimate also includes the measured coil current:
 
 ```text
-gap_mm = c0 + c1·Hall1_counts + c2·Hall2_counts + c3·current_A
+gap_mm = c0 + c1*Hall1_counts + c2*Hall2_counts + c3*current_A
 ```
 
-Calibration requires known mechanical gaps, current sweeps, and independent holdout measurements. Because channels are sampled sequentially, changing current during a scan may corrupt compensation. Fixed-object current steps are a necessary test before feedback tuning.
+We plan to fit these coefficients using readings at known gaps and currents, then check the model with separate measurements. Since the ADC reads the channels one at a time, we also need to check whether current changes during a scan affect the estimate.
 
-The first object should contain a permanent magnet with repeatable orientation. A plain steel sphere is not interchangeable with that design assumption.
+The initial design assumes that the suspended object contains a permanent magnet with a repeatable orientation. A plain steel sphere would need a different characterization procedure.
 
-## Build the evidence in order
+## Testing Plan
 
-```{=html}
-<ol class="process-list"><li><div><strong>Establish the physical system.</strong><p>Select a coil and object; measure force, field range, and heating.</p></div></li><li><div><strong>Validate sensing and shutdown.</strong><p>Check analog scaling, Hall observability, interlock behavior, and timing.</p></div></li><li><div><strong>Close the current loop.</strong><p>Use supported-object current steps and measured response to tune the PI controller.</p></div></li><li><div><strong>Close the position loop.</strong><p>Tune PD first, then evaluate settling, disturbance rejection, and operating limits.</p></div></li></ol>
-```
+1. Select the coil and object, then measure force, sensor range, and heating.
+2. Check the sensor scaling, gap estimate, shutdown circuit, and timing.
+3. Support the object and tune the current controller using current steps.
+4. Tune the position controller, starting with proportional and derivative control, then measure settling and disturbance response.
 
-[Read the detailed implementation and timing calculations →](docs/design.qmd)
-
-[Continue to the bring-up procedure →](docs/bringup.qmd)
+The [detailed design](docs/design.qmd) contains the control equations and timing calculations. The [bring-up procedure](docs/bringup.qmd) describes the planned bench tests.
