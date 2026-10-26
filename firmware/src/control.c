@@ -15,6 +15,8 @@ void lev_stop(lev_control_t *s,bool trip) {
 bool lev_arm(lev_control_t *s,const lev_config_t *c,const lev_telemetry_t *t) {
     if (s->tripped || !c->power_stage_ready || (!s->current_mode && !c->calibration_ready)
         || !(c->counts_per_amp>0) || !isfinite(c->counts_per_amp)
+        || (c->hall_sensors!=1 && c->hall_sensors!=2)
+        || (c->hall_sensors==1 && c->hall_c[2]!=0)
         || !(c->max_current_a>0) || t->faults || !(t->flags&1)) return false;
     s->active=true; s->integral=0; s->velocity=0; s->have_position=false;
     s->ramp_mm=s->goal_mm; s->ramp_a=0;
@@ -31,7 +33,7 @@ bool lev_control_step(lev_control_t *s,const lev_config_t *c,
              || !(dt>=0.0005f && dt<=0.0015f);
     if (!s->current_mode)
         bad|=!isfinite(s->gap_mm) || t->hall1<16 || t->hall1>4079
-              || t->hall2<16 || t->hall2>4079
+              || (c->hall_sensors==2 && (t->hall2<16 || t->hall2>4079))
               || s->gap_mm<c->gap_min_mm || s->gap_mm>c->gap_max_mm;
     if (bad) { lev_stop(s,true); return false; }
     if (s->current_mode) {
@@ -43,6 +45,8 @@ bool lev_control_step(lev_control_t *s,const lev_config_t *c,
     /* Gap increases downward. Positive error or falling velocity demands lift. */
     float v=s->have_position?(s->gap_mm-s->previous_mm)/dt:0;
     s->velocity+=c->derivative_alpha*(v-s->velocity);
+    if (!isfinite(s->velocity) || !(c->max_velocity_mm_s>0)
+        || fabsf(s->velocity)>c->max_velocity_mm_s) { lev_stop(s,true); return false; }
     s->previous_mm=s->gap_mm; s->have_position=true;
     float e=s->gap_mm-s->ramp_mm;
     float trial=s->integral+c->ki*e*dt;

@@ -16,9 +16,9 @@ Acceptance: lift exceeds weight with operating margin throughout the chosen inte
 
 ## 3. Verify digital paths with coil power disconnected
 
-Check bridge switches open and every jumper by continuity. Program default-disabled devices. Confirm the UART baud and complete HTML. Capture host SPI and ADC SPI: mode 0, clock rates, CS guards, 128-bit host frames, CRC byte ordering, 24 ADC clocks, channel order, and CS high interval. Apply known analog voltages to the ADC channels. Compare raw telemetry against a meter. A plausible constant ADC code is not sufficient proof that an ADC is connected.
+Check bridge switches open and every jumper by continuity. Program default-disabled devices. Confirm the UART baud and complete HTML. Capture the shared MCU SPI bus and both chip selects: mode 0, clock rates, CS guards, 64-bit host frames, CRC byte ordering, 24 ADC clocks, channel order, and CS high interval. Apply known analog voltages to the ADC channels. Compare raw telemetry against a meter. A plausible constant ADC code is not sufficient proof that an ADC is connected.
 
-Acceptance: decoded measurements match applied voltages and the C/SV packet tests. Scope `sample_debug` and PWM to verify rate and acquisition phase; output remains low during reset, programming, power loss, and disconnected permit/interlock.
+Acceptance: decoded measurements match applied voltages and the C/SV packet tests. Scope MCU ADC CS, `sample_debug`, and PWM to verify 5 kHz scans/accepted packets, 20 kHz PWM, and interchannel timing; output remains low during reset, programming, power loss, and disconnected permit/interlock.
 
 ## 4. Calibrate and prove the physical cutoff
 
@@ -40,6 +40,6 @@ At the nominal gap, use a catch tray, a current-limited supply, and a supported 
 
 ## 7. Demonstrate and preserve evidence
 
-Proposed final demonstration: stable suspension for 30 seconds; three gap targets in the measured usable interval; mean error ≤0.5 mm at each after settling; recovery from a small documented disturbance; page-based stop and current cap; and physical interlock operation. Record target/estimated gap versus an independent ruler/camera reference, current, PWM, peak error, settling time, RMS noise, and coil temperature. Do not call the Hall estimate independent ground truth.
+The revised proposal targets sustainable continuous suspension and visible commanded motion with a maximum gap of 10 mm. Measure an extended run through thermal equilibrium and command motion over the validated interval, retaining the exact duration and trajectory; a finite run cannot prove indefinite operation. Check page stop, the 50 ms command watchdog, overcurrent, and physical interlock operation. Record target/estimated gap versus an independent ruler/camera reference, current, PWM, actual speed, settling time, RMS noise, and coil temperature. The former draft's 30-second/three-target numbers are not the revised proposal specifications.
 
 Complete the checkoff matrix, final KiCad schematics, photos, team information, and demo video. Upload/publish only when the team has reviewed the actual evidence and the instructor's current submission requirements.

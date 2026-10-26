@@ -1,18 +1,18 @@
 # Specification and evidence record
 
-All hardware results below are **not tested** as of 2026-10-15. Replace status with a short factual explanation and evidence for each agreed specification before final checkoff. The candidate numerical targets must first be accepted in the proposal.
+Hardware results remain untested as of 2026-10-26. These entries follow the revised Word proposal's shared-control option 2. A finite run supports a continuous-operation assessment but cannot establish indefinite operation by itself.
 
-| ID | Proposed specification | Verification | Status |
+| ID | Proposal target or implementation check | Verification | Status |
 |---|---|---|---|
-| S1 | Suspend one magnetic object for ≥30 s | Continuous video plus actual gap/current trace | Not tested |
-| S2 | Three targets within validated range, initially 8–14 mm | Independent gap reference; mean error ≤0.5 mm after settling | Not tested |
-| S3 | Bounded current request and stable inner feedback | Meter/scope versus target across allowed range | Not tested |
-| S4 | FPGA 20 kHz PWM and 10 kHz complete scans | Scope PWM and scan debug with actual ADC | Not tested |
-| S5 | MCU 1 kHz control while serving pages | Measure maximum loop time and missed-tick behavior under web load | Not tested |
-| S6 | Position model passes independent data | RMSE ≤0.25 mm, worst error ≤0.5 mm over accepted range | Not tested |
-| S7 | Lost/frozen command removes drive within 20 ms nominal plus clock tolerance | Halt MCU / repeat exact packets; scope gate and current | Simulation passed; hardware not tested |
-| S8 | External trip, reset, and permit loss disable drive | Open interlock/reset devices at several PWM phases | Simulation passed; hardware not tested |
-| S9 | Web changes gap, selects supported current test, shows state, and stops | On-board ESP8266/MCU demonstration | C behavior tested; hardware not tested |
-| S10 | Electrical/thermal limits hold for demonstration duration | Coil temperature, switch/clamp/current measurements | Not tested |
+| S1 | Sustainable suspension of a permanent magnet with ballast | Extended run through thermal equilibrium; video, current and independent gap trace | Hardware not tested |
+| S2 | Visible commanded motion, maximum gap 10 mm | Ruler/camera reference; report actual gap and speed across validated interval | Hardware not tested |
+| S3 | Bounded current request and stable inner feedback | Meter/scope versus target across allowed range | PI simulation passed; hardware not tested |
+| S4 | 20 kHz PWM, 5 kHz ADC scans/current updates | Scope shared SPI chip selects, accepted-packet debug, and PWM | Integration simulation passed; hardware not tested |
+| S5 | 1 kHz position control while serving pages | Measure worst-case DMA/control ISR time, including every fifth scan, under web load | Runtime unit tests passed; hardware not tested |
+| S6 | Current-compensated position sensing with one or two Hall sensors | Independent holdout sweeps; report residuals and transient error | Calibration algorithms tested; no measurements |
+| S7 | Lost/frozen commands remove drive after 50 ms nominal plus clock tolerance | Halt MCU / repeat exact packets; scope gate and current decay separately | Integration simulation passed; hardware not tested |
+| S8 | External trip, reset, and permit loss disable drive | Open interlock/reset at several PWM phases | Integration simulation passed; hardware not tested |
+| S9 | Web changes bounded gap, selects supported current test, shows state, and stops | On-board ESP8266/MCU demonstration | C behavior tested; hardware not tested |
+| S10 | Electrical/thermal limits permit continuous operation | Coil temperature, switch/clamp/shunt ratings, supply and current measurements | Hardware not tested |
 
-For each final specification, record what was demonstrated, the measurement conditions, uncertainty, any unmet part, and the reason. Bring source, schematics, block diagrams, build/configuration details, measurement plots, and completed explanations to the instructor checkoff. See the [checkoff rubric](https://hmc-e155.github.io/project/specs/project-checkoff-specs.html).
+Preserve configuration hash, wiring revision, measurement conditions, uncertainty, actual results, and reasons for any unmet target. Current FPGA gains and the example 8-10 mm interval/speed limits must be replaced with validated values before commissioning. See [verification](verification.md) for the software checks and their limits.

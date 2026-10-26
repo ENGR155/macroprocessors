@@ -1,31 +1,34 @@
-# Communication contract v1
+# Communication contract v2
 
-## MCU ↔ FPGA SPI
+## Shared MCU SPI bus
 
-Separate bus from the ADC. Mode 0 (CPOL=0, CPHA=0), MSB first, 1 MHz maximum. CS leads the first rising SCK and follows the last falling SCK by at least 2 us. Clock exactly 128 bits under one CS. No bytes are read from MCU struct memory directly: the C codec packs explicit big-endian fields.
+The STM32 owns SPI1 at 1 MHz, mode 0, MSB first. PA1 selects the MCP3204; PA4 selects the FPGA. PA5/PA7/PA6 are shared SCK/MOSI/MISO. Only one chip select may be low. The FPGA releases MISO when PA4 is high, including during ADC transactions.
 
-CRC is CRC-16/CCITT-FALSE: polynomial `0x1021`, initial `0xffff`, no reflection, no final XOR, over bytes 0–13; stored high byte first at 14–15. Check vector `123456789 → 0x29b1`.
+TIM6 releases one scan every 200 us (5 kHz). DMA1 channel 2/request 1 receives SPI1 data and channel 3/request 1 transmits it. Each ADC channel gets a separate 24-clock transaction: CH0 current, CH1 primary Hall, and optionally CH2 reference Hall. ADC CS is high for at least 1 us between conversions. These sequential readings belong to the same scan; they are not simultaneous. Then the MCU exchanges one 8-byte FPGA packet, with at least 2 us CS lead/trail guards. DMA completion interrupts advance the transactions. A DMA error, stalled SPI, or scan overrun removes permit and halts acquisition until reset.
+
+The FPGA consumes one new measured/requested-current pair per valid packet, nominally 5 kHz. The MCU estimates height and runs its position/motion controller every fifth completed ADC scan (1 kHz). The requested current computed on that scan is sent in the following FPGA transaction. HTML generation and UART traffic run in the foreground while acquisition/control runs in interrupts.
+
+## Eight-byte frames
+
+Fields are explicitly packed big-endian. CRC-16/CCITT-FALSE uses polynomial `0x1021`, initial `0xffff`, no reflection/final XOR, over bytes 0-5, stored high byte first in bytes 6-7. Check vector: `123456789 -> 0x29b1`. This wire format is incompatible with the old 16-byte design; rebuild both devices.
 
 | Byte | MCU MOSI | FPGA MISO |
 |---:|---|---|
-| 0 | `0xa5` | `0x5a` |
-| 1 | protocol `1` | protocol `1` |
-| 2–3 | monotonically incrementing 16-bit command ID | completed-scan sample ID, wraps at 65536 |
-| 4 | enable: 0 or 1 | Hall1 high byte |
-| 5 | clear fault: 0 or 1 | Hall1 low byte |
-| 6–7 | current target ADC counts, 0…hard limit | Hall2 counts |
-| 8–9 | current Kp Q8.8, 0…4096 | current counts |
-| 10–11 | current Ki Q8.8 per update, 0…1024 | active duty ticks, 0…1080 |
-| 12 | current hard limit high byte | latched fault bits |
-| 13 | current hard limit low byte | flags: bit 0 scan ready; bit 1 enabled |
-| 14–15 | CRC | CRC |
+| 0 | `0xa0` plus bit 0 enable, bit 1 clear | `0x50` plus bit 0 measurement ready, bit 1 enabled |
+| 1 | 8-bit command sequence, increments every scan, wraps at 256 | last accepted command sequence |
+| 2-3 | measured current ADC code, 0-4095 | active PWM duty, 0-1080 ticks |
+| 4 | requested current code high byte | latched faults |
+| 5 | requested current code low byte | reserved, zero |
+| 6-7 | CRC | CRC |
 
-Telemetry is the most recently prepared coherent scan/status snapshot, frozen at CS assertion; it is not the response to the command currently being transmitted. Status is rebuilt every 100 us. The command is accepted about 5 us after CS rises once its frame/CRC/bounds are valid. There is no command ACK field; confirm actual enable/fault state in subsequent telemetry. A rejected command cannot keep the output enabled indefinitely: the 20 ms watchdog still runs. MCU command IDs change every tick, including disabled packets; the FPGA rejects the immediately repeated ID. This detects frozen retransmission, not arbitrary network replay/security attacks.
+Measurement and target are absolute ADC codes, including current zero offset. The compiled FPGA ceiling is in `project_config.svh`; the firmware's `hard_limit_counts` must agree. Current PI gains also live in that FPGA configuration, with Kp Q8.8 in 0-4096 and Ki Q8.8 in 0-1024; Ki includes the 200 us sample period. They no longer occupy packet fields. Example gains remain zero until measured and tuned.
 
-The accepted hard limit must be positive and no greater than the compiled FPGA ceiling. Targets use the ADC's absolute code, including measured current zero offset. The hard limit also uses absolute counts; update both firmware and FPGA configuration together. Gain formats and fault bits are defined in docs/design.md. The MCU faults on invalid telemetry or on a sample ID unchanged for 3 ms. Flags indicate a completed scan, not electrical proof that an ADC is connected: a stuck but plausible MISO level cannot be fully diagnosed digitally.
+The reply is a coherent snapshot frozen at CS assertion, acknowledging the previous transaction. MCU feedback verifies that previous sequence after the first exchange; it does not interpret the reply as acknowledgment of the packet still on the wire. Local ADC data is retained separately and never overwritten by FPGA telemetry. A missing acknowledgment, CRC/bounds failure, or missed 200 us acquisition deadline trips MCU control.
 
-## ESP8266 ↔ MCU
+The FPGA rejects short/overlong packets, reserved flags, bad CRCs, out-of-range values, and immediately repeated sequence numbers. Rejected packets cannot update PI or refresh the watchdog. Every accepted packet updates the current PI once. Fifty milliseconds without a fresh command while enabled latches a timeout fault. This is an MCU-command watchdog, not independent proof of ADC electrical health. Frozen but plausible analog readings need physical diagnosis and the independent comparator/interlock.
 
-Use the [course IoT server](https://hmc-e155.github.io/lab/lab6/) at 125000 baud, 8 data bits, no parity, one stop bit. Its line format is `/REQ:<route>\n`. This implementation accepts CRLF too. Routes are short, exact strings: empty route reads the page; `arm`, `stop`, `clear`, `modegap`, `modeamp`, `up`, and `down` perform controls. Query parameters are unnecessary. Connect to the board's existing SSID, then open `http://192.168.4.1/`.
+Fault bits: 0 external interlock, 1 measured overcurrent, 2 command timeout; bits 3-7 reserved. Clearing requires a fresh disabled packet, healthy external interlock, and measured current below the compiled limit. Clear and arm are separate actions. Permit and external fault directly remove gate permission without waiting for another serial packet.
 
-Each response is one HTML document from `<!DOCTYPE html>` through `</html>`. The course bridge forwards HTML rather than a general JSON API. The page refreshes the **root** once per second so a refresh does not repeat an arm or increment command. Every recognized request renews the 5-second browser lease. A backgrounded browser or lost Wi-Fi therefore stops the system. The UART page path never blocks while waiting for bytes. Web STOP depends on communications and is distinct from the physical interlock.
+## ESP8266 to MCU
+
+The unchanged course bridge uses USART1, 125000 baud, 8N1, and `/REQ:<route>\n` (CRLF also accepted). Exact routes are empty/root, `arm`, `stop`, `clear`, `modegap`, `modeamp`, `up`, and `down`. The response is one complete HTML document. Refresh points at root once per second so commands are not repeated by refresh. A recognized request renews a 5-second browser lease; expiry is checked in the interrupt control path. Web STOP removes MCU permit immediately after parsing. Physical E-stop remains independent of communications.

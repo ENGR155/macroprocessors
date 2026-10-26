@@ -21,7 +21,7 @@ Program the HEX through ST-LINK using STM32CubeProgrammer or your lab's establis
 
 ## MCU: SEGGER project integration
 
-If using Embedded Studio, create an STM32L432KC Cortex-M4F C project, enable hard-float FPv4-SP-D16, and add `firmware/include`, device CMSIS, and core CMSIS paths. Add `main.c`, `board_stm32l432.c`, `config.c`, `control.c`, `protocol.c`, and `web.c`. Use the IDE's device startup/system files **instead of** `src/startup.c` and its linker script. Ensure its SysTick vector reaches `SysTick_Handler` and `SystemCoreClock` is provided once. `board_init` establishes its own 16 MHz peripheral clock. The provided CMake target is for GNU Arm; it is not a SEGGER project file.
+If using Embedded Studio, create an STM32L432KC Cortex-M4F C project, enable hard-float FPv4-SP-D16, and add `firmware/include`, device CMSIS, and core CMSIS paths. Add `main.c`, `board_stm32l432.c`, `config.c`, `control.c`, `protocol.c`, `runtime.c`, and `web.c`. Use the IDE's device startup/system files **instead of** `src/startup.c` and its linker script. Ensure its SysTick, TIM6/DAC, and DMA1 channel 2 vectors reach `SysTick_Handler`, `TIM6_DAC_IRQHandler`, and `DMA1_Channel2_IRQHandler`; provide `SystemCoreClock` once. `board_init` establishes its own 16 MHz peripheral clock. The provided CMake target is for GNU Arm; it is not a SEGGER project file.
 
 ## FPGA
 
@@ -31,7 +31,7 @@ With OSS CAD Suite (`yosys`, `nextpnr-ice40`, `icepack`) on PATH:
 ./fpga/build.ps1
 ```
 
-The script targets UP5K SG48 and nominal 24 MHz. Preserve the synthesis/resource report and nextpnr timing report. The default `LEV_COMMISSIONED=0` makes the output gate constant off; synthesize and verify **both default and commissioned configurations**. Do not judge operational resource use from the disabled build. Keep the default disabled until bring-up authorizes changing it. Load `fpga/build/top.bin` with the UPduino programming method used in your lab, after reviewing the pad map and disconnecting coil power.
+The script targets UP5K SG48 and nominal 24 MHz. Preserve the synthesis/resource report and nextpnr timing report. The default `LEV_COMMISSIONED=0` makes the output gate constant off; synthesize and verify **both default and commissioned configurations**. For meaningful active controller resource/timing checks, override `top.COMMISSIONED=1`, `top.CURRENT_KP_Q8=256`, and `top.CURRENT_KI_Q8=16` before synthesis; these are test gains, not tuned plant settings. Do not judge operational resource use from the disabled build. Keep the default disabled until bring-up authorizes changing it. Load `fpga/build/top.bin` with the UPduino programming method used in your lab, after reviewing the pad map and disconnecting coil power.
 
 For Lattice Radiant, create an iCE40UP5K-SG48 SystemVerilog project, add all `fpga/rtl/*.sv`, set `top` as top level, add the `fpga/rtl` include path and `RADIANT` define, translate `upduino.pcf` assignments into the Radiant pin editor, select LVCMOS33, and constrain the internal oscillator at 24 MHz. The wrapper selects `HSOSC` for Radiant and `SB_HFOSC` for Yosys. Check timing, resource use, oscillator inference, and unused-pin behavior before producing a bitstream.
 
@@ -43,7 +43,7 @@ Use a native C compiler, Icarus Verilog supporting SystemVerilog, Python 3, and 
 ./tests/run.ps1 -CC gcc
 ```
 
-This runs the C behavior tests, full FPGA integration simulation with a behavioral ADC, and calibration tests. On Linux/macOS use equivalent compiler commands from the script and link `-lm` when required. No FPGA primitive library is needed for `tb_system`; it instantiates `lev_core` under a simulated clock. Top-level oscillator/pin configuration still requires the board toolchain.
+This runs C behavior/runtime tests, the shared-SPI FPGA integration simulation with a behavioral ADC, fixed-point current PI tests, and one/two-Hall calibration tests. On Linux/macOS use equivalent compiler commands from the script and link `-lm` when required. No FPGA primitive library is needed for `tb_system`; it instantiates `lev_core` under a simulated clock. Top-level oscillator/pin configuration still requires the board toolchain.
 
 ## Web controls
 
