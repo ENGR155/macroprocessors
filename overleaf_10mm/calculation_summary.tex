@@ -1,0 +1,311 @@
+% Standalone document. Overleaf: choose this file as the Main document.
+% Compatible with pdfLaTeX; no shell escape, custom fonts, or BibTeX required.
+\documentclass[11pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,tabularx,array,microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=*}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlength{\emergencystretch}{2em}
+\newcommand{\dd}{\mathrm d}
+\title{Magnetic Levitation at a Nominal 10 mm Distance\\
+\large Abridged Calculation: Position PI Driving PWM Directly}
+\author{ENGR 155 calculation notes}
+\date{}
+\begin{document}
+\maketitle
+\vspace{-1.5em}
+
+\textbf{Result.} Reducing the distance improves the available lifting force.
+For the proposal's illustrative coil, a 10 mm \emph{center distance} requires
+about 1.178 A and 78.5\% ideal duty at 12 V. However, assuming an inductance
+of 10 mH and negligible passive mechanical damping, the position PI loop
+remains unstable for every choice of PI gains in the continuous-time model
+derived below. The inductance and damping are assumptions, not measurements.
+
+\section{Geometry, architecture, and assumptions}
+The suspended magnet, carrier, and payload have total mass
+\(m=0.010\,\mathrm{kg}\). The desired \emph{surface gap} is
+\(d_0=0.010\,\mathrm m\), measured from the lower coil face to the upper
+magnet face. The thin-coil/dipole model instead uses the distance \(z\)
+from the coil plane to the magnet center:
+\begin{equation}
+ z=d+\Delta_g,\qquad z_0=d_0+\Delta_g.
+\end{equation}
+For a coil represented by its axial midplane and a magnet represented by its
+geometric center, \(\Delta_g\) is approximately half the coil thickness plus
+half the magnet height. Its value must be determined from the actual geometry.
+
+\textbf{Distance convention for the numbers below.} To reproduce the current
+10 mm calculation, the numerical illustration sets \(z_0=10\,\mathrm{mm}\).
+This equals a 10 mm surface gap only in the zero-offset, thin-coil/point-magnet
+idealization. For a real 10 mm surface gap, substitute the actual
+\(z_0=10\,\mathrm{mm}+\Delta_g\) into the same equations.
+
+The controller is \emph{position PI only}: measured gap error produces PWM
+duty directly. There is no current reference or current-feedback controller.
+Current can still be measured for field compensation, telemetry, and protection.
+The FPGA executes the position PI and PWM; the MCU handles ADC acquisition,
+DMA, the gap estimate, and the web interface through the Wi-Fi module.
+
+The numerical sizing assumptions from the proposal are
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Symbol & Meaning & Value used \\
+\midrule
+\(m\) & Total suspended mass & \(0.010\,\mathrm{kg}\) \\
+\(g\) & Gravitational acceleration & \(9.81\,\mathrm{m/s^2}\) \\
+\(N\) & Coil turns & 500 \\
+\(a\) & Mean coil radius & \(0.010\,\mathrm m\) \\
+\(\mu\) & Magnet dipole moment & \(0.050\,\mathrm{A\,m^2}\) \\
+\(R\) & Coil resistance & \(8.0\,\Omega\) \\
+\(V_s\) & Supply voltage & \(12.0\,\mathrm V\) \\
+\(L\) & Differential coil inductance & \(0.010\,\mathrm H\), assumed \\
+\(c\) & Passive mechanical damping & \(0\,\mathrm{N\,s/m}\), approximation \\
+\bottomrule
+\end{tabular}
+\end{center}
+The model assumes an aligned permanent dipole, a thin air-core coil, small
+motions near equilibrium, and an averaged PWM voltage \(V_su\) in continuous
+conduction. It neglects driver and diode drops, thermal changes, magnetic
+saturation, hysteresis, and unmodeled structural motion. A final core-equipped
+coil must be characterized locally rather than assigned these air-core slopes.
+
+\section{Holding force, current, and power}
+The standard axial coil field and aligned-dipole approximation give
+\begin{align}
+ B(z)&=\frac{\mu_0NIa^2}{2(a^2+z^2)^{3/2}},\\
+ F(z,I)&\simeq \mu\left|\frac{\dd B}{\dd z}\right|=K(z)I,\\
+ K(z)&=\frac{3\mu_0N\mu a^2z}{2(a^2+z^2)^{5/2}},
+ \qquad \mu_0=4\pi\times10^{-7}\,\mathrm{H/m}.
+\end{align}
+The field expression follows the current-loop model in
+OpenStax~\cite{openstax}; the force relation is the dipole approximation
+used in the proposal. At \(z_0=0.010\,\mathrm m\),
+\begin{align}
+ K(z_0)&=0.0833041\,\mathrm{N/A},\\
+ F_0=mg&=0.0981\,\mathrm N,\\
+ i_0=\frac{mg}{K(z_0)}&=1.17761\,\mathrm A,\\
+ u_0\simeq\frac{Ri_0}{V_s}&=0.78508,\\
+ P_{\mathrm{coil}}=i_0^2R&\simeq11.09\,\mathrm W.
+\end{align}
+The ideal full-on current is \(V_s/R=1.50\,\mathrm A\), so this nominal
+point is statically feasible in the ideal model. It leaves about 21.5
+percentage points of upward duty headroom; it does not establish thermal
+acceptability, dynamic force headroom, or closed-loop stability.
+
+\section{Small-signal force gains and mechanics}
+Define \(x=d-d_0\) and \(j=i-i_0\). Positive \(x\) is downward motion,
+away from the coil. A first-order Taylor expansion of upward magnetic force is
+\begin{equation}
+ F\simeq mg-k_xx+k_fj,\qquad
+ k_f=\left.\frac{\partial F}{\partial i}\right|_0,\qquad
+ k_x=-\left.\frac{\partial F}{\partial d}\right|_0.
+\end{equation}
+Because \(z=d+\Delta_g\) with fixed geometry, \(\dd z/\dd d=1\).
+For the illustrative force law,
+\begin{align}
+ k_f&=K(z_0),\\
+ \frac{\dd K}{\dd z}
+ &=K(z)\left(\frac1z-\frac{5z}{a^2+z^2}\right),\\
+ k_x&=mg\left(\frac{5z_0}{a^2+z_0^2}-\frac1{z_0}\right).
+\end{align}
+Substitution gives
+\begin{equation}
+ \boxed{k_f=0.0833041\,\mathrm{N/A},\qquad k_x=14.715\,\mathrm{N/m}.}
+\end{equation}
+Newton's law, with downward displacement positive, is
+\begin{equation}
+ \boxed{m\ddot x+c\dot x-k_xx+k_fj=0.}
+\end{equation}
+If current were held fixed and \(c=0\), the mechanical poles would be
+\(s=\pm\sqrt{k_x/m}=\pm38.36\,\mathrm{s^{-1}}\). The positive pole
+represents a growing displacement. This is a fixed-current mechanical
+comparison, not the complete voltage-driven plant.
+
+\section{Position PI and the uncontrolled coil current}
+Let \(u\in[0,1]\) be duty fraction. For a constant target define
+\begin{equation}
+ \boxed{u=u_0+K_px+K_i\eta,\qquad \dot\eta=x.}
+\end{equation}
+The positive sign increases attraction when the object is too far from the
+coil. \(K_p\) has units \(\mathrm{m^{-1}}\), \(K_i\) has units
+\(\mathrm{m^{-1}s^{-1}}\), and \(\eta\) has units \(\mathrm{m\,s}\).
+For a changing requested gap \(r(t)\), the controller error is \(e=d-r\).
+
+Coil current is a plant state, even though it has no controller. Including
+motion-induced voltage, the local electrical equation is
+\begin{equation}
+ \boxed{L\dot j+Rj-k_f\dot x=V_s\delta u,\qquad\delta u=u-u_0.}
+\end{equation}
+The coupling term follows from reciprocal magnetic coenergy: the downward
+magnetic force is \(-F\), so
+\(\partial\lambda/\partial d=\partial(-F)/\partial i=-k_f\), where
+\(\lambda\) is flux linkage. Consequently
+\(\delta v=Rj+L\dot j-k_f\dot x\). This is the energy-based
+electromechanical modeling method in Woodson and Melcher~\cite{woodson}.
+The mechanical damping \(c\) excludes this explicitly modeled coil coupling.
+If motion-induced voltage is negligible, omit the \(-k_f\dot x\) term;
+then the \(+k_f^2\) term below also disappears.
+
+\section{Laplace transform and stability calculation}
+With zero initial conditions, the transformed equations are
+\begin{align}
+ (ms^2+cs-k_x)X+k_fJ&=0,\\
+ (Ls+R)J-k_fsX&=V_s\Delta U,\\
+ \Delta U&=\left(K_p+\frac{K_i}{s}\right)X.
+\end{align}
+Eliminating \(J\) and \(\Delta U\) gives
+\begin{equation}
+ s\big[(ms^2+cs-k_x)(Ls+R)+k_f^2s\big]
+ +k_fV_s(K_ps+K_i)=0.
+\end{equation}
+Thus the characteristic polynomial is
+\begin{equation}
+\boxed{\begin{aligned}
+ p(s)={}&mLs^4+(mR+cL)s^3+(cR-k_xL+k_f^2)s^2\\
+       &+(k_fV_sK_p-k_xR)s+k_fV_sK_i.
+\end{aligned}}
+\end{equation}
+The four states are position, velocity, current, and accumulated position
+error. Taking a transform changes the representation, not the physical
+stability. Laplace and feedback foundations are in Oppenheim and
+Willsky~\cite{oppenheim}.
+
+For \(p(s)=A_4s^4+A_3s^3+A_2s^2+A_1s+A_0\), strict stability requires
+\begin{align}
+ A_4,A_3,A_2,A_1,A_0&>0,\\
+ A_3A_2-A_4A_1&>0,\\
+ A_3A_2A_1-A_4A_1^2-A_3^2A_0&>0.
+\end{align}
+These are the quartic Routh--Hurwitz conditions~\cite{routh}. Two necessary
+conditions are
+\begin{equation}
+ K_p>\frac{k_xR}{k_fV_s},\qquad cR+k_f^2>k_xL.
+\end{equation}
+The second condition is independent of the PI gains.
+
+For \(L=10\,\mathrm{mH}\) and \(c=0\), the numerical polynomial is
+\begin{equation}
+\boxed{\begin{aligned}
+ p(s)={}&0.0001s^4+0.08s^3-0.140210s^2\\
+       &+(0.999649K_p-117.72)s+0.999649K_i.
+\end{aligned}}
+\end{equation}
+Its \(s^2\) coefficient is negative for every \(K_p,K_i\). Therefore no
+position PI tuning can make this particular continuous-time model strictly
+stable. The necessary proportional-gain threshold,
+\(K_p>117.76\,\mathrm{m^{-1}}\), cannot repair the negative coefficient.
+
+For illustration only, choose \(K_p=150\,\mathrm{m^{-1}}\) and
+\(K_i=100\,\mathrm{m^{-1}s^{-1}}\). Then
+\begin{equation}
+ p(s)=0.0001s^4+0.08s^3-0.140210s^2+32.2273s+99.9649,
+\end{equation}
+whose roots are
+\begin{equation}
+ \boxed{s=-802.247,\quad -2.9963,\quad 2.6214\pm j\,20.2237\ \mathrm{s^{-1}}.}
+\end{equation}
+The oscillatory mode grows as \(e^{2.6214t}\), with an amplitude
+\(e\)-folding time of about 0.381 s. These are \emph{unstable example gains},
+not recommended firmware settings.
+
+The necessary electrical/damping condition can also be written
+\begin{align}
+ c=0:\quad L&<\frac{k_f^2}{k_x}=0.4716\,\mathrm{mH},\\
+ L=10\,\mathrm{mH}:\quad c&>\frac{k_xL-k_f^2}{R}
+ =0.01753\,\mathrm{N\,s/m}.
+\end{align}
+Passing either applicable threshold is necessary but not sufficient: all
+Routh inequalities must still pass. This does not prove that every physical
+PI-controlled levitator is unstable; it identifies what this assumed plant
+cannot achieve.
+
+\section{Digital implementation and the \texorpdfstring{\(z\)}{z}-transform}
+For an illustrative 1 kHz position update, \(T=0.001\,\mathrm s\), choose
+the explicit timing convention
+\begin{align}
+ \delta u[k]&=K_pe[k]+K_i\eta[k],\\
+ \eta[k+1]&=\eta[k]+Te[k].
+\end{align}
+This gives \(C(z)=K_p+K_iT/(z-1)\). Using the updated accumulator in the
+same sample instead would give a different discrete controller.
+
+To check the held actuator correctly, define \(q=[x,\dot x,j]^\mathsf T\):
+\begin{equation}
+ \dot q=Aq+B\delta u,\quad
+ A=\begin{bmatrix}
+ 0&1&0\\ k_x/m&-c/m&-k_f/m\\0&k_f/L&-R/L
+ \end{bmatrix},\quad
+ B=\begin{bmatrix}0\\0\\V_s/L\end{bmatrix},\quad
+ C=\begin{bmatrix}1&0&0\end{bmatrix}.
+\end{equation}
+The exact zero-order-held plant has
+\begin{equation}
+ A_d=e^{AT},\qquad B_d=\int_0^T e^{A\tau}B\,\dd\tau,
+\end{equation}
+and the sampled closed-loop state matrix, with zero additional computation
+delay, is
+\begin{equation}
+ M=\begin{bmatrix}A_d+B_dK_pC&B_dK_i\\TC&1\end{bmatrix}.
+\end{equation}
+The implemented loop is stable only if every eigenvalue of \(M\) is inside
+the unit circle. Merely substituting \(z=e^{sT}\) for the continuous
+closed-loop poles does not model a separately sampled controller and held
+actuator. Additional sensor filtering, communication, and computation delay
+must be included before selecting firmware gains.
+
+For the same illustrative plant and the unstable example gains above,
+the eigenvalues of this sampled matrix are
+\begin{equation}
+ z=0.447767,\quad 0.997019,\quad 1.002880\pm j\,0.020241.
+\end{equation}
+The complex pair has magnitude approximately 1.00308, exceeding one.
+Thus the explicitly defined 1 kHz sampled implementation is also unstable.
+
+\section{Measurements and the position-tolerance requirement}
+For the final coil at the actual 10 mm surface gap, measure the holding
+current and hot resistance, differential inductance, and local force slopes:
+\begin{align}
+ k_f&\simeq\frac{F(d_0,i_0+\Delta i)-F(d_0,i_0-\Delta i)}{2\Delta i},\\
+ k_x&\simeq-\frac{F(d_0+\Delta d,i_0)-F(d_0-\Delta d,i_0)}{2\Delta d}.
+\end{align}
+Estimate passive damping without counting the modeled coil-induced damping
+twice. Recalculate the continuous and sampled poles with the measured values.
+Duty limits and integrator anti-windup are necessary practical details, but
+they do not turn an unstable linear PI design into a stable small-signal loop.
+
+Specify a true-position tolerance and a recovery time separately; for example,
+\(\lvert d-r\rvert\le0.5\,\mathrm{mm}\) after a defined disturbance and
+settling interval. That example is not a demonstrated performance claim.
+A stable, unsaturated PI loop can reject constant disturbances in its measured
+position, while sensor bias, noise, quantization, and saturation still limit
+the true position. The proposal's current demonstration band is
+\(\pm5\,\mathrm{mm}\). No settling time or position band can be certified
+from the unstable example above.
+
+\clearpage
+\begin{thebibliography}{9}
+\raggedright
+\bibitem{openstax} OpenStax, \emph{University Physics, Volume 2}, Sec.~12.4,
+``Magnetic Field of a Current Loop.''
+\url{https://openstax.org/books/university-physics-volume-2/pages/12-4-magnetic-field-of-a-current-loop}
+\bibitem{woodson} H.~H. Woodson and J.~R. Melcher,
+\emph{Electromechanical Dynamics}, Part I, Chs.~3 and 5. MIT OpenCourseWare.
+\url{https://ocw.mit.edu/courses/res-6-003-electromechanical-dynamics-spring-2009/pages/part-i/}
+\bibitem{routh} University of Illinois, ECE 486 Handbook, Lecture 7,
+``Routh--Hurwitz Stability Criterion.''
+\url{https://courses.physics.illinois.edu/ece486/sp2026/documentation/handbook/lec07.html}
+\bibitem{oppenheim} A.~V. Oppenheim, A.~S. Willsky, with S.~H. Nawab,
+\emph{Signals and Systems}, 2nd ed., Prentice Hall, 1997,
+Chs.~9 (Laplace), 10 (\(z\)-transform), and 11 (feedback).
+MIT reading guide:
+\url{https://ocw.mit.edu/courses/6-003-signals-and-systems-fall-2011/pages/readings/}
+\end{thebibliography}
+\end{document}
