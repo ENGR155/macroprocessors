@@ -4,26 +4,29 @@ description: "ENGR 155 project by Stephen Kanti Mahanty and Ben Lertwachara."
 toc: false
 ---
 
-We are Stephen Kanti Mahanty and Ben Lertwachara, engineering and computer science students at Harvey Mudd College. For our ENGR 155 project, we are designing a magnetic levitation system using the STM32L432KC MCU and the UPduino FPGA.
+We are Stephen Kanti Mahanty and Ben Lertwachara at Harvey Mudd College. Our ENGR 155 project uses an STM32L432KC MCU and UPduino FPGA to control a suspended magnet and payload.
 
 ## Introduction
 
-The goal of this project is to suspend a magnetic object below an electromagnet and control its height through a webpage. Two Hall sensors measure the magnetic field, and a current sensor measures the coil current. The MCU uses these readings to estimate the gap between the object and the coil and calculate the current needed to hold the object at the requested height. The FPGA reads the sensors and controls the coil current using PWM.
+Our target is a **10 g total suspended mass**, including magnet, carrier, and object, moving between **10 and 20 mm surface gaps** below a 12 V electromagnet. Two Hall sensors sit above and below the electromagnet. The MCU combines their readings with measured current to estimate gap. The FPGA runs a position PI controller that sets PWM duty directly.
 
-We split the control between the MCU and FPGA so that the current controller can run faster than the position controller. The design uses a 1 kHz position loop, a 10 kHz current loop, and 20 kHz PWM. These are the intended operating rates and still need to be checked on hardware.
+The hardware webpage will graph requested and estimated gap in real time, display current and faults, accept PI gain changes, and provide Stop. This report website describes that interface; the hardware control page is served separately.
 
-## Project Status
+## Project Status — November 10, 2026
 
-The repository contains firmware, FPGA logic, tests, and a plan for building and testing the hardware. Software and HDL checks are documented in the [October 15, 2026 verification record](docs/verification.qmd). The physical components have not been selected, assembled, or tested, and levitation has not been demonstrated.
+The revised plan uses FPGA position PI, MCU ADC acquisition with DMA, and a **Heyiarbeit JF-XP2520-12V electromagnet** selected in the project discussion. The main application sources still implement the earlier MCU-position/FPGA-current design. Their recorded checks do not validate the revised controller.
+
+A November 7 bench discussion reported receiving decimal **165**, or **0xA5**, from the FPGA on the MCU in a standalone SPI test. Levitation, calibrated resolution, stable motion, thermal operation, and shutdown timing remain unverified.
 
 ## Documentation
 
-- [System Design](design.qmd): system diagram, control loops, and calibration approach.
-- [MCU Design](mcu.qmd): position estimation, control, and the webpage interface.
-- [FPGA Design](fpga.qmd): sensor acquisition, current control, PWM, and fault handling.
-- [Hardware](hardware.qmd): candidate components and proposed wiring.
-- [Technical Documentation](documentation.qmd): build instructions, detailed notes, and source files.
-- [Results](results.qmd): recorded tests and the measurements we still need to take.
+- [System Design](design.qmd): current architecture, timing, sensing, and stability.
+- [MCU Design](mcu.qmd): ADC/DMA, gap estimation, and the planned hardware webpage.
+- [FPGA Design](fpga.qmd): position PI, PWM, and shutdown.
+- [Hardware](hardware.qmd): selected electromagnet and remaining characterization.
+- [Proposal and Specifications](docs/proposal.qmd): commitments and proposal downloads.
+- [Documentation](documentation.qmd): current sources and earlier engineering guides.
+- [Results](results.qmd): dated evidence and measurements still needed.
 
 ## Authors
 

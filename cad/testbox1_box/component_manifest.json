@@ -1,0 +1,258 @@
+{
+  "01_plywood_base": {
+    "kind": "fabricate",
+    "material": "plywood",
+    "note": "Countersinks on underside; M4/wood screws heads must finish flush.",
+    "bbox_mm": [
+      0.0,
+      0.0,
+      0.0,
+      180.0,
+      160.0,
+      18.0
+    ],
+    "volume_mm3": 517447.3120277989,
+    "solid_count": 1,
+    "valid": true
+  },
+  "02_wood_rear_clamp": {
+    "kind": "fabricate",
+    "material": "hardwood",
+    "note": "",
+    "bbox_mm": [
+      45.0,
+      100.0,
+      18.0,
+      135.0,
+      130.0,
+      43.0
+    ],
+    "volume_mm3": 66319.93925949531,
+    "solid_count": 1,
+    "valid": true
+  },
+  "03_clear_rear_panel": {
+    "kind": "fabricate",
+    "material": "cast acrylic",
+    "note": "6mm flat sheet. Do not heat bend; bolted angle brackets join separate top plate.",
+    "bbox_mm": [
+      45.0,
+      130.0,
+      18.0,
+      135.0,
+      136.0,
+      190.0
+    ],
+    "volume_mm3": 92210.29649258885,
+    "solid_count": 1,
+    "valid": true
+  },
+  "04_clear_top_cantilever": {
+    "kind": "fabricate",
+    "material": "cast acrylic",
+    "note": "97mm front-to-back; 91mm projection from rear panel front. Center bore permits EM top access and reference Hall sensing.",
+    "bbox_mm": [
+      45.0,
+      39.0,
+      190.0,
+      135.0,
+      136.0,
+      196.0
+    ],
+    "volume_mm3": 48349.87069619538,
+    "solid_count": 1,
+    "valid": true
+  },
+  "05_angle_bracket_left": {
+    "kind": "fabricate",
+    "material": "PETG",
+    "note": "Print on side; 4mm flanges. M4 bolt+washers+nut each flange.",
+    "bbox_mm": [
+      50.0,
+      105.0,
+      165.0,
+      62.0,
+      130.0,
+      190.0
+    ],
+    "volume_mm3": 2080.7654975296136,
+    "solid_count": 1,
+    "valid": true
+  },
+  "05_angle_bracket_right": {
+    "kind": "fabricate",
+    "material": "PETG",
+    "note": "Print on side; 4mm flanges. M4 bolt+washers+nut each flange.",
+    "bbox_mm": [
+      118.0,
+      105.0,
+      165.0,
+      130.0,
+      130.0,
+      190.0
+    ],
+    "volume_mm3": 2080.7654975296136,
+    "solid_count": 1,
+    "valid": true
+  },
+  "06_em_cradle": {
+    "kind": "fabricate",
+    "material": "PETG",
+    "note": "25.6mm bore. Four M3 through-bolts retain cassette; no unknown coil thread used. 10x6mm side lead exit.",
+    "bbox_mm": [
+      64.0,
+      39.0,
+      170.0,
+      116.0,
+      91.0,
+      190.0
+    ],
+    "volume_mm3": 23572.895726375227,
+    "solid_count": 1,
+    "valid": true
+  },
+  "07_helper_retainer_cassette": {
+    "kind": "fabricate",
+    "material": "PETG",
+    "note": "Pocket open upward. Helper rests on floor168.1mm and is captive under EM when bolted. Cassette also positively supports coil rim; remove four bolts to change helper.",
+    "bbox_mm": [
+      64.0,
+      39.0,
+      164.0,
+      116.0,
+      91.0,
+      170.0
+    ],
+    "volume_mm3": 7622.42676723518,
+    "solid_count": 1,
+    "valid": true
+  },
+  "08_lower_Hall_guard": {
+    "kind": "fabricate",
+    "material": "polycarbonate",
+    "note": "2mm protective stop; slot travel +/-2.3mm lateral. Board/sensor total envelope <=12x8x2mm sits on top; solder leads exit sides. Sensor not a fitted socket.",
+    "bbox_mm": [
+      78.0,
+      39.0,
+      162.0,
+      102.0,
+      91.0,
+      164.0
+    ],
+    "volume_mm3": 2365.1231889245,
+    "solid_count": 1,
+    "valid": true
+  },
+  "09_upper_Hall_carrier": {
+    "kind": "fabricate",
+    "material": "PETG",
+    "note": "Board/sensor retained with nylon ties/adhesive; adjust lateral position in slots and orient sensor sensitive axis vertically. Confirm package before assembly.",
+    "bbox_mm": [
+      50.0,
+      57.0,
+      196.0,
+      130.0,
+      73.0,
+      198.0
+    ],
+    "volume_mm3": 2381.1231889245037,
+    "solid_count": 1,
+    "valid": true
+  },
+  "10_catch_tray": {
+    "kind": "fabricate",
+    "material": "PETG",
+    "note": "64x64mm clear cavity, floor1.5mm. Add nonmagnetic foam; screw to base. No enclosure or supply geometry assumed.",
+    "bbox_mm": [
+      55.0,
+      30.0,
+      18.0,
+      125.0,
+      100.0,
+      24.0
+    ],
+    "volume_mm3": 10913.52478338675,
+    "solid_count": 1,
+    "valid": true
+  },
+  "REF_electromagnet_25x20": {
+    "kind": "reference",
+    "material": "steel/copper",
+    "note": "Nominal project envelope, not measured supplier drawing; remove references for manufacturing.",
+    "bbox_mm": [
+      77.5,
+      52.5,
+      170.0,
+      102.5,
+      77.5,
+      190.0
+    ],
+    "volume_mm3": 9817.477042468106,
+    "solid_count": 1,
+    "valid": true
+  },
+  "REF_helper_19p05x1p5875": {
+    "kind": "reference",
+    "material": "N42",
+    "note": "Candidate DC1 dimensions; sits on pocket floor. 0.3125mm top clearance to EM.",
+    "bbox_mm": [
+      80.475,
+      55.475,
+      168.1,
+      99.525,
+      74.525,
+      169.6875
+    ],
+    "volume_mm3": 452.4739442253442,
+    "solid_count": 1,
+    "valid": true
+  },
+  "REF_payload_ASSUMED_12p7x6_gap15": {
+    "kind": "reference",
+    "material": "hypothetical",
+    "note": "ILLUSTRATIVE ONLY. Top155mm =>15mm EM face gap. Total moving mass must be10g; this envelope is not an ordered part.",
+    "bbox_mm": [
+      83.65,
+      58.65,
+      149.0,
+      96.35,
+      71.35,
+      155.0
+    ],
+    "volume_mm3": 760.0612186462467,
+    "solid_count": 1,
+    "valid": true
+  },
+  "REF_lower_Hall_allowance": {
+    "kind": "reference",
+    "material": "electronics allowance",
+    "note": "Package+carrier allowance, not actual sensor package. Must confirm <=2mm total height or lower guard (changes stop clearance).",
+    "bbox_mm": [
+      84.0,
+      61.0,
+      164.0,
+      96.0,
+      69.0,
+      166.0
+    ],
+    "volume_mm3": 192.0,
+    "solid_count": 1,
+    "valid": true
+  },
+  "REF_upper_Hall_allowance": {
+    "kind": "reference",
+    "material": "electronics allowance",
+    "note": "Package+carrier allowance, not actual sensor package.",
+    "bbox_mm": [
+      84.0,
+      61.0,
+      198.0,
+      96.0,
+      69.0,
+      200.0
+    ],
+    "volume_mm3": 192.0,
+    "solid_count": 1,
+    "valid": true
+  }
+}

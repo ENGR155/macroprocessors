@@ -1,45 +1,35 @@
 ---
 title: "Hardware"
-description: "Candidate components and wiring for the magnetic levitation system."
+description: "Selected electromagnet, sensor placement, and planned characterization."
 ---
 
-## Current Status
+## Electromagnet and Magnets
 
-We have not selected, assembled, or tested the physical components. The parts below are candidates, and the bill of materials contains estimated allowances.
+In the November 6 project discussion, the team selected the **Heyiarbeit JF-XP2520-12V**, described there as a 12 V DC, 25 mm diameter × 20 mm electromagnet. This replaces the hypothetical wound air-core coil used in earlier calculations. Selection does not establish measured lifting force, current, inductance, or thermal performance.
 
-## Course Boards
+The team specified a **3/4 inch × 1/16 inch N42 fixed helper magnet** (approximately 19.05 mm × 1.59 mm). The suspended payload magnet was still undecided in that discussion. The moving magnet, carrier, and object together must total 10 g under the proposal.
 
-The design uses the STM32L432KC for position estimation and control, the UPduino v3.1 for sensor acquisition and current control, and the course ESP8266 for the webpage interface. The existing ESP8266 firmware is used unchanged.
+Mount two Hall sensors above and below the electromagnet. Final helper-magnet placement, polarity, fit with the enclosed electromagnet, sensor saturation, and payload orientation need checking on the assembly.
 
-## Candidate Components
+## Course Boards and Planned Electronics
 
-| Function | Candidate | What we need to check |
+| Function | Board or planned part | Remaining check |
 |---|---|---|
-| Magnetic field sensing | Two TI DRV5055 Hall sensors | Choose A3/A4 sensitivity based on the measured field range |
-| Analog conversion | MCP3204-CI/P | 12-bit, 3.3 V operation with three channels |
-| Coil current sensing | INA240A1 and 0.100 ohm shunt | Offset, gain, and usable current range |
-| Gate driver | UCC27511 | Compatibility with the selected MOSFET and supply |
-| Power switching | MOSFET and flyback diode or clamp | Coil current, supply voltage, and switching transients |
-| Mechanical support | Nonmagnetic frame and catch tray | Repeatable gap and object orientation |
-| Independent shutdown | E-stop, current comparator, and output logic | Shutdown delay and behavior when a connection is lost |
+| Acquisition, DMA, gap estimate, web interface | STM32L432KC and course ESP8266 | Revised integration |
+| Position PI and PWM | UPduino v3.1 | Revised controller |
+| Field measurements | Two DRV5055 Hall sensors | Sensitivity and usable range |
+| Three analog channels | MCP3204 at 3.3 V | Scan timing and noise |
+| Current measurement | INA240A1 and 0.100 ohm shunt | Offset, gain, and heating |
+| Power stage | UCC27511, MOSFET, flyback diode/clamp | Final ratings and wiring |
+| Independent shutdown | E-stop and overcurrent comparator | Physical shutdown |
+| Structure | Nonmagnetic frame, upper stop, catch tray | Final assembly evidence |
 
-With a 0.100 ohm shunt and a gain of 20, the ideal current-sense output is 2 V/A. A 3.3 V ADC reference gives approximately 0.403 mA per count. The actual offset and scale will need calibration.
+A gain of 20 and 0.100 ohm shunt give an ideal 2 V/A scale, or approximately 0.403 mA per 3.3 V, 12-bit ADC count. This is calculated scaling, not measured current accuracy.
 
-## Coil and Suspended Object
+## Characterization
 
-A coil's holding-force rating at contact does not tell us how much force it can produce across an air gap. We plan to start with an instructor-approved test coil and measure force versus current and gap, winding resistance, inductance, and temperature.
+Measure force versus gap and current with the complete assembly, including the helper magnet. Record cold/hot resistance, inductance, operating current, sensor headroom, and temperature. A contact holding-force rating does not establish force at a 10–20 mm gap.
 
-The position estimate assumes that the object contains a permanent magnet with a repeatable orientation. We also need to check for rotation, attraction to the core, and gaps that produce similar Hall readings. A steel-only object would require a different characterization procedure.
+The proposal's 500-turn, 8 ohm air-core example does not describe the selected electromagnet. Its calculated 1.178 A at 10 mm center distance must not be used as this device's measured operating current.
 
-## Wiring and Initial Tests
-
-The proposed netlist uses separate SPI buses for MCU-to-FPGA communication and FPGA-to-ADC acquisition. The hardware guide lists the jumpers, voltage levels, power connections, and interlock wiring.
-
-The configuration values `power_stage_ready=false`, `calibration_ready=false`, and `LEV_COMMISSIONED=0` keep the output disabled until the corresponding bring-up checks are complete.
-
-- [Hardware and Wiring Guide](docs/hardware.qmd)
-- [Bring-up Procedure](docs/bringup.qmd)
-- [Candidate Bill of Materials](hardware/bom.csv)
-- [Proposed Circuit Netlist](hardware/netlist.md)
-
-CAD schematics, supplier quotes, assembly photographs, and measured component ratings still need to be added.
+The [candidate BOM](hardware/bom.csv) and [earlier netlist](hardware/netlist.md) need reconciliation with final hardware. The proposal's $49 total is a planning allowance, not an updated purchase total. Final schematic, payload details, assembly photographs, and measured ratings remain to be added.

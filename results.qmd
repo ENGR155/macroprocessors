@@ -1,58 +1,45 @@
 ---
 title: "Results"
-description: "Recorded software and FPGA checks and the remaining hardware tests."
+description: "Dated implementation evidence, SPI bring-up, and remaining measurements."
 ---
 
-## Overview
+## Status — November 10, 2026
 
-The following results summarize the [verification record from October 15, 2026](docs/verification.qmd). Software and HDL checks have been recorded, but the hardware has not been assembled or tested. We have not demonstrated levitation or measured its performance.
+The current plan is FPGA position PI with MCU ADC/DMA and gap estimation. There is no recorded levitation demonstration or measured stability, position accuracy, thermal performance, or shutdown latency for this design.
 
-## FPGA Implementation
+## SPI Bring-up — November 7
 
-| Resource or timing check | Recorded result |
+The project chat reported a received MCU value of **165**, which equals **0xA5**. This supports reception of the expected byte in the standalone FPGA-to-MCU test. The proposed second pattern, `0x3B` (59), was a follow-up check; success has not been recorded.
+
+The [standalone guide](simple_byte/README.md) records HDL simulation across all 256 bytes, MISO release on deselection, partial-byte restart, synthesis/routing using 8 logic cells, and Cortex-M4 compilation in Watch-only mode. These are recorded checks, not rerun measurements. They do not establish MOSI command reception, ADC sampling, DMA execution, the full application link, or levitation.
+
+## Earlier Application Verification — October 26
+
+The [verification record](docs/verification.qmd) covers MCU position control and FPGA current PI. It supersedes the site's former October 15 figures, but it does not validate the later FPGA-position design.
+
+| Check | Recorded result and scope |
 |---|---|
-| Logic cells | 1971 / 5280 (37%) |
-| DSP blocks | 2 / 8 (25%) |
-| Routed maximum clock estimate | 45.79 MHz |
-| Required clock | 24 MHz; passed |
+| Firmware behavior | Passed host checks for packets, scheduling, bounds, faults, and web handling |
+| MCU source compilation | Eight C translation units; full executable link and programming unverified |
+| HDL tests | Shared-bus integration and current-PI arithmetic simulations passed |
+| Calibration | Five algorithm tests passed; no measured calibration dataset |
+| Enabled FPGA build | 1099/5280 logic cells; 2/8 DSP blocks; 46.59 MHz routed estimate |
+| Disabled FPGA build | 644/5280 logic cells; 0/8 DSP blocks; 52.99 MHz routed estimate |
 
-These results were recorded with YoWASP Yosys 0.70 and nextpnr-ice40 0.11.1. The verification build sets `top.COMMISSIONED=1` so that the tools include the active design. The source defaults keep the output disabled, and that version was built separately as well.
+The required clock was 24 MHz. Tool timing is an estimate. The enabled build used nonzero test gains; shipped commissioning defaults remained disabled.
 
-The timing result is an implementation-tool estimate. We still need to check the clock and external signals on the board.
+## Calculations and Measurements
 
-## Software and Simulation Tests
+The proposal's air-core sizing example cannot support 10 g at 20 mm center distance from a 12 V, 8 ohm coil. Its illustrative 10 mm position-PI model is unstable under the assumed inductance and damping. Neither calculation characterizes the selected electromagnet. See [System Design](design.qmd#stability-calculation).
 
-| Check | Recorded result | Scope |
-|---|---|---|
-| Native C compilation | Passed | Host compilation with warnings treated as errors |
-| C behavior tests | Passed | CRC, packets, controller direction, limits, ramps, faults, and webpage handling |
-| Cortex-M4F compilation | Seven C files compiled | Source compatibility with the checked headers and runtime |
-| HDL elaboration | Checked with slang and Icarus | SystemVerilog elaboration |
-| FPGA integration simulation | Passed | ADC sequencing, telemetry, regulation, timeouts, faults, and disabled defaults |
-| Calibration tests | Three tests passed | Model recovery, degenerate-signal rejection, and nonlinear-fit residuals |
-| FPGA synthesis and routing | Passed at 24 MHz | Estimated internal synchronous timing |
+| Demonstration test | Evidence still needed |
+|---|---|
+| Five 20-to-10 mm round trips without contact | Video, ruler reference, moving mass, and actual gaps |
+| ±5 mm endpoint position band | Independent position readings alongside the estimate |
+| Requested/estimated gap graph, current, and faults | Hardware webpage demonstration and display latency |
+| PI constants changed from webpage | Accepted gains, application boundary, and resulting response |
+| Position resolution | Local voltage slope, noise, repeatability, and holdout errors |
+| Timing and independent shutdown | Scope/logic-analyzer captures under web traffic |
+| Continuous operation | Temperature/current logs through thermal equilibrium |
 
-The full GNU Arm executable link and board programming have not been verified. The simulation uses ideal ADC readings and a fixed clock. It does not include a validated model of the physical coil.
-
-## Remaining Hardware Tests
-
-| Measurement | Current status | Planned test |
-|---|---|---|
-| Levitation duration | Not measured | Record a continuous suspension trial |
-| Gap accuracy and repeatability | Not measured | Compare the estimate with an independent position measurement |
-| Settling and disturbance response | Not measured | Record target steps and disturbances |
-| Hall estimate during current changes | Not measured | Hold the object at known gaps and vary the current |
-| External timing and shutdown delay | Not measured | Capture SPI, PWM, and interlock signals on an oscilloscope |
-| Coil and power-stage temperature | Not measured | Log temperature at the intended operating point |
-
-The first test is to check whether the Hall readings can distinguish changes in object position from changes in coil current. We plan to collect readings at known gaps, fit the calibration model, and validate it with separate data. Current-step tests with a fixed object will check whether the estimate also works during transients.
-
-[Calibration Procedure](docs/calibration.qmd)
-
-## Demonstration
-
-There are no prototype photographs or demonstration videos yet. We will add these after assembling and testing the hardware.
-
-- [Blank Measurement Log](data/results/measurements.csv)
-- [Planned Checkoff Tests](docs/checkoff.qmd)
-- [Full Verification Record](docs/verification.qmd)
+There are no levitation photos, measured traces, or demonstration videos included yet. The [measurement log](data/results/measurements.csv) is blank. See the [checkoff record](docs/checkoff.qmd).

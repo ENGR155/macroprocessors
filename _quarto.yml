@@ -14,6 +14,16 @@ project:
     - data/results/**
     - tools/calibrate.py
     - tests/**
+    - "Project Proposal.docx"
+    - Magnetic_Levitation_Overleaf_10mm.zip
+    - overleaf_10mm/*.pdf
+    - overleaf_10mm/*.tex
+    - overleaf_10mm/assets/**
+    - simple_byte/README.md
+    - simple_byte/main.c
+    - simple_byte/spi_byte.sv
+    - simple_byte/spi_byte.pcf
+    - simple_byte/tb_spi_byte.sv
 website:
   title: 'E155 Magnetic Levitation'
   description: 'Magnetic levitation project for ENGR 155 by Stephen Kanti Mahanty and Ben Lertwachara.'

@@ -1,55 +1,24 @@
 ---
 title: "FPGA Design"
-description: "ADC acquisition, current control, PWM, and fault handling on the UPduino."
+description: "Planned position PI, PWM, and shutdown on the UPduino."
 ---
 
-## Overview
+## Revised Responsibilities
 
-The UPduino FPGA reads the sensors and regulates the coil current. We placed the current controller on the FPGA so that it can run independently of the MCU's position calculations and webpage communication.
+The UPduino will receive estimated gap, requested gap, measured current, and status from the MCU. It will run **position PI at 1 kHz** using DSP blocks and generate **20 kHz PWM**. PI output is PWM duty directly. The MCU owns ADC acquisition and gap estimation.
 
-## Reading the ADC
+Current supports compensation, telemetry, and protection; it has no separate feedback controller in this plan. See the [position-control equation](design.qmd#gap-and-position-control).
 
-The design uses a nominal 24 MHz internal clock and starts an ADC scan every 100 microseconds. The MCP3204 reads three channels in order: coil current on CH0, the primary Hall sensor on CH1, and the reference Hall sensor on CH2. The completed readings are stored together with a sample ID for the MCU.
+## Timing and Gain Updates
 
-The ADC SPI clock is approximately 0.857 MHz. Three conversions and the chip-select gaps take approximately 87 microseconds. Sampling starts 2.5 microseconds after every other PWM period begins. The PWM falling edge can still occur during a scan, so filtering and oscilloscope measurements are needed to check for switching noise.
+A nominal 24 MHz clock divided by 1200 produces 20 kHz PWM. Position control updates once per millisecond. Gain changes must be range-checked and applied together at a control boundary. Fixed-point scaling, arithmetic widths, saturation, integrator anti-windup, and the revised SPI contract still need implementation and tests.
 
-## Current Controller
+## Shutdown
 
-The PI controller calculates the PWM duty using ADC counts and PWM ticks. The gains use Q8.8 fixed-point values. Dividing `kp_q8` by 256 gives ticks per count, and dividing `ki_q8` by 256 gives ticks per count per 100 microseconds update.
+The proposal calls for drive removal after 50 ms without valid MCU commands, an MCU drive-permit signal, and independent E-stop/overcurrent-comparator disabling of the driver. Measure gate-disable delay and current decay separately. The 50 ms figure is a proposed command timeout, not a measured physical stopping time.
 
-The calculation uses seven registered arithmetic stages and completes in less than 0.3 microseconds at the nominal clock rate. The integrator is limited to +/-1080 * 256. Disabling the controller clears its history.
+## Existing HDL and Evidence
 
-| Parameter | Design value |
-|---|---|
-| Internal clock | 24 MHz nominal |
-| Current update period | 2400 cycles, or 100 microseconds |
-| PWM period | 1200 cycles, or 50 microseconds |
-| Maximum duty | 1080 ticks, or 90% |
-| Command timeout | 20 ms |
-| ADC timeout | 250 microseconds |
+[lev_core.sv](fpga/rtl/lev_core.sv), [current_pi.sv](fpga/rtl/current_pi.sv), and [spi_frame.sv](fpga/rtl/spi_frame.sv) belong to the earlier current-controller implementation. The [October 26 verification](docs/verification.qmd) reports its enabled build at 1099/5280 logic cells, 2/8 DSP blocks, and a 46.59 MHz routed clock estimate. These figures do not describe the proposed position controller.
 
-## Fault Handling
-
-The FPGA checks command packets using a serial CRC. A malformed packet or repeated sequence number does not reset the command timeout. Validation finishes approximately 5 microseconds after chip select rises.
-
-Four conditions can latch a fault: loss of the external interlock, sampled overcurrent, command timeout, and ADC timeout. Clearing a fault requires a valid disabled command, a recent ADC scan, a healthy external input, and current below the requested hard limit. Arming the controller is a separate command.
-
-Normal PWM updates happen at period boundaries. A fault or loss of permission can stop a pulse immediately. The default build keeps the output disabled, and the proposed physical interlock still needs to be tested on the board.
-
-## Source Files
-
-| File | Function |
-|---|---|
-| [top.sv](fpga/rtl/top.sv) | Oscillator and board connections |
-| [lev_core.sv](fpga/rtl/lev_core.sv) | Integration, timing, output gating, and faults |
-| [mcp3204_scan.sv](fpga/rtl/mcp3204_scan.sv) | Three-channel ADC sequencing |
-| [current_pi.sv](fpga/rtl/current_pi.sv) | Fixed-point PI controller |
-| [spi_frame.sv](fpga/rtl/spi_frame.sv) | MCU SPI interface |
-| [crc112.sv](fpga/rtl/crc112.sv) | Packet checksum |
-| [upduino.pcf](fpga/constraints/upduino.pcf) | Proposed pin assignments |
-
-## Testing
-
-The recorded enabled build uses 1971 of 5280 logic cells and 2 of 8 DSP blocks. The routed maximum clock estimate is 45.79 MHz, which is above the 24 MHz design requirement. These values come from the implementation tools and have not been measured on a board.
-
-[Results](results.qmd) | [Detailed Timing Calculations](docs/design.qmd#fpga-pipeline)
+The standalone [SPI sender](simple_byte/spi_byte.sv) and [testbench](simple_byte/tb_spi_byte.sv) exercise a byte read without the levitation application. Recorded checks cover all 256 byte values, deselection, and partial-transfer restart. See [Results](results.qmd).

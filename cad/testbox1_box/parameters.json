@@ -1,0 +1,23 @@
+{
+  "base_width": 180.0,
+  "base_depth": 160.0,
+  "base_thickness": 18.0,
+  "panel_width": 90.0,
+  "panel_thickness": 6.0,
+  "panel_top": 190.0,
+  "axis_x": 90.0,
+  "axis_y": 65.0,
+  "em_face_z": 170.0,
+  "em_diameter": 25.0,
+  "em_height": 20.0,
+  "em_bore": 25.6,
+  "helper_diameter": 19.05,
+  "helper_thickness": 1.5875,
+  "helper_pocket_diameter": 19.6,
+  "helper_pocket_depth": 1.9,
+  "helper_floor_z": 168.1,
+  "payload_diameter_ASSUMED": 12.7,
+  "payload_height_ASSUMED": 6.0,
+  "gap_min": 10.0,
+  "gap_max": 20.0
+}

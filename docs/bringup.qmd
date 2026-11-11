@@ -3,6 +3,13 @@ title: 'Staged bring-up and acceptance gates'
 body-classes: guide-page
 ---
 
+::: {.callout-note}
+## Earlier implementation reference
+
+This guide records the earlier MCU-position/FPGA-current design or its planning and tests. The revised proposal puts position PI in the FPGA and ADC/DMA in the MCU. See [current system design](../design.qmd) and [current status](../results.qmd). Historical checks do not verify the revised controller.
+:::
+
+
 [Documentation](../documentation.qmd) / Technical guide
 
 {{< include bringup.md >}}

@@ -1,62 +1,73 @@
 ---
 title: "System Design"
-description: "System architecture and control loops for the magnetic levitation project."
+description: "FPGA position PI, MCU acquisition, and magnetic position sensing."
 ---
 
-## Overview
+## Current Architecture
 
-We designed the system with two control loops. The MCU estimates the position of the object and calculates a current request. The FPGA uses that request to regulate the coil current. The webpage lets the user change the target gap through the course ESP8266 module.
+The revised LaTeX proposal puts **position PI and PWM in the FPGA**. The MCU reads the ADC using SPI DMA, estimates gap, and handles the web interface. Current supports field compensation, telemetry, and protection; the revised plan has no current-feedback controller.
 
-```text
-Webpage -> ESP8266 -> STM32 MCU -> UPduino FPGA -> Coil driver
+```{mermaid}
+flowchart LR
+  UI["Hardware webpage: target, graph, gains, Stop"] <--> WIFI[ESP8266]
+  WIFI <-->|UART| MCU["STM32: ADC DMA and gap estimate"]
+  H["Hall A above / Hall B below electromagnet"] --> ADC[MCP3204 ADC]
+  I[Current sensor] --> ADC
+  ADC -->|SPI DMA| MCU
+  MCU <-->|"SPI: gap, target, current, status, gains"| FPGA["UPduino: position PI and PWM"]
+  FPGA --> DRIVER["Gate driver and MOSFET"]
+  DRIVER --> EM[12 V electromagnet]
+  EM --> OBJECT["Suspended magnet and payload"]
+  OBJECT -. field .-> H
+  EM -. field .-> H
+  ESTOP["E-stop and overcurrent comparator"] -->|direct disable| DRIVER
 ```
 
-The FPGA reads the current sensor and two Hall sensors through an MCP3204 ADC. These readings are sent to the MCU, which uses them to calculate the next current request. The [full system diagram](docs/design.qmd#system-boundary) shows the feedback connections and physical interlock.
-
-| Component | Function | Design rate |
+| Function | Owner | Proposed rate |
 |---|---|---|
-| Webpage and ESP8266 | Send the target gap and operating commands | 125000-baud UART to MCU |
-| STM32L432KC | Estimate position and run the position controller | 1 kHz |
-| UPduino v3.1 | Read the ADC and run the current controller | 10 kHz |
-| Coil driver | Switch power to the coil | 20 kHz PWM |
+| Three-channel ADC scan | MCU SPI DMA | 5 kHz |
+| Calibrated gap estimate | MCU | 1 kHz |
+| Position PI | FPGA | 1 kHz |
+| PWM | FPGA | 20 kHz |
+| Web communication | MCU and ESP8266 | 125000-baud UART |
+| Loss-of-command shutdown | FPGA | 50 ms nominal timeout |
 
-These rates are design values. We still need to measure timing and stability on hardware.
+These rates need hardware verification. At 1 MHz SPI, the proposal budgets 75 microseconds for three ADC readings and 68 microseconds for an example eight-byte exchange: 143 of 200 microseconds. The revised position/gain packet still needs a defined layout. Include its final length, validation, and processing in the measured timing budget.
 
-## Position Control
+## Gap and Position Control
 
-The gap $x$ is measured downward from the coil. A larger gap means the object is farther below the coil. The force balance is
+Surface gap $d$ runs downward from the electromagnet's bottom face to the suspended magnet's top face. The proposal commits to 10–20 mm motion with a 10 g total moving mass. The force-model distance $z$ runs from the coil plane to the magnet center: $z=d+\Delta_g$, where the offset depends on actual geometry.
 
-$$m\ddot{x}=mg-F(i,x).$$
+For downward displacement, $m\ddot d=mg-F(d,i)$. Define $e=\hat d-r$, where $r$ is requested gap. The proposed controller is
 
-The approximate relationship $F\approx ki^2/x^2$ is useful for planning, but the actual force will depend on the coil and object we select. We need to measure mass, lifting force, resistance, inductance, and temperature before tuning the controller.
+$$u=\operatorname{clamp}\left(u_0+K_pe+K_i\int e\,dt,\;0,\;u_{\max}\right).$$
 
-The position controller compares the measured gap with the target gap and requests more current when the object is too low. It also uses filtered velocity to reduce oscillation. The target changes gradually, and the current request is limited to the configured operating range.
+A positive error increases attraction. Duty limits, integrator anti-windup, range-checked gains, and applying both gains together at an update boundary are part of the implementation plan. Numeric gains require the measured plant and confirmed units.
 
-[MCU Design](mcu.qmd)
+## Resolution and Calibration
 
-## Current Control
+Both Hall sensors see the electromagnet, fixed helper magnet, and moving payload. Read them on separate ADC channels, then combine their readings with measured current in software. Two sensors alone do not guarantee coil-field cancellation.
 
-The FPGA compares the requested current with the measured current and uses a PI controller to calculate the PWM duty cycle. The controller works in ADC counts and PWM ticks. Normal duty changes happen at the start of a PWM period. A fault can disable the output immediately.
+For calibrated differential voltage $V_\Delta(d)$, the local quantization estimate is
 
-[FPGA Design](fpga.qmd)
+$$\Delta d_{\mathrm{LSB}}\approx\frac{V_{\mathrm{ref}}/4096}{|dV_\Delta/dd|}.$$
 
-## Hall Sensor Calibration
+At the proposed 3.3 V reference, one count is approximately 0.806 mV. Measure the voltage slope across the operating range. Noise, channel skew, alignment, and calibration also limit usable resolution and accuracy. The separate November sensing notes used a 5 V ADC example; their numerical position increments do not establish performance for this 3.3 V design.
 
-Both Hall sensors measure the field from the coil as well as the suspended object. Using two sensors does not guarantee that the coil field cancels out. The gap estimate also includes the measured coil current:
+A fixed helper magnet can change the equilibrium force and force gradient. Shifting the Hall baseline does not itself improve position resolution. Check sensor headroom and calibrate the complete assembly with the helper magnet installed.
 
-```text
-gap_mm = c0 + c1*Hall1_counts + c2*Hall2_counts + c3*current_A
-```
+## Stability Calculation
 
-We plan to fit these coefficients using readings at known gaps and currents, then check the model with separate measurements. Since the ADC reads the channels one at a time, we also need to check whether current changes during a scan affect the estimate.
+The [calculation summary](overleaf_10mm/calculation_summary.pdf) develops the local model around equilibrium. Define $x=d-d_0$, $j=i-i_0$, and upward force $F\simeq mg-k_xx+k_fj$. With resistance $R$, inductance $L$, passive damping $c$, and supply $V_s$, position PI gives
 
-The initial design assumes that the suspended object contains a permanent magnet with a repeatable orientation. A plain steel sphere would need a different characterization procedure.
+$$mLs^4+(mR+cL)s^3+(cR-k_xL+k_f^2)s^2+(k_fV_sK_p-k_xR)s+k_fV_sK_i=0.$$
 
-## Testing Plan
+The illustrative air-core model at **10 mm center distance**, with 10 g mass, 500 turns, 10 mm coil radius, $R=8\,\Omega$, $L=10$ mH, and negligible passive damping, has a negative $s^2$ coefficient. No PI gains make that assumed continuous model strictly stable. The sampled example is also unstable. These calculations do not validate gains for the selected iron-core electromagnet.
 
-1. Select the coil and object, then measure force, sensor range, and heating.
-2. Check the sensor scaling, gap estimate, shutdown circuit, and timing.
-3. Support the object and tune the current controller using current steps.
-4. Tune the position controller, starting with proportional and derivative control, then measure settling and disturbance response.
+Measure holding current, hot resistance, inductance, and local force slopes using the final payload and helper magnet. Check continuous and sampled stability, including acquisition and communication delay, before free suspension. Stable poles and position tolerance are separate checks; the proposal's endpoint demonstration band is ±5 mm.
 
-The [detailed design](docs/design.qmd) contains the control equations and timing calculations. The [bring-up procedure](docs/bringup.qmd) describes the planned bench tests.
+## Implementation Status
+
+The main application sources and [October 26 verification](docs/verification.qmd) cover MCU position control with FPGA current PI. They are retained as earlier evidence. The revised FPGA position controller, gain-update contract, and graph interface still need implementation and verification.
+
+[Proposal and specifications](docs/proposal.qmd) | [Results](results.qmd)

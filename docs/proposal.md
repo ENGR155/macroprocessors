@@ -1,19 +1,32 @@
-# Proposal implementation reference
+# Current proposal and demonstration specifications
 
-The current team proposal is [Project Proposal.docx](../Project%20Proposal.docx), by Stephen Kanti Mahanty and Ben Lertwachara. This page summarizes the implemented choice from that document; the Word file remains the proposal authority.
+The revised [LaTeX proposal](../overleaf_10mm/proposal.pdf) and [source](../overleaf_10mm/proposal.tex) describe FPGA position PI driving PWM directly, with MCU ADC/DMA, gap estimation, and web communication. The earlier [Word proposal](../Project%20Proposal.docx) is retained as a historical source. Later project discussions selected the electromagnet and clarified the helper magnet; see [Hardware](../hardware.qmd).
 
-The project suspends a permanent magnet with ballast below an electromagnet and controls downward gap from a local Wi-Fi webpage. The revised goals are sustainable continuous suspension, a maximum gap of 10 mm, and visible commanded vertical motion. Height is checked with a ruler or camera. The page shows estimated gap, current, and faults and provides stop. Stop, overcurrent, physical E-stop, and 50 ms without valid MCU commands remove drive. Actual levitation, continuous thermal operation, speed, accuracy, and shutdown timing still require hardware measurements.
+## Committed demonstration
 
-The implementation follows the detailed **shared-control option 2**: STM32L432KC SPI1 reads the MCP3204 ADC and exchanges packets with the UPduino using separate chip selects. TIM6 initiates 5 kHz sensor scans using SPI DMA; every fifth scan updates calibrated position and motion feedback at 1 kHz. USART1 connects the unchanged course ESP8266 at 125000 baud. The FPGA receives measured/requested current pairs, performs 5 kHz fixed-point PI using DSP blocks, generates 20 kHz PWM, validates commands, and supervises the 50 ms watchdog independently.
+The magnet, carrier, and object total **10 g**. Surface gap is measured downward from the electromagnet's bottom face to the suspended magnet's top face. The commanded range is **10–20 mm**.
 
-Both one-Hall/current-compensation and two-Hall/current-compensation configurations are supported. The two-Hall configuration uses separate single-ended ADC readings combined by the estimator: the MCP3204 pseudo-differential input restriction prevents directly subtracting two Hall outputs centered near half supply. The alternative FPGA position controller, extra velocity loop, coil-off sensing, lookup-table estimator, and optical/ultrasonic fallback are not implemented choices.
+| Category | Level | Proposal specification |
+|---|---|---|
+| Hardware and levitation | Proficiency | Use the webpage to move from 20 to 10 mm and back five times without contact |
+| Hardware and levitation | Excellence | Complete five 20-to-10 mm round trips, reaching within ±5 mm of each requested gap |
+| Control and webpage | Proficiency | Show requested gap, estimated gap, coil current, and fault state on a real-time webpage graph, with no visible latency during demonstration |
+| Control and webpage | Proficiency | Allow position PI constant updates from the webpage |
+| Control and webpage | Excellence | Demonstrate visibly noticeable webpage-controlled motion across the controllable range |
 
-At 1 MHz, each ADC read takes 24 clocks. The proposal budgets 50 us for current plus one Hall, 75 us for current plus two Halls, and 68 us for an 8-byte FPGA exchange with CS guards. The two-Hall total is 143 us of a 200 us period before software/setup overhead. Measure actual worst-case timing before tuning or commissioning. Default readiness, gains, and FPGA commissioning still prevent coil operation.
+Excellence includes all proficiency checks. These are commitments from the proposal, not completed tests. Check them with a ruler, stopwatch, webpage, and scope or logic analyzer as appropriate. Record quantitative latency even though the graph criterion is phrased visually.
 
-See [design and timing](design.md), [the packet contract](protocol.md), [wiring](hardware.md), [bring-up](bringup.md), and [verification](verification.md). The proposal's principal risk remains isolating target field from coil field; collect paired current/Hall data on a nonmagnetic fixture and validate against independent gap measurements before release.
+## Design and calculations
 
-## Proposal calculations and acceptance specifications
+Two Hall sensors are mounted above and below the electromagnet. The MCU reads them and current on separate ADC channels at 5 kHz using SPI DMA, estimates gap at 1 kHz, and serves the interface through the ESP8266. The FPGA runs 1 kHz position PI and 20 kHz PWM, with a proposed 50 ms command watchdog and independent external shutdown.
 
-The Word proposal now includes a third-page parameterized lift-current model, a 5 V versus 12 V sizing example, and project-specific proficiency/excellence acceptance tests. The example assumes a 10 g total magnet/carrier mass, a 500-turn air-core coil of 10 mm mean radius, a 0.050 A m? dipole moment and 8 ? coil resistance; these are sizing assumptions, not selected hardware or measurements. The ideal holding currents at coil-plane-to-magnet-center distances of 10, 8 and 5 mm are 1.178, 0.896 and 0.727 A. The 5 V limit is 0.625 A, so it fails this example; 12 V permits 1.50 A before losses and thermal limits. Surface gaps must be converted to center distances using actual geometry. Validate a measured force/current/gap map before selecting hardware.
+The [calculation summary](../overleaf_10mm/calculation_summary.pdf) distinguishes center distance from surface gap and identifies assumed coil parameters. The 10 mm example is a stability analysis point; it does not replace the proposal's 10–20 mm surface-gap motion specification. The air-core example neither validates the selected electromagnet nor supplies safe controller gains.
 
-The proposed checkoff range is a 5?10 mm downward surface gap. See the Word file for timed suspension, motion, calibration, heating, timing, UI, shutdown and documentation tests. These are acceptance targets and have not been demonstrated. The proficiency/excellence organization follows [E155 Lab 5 specs](https://hmc-e155.github.io/lab/lab5/specs.html); the [current proposal assignment](https://hmc-e155.github.io/project/assignments/proposal.html) supplies the course requirements.
+## Sources and planning
+
+- [Complete Overleaf package](../Magnetic_Levitation_Overleaf_10mm.zip)
+- [Revised proposal PDF](../overleaf_10mm/proposal.pdf) and [LaTeX](../overleaf_10mm/proposal.tex)
+- [Calculation PDF](../overleaf_10mm/calculation_summary.pdf) and [LaTeX](../overleaf_10mm/calculation_summary.tex)
+- Project discussions: “Create magnetic levitation textbook…” (architecture, position PI correction, selected hardware, and SPI bring-up); “Add lifting calculations and specs” (two sensors and physical checkoff); “Convert to LaTeX proposal” (position-resolution notes).
+
+The proposal retains a $49 budget allowance and six-week schedule. Weeks 1–2 cover force/driver/PWM and ADC/calibration; weeks 3–4 cover FPGA PI, frame, estimator, and timing; weeks 5–6 cover the webpage, shutdown, motion evidence, and report. These are planned assignments, not a completion record.

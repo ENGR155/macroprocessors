@@ -1,5 +1,9 @@
 # Hall-sensed magnetic levitation — ENGR 155
 
+**Report update — November 10, 2026:** The current proposal uses FPGA position PI driving PWM directly, MCU ADC/DMA and gap estimation, two Hall sensors above/below the electromagnet, and 10–20 mm surface-gap motion. The selected electromagnet is the Heyiarbeit JF-XP2520-12V. See [report design](design.qmd), [proposal](docs/proposal.md), and [results](results.qmd). The application described below is the earlier shared-control revision and has not been migrated by this website update.
+
+## Earlier application implementation
+
 Shared-control option 2 from the updated [team proposal](Project%20Proposal.docx), for one overhead electromagnet and a suspended permanent magnet with ballast, using the **STM32L432KC + UPduino v3.1** course boards. The browser changes a downward gap setpoint; the MCU estimates gap and runs a 1 kHz position controller; the MCU samples current and one or two Hall channels at 5 kHz with SPI DMA; the FPGA runs a 5 kHz current PI loop, generates 20 kHz PWM, and supervises output independently.
 
 **Status, 2026-10-26:** software/HDL implementation and bench plan; no hardware has been selected, assembled, or tested. Default builds cannot energize the coil. Example limits, geometry, calibration, and gains require measurements. See [verification](docs/verification.md) for executed checks and remaining validation.

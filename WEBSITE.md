@@ -60,4 +60,4 @@ under the ignored `outputs/` directory.
 Hardware results, team contribution details, schematics, photos, and demonstration video
 must be added from actual project evidence before this is presented as a completed
 hardware report. The results page explicitly attributes engineering checks to the
-existing October 15, 2026 verification record.
+October 26, 2026 verification record for the earlier application, and separates it from the revised design and later SPI bring-up.

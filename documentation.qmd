@@ -1,40 +1,52 @@
 ---
 title: "Documentation"
-description: "Technical notes, build instructions, and source files for the project."
+description: "Current proposal and calculations, plus earlier implementation references."
 ---
 
-The following pages contain the detailed project documentation. Start with the system design, then read the hardware and bring-up notes before testing the coil.
+## Current Design and Proposal
 
-## Technical Guides
-
-| Guide | Contents |
-|---|---|
-| [Implementation and Timing](docs/design.qmd) | Control equations, system diagram, and timing calculations |
-| [Hardware and Wiring](docs/hardware.qmd) | Candidate parts, pin assignments, and power connections |
-| [Build and Programming](docs/build.qmd) | Required tools, compilation, and programming steps |
-| [Packet Protocol](docs/protocol.qmd) | Commands, telemetry, checksums, and fault bits |
-| [Bench Bring-up](docs/bringup.qmd) | Initial checks, current tests, and shutdown tests |
-| [Hall Calibration](docs/calibration.qmd) | Measurements, model fitting, and validation |
-
-## Testing and Course Documents
+Start with the [system design](design.qmd), [MCU plan](mcu.qmd), [FPGA plan](fpga.qmd), and [hardware](hardware.qmd). The current plan uses FPGA position PI and MCU ADC/DMA.
 
 | Document | Contents |
 |---|---|
-| [Verification Record](docs/verification.qmd) | Recorded software and HDL checks |
-| [Checkoff Matrix](docs/checkoff.qmd) | Planned measurements and acceptance criteria |
-| [Course Requirements](docs/course.qmd) | Required deliverables and supporting files |
-| [Project Proposal](docs/proposal.qmd) | Project scope and initial plan |
-| [Design Review](docs/design-review.qmd) | Design decisions and review notes |
-| [Midpoint Report](docs/midpoint.qmd) | Progress and remaining work |
-| [Technical References](docs/references.qmd) | Course materials and datasheets |
+| [Proposal and specifications](docs/proposal.qmd) | Current commitments and source history |
+| [Revised proposal PDF](overleaf_10mm/proposal.pdf) / [LaTeX](overleaf_10mm/proposal.tex) | Full proposal and architecture figure |
+| [Calculation PDF](overleaf_10mm/calculation_summary.pdf) / [LaTeX](overleaf_10mm/calculation_summary.tex) | Lift model and continuous/sampled stability |
+| [Overleaf ZIP](Magnetic_Levitation_Overleaf_10mm.zip) | Editable proposal, calculations, and figures |
+| [Original Word proposal](Project%20Proposal.docx) | Earlier proposal retained for comparison |
+| [Current checkoff record](docs/checkoff.qmd) | Demonstration commitments and evidence |
+| [Results](results.qmd) | Dated checks and remaining measurements |
 
-## Source Files
+The November sensing discussion also informed the resolution section. Its 5 V ADC example is separate from the proposed 3.3 V circuit.
 
-The links below open individual files from the repository. To build the project, use the full repository checkout and follow the [build guide](docs/build.qmd).
+## SPI Bring-up
 
-- [MCU estimation and control](firmware/src/control.c) (C)
-- [FPGA integration core](fpga/rtl/lev_core.sv) (SystemVerilog)
-- [FPGA integration testbench](fpga/tb/tb_system.sv) (SystemVerilog)
-- [Hall calibration tool](tools/calibrate.py) (Python)
-- [Candidate bill of materials](hardware/bom.csv) (CSV)
-- [Blank measurement log](data/results/measurements.csv) (CSV)
+The [one-byte test guide](simple_byte/README.md) explains the standalone FPGA-to-MCU experiment and SEGGER Watch variable. Download [MCU main](simple_byte/main.c), [FPGA sender](simple_byte/spi_byte.sv), [constraints](simple_byte/spi_byte.pcf), and [testbench](simple_byte/tb_spi_byte.sv).
+
+## Earlier Implementation Guides
+
+These guides record the earlier shared-control application and need reconciliation with FPGA position PI.
+
+| Guide | Contents |
+|---|---|
+| [Implementation and timing](docs/design.qmd) | Earlier equations and timing |
+| [Hardware and wiring](docs/hardware.qmd) | Proposed connections |
+| [Build and programming](docs/build.qmd) | Existing application build |
+| [Packet protocol](docs/protocol.qmd) | Earlier measured/requested-current contract |
+| [Bench bring-up](docs/bringup.qmd) | Earlier staged procedures |
+| [Hall calibration](docs/calibration.qmd) | Calibration tools |
+| [October 26 verification](docs/verification.qmd) | Earlier software/HDL evidence |
+| [Course requirements](docs/course.qmd) | Deliverable planning |
+| [Design review](docs/design-review.qmd) / [Midpoint framework](docs/midpoint.qmd) | Earlier presentation/report planning |
+| [Technical references](docs/references.qmd) | Course materials and datasheets |
+
+## Existing Application Sources
+
+- [MCU estimation and control](firmware/src/control.c)
+- [FPGA integration core](fpga/rtl/lev_core.sv)
+- [FPGA integration testbench](fpga/tb/tb_system.sv)
+- [Hall calibration tool](tools/calibrate.py)
+- [Candidate BOM](hardware/bom.csv)
+- [Blank measurement log](data/results/measurements.csv)
+
+These files implement the earlier architecture. Updating the report does not migrate the controller or establish hardware performance.

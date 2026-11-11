@@ -1,0 +1,657 @@
+{
+  "scope": "Independent STEP geometry and nominal assembly checking; no physical force, thermal or control validation",
+  "passed": true,
+  "check_count": 67,
+  "checks": [
+    {
+      "name": "01_plywood_base valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "volume_mm3": 517447.312027799
+      }
+    },
+    {
+      "name": "01_plywood_base exported dimensions",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        180.0,
+        160.0,
+        18.0
+      ]
+    },
+    {
+      "name": "02_wood_rear_clamp valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "volume_mm3": 66319.9392594953
+      }
+    },
+    {
+      "name": "02_wood_rear_clamp exported dimensions",
+      "passed": true,
+      "detail": [
+        45.0,
+        100.0,
+        18.0,
+        135.0,
+        130.0,
+        43.0
+      ]
+    },
+    {
+      "name": "03_clear_rear_panel valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "volume_mm3": 92210.29649258885
+      }
+    },
+    {
+      "name": "03_clear_rear_panel exported dimensions",
+      "passed": true,
+      "detail": [
+        45.0,
+        130.0,
+        18.0,
+        135.0,
+        136.0,
+        190.0
+      ]
+    },
+    {
+      "name": "04_clear_top_cantilever valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "volume_mm3": 48349.87069619527
+      }
+    },
+    {
+      "name": "04_clear_top_cantilever exported dimensions",
+      "passed": true,
+      "detail": [
+        45.0,
+        39.0,
+        190.0,
+        135.0,
+        136.0,
+        196.0
+      ]
+    },
+    {
+      "name": "05_angle_bracket_left valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "volume_mm3": 2080.765497529612
+      }
+    },
+    {
+      "name": "05_angle_bracket_left exported dimensions",
+      "passed": true,
+      "detail": [
+        50.0,
+        105.0,
+        165.0,
+        62.0,
+        130.0,
+        190.0
+      ]
+    },
+    {
+      "name": "05_angle_bracket_right valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "volume_mm3": 2080.7654975296123
+      }
+    },
+    {
+      "name": "05_angle_bracket_right exported dimensions",
+      "passed": true,
+      "detail": [
+        118.0,
+        105.0,
+        165.0,
+        130.0,
+        130.0,
+        190.0
+      ]
+    },
+    {
+      "name": "06_em_cradle valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "volume_mm3": 23572.895726375304
+      }
+    },
+    {
+      "name": "06_em_cradle exported dimensions",
+      "passed": true,
+      "detail": [
+        64.0,
+        39.0,
+        170.0,
+        116.0,
+        91.0,
+        190.0
+      ]
+    },
+    {
+      "name": "07_helper_retainer_cassette valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "volume_mm3": 7622.426767235169
+      }
+    },
+    {
+      "name": "07_helper_retainer_cassette exported dimensions",
+      "passed": true,
+      "detail": [
+        64.0,
+        39.0,
+        164.0,
+        116.0,
+        91.0,
+        170.0
+      ]
+    },
+    {
+      "name": "08_lower_Hall_guard valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "volume_mm3": 2365.123188924499
+      }
+    },
+    {
+      "name": "08_lower_Hall_guard exported dimensions",
+      "passed": true,
+      "detail": [
+        78.0,
+        39.0,
+        162.0,
+        102.0,
+        91.0,
+        164.0
+      ]
+    },
+    {
+      "name": "09_upper_Hall_carrier valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "volume_mm3": 2381.123188924502
+      }
+    },
+    {
+      "name": "09_upper_Hall_carrier exported dimensions",
+      "passed": true,
+      "detail": [
+        50.0,
+        57.0,
+        196.0,
+        130.0,
+        73.0,
+        198.0
+      ]
+    },
+    {
+      "name": "10_catch_tray valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "volume_mm3": 10913.52478338675
+      }
+    },
+    {
+      "name": "10_catch_tray exported dimensions",
+      "passed": true,
+      "detail": [
+        55.0,
+        30.0,
+        18.0,
+        125.0,
+        100.0,
+        24.0
+      ]
+    },
+    {
+      "name": "REF_electromagnet_25x20 valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "volume_mm3": 9817.477042468105
+      }
+    },
+    {
+      "name": "REF_electromagnet_25x20 exported dimensions",
+      "passed": true,
+      "detail": [
+        77.5,
+        52.5,
+        170.0,
+        102.5,
+        77.5,
+        190.0
+      ]
+    },
+    {
+      "name": "REF_helper_19p05x1p5875 valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "volume_mm3": 452.4739442253456
+      }
+    },
+    {
+      "name": "REF_helper_19p05x1p5875 exported dimensions",
+      "passed": true,
+      "detail": [
+        80.475,
+        55.475,
+        168.1,
+        99.525,
+        74.525,
+        169.6875
+      ]
+    },
+    {
+      "name": "REF_payload_ASSUMED_12p7x6_gap15 valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "volume_mm3": 760.0612186462462
+      }
+    },
+    {
+      "name": "REF_payload_ASSUMED_12p7x6_gap15 exported dimensions",
+      "passed": true,
+      "detail": [
+        83.65,
+        58.65,
+        149.0,
+        96.35,
+        71.35,
+        155.0
+      ]
+    },
+    {
+      "name": "REF_lower_Hall_allowance valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "volume_mm3": 192.0
+      }
+    },
+    {
+      "name": "REF_lower_Hall_allowance exported dimensions",
+      "passed": true,
+      "detail": [
+        84.0,
+        61.0,
+        164.0,
+        96.0,
+        69.0,
+        166.0
+      ]
+    },
+    {
+      "name": "REF_upper_Hall_allowance valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "volume_mm3": 192.0
+      }
+    },
+    {
+      "name": "REF_upper_Hall_allowance exported dimensions",
+      "passed": true,
+      "detail": [
+        84.0,
+        61.0,
+        198.0,
+        96.0,
+        69.0,
+        200.0
+      ]
+    },
+    {
+      "name": "assembly contains all 16 solids",
+      "passed": true,
+      "detail": {
+        "solid_count": 16
+      }
+    },
+    {
+      "name": "all delivered parts and references nonintersecting",
+      "passed": true,
+      "detail": {
+        "pair_count": 120,
+        "overlaps_mm3": []
+      }
+    },
+    {
+      "name": "01_plywood_base independently expected size",
+      "passed": true,
+      "detail": [
+        180.0,
+        160.0,
+        18.0
+      ]
+    },
+    {
+      "name": "03_clear_rear_panel independently expected size",
+      "passed": true,
+      "detail": [
+        90.0,
+        6.0,
+        172.0
+      ]
+    },
+    {
+      "name": "04_clear_top_cantilever independently expected size",
+      "passed": true,
+      "detail": [
+        90.0,
+        97.0,
+        6.0
+      ]
+    },
+    {
+      "name": "REF_electromagnet_25x20 independently expected size",
+      "passed": true,
+      "detail": [
+        25.0,
+        25.0,
+        20.0
+      ]
+    },
+    {
+      "name": "REF_helper_19p05x1p5875 independently expected size",
+      "passed": true,
+      "detail": [
+        19.05000000000001,
+        19.050000000000004,
+        1.5875000000000057
+      ]
+    },
+    {
+      "name": "assumed 12.7x6 payload clears complete 10-20mm sweep",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "minimum gap to guard",
+      "passed": true,
+      "detail": {
+        "minimum_guard_clearance_mm": 2.0,
+        "EM_face_gap_mm": 10.0,
+        "guard_stop_EM_face_gap_mm": 8.0
+      }
+    },
+    {
+      "name": "helper supplier worst-case envelope fits pocket",
+      "passed": true,
+      "detail": {
+        "diameter_mm": 19.15,
+        "thickness_mm": 1.69,
+        "diametral_clearance_mm": 0.45,
+        "axial_clearance_mm": 0.21
+      }
+    },
+    {
+      "name": "vertical fastening shafts have uninterrupted holes",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "7mm washer/nut envelopes clear adjacent solids",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear clamp crossed fastening paths separated",
+      "passed": true,
+      "detail": "Vertical x75/105; horizontal x60/120"
+    },
+    {
+      "name": "01_plywood_base STL closed manifold",
+      "passed": true,
+      "detail": {
+        "triangles": 2876,
+        "non_two_incidence_edges": 0,
+        "degenerate_faces": 0
+      }
+    },
+    {
+      "name": "01_plywood_base STL same dimensions as STEP",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        180.0,
+        160.0,
+        18.0
+      ]
+    },
+    {
+      "name": "02_wood_rear_clamp STL closed manifold",
+      "passed": true,
+      "detail": {
+        "triangles": 1364,
+        "non_two_incidence_edges": 0,
+        "degenerate_faces": 0
+      }
+    },
+    {
+      "name": "02_wood_rear_clamp STL same dimensions as STEP",
+      "passed": true,
+      "detail": [
+        45.0,
+        100.0,
+        18.0,
+        135.0,
+        130.0,
+        43.0
+      ]
+    },
+    {
+      "name": "03_clear_rear_panel STL closed manifold",
+      "passed": true,
+      "detail": {
+        "triangles": 1492,
+        "non_two_incidence_edges": 0,
+        "degenerate_faces": 0
+      }
+    },
+    {
+      "name": "03_clear_rear_panel STL same dimensions as STEP",
+      "passed": true,
+      "detail": [
+        45.0,
+        130.0,
+        18.0,
+        135.0,
+        136.0,
+        190.0
+      ]
+    },
+    {
+      "name": "04_clear_top_cantilever STL closed manifold",
+      "passed": true,
+      "detail": {
+        "triangles": 5112,
+        "non_two_incidence_edges": 0,
+        "degenerate_faces": 0
+      }
+    },
+    {
+      "name": "04_clear_top_cantilever STL same dimensions as STEP",
+      "passed": true,
+      "detail": [
+        45.0,
+        39.0,
+        190.0,
+        135.0,
+        136.0,
+        196.0
+      ]
+    },
+    {
+      "name": "05_angle_bracket_left STL closed manifold",
+      "passed": true,
+      "detail": {
+        "triangles": 700,
+        "non_two_incidence_edges": 0,
+        "degenerate_faces": 0
+      }
+    },
+    {
+      "name": "05_angle_bracket_left STL same dimensions as STEP",
+      "passed": true,
+      "detail": [
+        50.0,
+        105.0,
+        165.0,
+        62.0,
+        130.0,
+        190.0
+      ]
+    },
+    {
+      "name": "05_angle_bracket_right STL closed manifold",
+      "passed": true,
+      "detail": {
+        "triangles": 700,
+        "non_two_incidence_edges": 0,
+        "degenerate_faces": 0
+      }
+    },
+    {
+      "name": "05_angle_bracket_right STL same dimensions as STEP",
+      "passed": true,
+      "detail": [
+        118.0,
+        105.0,
+        165.0,
+        130.0,
+        130.0,
+        190.0
+      ]
+    },
+    {
+      "name": "06_em_cradle STL closed manifold",
+      "passed": true,
+      "detail": {
+        "triangles": 4486,
+        "non_two_incidence_edges": 0,
+        "degenerate_faces": 0
+      }
+    },
+    {
+      "name": "06_em_cradle STL same dimensions as STEP",
+      "passed": true,
+      "detail": [
+        64.0,
+        39.0,
+        170.0,
+        116.0,
+        91.0,
+        190.0
+      ]
+    },
+    {
+      "name": "07_helper_retainer_cassette STL closed manifold",
+      "passed": true,
+      "detail": {
+        "triangles": 3060,
+        "non_two_incidence_edges": 0,
+        "degenerate_faces": 0
+      }
+    },
+    {
+      "name": "07_helper_retainer_cassette STL same dimensions as STEP",
+      "passed": true,
+      "detail": [
+        64.0,
+        39.0,
+        164.0,
+        116.0,
+        91.0,
+        170.0
+      ]
+    },
+    {
+      "name": "08_lower_Hall_guard STL closed manifold",
+      "passed": true,
+      "detail": {
+        "triangles": 788,
+        "non_two_incidence_edges": 0,
+        "degenerate_faces": 0
+      }
+    },
+    {
+      "name": "08_lower_Hall_guard STL same dimensions as STEP",
+      "passed": true,
+      "detail": [
+        78.0,
+        39.0,
+        162.0,
+        102.0,
+        91.0,
+        164.0
+      ]
+    },
+    {
+      "name": "09_upper_Hall_carrier STL closed manifold",
+      "passed": true,
+      "detail": {
+        "triangles": 748,
+        "non_two_incidence_edges": 0,
+        "degenerate_faces": 0
+      }
+    },
+    {
+      "name": "09_upper_Hall_carrier STL same dimensions as STEP",
+      "passed": true,
+      "detail": [
+        50.0,
+        57.0,
+        196.0,
+        130.0,
+        73.0,
+        198.0
+      ]
+    },
+    {
+      "name": "10_catch_tray STL closed manifold",
+      "passed": true,
+      "detail": {
+        "triangles": 1388,
+        "non_two_incidence_edges": 0,
+        "degenerate_faces": 0
+      }
+    },
+    {
+      "name": "10_catch_tray STL same dimensions as STEP",
+      "passed": true,
+      "detail": [
+        55.0,
+        30.0,
+        18.0,
+        125.0,
+        100.0,
+        24.0
+      ]
+    }
+  ]
+}
