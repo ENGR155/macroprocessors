@@ -1,0 +1,22 @@
+{
+  "minimum_free_flexible_lead_length_mm": 150,
+  "minimum_bend_radius_mm": 10,
+  "body_pins_fixed_to_carriage": true,
+  "loop_corridor_nominal_X_mm": [
+    120,
+    132
+  ],
+  "loop_corridor_nominal_Y_mm": [
+    80,
+    110
+  ],
+  "upper_loop_Z_mm": [
+    195,
+    260
+  ],
+  "lower_loop_Z_mm": [
+    100,
+    172
+  ],
+  "notes": "Route behind pods in Y-Z plane, away from rail X145 and rear panel Y130. Flexible conductors are consumables, not rigid moving pin references. Both moving and fixed strain relief required."
+}

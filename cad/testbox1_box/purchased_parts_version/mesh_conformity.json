@@ -1,0 +1,58 @@
+[
+  {
+    "file": "01_frame_base_upright_tray_PRINT.stl",
+    "original_triangles": 1916,
+    "conforming_triangles": 1916,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "02_cantilever_vented_head_upper_sensor_PRINT.stl",
+    "original_triangles": 6623,
+    "conforming_triangles": 6624,
+    "collinear_edge_splits": 1,
+    "maximum_collinearity_deviation_mm": 2.3841112474674673e-06,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "03_four_DC1_stack_cassette_lower_LPG_seat_PRINT.stl",
+    "original_triangles": 2320,
+    "conforming_triangles": 2320,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "04_D68_payload_carrier_PRINT.stl",
+    "original_triangles": 1184,
+    "conforming_triangles": 1184,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "JOB01_PRINT.stl",
+    "original_triangles": 1916,
+    "conforming_triangles": 1916,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "JOB02_PRINT.stl",
+    "original_triangles": 6623,
+    "conforming_triangles": 6624,
+    "collinear_edge_splits": 1,
+    "maximum_collinearity_deviation_mm": 2.3841112474674673e-06,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "JOB03_PRINT.stl",
+    "original_triangles": 3504,
+    "conforming_triangles": 3504,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  }
+]

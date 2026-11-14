@@ -2,9 +2,9 @@
   "01_plywood_base": {
     "material": "PETG",
     "bed_oriented_size_mm": [
-      18.0,
       160.0,
-      180.0
+      180.0,
+      18.0
     ],
     "bed_clearance_assumed_mm": 220,
     "valid_single_solid": true
@@ -12,9 +12,9 @@
   "02_wood_rear_clamp": {
     "material": "PETG",
     "bed_oriented_size_mm": [
-      25.0,
       30.0,
-      90.0
+      90.0,
+      25.0
     ],
     "bed_clearance_assumed_mm": 220,
     "valid_single_solid": true
@@ -22,9 +22,9 @@
   "03_clear_rear_panel": {
     "material": "PETG",
     "bed_oriented_size_mm": [
+      172.0,
       90.0,
-      6.0,
-      172.0
+      6.0
     ],
     "bed_clearance_assumed_mm": 220,
     "valid_single_solid": true
@@ -33,8 +33,8 @@
     "material": "PETG",
     "bed_oriented_size_mm": [
       90.0,
-      6.0,
-      97.0
+      97.0,
+      6.0
     ],
     "bed_clearance_assumed_mm": 220,
     "valid_single_solid": true
@@ -43,8 +43,8 @@
     "material": "PETG",
     "bed_oriented_size_mm": [
       25.0,
-      12.0,
-      25.0
+      25.0,
+      12.0
     ],
     "bed_clearance_assumed_mm": 220,
     "valid_single_solid": true
@@ -52,9 +52,9 @@
   "05_angle_bracket_right": {
     "material": "PETG",
     "bed_oriented_size_mm": [
-      12.0,
       25.0,
-      25.0
+      25.0,
+      12.0
     ],
     "bed_clearance_assumed_mm": 220,
     "valid_single_solid": true
@@ -62,9 +62,9 @@
   "06_em_cradle": {
     "material": "PETG",
     "bed_oriented_size_mm": [
-      20.0,
       52.0,
-      52.0
+      52.0,
+      20.0
     ],
     "bed_clearance_assumed_mm": 220,
     "valid_single_solid": true
@@ -72,9 +72,9 @@
   "07_helper_retainer_cassette": {
     "material": "PETG",
     "bed_oriented_size_mm": [
-      6.0,
       52.0,
-      52.0
+      52.0,
+      6.0
     ],
     "bed_clearance_assumed_mm": 220,
     "valid_single_solid": true
@@ -82,9 +82,9 @@
   "08_lower_Hall_guard": {
     "material": "PETG",
     "bed_oriented_size_mm": [
+      52.0,
       24.0,
-      2.0,
-      52.0
+      2.0
     ],
     "bed_clearance_assumed_mm": 220,
     "valid_single_solid": true
@@ -92,9 +92,9 @@
   "09_upper_Hall_carrier": {
     "material": "PETG",
     "bed_oriented_size_mm": [
-      2.0,
       16.0,
-      80.0
+      80.0,
+      2.0
     ],
     "bed_clearance_assumed_mm": 220,
     "valid_single_solid": true
@@ -102,9 +102,9 @@
   "10_catch_tray": {
     "material": "PETG",
     "bed_oriented_size_mm": [
-      6.0,
       70.0,
-      70.0
+      70.0,
+      6.0
     ],
     "bed_clearance_assumed_mm": 220,
     "valid_single_solid": true

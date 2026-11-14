@@ -1,0 +1,50 @@
+[
+  {
+    "file": "02_head_common_rod_guide_PRINT.stl",
+    "original_triangles": 7270,
+    "conforming_triangles": 7270,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "03_cassette_common_rod_guide_PRINT.stl",
+    "original_triangles": 2148,
+    "conforming_triangles": 2148,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "05_common_direct_insert_rod_PRINT.stl",
+    "original_triangles": 1344,
+    "conforming_triangles": 1344,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "JOB02_PRINT.stl",
+    "original_triangles": 7270,
+    "conforming_triangles": 7270,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "JOB03_PRINT.stl",
+    "original_triangles": 3332,
+    "conforming_triangles": 3332,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "JOB04_PRINT.stl",
+    "original_triangles": 1344,
+    "conforming_triangles": 1344,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  }
+]

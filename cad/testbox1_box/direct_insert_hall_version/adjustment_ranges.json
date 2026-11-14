@@ -1,0 +1,51 @@
+{
+  "upper_port_floor_Z_mm": [
+    207.5,
+    215.5,
+    223.5,
+    231.5,
+    239.5
+  ],
+  "lower_port_floor_Z_mm": [
+    117.5,
+    125.5,
+    133.5,
+    141.5,
+    149.5
+  ],
+  "common_rod_travel_mm": [
+    -4,
+    4
+  ],
+  "fine_slot_mm": [
+    11.4,
+    3.4
+  ],
+  "rod_size_mm": [
+    10,
+    12,
+    137
+  ],
+  "rod_assembly_Y_shift_mm": -0.4,
+  "sensor_center_X_mm": 108.375,
+  "sensor_center_Y_mm": 64.6,
+  "upper_guide_mm": [
+    10.8,
+    12.8
+  ],
+  "lower_guide_mm": [
+    11.2,
+    13.2
+  ],
+  "clamp_bolt": "M3x20",
+  "regular_nut_mm": {
+    "AF": 5.5,
+    "thickness": 2.4
+  },
+  "port_mm": {
+    "body_width": 4.5,
+    "height": 1.9,
+    "engagement_depth": 2,
+    "pin_bay_width": 3.6
+  }
+}

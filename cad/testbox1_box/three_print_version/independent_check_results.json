@@ -1,0 +1,440 @@
+{
+  "passed": true,
+  "check_count": 38,
+  "scope": "Independent exported geometry, nominal assembly and orientation checks only",
+  "checks": [
+    {
+      "name": "01_frame_base_upright_tray valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          0.0,
+          0.0,
+          0.0,
+          180.0,
+          160.0,
+          190.0
+        ],
+        "volume_mm3": 471788.5929851465
+      }
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          45.0,
+          39.0,
+          160.0,
+          135.0,
+          142.0,
+          200.0
+        ],
+        "volume_mm3": 125656.5527016008
+      }
+    },
+    {
+      "name": "03_helper_cassette_lower_sensor_guard valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          64.0,
+          39.0,
+          162.0,
+          116.0,
+          91.0,
+          170.0
+        ],
+        "volume_mm3": 9957.784305717025
+      }
+    },
+    {
+      "name": "REF_EM_nominal_25x20 valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          77.5,
+          52.5,
+          170.0,
+          102.5,
+          77.5,
+          190.0
+        ],
+        "volume_mm3": 9817.477042468105
+      }
+    },
+    {
+      "name": "REF_Hall_lower_allowance valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          84.0,
+          61.0,
+          164.0,
+          96.0,
+          69.0,
+          166.0
+        ],
+        "volume_mm3": 192.0
+      }
+    },
+    {
+      "name": "REF_Hall_upper_allowance valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          84.0,
+          61.0,
+          198.0,
+          96.0,
+          69.0,
+          200.0
+        ],
+        "volume_mm3": 192.0
+      }
+    },
+    {
+      "name": "REF_helper_nominal valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          80.475,
+          55.475,
+          168.1,
+          99.525,
+          74.525,
+          169.6875
+        ],
+        "volume_mm3": 452.4739442253456
+      }
+    },
+    {
+      "name": "REF_payload_ASSUMED_gap15 valid single solid",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          83.65,
+          58.65,
+          149.0,
+          96.35,
+          71.35,
+          155.0
+        ],
+        "volume_mm3": 760.0612186462462
+      }
+    },
+    {
+      "name": "assembly eight solids",
+      "passed": true,
+      "detail": 8
+    },
+    {
+      "name": "exactly three fabrication solids",
+      "passed": true,
+      "detail": 3
+    },
+    {
+      "name": "all 28 assembly pairs nonintersecting",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "01_frame_base_upright_tray independent assembly dimensions",
+      "passed": true,
+      "detail": [
+        180.0,
+        160.0,
+        190.0
+      ]
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor independent assembly dimensions",
+      "passed": true,
+      "detail": [
+        90.0,
+        103.0,
+        40.0
+      ]
+    },
+    {
+      "name": "03_helper_cassette_lower_sensor_guard independent assembly dimensions",
+      "passed": true,
+      "detail": [
+        52.0,
+        52.0,
+        8.0
+      ]
+    },
+    {
+      "name": "01_frame_base_upright_tray fits central 220mm bed and 256mm height",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        180.0,
+        160.0,
+        190.0
+      ]
+    },
+    {
+      "name": "01_frame_base_upright_tray explicit physical print orientation",
+      "passed": true,
+      "detail": {
+        "symmetric_difference_mm3": 0.0,
+        "print_bbox_mm": [
+          0.0,
+          0.0,
+          0.0,
+          180.0,
+          160.0,
+          190.0
+        ]
+      }
+    },
+    {
+      "name": "01_frame_base_upright_tray substantial actual flat bed contact",
+      "passed": true,
+      "detail": {
+        "bed_contact_mm2": 28800.0,
+        "footprint_mm": [
+          180.0,
+          160.0
+        ],
+        "height_mm": 190.0
+      }
+    },
+    {
+      "name": "01_frame_base_upright_tray STL one closed connected manifold",
+      "passed": true,
+      "detail": {
+        "triangles": 1916,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "01_frame_base_upright_tray STL dimensions match print STEP",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        180.0,
+        160.0,
+        190.0
+      ]
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor fits central 220mm bed and 256mm height",
+      "passed": true,
+      "detail": [
+        0.0,
+        -2.9646356229547e-14,
+        -2.0818995585498998e-16,
+        90.0,
+        103.0,
+        40.0
+      ]
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor explicit physical print orientation",
+      "passed": true,
+      "detail": {
+        "symmetric_difference_mm3": 0.0,
+        "print_bbox_mm": [
+          0.0,
+          -2.9646356229547e-14,
+          -2.0818995585498998e-16,
+          90.0,
+          103.0,
+          40.0
+        ]
+      }
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor substantial actual flat bed contact",
+      "passed": true,
+      "detail": {
+        "bed_contact_mm2": 8937.683188924502,
+        "footprint_mm": [
+          90.0,
+          103.00000000000003
+        ],
+        "height_mm": 40.0
+      }
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor STL one closed connected manifold",
+      "passed": true,
+      "detail": {
+        "triangles": 6036,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor STL dimensions match print STEP",
+      "passed": true,
+      "detail": [
+        0.0,
+        -0.0,
+        0.0,
+        90.0,
+        103.0,
+        40.0
+      ]
+    },
+    {
+      "name": "03_helper_cassette_lower_sensor_guard fits central 220mm bed and 256mm height",
+      "passed": true,
+      "detail": [
+        0.0,
+        -1.0880185641325e-15,
+        2.07611705604875e-14,
+        52.0,
+        8.000000000000005,
+        52.0
+      ]
+    },
+    {
+      "name": "03_helper_cassette_lower_sensor_guard explicit physical print orientation",
+      "passed": true,
+      "detail": {
+        "symmetric_difference_mm3": 0.0,
+        "print_bbox_mm": [
+          0.0,
+          -1.0880185641325e-15,
+          2.07611705604875e-14,
+          52.0,
+          8.000000000000005,
+          52.0
+        ]
+      }
+    },
+    {
+      "name": "03_helper_cassette_lower_sensor_guard substantial actual flat bed contact",
+      "passed": true,
+      "detail": {
+        "bed_contact_mm2": 256.0,
+        "footprint_mm": [
+          52.0,
+          8.000000000000007
+        ],
+        "height_mm": 51.99999999999998
+      }
+    },
+    {
+      "name": "03_helper_cassette_lower_sensor_guard STL one closed connected manifold",
+      "passed": true,
+      "detail": {
+        "triangles": 2244,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "03_helper_cassette_lower_sensor_guard STL dimensions match print STEP",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        52.0,
+        8.0,
+        52.0
+      ]
+    },
+    {
+      "name": "12.7x6 assumed payload complete 10-20mm sweep",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "guard minimum nominal clearance",
+      "passed": true,
+      "detail": {
+        "EM_face_min_gap_mm": 10,
+        "guard_bottom_z_mm": 162,
+        "nominal_margin_mm": 2
+      }
+    },
+    {
+      "name": "19.15x1.69 worst-case helper fit",
+      "passed": true,
+      "detail": {
+        "diametral_clearance_mm": 0.45,
+        "axial_clearance_mm": 0.21
+      }
+    },
+    {
+      "name": "assumed expanded EM25.5x20.6 envelope fit",
+      "passed": true,
+      "detail": {
+        "NOTE": "chosen tolerance scenario, not supplier specification",
+        "cavity_nominal_diameter_mm": 26,
+        "available_height_mm": 20.8
+      }
+    },
+    {
+      "name": "nominal EM inserts from below with cassette removed",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "4x2mm radial lead exit through open cage",
+      "passed": true,
+      "detail": "Chosen exit x88..92,y77.5..107.5,z179..181; actual purchased lead position still must be checked"
+    },
+    {
+      "name": "M3 shafts heads and upper hardware clear",
+      "passed": true,
+      "detail": {
+        "NO_LOWER_WASHERS": true,
+        "collisions": [],
+        "nominal_shaft_stack_mm": 33,
+        "M3x40_spare_after_0p5washer_2p4nut_mm": 4.1
+      }
+    },
+    {
+      "name": "M4 rear fastener hardware envelopes clear",
+      "passed": true,
+      "detail": {
+        "collisions": [],
+        "nominal_stack_mm": 22,
+        "M4x30_spare_after_two_0p8washers_3p2nut_mm": 3.2
+      }
+    },
+    {
+      "name": "lower 12x8x2 Hall allowance inserts from side",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "conditional_beam_scenario": {
+    "load_N": 5,
+    "effective_modulus_MPa_ASSUMED": 500,
+    "upright_width_mm": 90,
+    "upright_thickness_mm": 12,
+    "free_upright_height_mm_ASSUMED": 80,
+    "arm_lever_mm": 65,
+    "arm_width_mm": 90,
+    "arm_thickness_mm": 10,
+    "upright_rotation_vertical_drop_mm": 0.26080246913580246,
+    "arm_bending_vertical_drop_mm": 0.12205555555555556,
+    "upright_axial_compression_mm": 0.0016851851851851852,
+    "total_vertical_drop_mm": 0.3845432098765432,
+    "limitations": "Idealized scenario only, excludes local joint compliance, gusset flexure, print defects, material anisotropy, creep and heating. Not a structural or thermal qualification."
+  }
+}

@@ -1,0 +1,3 @@
+# pwm_20khz_top: UPduino v3.1 / iCE40UP5K SG48 PACKAGE pad, not header position.
+# Check the assembled board; disconnect anything already wired to GPIO 36.
+set_io pwm 36

@@ -1,0 +1,98 @@
+{
+  "01_frame_base_upright_tray": {
+    "notes": "Print base underside flat on bed; 180x160x190. Integrated 12mm upright and front/rear root gussets. Four M4 through holes at X60/120,Z172/184.",
+    "kind": "print",
+    "material_selected": "PLA",
+    "thermal_validation": "NOT ESTABLISHED",
+    "assembly_bbox_mm": [
+      -1e-07,
+      -1e-07,
+      -1e-07,
+      180.0000001,
+      160.0000001,
+      190.00000010000005
+    ],
+    "print_bbox_mm": [
+      0.0,
+      0.0,
+      0.0,
+      180.0,
+      160.0,
+      190.0
+    ],
+    "volume_mm3": 471788.5929851776,
+    "solid_count": 1,
+    "valid": true,
+    "print_valid": true,
+    "rotation_about_X_deg": 0,
+    "translation_mm": [
+      0,
+      0,
+      0
+    ]
+  },
+  "02_cantilever_vented_head_upper_sensor": {
+    "notes": "Print upside down with Z200 top face on bed. Upper locating rim \u00d826 bore and0.8mm extra axial clearance above nominal coil; four M3 columns; no lower ring or large unsupported bridge. Use measured nonmagnetic compliant shims to remove coil play. Integrated rear mounting flange and gussets. Upper Hall allowance12x8x2 recessed atZ198; secure with nonmagnetic adhesive/tape. No extra upper carrier print.",
+    "kind": "print",
+    "material_selected": "PLA",
+    "thermal_validation": "NOT ESTABLISHED",
+    "assembly_bbox_mm": [
+      45.0,
+      39.0,
+      160.0,
+      135.0,
+      142.0,
+      200.0
+    ],
+    "print_bbox_mm": [
+      0.0,
+      -2.964635622955136e-14,
+      -2.0818995585505003e-16,
+      90.0,
+      102.99999999999997,
+      40.00000000000003
+    ],
+    "volume_mm3": 125656.55270160045,
+    "solid_count": 1,
+    "valid": true,
+    "print_valid": true,
+    "rotation_about_X_deg": 180,
+    "translation_mm": [
+      -45,
+      142,
+      200
+    ]
+  },
+  "03_helper_cassette_lower_sensor_guard": {
+    "notes": "Print front face Y39 down, 52x8 footprint,52 high,8mm outer brim. Both guard and cassette strips plus end wall touch bed; end-wall closure bridges only3mm. Four M3 socket heads \u22646mm diameter under cassette; NO lower washers. Sensor inserted laterally through3mm open gap; 12x8x2 allowance leaves1mm clearance.",
+    "kind": "print",
+    "material_selected": "PLA",
+    "thermal_validation": "NOT ESTABLISHED",
+    "assembly_bbox_mm": [
+      64.0,
+      39.0,
+      162.0,
+      116.0,
+      91.0,
+      170.0
+    ],
+    "print_bbox_mm": [
+      0.0,
+      -1.0880185641326535e-15,
+      2.0761170560490427e-14,
+      52.0,
+      8.000000000000005,
+      52.00000000000002
+    ],
+    "volume_mm3": 9957.784305717056,
+    "solid_count": 1,
+    "valid": true,
+    "print_valid": true,
+    "rotation_about_X_deg": 90,
+    "translation_mm": [
+      -64,
+      170,
+      -39
+    ]
+  }
+}

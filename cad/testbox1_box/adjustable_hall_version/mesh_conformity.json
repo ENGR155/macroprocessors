@@ -1,0 +1,74 @@
+[
+  {
+    "file": "02_cantilever_vented_head_upper_sensor_PRINT.stl",
+    "original_triangles": 7347,
+    "conforming_triangles": 7348,
+    "collinear_edge_splits": 1,
+    "maximum_collinearity_deviation_mm": 2.3841112474674673e-06,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "03_four_DC1_stack_cassette_lower_LPG_seat_PRINT.stl",
+    "original_triangles": 3052,
+    "conforming_triangles": 3052,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "05_upper_indexed_rail_PRINT.stl",
+    "original_triangles": 3012,
+    "conforming_triangles": 3012,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "06_lower_indexed_rail_PRINT.stl",
+    "original_triangles": 3012,
+    "conforming_triangles": 3012,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "07_upper_LPG_sliding_carriage_PRINT.stl",
+    "original_triangles": 1128,
+    "conforming_triangles": 1128,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "08_lower_LPG_sliding_carriage_PRINT.stl",
+    "original_triangles": 1128,
+    "conforming_triangles": 1128,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "JOB02_PRINT.stl",
+    "original_triangles": 7347,
+    "conforming_triangles": 7348,
+    "collinear_edge_splits": 1,
+    "maximum_collinearity_deviation_mm": 2.3841112474674673e-06,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "JOB03_PRINT.stl",
+    "original_triangles": 4236,
+    "conforming_triangles": 4236,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "JOB04_PRINT.stl",
+    "original_triangles": 8280,
+    "conforming_triangles": 8280,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  }
+]

@@ -1,0 +1,68 @@
+{
+  "driving_parameters": {
+    "base_w": 180.0,
+    "base_d": 160.0,
+    "base_t": 8.0,
+    "upright_w": 90.0,
+    "upright_t": 12.0,
+    "upright_y": 130.0,
+    "upright_top": 190.0,
+    "arm_front": 39.0,
+    "arm_t": 10.0,
+    "axis_x": 90.0,
+    "axis_y": 65.0,
+    "em_face_z": 170.0,
+    "em_d": 25.0,
+    "em_h": 20.0,
+    "em_bore": 26.0,
+    "helper_d": 19.05,
+    "helper_h": 1.5875,
+    "helper_count": 4,
+    "helper_pocket_d": 19.6,
+    "helper_pocket_depth": 7.0,
+    "helper_floor_z": 163.0,
+    "retainer_bolt_radius": 19.0,
+    "payload_D68_d": 9.525,
+    "payload_D68_h": 12.7,
+    "payload_D68_mass_g": 6.79,
+    "gap_min": 10.0,
+    "gap_max": 20.0
+  },
+  "retainer_bolt_xy": [
+    [
+      103.4350288425444,
+      78.4350288425444
+    ],
+    [
+      76.5649711574556,
+      78.4350288425444
+    ],
+    [
+      76.56497115745559,
+      51.5649711574556
+    ],
+    [
+      103.4350288425444,
+      51.564971157455595
+    ]
+  ],
+  "rear_bolt_xz": [
+    [
+      60,
+      172
+    ],
+    [
+      120,
+      172
+    ],
+    [
+      60,
+      184
+    ],
+    [
+      120,
+      184
+    ]
+  ],
+  "note": "P values drive named dimensions; supporting coordinate details remain explicit in generator."
+}

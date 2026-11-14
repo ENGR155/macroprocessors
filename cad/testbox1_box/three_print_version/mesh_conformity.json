@@ -1,0 +1,26 @@
+[
+  {
+    "file": "01_frame_base_upright_tray_PRINT.stl",
+    "original_triangles": 1916,
+    "conforming_triangles": 1916,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "02_cantilever_vented_head_upper_sensor_PRINT.stl",
+    "original_triangles": 6035,
+    "conforming_triangles": 6036,
+    "collinear_edge_splits": 1,
+    "maximum_collinearity_deviation_mm": 2.3841112474674673e-06,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  },
+  {
+    "file": "03_helper_cassette_lower_sensor_guard_PRINT.stl",
+    "original_triangles": 2244,
+    "conforming_triangles": 2244,
+    "collinear_edge_splits": 0,
+    "maximum_collinearity_deviation_mm": 0.0,
+    "method": "split existing long edge at existing boundary vertex; no hole capping"
+  }
+]

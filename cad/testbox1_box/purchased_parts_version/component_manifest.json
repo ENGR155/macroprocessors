@@ -1,0 +1,114 @@
+{
+  "01_frame_base_upright_tray": {
+    "notes": "Print base underside flat on bed; 180x160x190. Integrated 12mm upright and front/rear root gussets. Four M4 through holes at X60/120,Z172/184.",
+    "kind": "print",
+    "job": 1,
+    "material_selected": "PLA",
+    "thermal_validation": "NOT ESTABLISHED",
+    "assembly_bbox_mm": [
+      -1e-07,
+      -1e-07,
+      -1e-07,
+      180.0000001,
+      160.0000001,
+      190.00000010000005
+    ],
+    "print_bbox_mm": [
+      0.0,
+      0.0,
+      0.0,
+      180.0,
+      160.0,
+      190.0
+    ],
+    "volume_mm3": 471788.5929851776,
+    "solid_count": 1,
+    "valid": true,
+    "print_valid": true,
+    "rotation_about_X_deg": 0
+  },
+  "02_cantilever_vented_head_upper_sensor": {
+    "notes": "Print inverted Z200 face on bed. Exact DRV5056QLPG body seat3.7x4.5, 3mm straight-lead relief and free fanout to3mm-pitch solder channels. Body strap plus lead strain-relief slots. \u00d826 coil upper rim,0.8mm axial clearance.",
+    "kind": "print",
+    "job": 2,
+    "material_selected": "PLA",
+    "thermal_validation": "NOT ESTABLISHED",
+    "assembly_bbox_mm": [
+      45.0,
+      39.0,
+      160.0,
+      135.0,
+      142.0,
+      200.0
+    ],
+    "print_bbox_mm": [
+      0.0,
+      -2.964635622955136e-14,
+      -1.2001538631644061e-15,
+      90.0,
+      102.99999999999997,
+      40.00000000000003
+    ],
+    "volume_mm3": 123507.76417980163,
+    "solid_count": 1,
+    "valid": true,
+    "print_valid": true,
+    "rotation_about_X_deg": 180
+  },
+  "03_four_DC1_stack_cassette_lower_LPG_seat": {
+    "notes": "Print broad underside flat. \u00d819.6x7 pocket for3\u20134DC1 disks, floorZ163,bottomZ162. LowerDRV5056QLPG flat seat atX104Y65Z168 is14mm offaxis beside stack. Strap retained body and separate strain-relief/solder lanes extend+X. M3x45 head bolts required for38mmstack.",
+    "kind": "print",
+    "job": 3,
+    "material_selected": "PLA",
+    "thermal_validation": "NOT ESTABLISHED",
+    "assembly_bbox_mm": [
+      64.0,
+      39.0,
+      162.0,
+      129.0,
+      91.0,
+      170.0
+    ],
+    "print_bbox_mm": [
+      0.0,
+      0.0,
+      0.0,
+      65.0,
+      52.0,
+      8.0
+    ],
+    "volume_mm3": 24186.999602240656,
+    "solid_count": 1,
+    "valid": true,
+    "print_valid": true,
+    "rotation_about_X_deg": 0
+  },
+  "04_D68_payload_carrier": {
+    "notes": "Print broad base down beside cassette in JOB03. \u00d810 cup forD68 \u00d89.525x12.7; magnettop0.4mmabove cup. Nonprintednylonloop\u22643mmwide\u22640.8mmthick goesOVERmagnettop andUNDERbasegroove; buckle belowcup. Add measured nonmagnetic ballast until WHOLE moving assembly10g. Never rely on friction alone.",
+    "kind": "print",
+    "job": 3,
+    "material_selected": "PLA",
+    "thermal_validation": "NOT ESTABLISHED",
+    "assembly_bbox_mm": [
+      82.14188317724914,
+      57.0,
+      140.3,
+      97.85811682275086,
+      73.0,
+      154.60000000000002
+    ],
+    "print_bbox_mm": [
+      0.14188317724914157,
+      0.0,
+      0.0,
+      15.858116822750858,
+      16.0,
+      14.300000000000011
+    ],
+    "volume_mm3": 1123.7968148781695,
+    "solid_count": 1,
+    "valid": true,
+    "print_valid": true,
+    "rotation_about_X_deg": 0
+  }
+}

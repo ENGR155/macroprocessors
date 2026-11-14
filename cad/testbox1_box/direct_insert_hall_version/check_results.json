@@ -1,0 +1,887 @@
+{
+  "passed": true,
+  "check_count": 149,
+  "scope": "Nominal exported geometry, manifold meshes and conservative continuous motion. No print, wire flexibility, clamp friction, sensor saturation or thermal guarantee.",
+  "checks": [
+    {
+      "name": "01_frame_base_upright_tray valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1
+      }
+    },
+    {
+      "name": "02_head_common_rod_guide valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1
+      }
+    },
+    {
+      "name": "03_cassette_common_rod_guide valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1
+      }
+    },
+    {
+      "name": "04_D68_payload_carrier valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1
+      }
+    },
+    {
+      "name": "05_common_direct_insert_rod valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1
+      }
+    },
+    {
+      "name": "REF_D68_N52_gap15 valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1
+      }
+    },
+    {
+      "name": "REF_DC1_disk_1 valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1
+      }
+    },
+    {
+      "name": "REF_DC1_disk_2 valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1
+      }
+    },
+    {
+      "name": "REF_DC1_disk_3 valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1
+      }
+    },
+    {
+      "name": "REF_DC1_disk_4 valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1
+      }
+    },
+    {
+      "name": "REF_EM_nominal_25x20 valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1
+      }
+    },
+    {
+      "name": "REF_lower_LPG_max_body valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1
+      }
+    },
+    {
+      "name": "REF_lower_native_pins valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 3
+      }
+    },
+    {
+      "name": "REF_lower_retaining_loop valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1
+      }
+    },
+    {
+      "name": "REF_nylon_retaining_loop_envelope valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1
+      }
+    },
+    {
+      "name": "REF_upper_LPG_max_body valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1
+      }
+    },
+    {
+      "name": "REF_upper_native_pins valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 3
+      }
+    },
+    {
+      "name": "REF_upper_retaining_loop valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1
+      }
+    },
+    {
+      "name": "parked geometry no overlaps",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "01_frame_base_upright_tray_PRINT.stl closed manifold/object count",
+      "passed": true,
+      "detail": {
+        "components": 1,
+        "triangles": 1916,
+        "nonmanifold_edges": 0
+      }
+    },
+    {
+      "name": "01_frame_base_upright_tray_PRINT.stl on bed and inside220x220x256",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        180.0,
+        160.0,
+        190.0
+      ]
+    },
+    {
+      "name": "01_frame_base_upright_tray print solid valid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "02_head_common_rod_guide_PRINT.stl closed manifold/object count",
+      "passed": true,
+      "detail": {
+        "components": 1,
+        "triangles": 7270,
+        "nonmanifold_edges": 0
+      }
+    },
+    {
+      "name": "02_head_common_rod_guide_PRINT.stl on bed and inside220x220x256",
+      "passed": true,
+      "detail": [
+        0.0,
+        -0.0,
+        0.0,
+        90.0,
+        103.0,
+        40.0
+      ]
+    },
+    {
+      "name": "02_head_common_rod_guide print solid valid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "03_cassette_common_rod_guide_PRINT.stl closed manifold/object count",
+      "passed": true,
+      "detail": {
+        "components": 1,
+        "triangles": 2148,
+        "nonmanifold_edges": 0
+      }
+    },
+    {
+      "name": "03_cassette_common_rod_guide_PRINT.stl on bed and inside220x220x256",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        65.0,
+        52.0,
+        8.0
+      ]
+    },
+    {
+      "name": "03_cassette_common_rod_guide print solid valid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "04_D68_payload_carrier_PRINT.stl closed manifold/object count",
+      "passed": true,
+      "detail": {
+        "components": 1,
+        "triangles": 1184,
+        "nonmanifold_edges": 0
+      }
+    },
+    {
+      "name": "04_D68_payload_carrier_PRINT.stl on bed and inside220x220x256",
+      "passed": true,
+      "detail": [
+        0.14188,
+        0.00346,
+        0.0,
+        15.85812,
+        15.99654,
+        14.3
+      ]
+    },
+    {
+      "name": "04_D68_payload_carrier print solid valid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "05_common_direct_insert_rod_PRINT.stl closed manifold/object count",
+      "passed": true,
+      "detail": {
+        "components": 1,
+        "triangles": 1344,
+        "nonmanifold_edges": 0
+      }
+    },
+    {
+      "name": "05_common_direct_insert_rod_PRINT.stl on bed and inside220x220x256",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        10.0,
+        137.0,
+        12.0
+      ]
+    },
+    {
+      "name": "05_common_direct_insert_rod print solid valid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "JOB01_PRINT.stl closed manifold/object count",
+      "passed": true,
+      "detail": {
+        "components": 1,
+        "triangles": 1916,
+        "nonmanifold_edges": 0
+      }
+    },
+    {
+      "name": "JOB01_PRINT.stl on bed and inside220x220x256",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        180.0,
+        160.0,
+        190.0
+      ]
+    },
+    {
+      "name": "JOB02_PRINT.stl closed manifold/object count",
+      "passed": true,
+      "detail": {
+        "components": 1,
+        "triangles": 7270,
+        "nonmanifold_edges": 0
+      }
+    },
+    {
+      "name": "JOB02_PRINT.stl on bed and inside220x220x256",
+      "passed": true,
+      "detail": [
+        0.0,
+        -0.0,
+        0.0,
+        90.0,
+        103.0,
+        40.0
+      ]
+    },
+    {
+      "name": "JOB03_PRINT.stl closed manifold/object count",
+      "passed": true,
+      "detail": {
+        "components": 2,
+        "triangles": 3332,
+        "nonmanifold_edges": 0
+      }
+    },
+    {
+      "name": "JOB03_PRINT.stl on bed and inside220x220x256",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        97.85812,
+        52.0,
+        14.3
+      ]
+    },
+    {
+      "name": "JOB04_PRINT.stl closed manifold/object count",
+      "passed": true,
+      "detail": {
+        "components": 1,
+        "triangles": 1344,
+        "nonmanifold_edges": 0
+      }
+    },
+    {
+      "name": "JOB04_PRINT.stl on bed and inside220x220x256",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        10.0,
+        137.0,
+        12.0
+      ]
+    },
+    {
+      "name": "JOB01_PRINT.stl preserved",
+      "passed": true,
+      "detail": "7772d721a772277db047f36b6c83a7329d7e0bf2c6fec431cca1e0c376881731"
+    },
+    {
+      "name": "JOB01_PRINT.step preserved",
+      "passed": true,
+      "detail": "cc33979d194878eb557437c86a381c988663822fa9ffc512e86c151e0c942018"
+    },
+    {
+      "name": "04_D68_payload_carrier_PRINT.stl preserved",
+      "passed": true,
+      "detail": "cf9ba6b45a38dcc32e62d268fcd499d72d0facbf825a2073f27a846990adabc4"
+    },
+    {
+      "name": "04_D68_payload_carrier_PRINT.step preserved",
+      "passed": true,
+      "detail": "c623eae0578999aff0cca9479ce2149a795c8cd5ce7545b79dd5d678687f0972"
+    },
+    {
+      "name": "04_D68_payload_carrier_assembled.step preserved",
+      "passed": true,
+      "detail": "afa1e402e5c523f16f81a44db1f992b58a2af45a638b0c85a77e722d8af10596"
+    },
+    {
+      "name": "continuous whole rod prism clears fixed geometry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port207.5 body fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port207.5 body full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port207.5 pins fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port207.5 pins full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port207.5 loop fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port207.5 loop full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port207.5 pin pitch/play envelope fits",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port207.5 body insertion path clear",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port215.5 body fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port215.5 body full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port215.5 pins fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port215.5 pins full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port215.5 loop fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port215.5 loop full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port215.5 pin pitch/play envelope fits",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port215.5 body insertion path clear",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port223.5 body fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port223.5 body full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port223.5 pins fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port223.5 pins full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port223.5 loop fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port223.5 loop full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port223.5 pin pitch/play envelope fits",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port223.5 body insertion path clear",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port231.5 body fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port231.5 body full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port231.5 pins fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port231.5 pins full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port231.5 loop fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port231.5 loop full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port231.5 pin pitch/play envelope fits",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port231.5 body insertion path clear",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port239.5 body fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port239.5 body full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port239.5 pins fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port239.5 pins full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port239.5 loop fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port239.5 loop full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port239.5 pin pitch/play envelope fits",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "upper port239.5 body insertion path clear",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port117.5 body fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port117.5 body full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port117.5 pins fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port117.5 pins full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port117.5 loop fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port117.5 loop full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port117.5 pin pitch/play envelope fits",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port117.5 body insertion path clear",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port125.5 body fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port125.5 body full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port125.5 pins fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port125.5 pins full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port125.5 loop fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port125.5 loop full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port125.5 pin pitch/play envelope fits",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port125.5 body insertion path clear",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port133.5 body fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port133.5 body full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port133.5 pins fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port133.5 pins full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port133.5 loop fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port133.5 loop full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port133.5 pin pitch/play envelope fits",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port133.5 body insertion path clear",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port141.5 body fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port141.5 body full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port141.5 pins fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port141.5 pins full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port141.5 loop fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port141.5 loop full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port141.5 pin pitch/play envelope fits",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port141.5 body insertion path clear",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port149.5 body fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port149.5 body full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port149.5 pins fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port149.5 pins full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port149.5 loop fits rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port149.5 loop full continuous stroke clears",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port149.5 pin pitch/play envelope fits",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "lower port149.5 body insertion path clear",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "clamp shaft slot clearance -4.2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "regular nut clearance -4.2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "head counterbore clearance -4.2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "clamp shaft slot clearance -4",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "regular nut clearance -4",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "head counterbore clearance -4",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "clamp shaft slot clearance 0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "regular nut clearance 0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "head counterbore clearance 0",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "clamp shaft slot clearance 4",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "regular nut clearance 4",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "head counterbore clearance 4",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "clamp shaft slot clearance 4.2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "regular nut clearance 4.2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "head counterbore clearance 4.2",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "nut top insertion pocket clear",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "four disk maximum plus adhesive below fits",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "four disk maximum plus adhesive above fits",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "chosen enlarged EM envelope preserved",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "payload entire10to20mm gap clears new guides/rod",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "job04 one holder, no separate carriage",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "rail_x": 145.0,
+  "rail_y": 65.0,
+  "upper_body_floor_range_mm": [
+    203.5,
+    243.5
+  ],
+  "lower_body_floor_range_mm": [
+    113.5,
+    153.5
+  ],
+  "upper_carriage_center_range_mm": [
+    210.5,
+    250.5
+  ],
+  "lower_carriage_center_range_mm": [
+    111.5,
+    151.5
+  ],
+  "upper_index_Z_mm": [
+    214.5,
+    222.5,
+    230.5,
+    238.5,
+    246.5
+  ],
+  "lower_index_Z_mm": [
+    147.5,
+    139.5,
+    131.5,
+    123.5,
+    115.5
+  ],
+  "coarse_pitch_mm": 8.0,
+  "fine_operating_half_travel_mm": 4.0,
+  "slot_overall_mm": 11.4,
+  "slot_width_mm": 3.4,
+  "rail_cross_section_mm": [
+    10,
+    12
+  ],
+  "guide_bore_mm": [
+    10.6,
+    12.6
+  ],
+  "clamp_nut_regular_M3_mm": {
+    "across_flats": 5.5,
+    "thickness": 2.4
+  },
+  "parked_upper_center_Z_mm": 210.5,
+  "parked_lower_center_Z_mm": 151.5
+}

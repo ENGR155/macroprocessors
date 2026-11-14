@@ -19,7 +19,7 @@ def orient_flat(shape):
         if dims[0]<=220 and dims[1]<=220:
             choices.append((dims[0]*dims[1],max(dims[0],dims[1]),s,dims))
     if not choices:raise RuntimeError('Part exceeds assumed 220x220 mm print bed')
-    _,_,s,dims=min(choices,key=lambda q:(q[0],q[1]))
+    _,_,s,dims=min(choices,key=lambda q:(round(q[3][2],6),-q[0]))
     b=s.BoundingBox();s=s.translate((-b.xmin-dims[0]/2,-b.ymin-dims[1]/2,-b.zmin))
     return s,dims
 

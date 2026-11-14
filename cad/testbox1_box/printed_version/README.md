@@ -1,5 +1,7 @@
 # Printable stand version
 
+**Superseded:** use the `three_print_version` package beside this folder for the requested reduced-part design. The original eleven-part STL orientation export incorrectly stood broad parts on edge. This folder and its ZIP have now been regenerated with corrected orientation selection. Discard older downloaded copies. The assembled STEP geometry itself was unaffected.
+
 Open `testbox1_box_printable.step` in Fusion to see the complete 11-part stand with every structural component assigned a printable polymer alternative. This assembly omits the electromagnet, helper magnet, Hall devices and assumed payload: those are purchased parts or electronics, not print jobs. The original full CAD assembly remains one folder up.
 
 Individual, bed-oriented STL files are in `parts/`. Every part was reoriented to put its broad face on Z=0 and centered on the bed. The listed X/Y extents fit a 220 × 220 mm printer; the base uses nearly the full bed at 180 × 160 mm. Check your printer's actual usable area before slicing. The large base will take substantial filament and print time.

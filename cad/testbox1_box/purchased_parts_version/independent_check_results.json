@@ -1,0 +1,820 @@
+{
+  "passed": true,
+  "check_count": 77,
+  "scope": "Independent actual STEP/STL geometry, print orientation, exact purchased package envelopes and assembly access. No force, temperature, field or closed-loop proof.",
+  "checks": [
+    {
+      "name": "01_frame_base_upright_tray valid solids",
+      "passed": true,
+      "detail": {
+        "solid_count": 1,
+        "expected": 1,
+        "bbox_mm": [
+          0.0,
+          0.0,
+          0.0,
+          180.0,
+          160.0,
+          190.0
+        ]
+      }
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor valid solids",
+      "passed": true,
+      "detail": {
+        "solid_count": 1,
+        "expected": 1,
+        "bbox_mm": [
+          45.0,
+          39.0,
+          160.0,
+          135.0,
+          142.0,
+          200.0
+        ]
+      }
+    },
+    {
+      "name": "03_four_DC1_stack_cassette_lower_LPG_seat valid solids",
+      "passed": true,
+      "detail": {
+        "solid_count": 1,
+        "expected": 1,
+        "bbox_mm": [
+          64.0,
+          39.0,
+          162.0,
+          129.0,
+          91.0,
+          170.0
+        ]
+      }
+    },
+    {
+      "name": "04_D68_payload_carrier valid solids",
+      "passed": true,
+      "detail": {
+        "solid_count": 1,
+        "expected": 1,
+        "bbox_mm": [
+          82.141883177249,
+          57.0,
+          140.3,
+          97.858116822751,
+          73.0,
+          154.6
+        ]
+      }
+    },
+    {
+      "name": "REF_D68_N52_gap15 valid solids",
+      "passed": true,
+      "detail": {
+        "solid_count": 1,
+        "expected": 1,
+        "bbox_mm": [
+          85.2375,
+          60.2375,
+          142.3,
+          94.7625,
+          69.7625,
+          155.0
+        ]
+      }
+    },
+    {
+      "name": "REF_DC1_disk_1 valid solids",
+      "passed": true,
+      "detail": {
+        "solid_count": 1,
+        "expected": 1,
+        "bbox_mm": [
+          80.475,
+          55.475,
+          163.0,
+          99.525,
+          74.525,
+          164.5875
+        ]
+      }
+    },
+    {
+      "name": "REF_DC1_disk_2 valid solids",
+      "passed": true,
+      "detail": {
+        "solid_count": 1,
+        "expected": 1,
+        "bbox_mm": [
+          80.475,
+          55.475,
+          164.5875,
+          99.525,
+          74.525,
+          166.175
+        ]
+      }
+    },
+    {
+      "name": "REF_DC1_disk_3 valid solids",
+      "passed": true,
+      "detail": {
+        "solid_count": 1,
+        "expected": 1,
+        "bbox_mm": [
+          80.475,
+          55.475,
+          166.175,
+          99.525,
+          74.525,
+          167.7625
+        ]
+      }
+    },
+    {
+      "name": "REF_DC1_disk_4 valid solids",
+      "passed": true,
+      "detail": {
+        "solid_count": 1,
+        "expected": 1,
+        "bbox_mm": [
+          80.475,
+          55.475,
+          167.7625,
+          99.525,
+          74.525,
+          169.35
+        ]
+      }
+    },
+    {
+      "name": "REF_DRV5056_lower_LPG_max_body valid solids",
+      "passed": true,
+      "detail": {
+        "solid_count": 1,
+        "expected": 1,
+        "bbox_mm": [
+          102.375,
+          62.95,
+          168.0,
+          105.625,
+          67.05,
+          169.62
+        ]
+      }
+    },
+    {
+      "name": "REF_DRV5056_upper_LPG_max_body valid solids",
+      "passed": true,
+      "detail": {
+        "solid_count": 1,
+        "expected": 1,
+        "bbox_mm": [
+          102.375,
+          62.95,
+          198.0,
+          105.625,
+          67.05,
+          199.62
+        ]
+      }
+    },
+    {
+      "name": "REF_EM_nominal_25x20 valid solids",
+      "passed": true,
+      "detail": {
+        "solid_count": 1,
+        "expected": 1,
+        "bbox_mm": [
+          77.5,
+          52.5,
+          170.0,
+          102.5,
+          77.5,
+          190.0
+        ]
+      }
+    },
+    {
+      "name": "REF_lower_leads_formed valid solids",
+      "passed": true,
+      "detail": {
+        "solid_count": 3,
+        "expected": 3,
+        "bbox_mm": [
+          105.625,
+          61.725,
+          168.48499999999999,
+          119.0,
+          68.275,
+          169.035
+        ]
+      }
+    },
+    {
+      "name": "REF_lower_leads_formed three electrically isolated pin bodies",
+      "passed": true,
+      "detail": [
+        3.580345798854629,
+        3.5216034635789337,
+        3.580345805732084
+      ]
+    },
+    {
+      "name": "REF_nylon_retaining_loop_envelope valid solids",
+      "passed": true,
+      "detail": {
+        "solid_count": 1,
+        "expected": 1,
+        "bbox_mm": [
+          83.1,
+          63.5,
+          140.3,
+          96.9,
+          66.5,
+          155.8
+        ]
+      }
+    },
+    {
+      "name": "REF_upper_leads_formed valid solids",
+      "passed": true,
+      "detail": {
+        "solid_count": 3,
+        "expected": 3,
+        "bbox_mm": [
+          105.625,
+          61.725,
+          198.48499999999999,
+          119.0,
+          68.275,
+          199.035
+        ]
+      }
+    },
+    {
+      "name": "REF_upper_leads_formed three electrically isolated pin bodies",
+      "passed": true,
+      "detail": [
+        3.580345798863673,
+        3.5216034635789337,
+        3.580345805714953
+      ]
+    },
+    {
+      "name": "main assembly nineteen actual solids",
+      "passed": true,
+      "detail": {
+        "physical_solids": 19,
+        "logical_entries": 15,
+        "print_bodies": 4
+      }
+    },
+    {
+      "name": "main all105 component pairs nonintersecting",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "exactly four fabrication bodies",
+      "passed": true,
+      "detail": 4
+    },
+    {
+      "name": "01_frame_base_upright_tray independent overall dimensions",
+      "passed": true,
+      "detail": [
+        180.0,
+        160.0,
+        190.0
+      ]
+    },
+    {
+      "name": "01_frame_base_upright_tray explicit correct bed orientation",
+      "passed": true,
+      "detail": {
+        "symmetric_difference_mm3": 0.0,
+        "bbox_mm": [
+          0.0,
+          0.0,
+          0.0,
+          180.0,
+          160.0,
+          190.0
+        ]
+      }
+    },
+    {
+      "name": "01_frame_base_upright_tray central220 bed fit",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        180.0,
+        160.0,
+        190.0
+      ]
+    },
+    {
+      "name": "01_frame_base_upright_tray substantial broad bed contact",
+      "passed": true,
+      "detail": {
+        "contact_mm2": 28800.0
+      }
+    },
+    {
+      "name": "01_frame_base_upright_tray_PRINT.stl closed expected connected meshes",
+      "passed": true,
+      "detail": {
+        "triangles": 1916,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "01_frame_base_upright_tray mesh matches STEP dimensions",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        180.0,
+        160.0,
+        190.0
+      ]
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor independent overall dimensions",
+      "passed": true,
+      "detail": [
+        90.0,
+        103.0,
+        40.0
+      ]
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor explicit correct bed orientation",
+      "passed": true,
+      "detail": {
+        "symmetric_difference_mm3": 0.0,
+        "bbox_mm": [
+          0.0,
+          -2.9646356229547e-14,
+          -1.20015386316406e-15,
+          90.0,
+          103.0,
+          40.0
+        ]
+      }
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor central220 bed fit",
+      "passed": true,
+      "detail": [
+        0.0,
+        -2.9646356229547e-14,
+        -1.20015386316406e-15,
+        90.0,
+        103.0,
+        40.0
+      ]
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor substantial broad bed contact",
+      "passed": true,
+      "detail": {
+        "contact_mm2": 8682.544630473734
+      }
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor_PRINT.stl closed expected connected meshes",
+      "passed": true,
+      "detail": {
+        "triangles": 6624,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor mesh matches STEP dimensions",
+      "passed": true,
+      "detail": [
+        0.0,
+        -0.0,
+        0.0,
+        90.0,
+        103.0,
+        40.0
+      ]
+    },
+    {
+      "name": "03_four_DC1_stack_cassette_lower_LPG_seat independent overall dimensions",
+      "passed": true,
+      "detail": [
+        65.0,
+        52.0,
+        8.0
+      ]
+    },
+    {
+      "name": "03_four_DC1_stack_cassette_lower_LPG_seat explicit correct bed orientation",
+      "passed": true,
+      "detail": {
+        "symmetric_difference_mm3": 0.0,
+        "bbox_mm": [
+          0.0,
+          0.0,
+          0.0,
+          65.0,
+          52.0,
+          8.0
+        ]
+      }
+    },
+    {
+      "name": "03_four_DC1_stack_cassette_lower_LPG_seat central220 bed fit",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        65.0,
+        52.0,
+        8.0
+      ]
+    },
+    {
+      "name": "03_four_DC1_stack_cassette_lower_LPG_seat substantial broad bed contact",
+      "passed": true,
+      "detail": {
+        "contact_mm2": 3329.283188924501
+      }
+    },
+    {
+      "name": "03_four_DC1_stack_cassette_lower_LPG_seat_PRINT.stl closed expected connected meshes",
+      "passed": true,
+      "detail": {
+        "triangles": 2320,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "03_four_DC1_stack_cassette_lower_LPG_seat mesh matches STEP dimensions",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        65.0,
+        52.0,
+        8.0
+      ]
+    },
+    {
+      "name": "04_D68_payload_carrier independent overall dimensions",
+      "passed": true,
+      "detail": [
+        15.716233645502001,
+        16.0,
+        14.299999999999983
+      ]
+    },
+    {
+      "name": "04_D68_payload_carrier explicit correct bed orientation",
+      "passed": true,
+      "detail": {
+        "symmetric_difference_mm3": 0.0,
+        "bbox_mm": [
+          0.14188317724899946,
+          0.0,
+          0.0,
+          15.858116822751,
+          16.0,
+          14.3
+        ]
+      }
+    },
+    {
+      "name": "04_D68_payload_carrier central220 bed fit",
+      "passed": true,
+      "detail": [
+        0.14188317724899946,
+        0.0,
+        0.0,
+        15.858116822751,
+        16.0,
+        14.3
+      ]
+    },
+    {
+      "name": "04_D68_payload_carrier substantial broad bed contact",
+      "passed": true,
+      "detail": {
+        "contact_mm2": 153.34468193104328
+      }
+    },
+    {
+      "name": "04_D68_payload_carrier_PRINT.stl closed expected connected meshes",
+      "passed": true,
+      "detail": {
+        "triangles": 1184,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "04_D68_payload_carrier mesh matches STEP dimensions",
+      "passed": true,
+      "detail": [
+        0.14188,
+        0.00346,
+        0.0,
+        15.85812,
+        15.99654,
+        14.3
+      ]
+    },
+    {
+      "name": "JOB01 correct number of bodies",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "name": "JOB01 fits printer bed",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        180.0,
+        160.0,
+        190.0
+      ]
+    },
+    {
+      "name": "JOB01_PRINT.stl closed expected connected meshes",
+      "passed": true,
+      "detail": {
+        "triangles": 1916,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "JOB02 correct number of bodies",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "name": "JOB02 fits printer bed",
+      "passed": true,
+      "detail": [
+        0.0,
+        -2.9646356229547e-14,
+        -1.20015386316406e-15,
+        90.0,
+        103.0,
+        40.0
+      ]
+    },
+    {
+      "name": "JOB02_PRINT.stl closed expected connected meshes",
+      "passed": true,
+      "detail": {
+        "triangles": 6624,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "JOB03 correct number of bodies",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "name": "JOB03 fits printer bed",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        97.858116822751,
+        52.0,
+        14.3
+      ]
+    },
+    {
+      "name": "JOB03_PRINT.stl closed expected connected meshes",
+      "passed": true,
+      "detail": {
+        "triangles": 3504,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 2
+      }
+    },
+    {
+      "name": "JOB03 two separate noncolliding objects",
+      "passed": true,
+      "detail": {
+        "gap_between_cassette_and_carrier_mm": 17,
+        "two8mm_brims_spare_mm": 1
+      }
+    },
+    {
+      "name": "four tolerance-max DC1 plus0.1 adhesive fits lower7mm pocket",
+      "passed": true,
+      "detail": {
+        "max_stack_mm": 6.75,
+        "adhesive_mm": 0.1,
+        "remaining_height_mm": 0.15,
+        "diametral_clearance_mm": 0.45
+      }
+    },
+    {
+      "name": "four tolerance-max DC1 plus0.1 adhesive fits optional upper pocket",
+      "passed": true,
+      "detail": "Top pocket floor193, roof open200"
+    },
+    {
+      "name": "three tolerance-max DC1 with measured shim fits either location",
+      "passed": true,
+      "detail": {
+        "max_three_stack_mm": 5.0625,
+        "example_measured_shim_mm": 1.8375,
+        "example_adhesive_mm": 0.1,
+        "nominal_three_stack_unfilled_gap_mm": 2.2375,
+        "nominal_four_stack_unfilled_gap_mm": 0.65,
+        "shim_must_match_actual_measured_stack": true
+      }
+    },
+    {
+      "name": "chosen EM tolerance scenario25.5x20.6 fits",
+      "passed": true,
+      "detail": "Scenario only; actual supplier tolerance unprovided"
+    },
+    {
+      "name": "D68 tolerance-max9.625x12.8 fits open carrier",
+      "passed": true,
+      "detail": "Positive nonprinted loop adjusts to actual height; not a friction-only cup"
+    },
+    {
+      "name": "full carrier D68 and positive loop complete10-20mm sweep",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "minimum10mm gap includes nylon loop1.2mm clearance",
+      "passed": true,
+      "detail": {
+        "top_moving_at10gap_mm": 160.8,
+        "cassette_bottom_mm": 162,
+        "nominal_margin_mm": 1.1999999999999886,
+        "loop_max_width_mm": 3,
+        "loop_max_thickness_mm": 0.8
+      }
+    },
+    {
+      "name": "nominal EM insertion from below cassette removed",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "coil4x2 lead exit open",
+      "passed": true,
+      "detail": "Actual purchased lead bend radius/position requires measurement"
+    },
+    {
+      "name": "M3x45 paths socketheads and upper hardware clear",
+      "passed": true,
+      "detail": {
+        "collisions": [],
+        "stack_mm": 38,
+        "spare_after0p5washer2p4nut_mm": 4.1
+      }
+    },
+    {
+      "name": "M4x30 rear fastening hardware clear",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower sensor and wire ties have true through access",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower strap presses actual LPG rather than bridging plate",
+      "passed": true,
+      "detail": {
+        "minimum_body_top_mm": 169.42,
+        "strap_groove_floor_mm": 169.2,
+        "minimum_proud_mm": 0.22,
+        "tie_max_width_mm": 2.5,
+        "slot_width_mm": 3
+      }
+    },
+    {
+      "name": "lower three solder lanes open and printable isolation webs",
+      "passed": true,
+      "detail": {
+        "issues": [],
+        "lane_width_mm": 1.6,
+        "pitch_mm": 3,
+        "web_mm": 1.4,
+        "straight_unbent_lead_mm": 3
+      }
+    },
+    {
+      "name": "lower body strap underside route clears plastic and nominal EM",
+      "passed": true,
+      "detail": [
+        102.75,
+        61.1,
+        161.2,
+        105.25,
+        68.9,
+        162.0
+      ]
+    },
+    {
+      "name": "upper sensor and wire ties have true through access",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper strap presses actual LPG rather than bridging plate",
+      "passed": true,
+      "detail": {
+        "minimum_body_top_mm": 199.42,
+        "strap_groove_floor_mm": 199.2,
+        "minimum_proud_mm": 0.22,
+        "tie_max_width_mm": 2.5,
+        "slot_width_mm": 3
+      }
+    },
+    {
+      "name": "upper three solder lanes open and printable isolation webs",
+      "passed": true,
+      "detail": {
+        "issues": [],
+        "lane_width_mm": 1.6,
+        "pitch_mm": 3,
+        "web_mm": 1.4,
+        "straight_unbent_lead_mm": 3
+      }
+    },
+    {
+      "name": "upper body strap underside route clears plastic and nominal EM",
+      "passed": true,
+      "detail": [
+        102.75,
+        61.1,
+        186.2,
+        105.25,
+        68.9,
+        187.0
+      ]
+    },
+    {
+      "name": "optional top placement no simultaneous lower stack",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "optional top assembly20 actual solids including strip",
+      "passed": true,
+      "detail": 20
+    },
+    {
+      "name": "optional retainer strip holes match opposite M3 bolts",
+      "passed": true,
+      "detail": {
+        "issues": [],
+        "strip_mm": "50x8x1",
+        "hole_pitch_mm": 38,
+        "M3x45_spare_with1mm_strip_mm": 3.1
+      }
+    },
+    {
+      "name": "carrier solid mass leaves positive10g budget",
+      "passed": true,
+      "detail": {
+        "D68_nominal_g": 6.79,
+        "carrier_mm3": 1123.7968148781313,
+        "assumed_PLA_g_cm3": 1.3,
+        "carrier_solid_mass_g": 1.4609358593415707,
+        "remaining_tie_ballast_adhesive_g": 1.7490641406584293,
+        "must_weigh_complete_payload": true
+      }
+    }
+  ]
+}

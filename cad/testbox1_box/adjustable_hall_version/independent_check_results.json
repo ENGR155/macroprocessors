@@ -1,0 +1,1394 @@
+{
+  "passed": true,
+  "check_count": 137,
+  "scope": "Exported BRep/mesh/nominal hardware and conservative continuous motion sweeps. No magnetic cancellation, saturation, thermal or print guarantee.",
+  "checks": [
+    {
+      "name": "01_frame_base_upright_tray valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "expected": 1,
+        "bbox_mm": [
+          0.0,
+          0.0,
+          0.0,
+          180.0,
+          160.0,
+          190.0
+        ]
+      }
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "expected": 1,
+        "bbox_mm": [
+          45.0,
+          39.0,
+          160.0,
+          154.0,
+          142.0,
+          200.0
+        ]
+      }
+    },
+    {
+      "name": "03_four_DC1_stack_cassette_lower_LPG_seat valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "expected": 1,
+        "bbox_mm": [
+          64.0,
+          39.0,
+          162.0,
+          154.0,
+          91.0,
+          170.0
+        ]
+      }
+    },
+    {
+      "name": "04_D68_payload_carrier valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "expected": 1,
+        "bbox_mm": [
+          82.141883177249,
+          57.0,
+          140.3,
+          97.858116822751,
+          73.0,
+          154.6
+        ]
+      }
+    },
+    {
+      "name": "05_upper_indexed_rail valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "expected": 1,
+        "bbox_mm": [
+          136.0,
+          59.0,
+          188.0,
+          154.0,
+          77.0,
+          270.0
+        ]
+      }
+    },
+    {
+      "name": "06_lower_indexed_rail valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "expected": 1,
+        "bbox_mm": [
+          136.0,
+          59.0,
+          92.0,
+          154.0,
+          77.0,
+          174.0
+        ]
+      }
+    },
+    {
+      "name": "07_upper_LPG_sliding_carriage valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "expected": 1,
+        "bbox_mm": [
+          101.0,
+          54.0,
+          201.5,
+          153.0,
+          76.0,
+          219.5
+        ]
+      }
+    },
+    {
+      "name": "08_lower_LPG_sliding_carriage valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "expected": 1,
+        "bbox_mm": [
+          101.0,
+          54.0,
+          142.5,
+          153.0,
+          76.0,
+          160.5
+        ]
+      }
+    },
+    {
+      "name": "REF_D68_N52_gap15 valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "expected": 1,
+        "bbox_mm": [
+          85.2375,
+          60.2375,
+          142.3,
+          94.7625,
+          69.7625,
+          155.0
+        ]
+      }
+    },
+    {
+      "name": "REF_DC1_disk_1 valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "expected": 1,
+        "bbox_mm": [
+          80.475,
+          55.475,
+          163.0,
+          99.525,
+          74.525,
+          164.5875
+        ]
+      }
+    },
+    {
+      "name": "REF_DC1_disk_2 valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "expected": 1,
+        "bbox_mm": [
+          80.475,
+          55.475,
+          164.5875,
+          99.525,
+          74.525,
+          166.175
+        ]
+      }
+    },
+    {
+      "name": "REF_DC1_disk_3 valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "expected": 1,
+        "bbox_mm": [
+          80.475,
+          55.475,
+          166.175,
+          99.525,
+          74.525,
+          167.7625
+        ]
+      }
+    },
+    {
+      "name": "REF_DC1_disk_4 valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "expected": 1,
+        "bbox_mm": [
+          80.475,
+          55.475,
+          167.7625,
+          99.525,
+          74.525,
+          169.35
+        ]
+      }
+    },
+    {
+      "name": "REF_DRV5056_lower_LPG_max_body valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "expected": 1,
+        "bbox_mm": [
+          102.375,
+          62.95,
+          153.5,
+          105.625,
+          67.05,
+          155.12
+        ]
+      }
+    },
+    {
+      "name": "REF_DRV5056_upper_LPG_max_body valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "expected": 1,
+        "bbox_mm": [
+          102.375,
+          62.95,
+          203.5,
+          105.625,
+          67.05,
+          205.12
+        ]
+      }
+    },
+    {
+      "name": "REF_EM_nominal_25x20 valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "expected": 1,
+        "bbox_mm": [
+          77.5,
+          52.5,
+          170.0,
+          102.5,
+          77.5,
+          190.0
+        ]
+      }
+    },
+    {
+      "name": "REF_lower_leads_formed valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 3,
+        "expected": 3,
+        "bbox_mm": [
+          105.625,
+          61.725,
+          153.98499999999999,
+          119.0,
+          68.275,
+          154.535
+        ]
+      }
+    },
+    {
+      "name": "REF_nylon_retaining_loop_envelope valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "expected": 1,
+        "bbox_mm": [
+          83.1,
+          63.5,
+          140.3,
+          96.9,
+          66.5,
+          155.8
+        ]
+      }
+    },
+    {
+      "name": "REF_upper_leads_formed valid expected solids",
+      "passed": true,
+      "detail": {
+        "solids": 3,
+        "expected": 3,
+        "bbox_mm": [
+          105.625,
+          61.725,
+          203.98499999999999,
+          119.0,
+          68.275,
+          204.535
+        ]
+      }
+    },
+    {
+      "name": "parked assembly all171 logical pairs nonintersecting",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "assembly23 actual solids",
+      "passed": true,
+      "detail": 23
+    },
+    {
+      "name": "exactly8 fabrication solids",
+      "passed": true,
+      "detail": 8
+    },
+    {
+      "name": "JOB01_PRINT.stl byte identical to purchased version",
+      "passed": true,
+      "detail": {
+        "sha256": "7772d721a772277db047f36b6c83a7329d7e0bf2c6fec431cca1e0c376881731",
+        "baseline_sha256": "7772d721a772277db047f36b6c83a7329d7e0bf2c6fec431cca1e0c376881731",
+        "compared_original_file": true,
+        "portable_baseline_used": false
+      }
+    },
+    {
+      "name": "JOB01_PRINT.step byte identical to purchased version",
+      "passed": true,
+      "detail": {
+        "sha256": "cc33979d194878eb557437c86a381c988663822fa9ffc512e86c151e0c942018",
+        "baseline_sha256": "cc33979d194878eb557437c86a381c988663822fa9ffc512e86c151e0c942018",
+        "compared_original_file": true,
+        "portable_baseline_used": false
+      }
+    },
+    {
+      "name": "01_frame_base_upright_tray_assembled.step byte identical to purchased version",
+      "passed": true,
+      "detail": {
+        "sha256": "a41611e5e027cf212a4fb14d2d4a1bfa0921ad86d2bcaf583b209c707d7051b0",
+        "baseline_sha256": "a41611e5e027cf212a4fb14d2d4a1bfa0921ad86d2bcaf583b209c707d7051b0",
+        "compared_original_file": true,
+        "portable_baseline_used": false
+      }
+    },
+    {
+      "name": "01_frame_base_upright_tray_PRINT.step byte identical to purchased version",
+      "passed": true,
+      "detail": {
+        "sha256": "30b034ab5bad8306c2fb8b4f4ef930ea390d91e37785261ed37f2ccf80df2af9",
+        "baseline_sha256": "30b034ab5bad8306c2fb8b4f4ef930ea390d91e37785261ed37f2ccf80df2af9",
+        "compared_original_file": true,
+        "portable_baseline_used": false
+      }
+    },
+    {
+      "name": "01_frame_base_upright_tray_PRINT.stl byte identical to purchased version",
+      "passed": true,
+      "detail": {
+        "sha256": "7772d721a772277db047f36b6c83a7329d7e0bf2c6fec431cca1e0c376881731",
+        "baseline_sha256": "7772d721a772277db047f36b6c83a7329d7e0bf2c6fec431cca1e0c376881731",
+        "compared_original_file": true,
+        "portable_baseline_used": false
+      }
+    },
+    {
+      "name": "04_D68_payload_carrier_assembled.step byte identical to purchased version",
+      "passed": true,
+      "detail": {
+        "sha256": "afa1e402e5c523f16f81a44db1f992b58a2af45a638b0c85a77e722d8af10596",
+        "baseline_sha256": "afa1e402e5c523f16f81a44db1f992b58a2af45a638b0c85a77e722d8af10596",
+        "compared_original_file": true,
+        "portable_baseline_used": false
+      }
+    },
+    {
+      "name": "04_D68_payload_carrier_PRINT.step byte identical to purchased version",
+      "passed": true,
+      "detail": {
+        "sha256": "c623eae0578999aff0cca9479ce2149a795c8cd5ce7545b79dd5d678687f0972",
+        "baseline_sha256": "c623eae0578999aff0cca9479ce2149a795c8cd5ce7545b79dd5d678687f0972",
+        "compared_original_file": true,
+        "portable_baseline_used": false
+      }
+    },
+    {
+      "name": "04_D68_payload_carrier_PRINT.stl byte identical to purchased version",
+      "passed": true,
+      "detail": {
+        "sha256": "cf9ba6b45a38dcc32e62d268fcd499d72d0facbf825a2073f27a846990adabc4",
+        "baseline_sha256": "cf9ba6b45a38dcc32e62d268fcd499d72d0facbf825a2073f27a846990adabc4",
+        "compared_original_file": true,
+        "portable_baseline_used": false
+      }
+    },
+    {
+      "name": "01_frame_base_upright_tray explicit physical print orientation",
+      "passed": true,
+      "detail": {
+        "symmetric_difference_mm3": 0.0,
+        "bbox_mm": [
+          0.0,
+          0.0,
+          0.0,
+          180.0,
+          160.0,
+          190.0
+        ]
+      }
+    },
+    {
+      "name": "01_frame_base_upright_tray central220 bed and256 height fit",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        180.0,
+        160.0,
+        190.0
+      ]
+    },
+    {
+      "name": "01_frame_base_upright_tray actual flat bed contact",
+      "passed": true,
+      "detail": 28800.0
+    },
+    {
+      "name": "01_frame_base_upright_tray_PRINT.stl manifold and object count",
+      "passed": true,
+      "detail": {
+        "triangles": 1916,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "01_frame_base_upright_tray STL matches print STEP dimensions",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        180.0,
+        160.0,
+        190.0
+      ]
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor explicit physical print orientation",
+      "passed": true,
+      "detail": {
+        "symmetric_difference_mm3": 0.0,
+        "bbox_mm": [
+          0.0,
+          -2.9646356229547e-14,
+          -1.20015386316406e-15,
+          109.0,
+          103.0,
+          40.0
+        ]
+      }
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor central220 bed and256 height fit",
+      "passed": true,
+      "detail": [
+        0.0,
+        -2.9646356229547e-14,
+        -1.20015386316406e-15,
+        109.0,
+        103.0,
+        40.0
+      ]
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor actual flat bed contact",
+      "passed": true,
+      "detail": 9145.204630473741
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor_PRINT.stl manifold and object count",
+      "passed": true,
+      "detail": {
+        "triangles": 7348,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "02_cantilever_vented_head_upper_sensor STL matches print STEP dimensions",
+      "passed": true,
+      "detail": [
+        0.0,
+        -0.0,
+        0.0,
+        109.0,
+        103.0,
+        40.0
+      ]
+    },
+    {
+      "name": "03_four_DC1_stack_cassette_lower_LPG_seat explicit physical print orientation",
+      "passed": true,
+      "detail": {
+        "symmetric_difference_mm3": 0.0,
+        "bbox_mm": [
+          0.0,
+          0.0,
+          0.0,
+          90.0,
+          52.0,
+          8.0
+        ]
+      }
+    },
+    {
+      "name": "03_four_DC1_stack_cassette_lower_LPG_seat central220 bed and256 height fit",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        90.0,
+        52.0,
+        8.0
+      ]
+    },
+    {
+      "name": "03_four_DC1_stack_cassette_lower_LPG_seat actual flat bed contact",
+      "passed": true,
+      "detail": 3752.9231889245025
+    },
+    {
+      "name": "03_four_DC1_stack_cassette_lower_LPG_seat_PRINT.stl manifold and object count",
+      "passed": true,
+      "detail": {
+        "triangles": 3052,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "03_four_DC1_stack_cassette_lower_LPG_seat STL matches print STEP dimensions",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        90.0,
+        52.0,
+        8.0
+      ]
+    },
+    {
+      "name": "04_D68_payload_carrier explicit physical print orientation",
+      "passed": true,
+      "detail": {
+        "symmetric_difference_mm3": 0.0,
+        "bbox_mm": [
+          0.14188317724899946,
+          0.0,
+          0.0,
+          15.858116822751,
+          16.0,
+          14.3
+        ]
+      }
+    },
+    {
+      "name": "04_D68_payload_carrier central220 bed and256 height fit",
+      "passed": true,
+      "detail": [
+        0.14188317724899946,
+        0.0,
+        0.0,
+        15.858116822751,
+        16.0,
+        14.3
+      ]
+    },
+    {
+      "name": "04_D68_payload_carrier actual flat bed contact",
+      "passed": true,
+      "detail": 153.34468193104328
+    },
+    {
+      "name": "04_D68_payload_carrier_PRINT.stl manifold and object count",
+      "passed": true,
+      "detail": {
+        "triangles": 1184,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "04_D68_payload_carrier STL matches print STEP dimensions",
+      "passed": true,
+      "detail": [
+        0.14188,
+        0.00346,
+        0.0,
+        15.85812,
+        15.99654,
+        14.3
+      ]
+    },
+    {
+      "name": "05_upper_indexed_rail explicit physical print orientation",
+      "passed": true,
+      "detail": {
+        "symmetric_difference_mm3": 0.0,
+        "bbox_mm": [
+          0.0,
+          0.0,
+          2.1127544158613748e-14,
+          18.0,
+          82.0,
+          18.0
+        ]
+      }
+    },
+    {
+      "name": "05_upper_indexed_rail central220 bed and256 height fit",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        2.1127544158613748e-14,
+        18.0,
+        82.0,
+        18.0
+      ]
+    },
+    {
+      "name": "05_upper_indexed_rail actual flat bed contact",
+      "passed": true,
+      "detail": 768.4455806178785
+    },
+    {
+      "name": "05_upper_indexed_rail_PRINT.stl manifold and object count",
+      "passed": true,
+      "detail": {
+        "triangles": 3012,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "05_upper_indexed_rail STL matches print STEP dimensions",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        18.0,
+        82.0,
+        18.0
+      ]
+    },
+    {
+      "name": "06_lower_indexed_rail explicit physical print orientation",
+      "passed": true,
+      "detail": {
+        "symmetric_difference_mm3": 0.0,
+        "bbox_mm": [
+          0.0,
+          0.0,
+          7.105427357601e-15,
+          18.0,
+          82.0,
+          18.0
+        ]
+      }
+    },
+    {
+      "name": "06_lower_indexed_rail central220 bed and256 height fit",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        7.105427357601e-15,
+        18.0,
+        82.0,
+        18.0
+      ]
+    },
+    {
+      "name": "06_lower_indexed_rail actual flat bed contact",
+      "passed": true,
+      "detail": 768.4455806178784
+    },
+    {
+      "name": "06_lower_indexed_rail_PRINT.stl manifold and object count",
+      "passed": true,
+      "detail": {
+        "triangles": 3012,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "06_lower_indexed_rail STL matches print STEP dimensions",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        18.0,
+        82.0,
+        18.0
+      ]
+    },
+    {
+      "name": "07_upper_LPG_sliding_carriage explicit physical print orientation",
+      "passed": true,
+      "detail": {
+        "symmetric_difference_mm3": 0.0,
+        "bbox_mm": [
+          0.0,
+          0.0,
+          0.0,
+          52.0,
+          22.0,
+          18.0
+        ]
+      }
+    },
+    {
+      "name": "07_upper_LPG_sliding_carriage central220 bed and256 height fit",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        52.0,
+        22.0,
+        18.0
+      ]
+    },
+    {
+      "name": "07_upper_LPG_sliding_carriage actual flat bed contact",
+      "passed": true,
+      "detail": 852.0400000000001
+    },
+    {
+      "name": "07_upper_LPG_sliding_carriage_PRINT.stl manifold and object count",
+      "passed": true,
+      "detail": {
+        "triangles": 1128,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "07_upper_LPG_sliding_carriage STL matches print STEP dimensions",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        52.0,
+        22.0,
+        18.0
+      ]
+    },
+    {
+      "name": "08_lower_LPG_sliding_carriage explicit physical print orientation",
+      "passed": true,
+      "detail": {
+        "symmetric_difference_mm3": 0.0,
+        "bbox_mm": [
+          0.0,
+          0.0,
+          0.0,
+          52.0,
+          22.0,
+          18.0
+        ]
+      }
+    },
+    {
+      "name": "08_lower_LPG_sliding_carriage central220 bed and256 height fit",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        52.0,
+        22.0,
+        18.0
+      ]
+    },
+    {
+      "name": "08_lower_LPG_sliding_carriage actual flat bed contact",
+      "passed": true,
+      "detail": 218.44000000000005
+    },
+    {
+      "name": "08_lower_LPG_sliding_carriage_PRINT.stl manifold and object count",
+      "passed": true,
+      "detail": {
+        "triangles": 1128,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "08_lower_LPG_sliding_carriage STL matches print STEP dimensions",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        52.0,
+        22.0,
+        18.0
+      ]
+    },
+    {
+      "name": "JOB01 object count",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "name": "JOB01 central220 bed fit",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        180.0,
+        160.0,
+        190.0
+      ]
+    },
+    {
+      "name": "JOB01 no mutual object interference",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "JOB01_PRINT.stl manifold and object count",
+      "passed": true,
+      "detail": {
+        "triangles": 1916,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "JOB02 object count",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "name": "JOB02 central220 bed fit",
+      "passed": true,
+      "detail": [
+        0.0,
+        -2.9646356229547e-14,
+        -1.20015386316406e-15,
+        109.0,
+        103.0,
+        40.0
+      ]
+    },
+    {
+      "name": "JOB02 no mutual object interference",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "JOB02_PRINT.stl manifold and object count",
+      "passed": true,
+      "detail": {
+        "triangles": 7348,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 1
+      }
+    },
+    {
+      "name": "JOB03 object count",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "name": "JOB03 central220 bed fit",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        122.8581168227509,
+        52.0,
+        14.3
+      ]
+    },
+    {
+      "name": "JOB03 no mutual object interference",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "JOB03_PRINT.stl manifold and object count",
+      "passed": true,
+      "detail": {
+        "triangles": 4236,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 2
+      }
+    },
+    {
+      "name": "JOB04 object count",
+      "passed": true,
+      "detail": 4
+    },
+    {
+      "name": "JOB04 central220 bed fit",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        117.0,
+        82.0,
+        18.0
+      ]
+    },
+    {
+      "name": "JOB04 no mutual object interference",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "JOB04_PRINT.stl manifold and object count",
+      "passed": true,
+      "detail": {
+        "triangles": 8280,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0,
+        "connected_components": 4
+      }
+    },
+    {
+      "name": "four tolerance-max helper disks plus0.1 adhesive fit below",
+      "passed": true,
+      "detail": {
+        "diametral_clearance_mm": 0.45,
+        "remaining_axial_mm": 0.15
+      }
+    },
+    {
+      "name": "four tolerance-max helper disks plus0.1 adhesive fit above",
+      "passed": true,
+      "detail": "Same stack relocated; never simultaneously installed"
+    },
+    {
+      "name": "three disk stack plus measured shim fits either pocket",
+      "passed": true,
+      "detail": {
+        "nominal_three_disk_unfilled_height_mm": 2.2375,
+        "nominal_four_disk_unfilled_height_mm": 0.65
+      }
+    },
+    {
+      "name": "chosen25.5x20.6 EM allowance fits",
+      "passed": true,
+      "detail": "Chosen scenario, not supplier tolerance"
+    },
+    {
+      "name": "maximum9.625x12.8 D68 fits carrier",
+      "passed": true,
+      "detail": "Positive loop adjusts to actual height"
+    },
+    {
+      "name": "original and new fixed rail/endstop hardware clears parked assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "complete D68 carrier loop10-20gap sweep",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "payload nominal minimum clearance1.2",
+      "passed": true,
+      "detail": "Cassette bottom162, loop top160.8 at10mm command"
+    },
+    {
+      "name": "upper CONTINUOUS full physical travel swept volumes clear fixed assembly",
+      "passed": true,
+      "detail": {
+        "center_range_mm": [
+          210.5,
+          250.7
+        ],
+        "floor_range_mm": [
+          203.5,
+          243.7
+        ],
+        "method": "Conservative complete sleeve/pod and tie prism sweeps cover all intermediate Z; bore retained exactly; endpoints may contact root stop",
+        "collisions": []
+      }
+    },
+    {
+      "name": "upper swept enclosure 07_upper_LPG_sliding_carriage 0.0",
+      "passed": true,
+      "detail": 0.0
+    },
+    {
+      "name": "upper swept enclosure REF_DRV5056_upper_LPG_max_body 0.0",
+      "passed": true,
+      "detail": 0.0
+    },
+    {
+      "name": "upper swept enclosure REF_upper_leads_formed 0.0",
+      "passed": true,
+      "detail": 0.0
+    },
+    {
+      "name": "upper swept enclosure 07_upper_LPG_sliding_carriage 40.2",
+      "passed": true,
+      "detail": 0.0
+    },
+    {
+      "name": "upper swept enclosure REF_DRV5056_upper_LPG_max_body 40.2",
+      "passed": true,
+      "detail": 0.0
+    },
+    {
+      "name": "upper swept enclosure REF_upper_leads_formed 40.2",
+      "passed": true,
+      "detail": 0.0
+    },
+    {
+      "name": "upper all5 coarse x3 fine poses bolt hexnut access",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper continuous clamp slot/nut track analytic margin",
+      "passed": true,
+      "detail": {
+        "operating_fine_mm": [
+          -4,
+          4
+        ],
+        "slot_straight_centerline_mm": 8,
+        "slot_radius_mm": 1.7,
+        "shaft_radius_mm": 1.5,
+        "radial_end_clearance_mm": 0.2,
+        "nut_hex_height_mm": 6.3508529610858835,
+        "nut_track_Z_mm": 15.2,
+        "nut_Z_margin_at4fine_mm": 0.4245735194570579,
+        "nut_AF_side_clearance_mm": 0.1499999999999999,
+        "requires_regular2p4mm_nut_not_nyloc": true
+      }
+    },
+    {
+      "name": "upper endstop positively intercepts escaping sleeve",
+      "passed": true,
+      "detail": "Head is outside bore; endstop removed only for assembly"
+    },
+    {
+      "name": "upper carriage insertion through free rail end with endstop removed",
+      "passed": true,
+      "detail": "Upper enters from above270; lower from below92"
+    },
+    {
+      "name": "upper guide cross-section running clearance",
+      "passed": true,
+      "detail": {
+        "rail_mm": [
+          10,
+          12
+        ],
+        "bore_mm": [
+          10.6,
+          12.6
+        ],
+        "nominal_per_side_mm": 0.3,
+        "printed_fit_not_measured": true
+      }
+    },
+    {
+      "name": "upper actual hex nut insertion from rear clear at both fine ends",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper moving body and lead tie slots are fully through",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper strap groove lets tie press minimum-thickness LPG",
+      "passed": true,
+      "detail": {
+        "upper_groove_volume_should_be_zero": 0.0,
+        "remaining_ledge_volume": 0.09999999999999429,
+        "minimum_body_proud_mm": 0.22
+      }
+    },
+    {
+      "name": "upper all3 solder lanes unobstructed",
+      "passed": true,
+      "detail": {
+        "issues": [],
+        "lane_width_mm": 1.6,
+        "pitch_mm": 3,
+        "printed_web_mm": 1.4,
+        "straight_unbent_pin_mm": 3
+      }
+    },
+    {
+      "name": "upper three formed pins electrically isolated",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower CONTINUOUS full physical travel swept volumes clear fixed assembly",
+      "passed": true,
+      "detail": {
+        "center_range_mm": [
+          111.3,
+          151.5
+        ],
+        "floor_range_mm": [
+          113.3,
+          153.5
+        ],
+        "method": "Conservative complete sleeve/pod and tie prism sweeps cover all intermediate Z; bore retained exactly; endpoints may contact root stop",
+        "collisions": []
+      }
+    },
+    {
+      "name": "lower swept enclosure 08_lower_LPG_sliding_carriage -40.2",
+      "passed": true,
+      "detail": 0.0
+    },
+    {
+      "name": "lower swept enclosure REF_DRV5056_lower_LPG_max_body -40.2",
+      "passed": true,
+      "detail": 0.0
+    },
+    {
+      "name": "lower swept enclosure REF_lower_leads_formed -40.2",
+      "passed": true,
+      "detail": 0.0
+    },
+    {
+      "name": "lower swept enclosure 08_lower_LPG_sliding_carriage 0.0",
+      "passed": true,
+      "detail": 0.0
+    },
+    {
+      "name": "lower swept enclosure REF_DRV5056_lower_LPG_max_body 0.0",
+      "passed": true,
+      "detail": 0.0
+    },
+    {
+      "name": "lower swept enclosure REF_lower_leads_formed 0.0",
+      "passed": true,
+      "detail": 0.0
+    },
+    {
+      "name": "lower all5 coarse x3 fine poses bolt hexnut access",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower continuous clamp slot/nut track analytic margin",
+      "passed": true,
+      "detail": {
+        "operating_fine_mm": [
+          -4,
+          4
+        ],
+        "slot_straight_centerline_mm": 8,
+        "slot_radius_mm": 1.7,
+        "shaft_radius_mm": 1.5,
+        "radial_end_clearance_mm": 0.2,
+        "nut_hex_height_mm": 6.3508529610858835,
+        "nut_track_Z_mm": 15.2,
+        "nut_Z_margin_at4fine_mm": 0.4245735194570579,
+        "nut_AF_side_clearance_mm": 0.1499999999999999,
+        "requires_regular2p4mm_nut_not_nyloc": true
+      }
+    },
+    {
+      "name": "lower endstop positively intercepts escaping sleeve",
+      "passed": true,
+      "detail": "Head is outside bore; endstop removed only for assembly"
+    },
+    {
+      "name": "lower carriage insertion through free rail end with endstop removed",
+      "passed": true,
+      "detail": "Upper enters from above270; lower from below92"
+    },
+    {
+      "name": "lower guide cross-section running clearance",
+      "passed": true,
+      "detail": {
+        "rail_mm": [
+          10,
+          12
+        ],
+        "bore_mm": [
+          10.6,
+          12.6
+        ],
+        "nominal_per_side_mm": 0.3,
+        "printed_fit_not_measured": true
+      }
+    },
+    {
+      "name": "lower actual hex nut insertion from rear clear at both fine ends",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower moving body and lead tie slots are fully through",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower strap groove lets tie press minimum-thickness LPG",
+      "passed": true,
+      "detail": {
+        "upper_groove_volume_should_be_zero": 0.0,
+        "remaining_ledge_volume": 0.09999999999999432,
+        "minimum_body_proud_mm": 0.22
+      }
+    },
+    {
+      "name": "lower all3 solder lanes unobstructed",
+      "passed": true,
+      "detail": {
+        "issues": [],
+        "lane_width_mm": 1.6,
+        "pitch_mm": 3,
+        "printed_web_mm": 1.4,
+        "straight_unbent_pin_mm": 3
+      }
+    },
+    {
+      "name": "lower three formed pins electrically isolated",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper free cable service corridor clears parked plastic",
+      "passed": true,
+      "detail": {
+        "bbox_mm": [
+          120.0,
+          80.0,
+          201.0,
+          132.0,
+          110.0,
+          260.0
+        ],
+        "collisions": []
+      }
+    },
+    {
+      "name": "upper fixed cable anchor slots actually through",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower free cable service corridor clears parked plastic",
+      "passed": true,
+      "detail": {
+        "bbox_mm": [
+          120.0,
+          80.0,
+          100.0,
+          132.0,
+          110.0,
+          161.0
+        ],
+        "collisions": []
+      }
+    },
+    {
+      "name": "lower fixed cable anchor slots actually through",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "150mm flexible lead service loop length plausibility",
+      "passed": true,
+      "detail": {
+        "chosen_min_free_mm": 150,
+        "simple_two_travel_plus_two10radius_bends_mm": 142.83185307179588,
+        "manual_flex_routing_required": true,
+        "not_a_physical_cable_test": true
+      }
+    },
+    {
+      "name": "optional top stack parked assembly nonintersecting",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "JOB04 per-object brim clearance",
+      "passed": true,
+      "detail": {
+        "minimum_interobject_gap_mm": 12,
+        "recommended_max_outer_brim_mm": 5,
+        "do_not_apply_global8mm_brim": true
+      }
+    },
+    {
+      "name": "indexed rail printable ligaments",
+      "passed": true,
+      "detail": {
+        "cross_section_mm": [
+          10,
+          12
+        ],
+        "hole_d_mm": 3.4,
+        "hole_pitch_mm": 8,
+        "edge_ligament_mm": 3.3,
+        "between_holes_mm": 4.6,
+        "not_a_strength_qualification": true
+      }
+    },
+    {
+      "name": "moving mass budget preserved",
+      "passed": true,
+      "detail": {
+        "carrier_solid_mass_g_at1p30": 1.4609358593415707,
+        "remaining_tie_ballast_g": 1.7490641406584293,
+        "must_weigh_complete_payload": true
+      }
+    }
+  ],
+  "motion_certificates": [
+    {
+      "tag": "upper",
+      "physical_center_range": [
+        210.5,
+        250.7
+      ],
+      "operating_center_range": [
+        210.5,
+        250.5
+      ],
+      "sensor_seat_floor_range_operating": [
+        203.5,
+        243.5
+      ]
+    },
+    {
+      "tag": "lower",
+      "physical_center_range": [
+        111.3,
+        151.5
+      ],
+      "operating_center_range": [
+        111.5,
+        151.5
+      ],
+      "sensor_seat_floor_range_operating": [
+        113.5,
+        153.5
+      ]
+    }
+  ]
+}
