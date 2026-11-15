@@ -1,0 +1,6 @@
+# Pin assignments from Jacquard FPGA Studio.
+# Edit this file, or the pin table on the Build screen: they are two views of one thing.
+# Uploading the .zip this came in restores the pins, the board and the design top.
+# jacquard-board: upduino-v3.1
+# jacquard-top: top
+set_io -nowarn pwm 10
