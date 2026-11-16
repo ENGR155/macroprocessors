@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"><rect width="100%" height="100%" fill="white"/>
+<text x="55" y="55.0" fill="black" font-family="Arial, sans-serif" font-size="30" font-weight="700" text-anchor="start" dominant-baseline="central">Magnetic levitation</text>
+<rect x="70" y="195" width="240" height="110" fill="white" stroke="black" stroke-width="2"/>
+<text x="190.0" y="233.53" fill="black" font-family="Arial, sans-serif" font-size="27" font-weight="400" text-anchor="middle" dominant-baseline="central">Web interface</text>
+<text x="190.0" y="266.47" fill="black" font-family="Arial, sans-serif" font-size="27" font-weight="400" text-anchor="middle" dominant-baseline="central">ESP8266</text>
+<rect x="460" y="195" width="240" height="110" fill="white" stroke="black" stroke-width="2"/>
+<text x="580.0" y="232.92000000000002" fill="black" font-family="Arial, sans-serif" font-size="28" font-weight="400" text-anchor="middle" dominant-baseline="central">STM32</text>
+<text x="580.0" y="267.08" fill="black" font-family="Arial, sans-serif" font-size="28" font-weight="400" text-anchor="middle" dominant-baseline="central">MCU</text>
+<rect x="850" y="195" width="300" height="110" fill="white" stroke="black" stroke-width="2"/>
+<text x="1000.0" y="234.75" fill="black" font-family="Arial, sans-serif" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="central">UPduino FPGA</text>
+<text x="1000.0" y="265.25" fill="black" font-family="Arial, sans-serif" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="central">ADC interface and PWM</text>
+<rect x="1300" y="195" width="230" height="110" fill="white" stroke="black" stroke-width="2"/>
+<text x="1415.0" y="232.92000000000002" fill="black" font-family="Arial, sans-serif" font-size="28" font-weight="400" text-anchor="middle" dominant-baseline="central">MOSFET</text>
+<text x="1415.0" y="267.08" fill="black" font-family="Arial, sans-serif" font-size="28" font-weight="400" text-anchor="middle" dominant-baseline="central">switch</text>
+<polyline points="310,250 460,250" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="449.0,245.0 460,250 449.0,255.0" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="321.0,255.0 310,250 321.0,245.0" fill="none" stroke="black" stroke-width="2"/>
+<text x="385" y="215.0" fill="black" font-family="Arial, sans-serif" font-size="23" font-weight="400" text-anchor="middle" dominant-baseline="central">UART</text>
+<polyline points="700,250 850,250" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="839.0,245.0 850,250 839.0,255.0" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="711.0,255.0 700,250 711.0,245.0" fill="none" stroke="black" stroke-width="2"/>
+<text x="775" y="215.0" fill="black" font-family="Arial, sans-serif" font-size="23" font-weight="400" text-anchor="middle" dominant-baseline="central">SPI</text>
+<polyline points="1150,250 1300,250" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="1289.0,245.0 1300,250 1289.0,255.0" fill="none" stroke="black" stroke-width="2"/>
+<text x="1225" y="215.0" fill="black" font-family="Arial, sans-serif" font-size="23" font-weight="400" text-anchor="middle" dominant-baseline="central">PWM</text>
+<rect x="70" y="600" width="240" height="110" fill="white" stroke="black" stroke-width="2"/>
+<text x="190.0" y="655.0" fill="black" font-family="Arial, sans-serif" font-size="28" font-weight="400" text-anchor="middle" dominant-baseline="central">Hall sensors</text>
+<rect x="460" y="600" width="240" height="110" fill="white" stroke="black" stroke-width="2"/>
+<text x="580.0" y="637.92" fill="black" font-family="Arial, sans-serif" font-size="28" font-weight="400" text-anchor="middle" dominant-baseline="central">MCP3204</text>
+<text x="580.0" y="672.08" fill="black" font-family="Arial, sans-serif" font-size="28" font-weight="400" text-anchor="middle" dominant-baseline="central">ADC</text>
+<polyline points="310,655 460,655" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="449.0,650.0 460,655 449.0,660.0" fill="none" stroke="black" stroke-width="2"/>
+<text x="385" y="620.0" fill="black" font-family="Arial, sans-serif" font-size="23" font-weight="400" text-anchor="middle" dominant-baseline="central">Analog</text>
+<polyline points="580,600 580,450 1000,450 1000,305" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="995.0,316.0 1000,305 1005.0,316.0" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="585.0,589.0 580,600 575.0,589.0" fill="none" stroke="black" stroke-width="2"/>
+<text x="790" y="420.0" fill="black" font-family="Arial, sans-serif" font-size="23" font-weight="400" text-anchor="middle" dominant-baseline="central">SPI</text>
+<rect x="1300" y="600" width="230" height="110" fill="white" stroke="black" stroke-width="2"/>
+<text x="1415.0" y="655.0" fill="black" font-family="Arial, sans-serif" font-size="27" font-weight="400" text-anchor="middle" dominant-baseline="central">Electromagnet</text>
+<rect x="930" y="600" width="220" height="110" fill="white" stroke="black" stroke-width="2"/>
+<text x="1040.0" y="638.53" fill="black" font-family="Arial, sans-serif" font-size="27" font-weight="400" text-anchor="middle" dominant-baseline="central">Suspended</text>
+<text x="1040.0" y="671.47" fill="black" font-family="Arial, sans-serif" font-size="27" font-weight="400" text-anchor="middle" dominant-baseline="central">magnet</text>
+<polyline points="1415,305 1415,600" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="1420.0,589.0 1415,600 1410.0,589.0" fill="none" stroke="black" stroke-width="2"/>
+<text x="1415" y="455.0" fill="black" font-family="Arial, sans-serif" font-size="23" font-weight="400" text-anchor="middle" dominant-baseline="central">Coil current</text>
+<polyline points="1300,655 1150,655" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="1161.0,660.0 1150,655 1161.0,650.0" fill="none" stroke="black" stroke-width="2"/>
+<text x="1225" y="620.0" fill="black" font-family="Arial, sans-serif" font-size="23" font-weight="400" text-anchor="middle" dominant-baseline="central">Force</text>
+<polyline points="1040,710 1040,795 190,795 190,710" fill="none" stroke="black" stroke-width="2" stroke-dasharray="7 6"/>
+<polyline points="185.0,721.0 190,710 195.0,721.0" fill="none" stroke="black" stroke-width="2"/>
+<text x="620" y="795.0" fill="black" font-family="Arial, sans-serif" font-size="23" font-weight="400" text-anchor="middle" dominant-baseline="central">Magnetic feedback</text>
+<text x="800" y="855.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">Frame and Hall-sensor mounts printed and assembled.</text></svg>

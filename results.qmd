@@ -1,11 +1,21 @@
 ---
 title: "Results"
-description: "Dated implementation evidence, SPI bring-up, and remaining measurements."
+description: "Current assembly and bench progress, SPI development, historical checks, and remaining measurements."
 ---
 
-## Status — November 10, 2026
+## Status - November 15, 2026
 
-The current plan is FPGA position PI with MCU ADC/DMA and gap estimation. There is no recorded levitation demonstration or measured stability, position accuracy, thermal performance, or shutdown latency for this design.
+The printed setup is assembled, components have been received, Hall sensors are wired to the ADC and tested, and the electromagnet has been exercised with MOSFET-driven sweeping PWM. The current wiring puts ADC acquisition in the FPGA, with a separate MCU–FPGA SPI readout. The [progress report](progress.qmd) includes the CAD iterations, code links, diagrams, and updated schematic.
+
+| Work | Reported result | Scope |
+|---|---|---|
+| CAD and fabrication | Structure and mounts drafted, revised, printed, and assembled | Physical test setup; CAD views included in the report |
+| Hall sensors and ADC | Sensor responses read at different magnet positions and data widths | Raw magnetic-field-dependent readings; calibrated field/distance not established |
+| Two-channel readout | FPGA ADC/subtraction and MCU 16-bit reception code written | End-to-end repeatability and representation still being debugged |
+| MOSFET/PWM | Electromagnet exercised with an up/down duty sweep, diode, and gate components | Approximate supply-current maximum around 28 mA and power around 0.34 W reported during the sweep |
+| Design review | Basic presentation and revised block diagrams/schematic prepared | Documents the current setup and intended integration |
+
+The supply observations are approximate bench reports, not rated coil measurements. Recent no-magnet ADC output varied substantially, so stable readout, framing, and noise remain active work. Stable levitation, measured position accuracy, continuous thermal performance, and shutdown latency have not yet been demonstrated.
 
 ## SPI Bring-up — November 7
 
@@ -42,4 +52,4 @@ The proposal's air-core sizing example cannot support 10 g at 20 mm center dista
 | Timing and independent shutdown | Scope/logic-analyzer captures under web traffic |
 | Continuous operation | Temperature/current logs through thermal equilibrium |
 
-There are no levitation photos, measured traces, or demonstration videos included yet. The [measurement log](data/results/measurements.csv) is blank. See the [checkoff record](docs/checkoff.qmd).
+CAD illustrations and current wiring drawings are now included in the [progress report](progress.qmd). A levitation demonstration video, calibrated traces, and a populated [measurement log](data/results/measurements.csv) remain to be added. See the [checkoff record](docs/checkoff.qmd).

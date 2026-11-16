@@ -1,10 +1,10 @@
 # Hall-sensed magnetic levitation — ENGR 155
 
-**Report update — November 10, 2026:** The current proposal uses FPGA position PI driving PWM directly, MCU ADC/DMA and gap estimation, two Hall sensors above/below the electromagnet, and 10–20 mm surface-gap motion. The selected electromagnet is the Heyiarbeit JF-XP2520-12V. See [report design](design.qmd), [proposal](docs/proposal.md), and [results](results.qmd). The application described below is the earlier shared-control revision and has not been migrated by this website update.
+**Report update - November 15, 2026:** CAD has been iterated, the printed setup assembled, parts received, Hall sensors wired to the MCP3204 and tested, and the electromagnet exercised with MOSFET-driven sweeping PWM. The current bench setup uses FPGA-owned ADC SPI and a separate MCU-to-FPGA SPI readout; 16-bit live readout and feedback integration remain in progress. See the new [progress report](progress.qmd), [current design](design.qmd), [hardware](hardware.qmd), and [results](results.qmd), including updated schematics and CAD illustrations. The full application described below is an earlier implementation and is not the current bench configuration.
 
 ## Earlier application implementation
 
-Shared-control option 2 from the updated [team proposal](Project%20Proposal.docx), for one overhead electromagnet and a suspended permanent magnet with ballast, using the **STM32L432KC + UPduino v3.1** course boards. The browser changes a downward gap setpoint; the MCU estimates gap and runs a 1 kHz position controller; the MCU samples current and one or two Hall channels at 5 kHz with SPI DMA; the FPGA runs a 5 kHz current PI loop, generates 20 kHz PWM, and supervises output independently.
+Earlier shared-control option 2, for one overhead electromagnet and a suspended permanent magnet with ballast, using the **STM32L432KC + UPduino v3.1** course boards. The browser changes a downward gap setpoint; the MCU estimates gap and runs a 1 kHz position controller; the MCU samples current and one or two Hall channels at 5 kHz with SPI DMA; the FPGA runs a 5 kHz current PI loop, generates 20 kHz PWM, and supervises output independently. The original Word proposal is absent from this checkout; see the [available proposal record](docs/proposal.qmd).
 
 **Status, 2026-10-26:** software/HDL implementation and bench plan; no hardware has been selected, assembled, or tested. Default builds cannot energize the coil. Example limits, geometry, calibration, and gains require measurements. See [verification](docs/verification.md) for executed checks and remaining validation.
 
@@ -33,6 +33,6 @@ The revised design uses one shared 1 MHz MCU SPI bus with separate ADC/FPGA chip
 | `*.qmd`, `_quarto.yml`, `assets` | Quarto project website, theme settings, and navigation |
 | `data/results` | Measurement log schema; no fabricated measurements |
 
-The report site can be rendered with `quarto render` and checked with `node tools/check-site.mjs`. See [website editing and preview](WEBSITE.md) for the page map and workflow. Enable GitHub Pages only after reviewing the contents and adding actual results, team details, CAD schematics, photographs, and a demo video. The project has not been published.
+The report site can be rendered with `quarto render` and checked with `node tools/check-site.mjs`. See [website editing and preview](WEBSITE.md) for the page map and workflow. The `gh-pages` branch contains a prior website build; a local render does not publish changes. Current CAD illustrations and schematics are included, while assembly photographs, calibrated traces, and a levitation demonstration video remain to be added.
 
 Codex state, `AGENTS.md`, scratch folders, build outputs, and local environment files are ignored. Firmware, HDL, documentation, and tests remain trackable. See [references](docs/references.md) for course and manufacturer sources.

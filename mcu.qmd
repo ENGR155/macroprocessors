@@ -1,35 +1,36 @@
 ---
 title: "MCU Design"
-description: "Planned ADC/DMA acquisition, gap estimation, and hardware web interface."
+description: "Current 16-bit FPGA readout and remaining control and web integration."
 ---
 
-## Revised Responsibilities
+## Current bench role
 
-The STM32L432KC will acquire three MCP3204 channels: Hall A above the electromagnet, Hall B below it, and coil current. A timer starts 5 kHz SPI scans, with DMA moving the data. Every fifth scan supplies a 1 kHz calibrated gap estimate. Position PI executes on the FPGA.
+The STM32L432KC is SPI master on the MCU–FPGA link. The FPGA has a separate SPI master for the MCP3204 ADC. ADC ownership therefore differs from the earlier proposal's MCU ADC/DMA plan.
 
-The MCU sends estimated gap, requested gap, measured current, and status to the FPGA and receives telemetry. The revised protocol must also support coordinated PI-gain updates. Field layout, units, checks, acknowledgment, and timing remain to be specified; the existing eight-byte current-command packet is an earlier contract.
+The current [MCU receive program](simple_byte/main.c) configures SPI1 for **16-bit frames, mode 0, MSB first, at a nominal 125 kHz**. It drives chip select low, writes a dummy word to produce 16 clocks, reads the FPGA word, and releases chip select. The result is stored in `fpga_word`, with `read_count` tracking transactions. Debug printing and a 500 ms delay make this an inspection program rather than a real-time control loop.
 
-## Gap Estimate
+| Signal | MCU pin | FPGA pad |
+|---|---|---:|
+| SCK | PB3 | 21 |
+| Manual CS | PA11 | 20 |
+| MISO | PB4 | 12 |
 
-Collect both Hall readings and current at independently measured gaps across 10–20 mm. Fit the estimator, then validate against separate measurements. Test current transients with the object fixed to detect false apparent motion.
+PB5 is configured as SPI1 MOSI in the MCU program, but the present FPGA measurement sender has no MCU-command input. The dummy transmit word supplies clocks; bidirectional commands have not been established by this readout test.
 
-The two Hall outputs use separate single-ended ADC conversions. Combine them in software rather than subtracting their mid-supply outputs directly with the ADC's restricted differential mode. See [resolution and calibration](design.qmd#resolution-and-calibration).
+## Bring-up progress
 
-## Planned Hardware Webpage
+The November 7 standalone experiment reported **0xA5 / 165** received from the FPGA. Work has since extended to transporting ADC-derived values in 16-bit frames and inspecting two-channel subtraction. Repeatability, framing, stable transfer of a changing word, and signed result interpretation remain under test. A 16-bit SPI container preserves the ADC's 12-bit result; it does not increase conversion resolution.
 
-Through the course ESP8266 and 125000-baud UART, the MCU will provide:
+The [one-byte guide](simple_byte/README.md) records the earlier test and carrier switch routing. Its embedded 8-bit code is historical; the linked `main.c` now contains the 16-bit experiment. Use matching MCU and FPGA sources when reproducing a test.
 
-- Requested-gap control for the 10–20 mm demonstration range.
-- A live graph of requested and estimated gap, with current and fault state visible.
-- Position PI constant updates, with range checking and coordinated application at a control boundary.
-- Stop and clear operating/fault status.
+## Position estimation and hardware webpage
 
-The proposal requires no visible latency during demonstration. Record actual display latency and loop timing under web traffic. This Quarto report site is separate from the hardware control page.
+After reliable acquisition, collect both raw Hall readings at independently measured positions, establish the final sensor geometry, and validate an estimator against separate measurements. The division of estimator and controller work must be finalized with the integrated FPGA path.
 
-## Existing Sources and Bring-up
+The intended hardware webpage will accept a target gap, show requested and estimated position, expose operating status, and support tuning and Stop through the course ESP8266. These remain integration goals. This Quarto report site is separate from that embedded interface.
 
-[main.c](firmware/src/main.c), [control.c](firmware/src/control.c), [board_stm32l432.c](firmware/src/board_stm32l432.c), [protocol.c](firmware/src/protocol.c), and [web.c](firmware/src/web.c) implement the earlier MCU-position/FPGA-current design. The live graph and FPGA position-PI gain controls are requirements, not verified features of those sources.
+## Earlier application sources
 
-The standalone [one-byte SPI test](simple_byte/README.md) provides a smaller communication check. Its MCU Watch variable is `fpga_byte`; decimal 165 equals hexadecimal `0xA5`. A correct byte does not establish ADC/DMA timing or closed-loop operation.
+[main.c](firmware/src/main.c), [control.c](firmware/src/control.c), [board_stm32l432.c](firmware/src/board_stm32l432.c), [protocol.c](firmware/src/protocol.c), and [web.c](firmware/src/web.c) belong to the earlier full application. Their ADC/DMA ownership and current-command packet should not be treated as the current bench contract.
 
-[Recorded checks](results.qmd) | [Earlier build instructions](docs/build.qmd)
+[Progress report](progress.qmd) | [Current signal paths](design.qmd) | [Recorded results](results.qmd)

@@ -11,10 +11,10 @@ We used Codex to help prepare the firmware, FPGA implementation, documentation, 
 
 Codex helped build this Quarto website and summarize the existing project notes. It also revised the layout using the E155 course and project websites as references, and revised the writing using our E155 portfolios as style references.
 
-The earlier version included a generated SVG concept illustration and custom interactive components. The current version uses a basic Quarto layout with text, tables, and links.
+The earlier version included a generated SVG concept illustration and custom interactive components. The current version uses a basic Quarto layout with text, tables, CAD views, schematic sheets, and links. Codex also helped prepare the November 15 progress report from the team's updates, current bench sources, CAD notes, and midpoint drawings.
 
 ## Reviewing the Work
 
-The test results on this website come from the dated verification record. Hardware measurements, photographs, and a demonstration video still need to be added. We are responsible for reviewing the generated work, reproducing the builds and tests, and checking the hardware before use.
+Bench observations in the progress report are attributed to the team's project updates and kept separate from the earlier software verification record. CAD images are model views, and the updated schematics document the reported connections. Calibrated measurements, assembly photographs, and a levitation demonstration video remain to be added. We are responsible for reviewing the generated work, reproducing the builds and tests, and checking the hardware before use.
 
 [Verification Record](docs/verification.qmd) | [References](references.qmd)

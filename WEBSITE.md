@@ -25,14 +25,16 @@ repository path. No hosting configuration or publication is performed automatica
 | File | Content |
 |---|---|
 | `index.qmd` | Introduction, project status, documentation links, and authors |
+| `progress.qmd` | November 15 progress report, CAD iterations, bench tests, current diagrams and schematics |
 | `design.qmd`, `mcu.qmd`, `fpga.qmd` | Architecture and separate implementation pages |
-| `hardware.qmd` | Candidate components, wiring links, downloadable BOM |
+| `hardware.qmd` | Assembled components, latest wiring, and remaining characterization |
 | `documentation.qmd` | Guide directory, course deliverables, source downloads |
-| `results.qmd` | Dated software/HDL evidence and pending physical experiments |
+| `results.qmd` | Current bench observations, earlier software evidence, and pending measurements |
 | `about.qmd`, `ai.qmd`, `references.qmd` | Project information, disclosure, credits |
 | `docs/*.md` | Canonical engineering notes; included by matching `.qmd` entry points |
 | `assets/theme.scss`, `assets/site.css` | Cosmo theme settings and small reading/accessibility adjustments |
 | `assets/site.js` | Accessible mobile toggle and scrollable technical tables |
+| `assets/progress-report/` | Published copies of CAD images and the midpoint diagrams/schematic downloads |
 
 Edit the Markdown notes to update existing detailed guides. For a new note, run
 `./tools/create-site-guides.ps1` to generate its Quarto entry point, then add a link

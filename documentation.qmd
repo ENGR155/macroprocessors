@@ -1,52 +1,61 @@
 ---
 title: "Documentation"
-description: "Current proposal and calculations, plus earlier implementation references."
+description: "Current progress report, schematics, bench sources, and proposal history."
 ---
 
-## Current Design and Proposal
+## Current build and progress
 
-Start with the [system design](design.qmd), [MCU plan](mcu.qmd), [FPGA plan](fpga.qmd), and [hardware](hardware.qmd). The current plan uses FPGA position PI and MCU ADC/DMA.
+The **[November 15 progress report](progress.qmd)** covers the printed setup, CAD iterations, received parts, Hall/ADC tests, MCU–FPGA SPI work, electromagnet PWM tests, and design-review preparation.
 
 | Document | Contents |
 |---|---|
-| [Proposal and specifications](docs/proposal.qmd) | Current commitments and source history |
-| [Revised proposal PDF](overleaf_10mm/proposal.pdf) / [LaTeX](overleaf_10mm/proposal.tex) | Full proposal and architecture figure |
-| [Calculation PDF](overleaf_10mm/calculation_summary.pdf) / [LaTeX](overleaf_10mm/calculation_summary.tex) | Lift model and continuous/sampled stability |
+| [Progress report](progress.qmd) | Work since the proposal, results, and next integration steps |
+| [System design](design.qmd) | FPGA ADC acquisition, separate MCU SPI readout, and PWM signal paths |
+| [MCU](mcu.qmd) / [FPGA](fpga.qmd) / [Hardware](hardware.qmd) | Current subsystem implementation and remaining checks |
+| [Updated schematic](assets/progress-report/maglev_schematic.docx) | Hall/ADC wiring and electromagnet drive, dated November 15 |
+| [Diagram bundle](assets/progress-report/maglev_diagrams.zip) | System and internal diagrams, schematic sheets, and editable SVGs |
+| [Results](results.qmd) | Dated bench observations and earlier software evidence |
+
+The latest schematic and bench sources supersede proposal assumptions about MCU-owned ADC/DMA acquisition and installed support hardware.
+
+## Current bench source
+
+- [MCU 16-bit SPI receiver](simple_byte/main.c)
+- [FPGA top](fpga/pwm_sweeper/top.sv) and [pin constraints](fpga/pwm_sweeper/pins.pcf)
+- [ADC SPI interface](fpga/pwm_sweeper/adc_spi.sv)
+- [16-bit word sender](fpga/pwm_sweeper/spi_byte_tx.sv)
+- [Duty sweep](fpga/pwm_sweeper/sweep_8bit.sv), [PWM](fpga/pwm_sweeper/pwm.sv), and [counter](fpga/pwm_sweeper/counter.sv)
+
+The [one-byte test guide](simple_byte/README.md), [original FPGA sender](simple_byte/spi_byte.sv), and [testbench](simple_byte/tb_spi_byte.sv) preserve the earlier fixed-pattern experiment. The guide's embedded MCU listing is 8-bit; the current downloadable MCU source is the later 16-bit experiment.
+
+## Proposal baseline and review material
+
+| Document | Contents |
+|---|---|
+| [Proposal and specifications](docs/proposal.qmd) | Proposal commitments and source history |
+| [Proposal PDF](overleaf_10mm/proposal.pdf) / [LaTeX](overleaf_10mm/proposal.tex) | Earlier architecture and design rationale |
+| [Calculation PDF](overleaf_10mm/calculation_summary.pdf) / [LaTeX](overleaf_10mm/calculation_summary.tex) | Illustrative lift and stability models |
 | [Overleaf ZIP](Magnetic_Levitation_Overleaf_10mm.zip) | Editable proposal, calculations, and figures |
-| [Original Word proposal](Project%20Proposal.docx) | Earlier proposal retained for comparison |
-| [Current checkoff record](docs/checkoff.qmd) | Demonstration commitments and evidence |
-| [Results](results.qmd) | Dated checks and remaining measurements |
+| [Checkoff record](docs/checkoff.qmd) | Demonstration commitments and evidence |
+| [Midpoint report](docs/midpoint.qmd) | Entry point to the current report and earlier framework |
 
-The November sensing discussion also informed the resolution section. Its 5 V ADC example is separate from the proposed 3.3 V circuit.
+A basic design-review presentation has been prepared. Current diagrams and schematics are available above; proposal calculations remain a design record rather than measurements of the assembled plant.
 
-## SPI Bring-up
+## Earlier implementation guides
 
-The [one-byte test guide](simple_byte/README.md) explains the standalone FPGA-to-MCU experiment and SEGGER Watch variable. Download [MCU main](simple_byte/main.c), [FPGA sender](simple_byte/spi_byte.sv), [constraints](simple_byte/spi_byte.pcf), and [testbench](simple_byte/tb_spi_byte.sv).
-
-## Earlier Implementation Guides
-
-These guides record the earlier shared-control application and need reconciliation with FPGA position PI.
+These guides record the earlier MCU-position/FPGA-current application. Their acquisition ownership, packet protocol, and hardware assumptions need reconciliation before reuse.
 
 | Guide | Contents |
 |---|---|
 | [Implementation and timing](docs/design.qmd) | Earlier equations and timing |
-| [Hardware and wiring](docs/hardware.qmd) | Proposed connections |
-| [Build and programming](docs/build.qmd) | Existing application build |
+| [Hardware and wiring](docs/hardware.qmd) | Earlier proposed connections |
+| [Build and programming](docs/build.qmd) | Full-application build |
 | [Packet protocol](docs/protocol.qmd) | Earlier measured/requested-current contract |
 | [Bench bring-up](docs/bringup.qmd) | Earlier staged procedures |
 | [Hall calibration](docs/calibration.qmd) | Calibration tools |
-| [October 26 verification](docs/verification.qmd) | Earlier software/HDL evidence |
+| [October 26 verification](docs/verification.qmd) | Historical software/HDL checks |
 | [Course requirements](docs/course.qmd) | Deliverable planning |
-| [Design review](docs/design-review.qmd) / [Midpoint framework](docs/midpoint.qmd) | Earlier presentation/report planning |
+| [Design-review framework](docs/design-review.qmd) | Earlier presentation planning |
 | [Technical references](docs/references.qmd) | Course materials and datasheets |
 
-## Existing Application Sources
-
-- [MCU estimation and control](firmware/src/control.c)
-- [FPGA integration core](fpga/rtl/lev_core.sv)
-- [FPGA integration testbench](fpga/tb/tb_system.sv)
-- [Hall calibration tool](tools/calibrate.py)
-- [Candidate BOM](hardware/bom.csv)
-- [Blank measurement log](data/results/measurements.csv)
-
-These files implement the earlier architecture. Updating the report does not migrate the controller or establish hardware performance.
+The [candidate BOM](hardware/bom.csv), [calibration tool](tools/calibrate.py), and [blank measurement log](data/results/measurements.csv) remain available. This website update documents the current build; it does not migrate or validate the older controller.

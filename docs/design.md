@@ -1,6 +1,6 @@
 # Implementation and control design
 
-This implementation follows the detailed **shared-control option 2** in [the updated team proposal](../Project%20Proposal.docx). The alternative FPGA position controller is not selected. The target is a permanent magnet with ballast below an electromagnet, with sustainable suspension and visible commanded motion at gaps no greater than 10 mm. These are hardware acceptance goals, not demonstrated software results.
+This earlier implementation follows the detailed **shared-control option 2**. Its original Word proposal is not present in this checkout; the [MicroPEs proposal PDF](../MicroPEs_Proposal.pdf) is available as a separate proposal record. The alternative FPGA position controller was not selected for this earlier implementation. Its target was a permanent magnet with ballast below an electromagnet, with sustainable suspension and visible commanded motion at gaps no greater than 10 mm. These were hardware acceptance goals, not demonstrated software results. See the [current progress report](../progress.qmd) for the later bench setup.
 
 ## Subsystems
 

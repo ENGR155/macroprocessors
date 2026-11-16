@@ -1,40 +1,43 @@
 ---
 title: "System Design"
-description: "FPGA position PI, MCU acquisition, and magnetic position sensing."
+description: "Current FPGA ADC acquisition, MCU SPI readout, PWM drive, and feedback integration."
 ---
 
 ## Current Architecture
 
-The revised LaTeX proposal puts **position PI and PWM in the FPGA**. The MCU reads the ADC using SPI DMA, estimates gap, and handles the web interface. Current supports field compensation, telemetry, and protection; the revised plan has no current-feedback controller.
+The November 15 bench setup uses **two DRV5056 Hall sensors connected to an MCP3204 ADC, with ADC acquisition in the FPGA**. The FPGA also generates a sweeping PWM signal for the electromagnet power stage. The STM32 reads the FPGA over a second SPI interface. The printed frame and mounts are assembled, and sensing and actuation have been tested as subsystems. See the [progress report](progress.qmd) for the work since the proposal.
+
+This supersedes the earlier MCU ADC/DMA architecture. The next integration step is reliable live readout followed by calibrated position estimation and feedback control. The final control law and operating rates still need validation on the assembled plant.
 
 ```{mermaid}
-flowchart LR
-  UI["Hardware webpage: target, graph, gains, Stop"] <--> WIFI[ESP8266]
-  WIFI <-->|UART| MCU["STM32: ADC DMA and gap estimate"]
-  H["Hall A above / Hall B below electromagnet"] --> ADC[MCP3204 ADC]
-  I[Current sensor] --> ADC
-  ADC -->|SPI DMA| MCU
-  MCU <-->|"SPI: gap, target, current, status, gains"| FPGA["UPduino: position PI and PWM"]
-  FPGA --> DRIVER["Gate driver and MOSFET"]
-  DRIVER --> EM[12 V electromagnet]
-  EM --> OBJECT["Suspended magnet and payload"]
-  OBJECT -. field .-> H
-  EM -. field .-> H
-  ESTOP["E-stop and overcurrent comparator"] -->|direct disable| DRIVER
+flowchart TD
+  H["Two DRV5056 Hall sensors"] -->|"CH0 and CH1"| ADC["MCP3204 ADC"]
+  subgraph FPGA["UPduino FPGA"]
+    ACQ["ADC SPI master and channel subtraction"] --> TX["Measurement word sender"]
+    SWEEP["Duty sweep"] --> PWM["PWM generator"]
+    ACQ -. "Feedback integration in progress" .-> PWM
+  end
+  ADC <-->|"ADC SPI interface"| ACQ
+  MCU["STM32 SPI master and debug readout"] <-->|"Separate SPI interface"| TX
+  PWM --> POWER["MOSFET and flyback diode"]
+  POWER --> EM["12 V electromagnet"]
+  EM -. "Magnetic field" .-> H
 ```
 
-| Function | Owner | Proposed rate |
+| Function | Current owner | Status |
 |---|---|---|
-| Three-channel ADC scan | MCU SPI DMA | 5 kHz |
-| Calibrated gap estimate | MCU | 1 kHz |
-| Position PI | FPGA | 1 kHz |
-| PWM | FPGA | 20 kHz |
-| Web communication | MCU and ESP8266 | 125000-baud UART |
-| Loss-of-command shutdown | FPGA | 50 ms nominal timeout |
+| Two Hall-channel conversions | FPGA ADC SPI master | Wired and under readout testing |
+| Channel subtraction | FPGA | Written; representation and repeatability need checking |
+| FPGA measurement reception | MCU SPI1 master | 16-bit, mode 0, nominal 125 kHz test code |
+| Open-loop duty sweep and PWM | FPGA | Used for electromagnet/MOSFET testing |
+| Calibrated position and feedback | Integration work | Not yet demonstrated |
+| Hardware webpage and shutdown behavior | Later system integration | Hardware validation pending |
 
-These rates need hardware verification. At 1 MHz SPI, the proposal budgets 75 microseconds for three ADC readings and 68 microseconds for an example eight-byte exchange: 143 of 200 microseconds. The revised position/gain packet still needs a defined layout. Include its final length, validation, and processing in the measured timing budget.
+The proposal's 5 kHz MCU acquisition and 1 kHz feedback figures are historical targets rather than rates measured on this wiring. Rebuild the timing budget around the FPGA ADC transactions, coherent measurement handoff, MCU exchange, and selected control update interval.
 
 ## Gap and Position Control
+
+The definitions and PI equation below record the proposal baseline. They describe a control approach to evaluate rather than a completed controller in the current sweep test.
 
 Surface gap $d$ runs downward from the electromagnet's bottom face to the suspended magnet's top face. The proposal commits to 10–20 mm motion with a 10 g total moving mass. The force-model distance $z$ runs from the coil plane to the magnet center: $z=d+\Delta_g$, where the offset depends on actual geometry.
 
@@ -46,7 +49,7 @@ A positive error increases attraction. Duty limits, integrator anti-windup, rang
 
 ## Resolution and Calibration
 
-Both Hall sensors see the electromagnet, fixed helper magnet, and moving payload. Read them on separate ADC channels, then combine their readings with measured current in software. Two sensors alone do not guarantee coil-field cancellation.
+Both Hall sensors see the electromagnet, fixed helper magnet, and moving payload. The current acquisition uses separate ADC channels and forms a difference in the FPGA. Two sensors alone do not guarantee coil-field cancellation. Record their individual responses and sensitivities before choosing the final estimator; no installed current-sense channel is established by the latest schematic.
 
 For calibrated differential voltage $V_\Delta(d)$, the local quantization estimate is
 
@@ -68,6 +71,8 @@ Measure holding current, hot resistance, inductance, and local force slopes usin
 
 ## Implementation Status
 
-The main application sources and [October 26 verification](docs/verification.qmd) cover MCU position control with FPGA current PI. They are retained as earlier evidence. The revised FPGA position controller, gain-update contract, and graph interface still need implementation and verification.
+The current [bench top](fpga/pwm_sweeper/top.sv) connects ADC acquisition, measurement-word transmission, the duty sweep, and PWM. Written connections in RTL do not establish repeatable acquisition or closed-loop control. The [MCU test](simple_byte/main.c) reads 16-bit words for inspection.
+
+The older full-application sources and [October 26 verification](docs/verification.qmd) cover MCU position control with FPGA current PI. They are retained as earlier evidence. Their packet contract, simulation results, and resource counts do not validate the current bench setup.
 
 [Proposal and specifications](docs/proposal.qmd) | [Results](results.qmd)

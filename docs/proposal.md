@@ -1,6 +1,6 @@
-# Current proposal and demonstration specifications
+# Proposal baseline and demonstration specifications
 
-The revised [LaTeX proposal](../overleaf_10mm/proposal.pdf) and [source](../overleaf_10mm/proposal.tex) describe FPGA position PI driving PWM directly, with MCU ADC/DMA, gap estimation, and web communication. The earlier [Word proposal](../Project%20Proposal.docx) is retained as a historical source. Later project discussions selected the electromagnet and clarified the helper magnet; see [Hardware](../hardware.qmd).
+The revised [LaTeX proposal](../overleaf_10mm/proposal.pdf) and [source](../overleaf_10mm/proposal.tex) describe FPGA position PI driving PWM directly, with MCU ADC/DMA, gap estimation, and web communication. These are proposal assumptions. The [November 15 progress report](../progress.qmd) documents the later FPGA-owned ADC wiring, assembled hardware, and bench tests. The repository also contains the [MicroPEs proposal PDF](../MicroPEs_Proposal.pdf).
 
 ## Committed demonstration
 

@@ -1,24 +1,36 @@
 ---
 title: "FPGA Design"
-description: "Planned position PI, PWM, and shutdown on the UPduino."
+description: "ADC SPI acquisition, Hall-channel subtraction, MCU word transmission, and PWM testing."
 ---
 
-## Revised Responsibilities
+## Current bench implementation
 
-The UPduino will receive estimated gap, requested gap, measured current, and status from the MCU. It will run **position PI at 1 kHz** using DSP blocks and generate **20 kHz PWM**. PI output is PWM duty directly. The MCU owns ADC acquisition and gap estimation.
+The UPduino reads the MCP3204 over SPI, forms a two-channel Hall readout, presents a measurement word to the MCU over a separate SPI interface, and generates a duty sweep for the electromagnet MOSFET. The current [top module](fpga/pwm_sweeper/top.sv) connects these blocks. Acquisition and live-word transfer are still being debugged; the sweep operates without position feedback.
 
-Current supports compensation, telemetry, and protection; it has no separate feedback controller in this plan. See the [position-control equation](design.qmd#gap-and-position-control).
+| Block | Source | Purpose |
+|---|---|---|
+| ADC SPI master | [adc_spi.sv](fpga/pwm_sweeper/adc_spi.sv) | Channel selection, serial acquisition, and channel subtraction |
+| MCU-facing sender | [spi_byte_tx.sv](fpga/pwm_sweeper/spi_byte_tx.sv) | Contains `spi_word_tx`, a 16-bit mode-0 measurement sender |
+| Duty sweep | [sweep_8bit.sv](fpga/pwm_sweeper/sweep_8bit.sv) | Varies an 8-bit duty command up and down |
+| PWM | [pwm.sv](fpga/pwm_sweeper/pwm.sv) and [counter.sv](fpga/pwm_sweeper/counter.sv) | Counter-based output generation |
+| Pin assignments | [pins.pcf](fpga/pwm_sweeper/pins.pcf) | ADC pads 44/13/18/9, MCU pads 21/20/12, PWM pad 10 |
 
-## Timing and Gain Updates
+## Data path and integration
 
-A nominal 24 MHz clock divided by 1200 produces 20 kHz PWM. Position control updates once per millisecond. Gain changes must be range-checked and applied together at a control boundary. Fixed-point scaling, arithmetic widths, saturation, integrator anti-windup, and the revised SPI contract still need implementation and tests.
+Hall A and Hall B connect to MCP3204 CH0 and CH1. The acquisition code alternates channels and forms a difference. The ADC interface runs from the FPGA clock, while the measurement sender advances on the MCU's SPI clock. A stable snapshot or equivalent coherent handoff is needed before treating a changing measurement as a reliable transferred word.
 
-## Shutdown
+The ADC result width is 12 bits, the MCU transfer is 16 bits, and the duty command is 8 bits. Subtraction sign, overflow, channel alignment, initialization, and sampling boundaries remain verification work. The latest no-magnet debug readings varied substantially, so raw output is not yet a calibrated position measurement.
 
-The proposal calls for drive removal after 50 ms without valid MCU commands, an MCU drive-permit signal, and independent E-stop/overcurrent-comparator disabling of the driver. Measure gate-disable delay and current decay separately. The 50 ms figure is a proposed command timeout, not a measured physical stopping time.
+## PWM experiment
 
-## Existing HDL and Evidence
+The PWM block compares an 8-bit counter against the duty command. Its prescaler and 256-count cycle give a nominal period of **2304 FPGA clock ticks**. At an assumed 48 MHz input this corresponds to approximately **20.8 kHz**; this is a calculation from the source, not a measured scope result. The oscillator setting and actual output frequency must be checked for the programmed build.
 
-[lev_core.sv](fpga/rtl/lev_core.sv), [current_pi.sv](fpga/rtl/current_pi.sv), and [spi_frame.sv](fpga/rtl/spi_frame.sv) belong to the earlier current-controller implementation. The [October 26 verification](docs/verification.qmd) reports its enabled build at 1099/5280 logic cells, 2/8 DSP blocks, and a 46.59 MHz routed clock estimate. These figures do not describe the proposed position controller.
+The current sweeper output is pad 10. Earlier fixed-frequency pad-36 tests are separate experiments. See the [power-stage schematic](progress.qmd#electromagnet-and-pwm-testing) and [reported bench observations](results.qmd).
 
-The standalone [SPI sender](simple_byte/spi_byte.sv) and [testbench](simple_byte/tb_spi_byte.sv) exercise a byte read without the levitation application. Recorded checks cover all 256 byte values, deselection, and partial-transfer restart. See [Results](results.qmd).
+## Feedback and earlier HDL
+
+Position estimation, a validated control law, duty limits, and measured fault/shutdown behavior remain system integration work. The present duty sweep is an open-loop actuation test.
+
+[lev_core.sv](fpga/rtl/lev_core.sv), [current_pi.sv](fpga/rtl/current_pi.sv), and [spi_frame.sv](fpga/rtl/spi_frame.sv) implement the earlier full application. Their [October 26 verification](docs/verification.qmd) does not establish the behavior or resource use of the current ADC/PWM build. The separate [fixed-byte sender](simple_byte/spi_byte.sv) and [testbench](simple_byte/tb_spi_byte.sv) record the earlier communication experiment.
+
+[Progress report](progress.qmd) | [MCU readout](mcu.qmd) | [Results](results.qmd)

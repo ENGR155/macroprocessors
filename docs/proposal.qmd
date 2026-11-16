@@ -5,4 +5,10 @@ body-classes: guide-page
 
 [Documentation](../documentation.qmd) / Technical guide
 
+::: {.callout-note}
+## Proposal baseline
+
+This page preserves the proposal and its assumptions. The [November 15 progress report](../progress.qmd) documents the assembled setup, current FPGA-owned ADC connection, tests, and updated schematic.
+:::
+
 {{< include proposal.md >}}

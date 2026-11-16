@@ -1,35 +1,39 @@
 ---
 title: "Hardware"
-description: "Selected electromagnet, sensor placement, and planned characterization."
+description: "Printed test setup, received components, Hall wiring, and tested electromagnet drive."
 ---
 
-## Electromagnet and Magnets
+## Assembled test setup
 
-In the November 6 project discussion, the team selected the **Heyiarbeit JF-XP2520-12V**, described there as a 12 V DC, 25 mm diameter × 20 mm electromagnet. This replaces the hypothetical wound air-core coil used in earlier calculations. Selection does not establish measured lifting force, current, inductance, or thermal performance.
+CAD parts have been drafted, iterated, printed, and assembled to hold the electromagnet and sensors in a testable setup. Revisions address actual component fit, sensor position adjustment, soldered-wire access, and mounting hardware. The [progress report](progress.qmd#mechanical-design-and-fabrication) shows CAD views of the adjustable-holder and front common-rod iterations.
 
-The team specified a **3/4 inch × 1/16 inch N42 fixed helper magnet** (approximately 19.05 mm × 1.59 mm). The suspended payload magnet was still undecided in that discussion. The moving magnet, carrier, and object together must total 10 g under the proposal.
+The CAD incorporates the D68-N52 moving magnet and DC1 helper disks. The final helper arrangement, moving mass, sensor positions, and polarity must be recorded with the calibration. The proposal's 10 g mass and 10–20 mm gap remain demonstration targets.
 
-Mount two Hall sensors above and below the electromagnet. Final helper-magnet placement, polarity, fit with the enclosed electromagnet, sensor saturation, and payload orientation need checking on the assembly.
+## Components in the current work
 
-## Course Boards and Planned Electronics
-
-| Function | Board or planned part | Remaining check |
+| Function | Current hardware | Evidence and next check |
 |---|---|---|
-| Acquisition, DMA, gap estimate, web interface | STM32L432KC and course ESP8266 | Revised integration |
-| Position PI and PWM | UPduino v3.1 | Revised controller |
-| Field measurements | Two DRV5055 Hall sensors | Sensitivity and usable range |
-| Three analog channels | MCP3204 at 3.3 V | Scan timing and noise |
-| Current measurement | INA240A1 and 0.100 ohm shunt | Offset, gain, and heating |
-| Power stage | UCC27511, MOSFET, flyback diode/clamp | Final ratings and wiring |
-| Independent shutdown | E-stop and overcurrent comparator | Physical shutdown |
-| Structure | Nonmagnetic frame, upper stop, catch tray | Final assembly evidence |
+| MCU readout | STM32L432KC | Fixed-byte reception reported; 16-bit live readout in progress |
+| ADC interface and PWM | UPduino v3.1 | Connected to ADC and MOSFET test circuit |
+| Hall sensing | Two DRV5056-family devices | Wired and tested at different magnet positions; installed A3/A4 positions to be recorded |
+| Analog conversion | MCP3204 | Hall outputs connected to CH0/CH1; read by FPGA |
+| Electromagnet | Heyiarbeit JF-XP2520-12V, nominal 25 mm × 20 mm | Received and tested with MOSFET/PWM; force and thermal characterization pending |
+| Low-side switch | 2N7000 used in the small-electromagnet test | AO3400A selected for a larger coil; identify the installed device for each run |
+| Gate network and flyback | Latest drawing: 1 kΩ series, 47 kΩ gate-to-source, diode across coil | Circuit tested; final diode part number and switching measurements to be recorded |
+| Structure | Printed frame, head, cassette, and sensor mounts | Physical setup assembled and CAD iterated |
 
-A gain of 20 and 0.100 ohm shunt give an ideal 2 V/A scale, or approximately 0.403 mA per 3.3 V, 12-bit ADC count. This is calculated scaling, not measured current accuracy.
+The DRV5056 identification and FPGA-owned ADC connection supersede the DRV5055/MCU-ADC descriptions on earlier pages. The latest schematic does not establish an installed INA240 current sensor, shunt, separate gate driver, or overcurrent comparator. Those proposal components should not be assumed present.
 
-## Characterization
+## Current schematic
 
-Measure force versus gap and current with the complete assembly, including the helper magnet. Record cold/hot resistance, inductance, operating current, sensor headroom, and temperature. A contact holding-force rating does not establish force at a 10–20 mm gap.
+![Current low-side electromagnet switching schematic.](assets/progress-report/maglev_schematic_2_power.svg){fig-alt="Low-side MOSFET electromagnet switching circuit driven by FPGA pad 10 with a flyback diode."}
 
-The proposal's 500-turn, 8 ohm air-core example does not describe the selected electromagnet. Its calculated 1.178 A at 10 mm center distance must not be used as this device's measured operating current.
+The coil uses a 12 V supply; FPGA logic and supply share ground. The flyback diode cathode is on +12 V and its anode is at the MOSFET drain. The gate is driven from FPGA pad 10 through the series resistor. Earlier pad-36 experiments used a different test build.
 
-The [candidate BOM](hardware/bom.csv) and [earlier netlist](hardware/netlist.md) need reconciliation with final hardware. The proposal's $49 total is a planning allowance, not an updated purchase total. Final schematic, payload details, assembly photographs, and measured ratings remain to be added.
+See the [sensing sheet and ADC pin map](progress.qmd#two-spi-interfaces), download the [editable schematic document](assets/progress-report/maglev_schematic.docx), or open the [diagram bundle](assets/progress-report/maglev_diagrams.zip).
+
+## Characterization still required
+
+Record force versus gap and duty/current using the complete magnet assembly, together with coil resistance, operating temperature, Hall headroom, and repeated position measurements. Approximate supply readings during a sweep are useful observations but do not establish rated coil current or lift at the intended gap. Sustained operation also needs evaluation with the actual printed material and mounting arrangement.
+
+The [candidate BOM](hardware/bom.csv), [earlier netlist](hardware/netlist.md), and proposal budget are historical planning records. The current schematic and progress report document the bench revision; a final as-built parts list and purchase total remain to be compiled.

@@ -1,15 +1,13 @@
 ---
-title: 'Midpoint status report framework'
-body-classes: guide-page
+title: "Midpoint report"
 ---
 
-::: {.callout-note}
-## Earlier implementation reference
+## Current progress report — November 15, 2026
 
-This guide records the earlier MCU-position/FPGA-current design or its planning and tests. The revised proposal puts position PI in the FPGA and ADC/DMA in the MCU. See [current system design](../design.qmd) and [current status](../results.qmd). Historical checks do not verify the revised controller.
-:::
+The **[progress report](../progress.qmd)** documents CAD and printed assembly, received components, Hall-sensor and ADC testing, 16-bit MCU–FPGA SPI development, MOSFET/PWM testing, and design-review preparation. It includes the updated schematics and block diagrams.
 
+The current bench setup puts ADC acquisition in the FPGA and uses a separate MCU SPI readout link. The older framework below records an earlier architecture.
 
-[Documentation](../documentation.qmd) / Technical guide
+## Earlier planning framework
 
 {{< include midpoint.md >}}

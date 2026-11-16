@@ -8,22 +8,23 @@ We are Stephen Kanti Mahanty and Ben Lertwachara at Harvey Mudd College. Our ENG
 
 ## Introduction
 
-Our target is a **10 g total suspended mass**, including magnet, carrier, and object, moving between **10 and 20 mm surface gaps** below a 12 V electromagnet. Two Hall sensors sit above and below the electromagnet. The MCU combines their readings with measured current to estimate gap. The FPGA runs a position PI controller that sets PWM duty directly.
+Our target is a **10 g total suspended mass**, including magnet, carrier, and object, moving between **10 and 20 mm surface gaps** below a 12 V electromagnet. We have built a printed test setup, connected two Hall sensors to an ADC read by the FPGA, and tested the electromagnet with a MOSFET and sweeping PWM. The MCU receives data over a separate SPI link; reliable acquisition and feedback integration are in progress.
 
 The hardware webpage will graph requested and estimated gap in real time, display current and faults, accept PI gain changes, and provide Stop. This report website describes that interface; the hardware control page is served separately.
 
-## Project Status — November 10, 2026
+## Project Status - November 15, 2026
 
-The revised plan uses FPGA position PI, MCU ADC acquisition with DMA, and a **Heyiarbeit JF-XP2520-12V electromagnet** selected in the project discussion. The main application sources still implement the earlier MCU-position/FPGA-current design. Their recorded checks do not validate the revised controller.
+Since the proposal, we have drafted and iterated CAD, printed and assembled the structure, received parts, tested Hall-sensor responses through the ADC, and exercised the MOSFET power stage with a PWM sweep. MCU and FPGA bring-up code, a basic design-review presentation, block diagrams, and an updated two-sheet schematic are also prepared.
 
-A November 7 bench discussion reported receiving decimal **165**, or **0xA5**, from the FPGA on the MCU in a standalone SPI test. Levitation, calibrated resolution, stable motion, thermal operation, and shutdown timing remain unverified.
+**[Read the new progress report](progress.qmd)** for the build, tests, CAD iterations, schematics, source files, and next steps. The current wiring places ADC acquisition in the FPGA. Live 16-bit SPI readout is being debugged; calibrated position sensing and closed-loop levitation remain to be demonstrated.
 
 ## Documentation
 
-- [System Design](design.qmd): current architecture, timing, sensing, and stability.
-- [MCU Design](mcu.qmd): ADC/DMA, gap estimation, and the planned hardware webpage.
-- [FPGA Design](fpga.qmd): position PI, PWM, and shutdown.
-- [Hardware](hardware.qmd): selected electromagnet and remaining characterization.
+- [Progress Report](progress.qmd): work completed since the proposal, with current diagrams and schematics.
+- [System Design](design.qmd): current signal paths and planned feedback integration.
+- [MCU Design](mcu.qmd): 16-bit SPI reception and planned hardware webpage.
+- [FPGA Design](fpga.qmd): ADC interface, two-channel readout, SPI sender, and PWM.
+- [Hardware](hardware.qmd): assembled parts, printed structure, and remaining characterization.
 - [Proposal and Specifications](docs/proposal.qmd): commitments and proposal downloads.
 - [Documentation](documentation.qmd): current sources and earlier engineering guides.
 - [Results](results.qmd): dated evidence and measurements still needed.
