@@ -43,6 +43,7 @@ end
           begin
               channel<=next_channel;
               v_diff= channel_v[0]-channel_v[1];
+              // v_diff<=channel_v[0];
           end
         end
     end
