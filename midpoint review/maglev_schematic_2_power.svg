@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1440" viewBox="0 0 1200 1440"><rect width="100%" height="100%" fill="white"/>
+<text x="60" y="50.0" fill="black" font-family="Arial, sans-serif" font-size="29" font-weight="700" text-anchor="start" dominant-baseline="central">Electromagnet PWM circuit</text>
+<polyline points="50,1335 1150,1335" fill="none" stroke="black" stroke-width="2"/>
+<text x="60" y="1360.0" fill="black" font-family="Arial, sans-serif" font-size="20" font-weight="400" text-anchor="start" dominant-baseline="central">Stephen Kanti Mahanty   |   ENGR 155   |   15 Nov 2026</text>
+<text x="1140" y="1360.0" fill="black" font-family="Arial, sans-serif" font-size="20" font-weight="400" text-anchor="end" dominant-baseline="central">2 / 2</text>
+<text x="600" y="1400.0" fill="black" font-family="Arial, sans-serif" font-size="20" font-weight="400" text-anchor="middle" dominant-baseline="central">Matching net labels are connected. Board circuitry is omitted.</text>
+<rect x="110" y="170" width="300" height="220" fill="white" stroke="black" stroke-width="2"/>
+<text x="260" y="210.0" fill="black" font-family="Arial, sans-serif" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="central">UPduino FPGA</text>
+<polyline points="410,280 440,280" fill="none" stroke="black" stroke-width="2"/>
+<text x="398" y="280.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="end" dominant-baseline="central">PWM  P10</text>
+<polyline points="440,280 480,280" fill="none" stroke="black" stroke-width="2"/>
+<text x="486" y="280.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="start" dominant-baseline="central">PWM</text>
+<polyline points="410,350 440,350" fill="none" stroke="black" stroke-width="2"/>
+<text x="398" y="350.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="end" dominant-baseline="central">GND</text>
+<polyline points="440,350 480,350" fill="none" stroke="black" stroke-width="2"/>
+<text x="486" y="350.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="start" dominant-baseline="central">GND</text>
+<text x="800" y="200.0" fill="black" font-family="Arial, sans-serif" font-size="24" font-weight="400" text-anchor="middle" dominant-baseline="central">MOSFET gate connections</text>
+<text x="800" y="245.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">PWM through R1 to G</text>
+<text x="800" y="280.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">R2 from G to S</text>
+<text x="800" y="315.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">S to common ground</text>
+<polyline points="780,505 1010,505 1010,650" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="780,505 780,570" fill="none" stroke="black" stroke-width="2"/>
+<text x="780" y="470.0" fill="black" font-family="Arial, sans-serif" font-size="24" font-weight="400" text-anchor="middle" dominant-baseline="central">+12 V</text>
+<circle cx="780" cy="505" r="4" fill="black"/>
+<polyline points="780.0,570.0 783.1286893008046,571.5 786.1803398874989,573.0 789.0798099947909,574.5 791.7557050458495,576.0 794.142135623731,577.5 796.1803398874989,579.0 797.8201304837673,580.5 799.0211303259031,582.0 799.7537668119028,583.5 800.0,585.0 799.7537668119028,586.5 799.0211303259031,588.0 797.8201304837673,589.5 796.1803398874989,591.0 794.142135623731,592.5 791.7557050458495,594.0 789.0798099947909,595.5 786.1803398874989,597.0 783.1286893008046,598.5 780.0,600.0" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="780.0,600.0 783.1286893008046,601.5 786.1803398874989,603.0 789.0798099947909,604.5 791.7557050458495,606.0 794.142135623731,607.5 796.1803398874989,609.0 797.8201304837673,610.5 799.0211303259031,612.0 799.7537668119028,613.5 800.0,615.0 799.7537668119028,616.5 799.0211303259031,618.0 797.8201304837673,619.5 796.1803398874989,621.0 794.142135623731,622.5 791.7557050458495,624.0 789.0798099947909,625.5 786.1803398874989,627.0 783.1286893008046,628.5 780.0,630.0" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="780.0,630.0 783.1286893008046,631.5 786.1803398874989,633.0 789.0798099947909,634.5 791.7557050458495,636.0 794.142135623731,637.5 796.1803398874989,639.0 797.8201304837673,640.5 799.0211303259031,642.0 799.7537668119028,643.5 800.0,645.0 799.7537668119028,646.5 799.0211303259031,648.0 797.8201304837673,649.5 796.1803398874989,651.0 794.142135623731,652.5 791.7557050458495,654.0 789.0798099947909,655.5 786.1803398874989,657.0 783.1286893008046,658.5 780.0,660.0" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="780.0,660.0 783.1286893008046,661.5 786.1803398874989,663.0 789.0798099947909,664.5 791.7557050458495,666.0 794.142135623731,667.5 796.1803398874989,669.0 797.8201304837673,670.5 799.0211303259031,672.0 799.7537668119028,673.5 800.0,675.0 799.7537668119028,676.5 799.0211303259031,678.0 797.8201304837673,679.5 796.1803398874989,681.0 794.142135623731,682.5 791.7557050458495,684.0 789.0798099947909,685.5 786.1803398874989,687.0 783.1286893008046,688.5 780.0,690.0" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="780.0,690.0 783.1286893008046,691.5 786.1803398874989,693.0 789.0798099947909,694.5 791.7557050458495,696.0 794.142135623731,697.5 796.1803398874989,699.0 797.8201304837673,700.5 799.0211303259031,702.0 799.7537668119028,703.5 800.0,705.0 799.7537668119028,706.5 799.0211303259031,708.0 797.8201304837673,709.5 796.1803398874989,711.0 794.142135623731,712.5 791.7557050458495,714.0 789.0798099947909,715.5 786.1803398874989,717.0 783.1286893008046,718.5 780.0,720.0" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="780.0,720.0 783.1286893008046,721.5 786.1803398874989,723.0 789.0798099947909,724.5 791.7557050458495,726.0 794.142135623731,727.5 796.1803398874989,729.0 797.8201304837673,730.5 799.0211303259031,732.0 799.7537668119028,733.5 800.0,735.0 799.7537668119028,736.5 799.0211303259031,738.0 797.8201304837673,739.5 796.1803398874989,741.0 794.142135623731,742.5 791.7557050458495,744.0 789.0798099947909,745.5 786.1803398874989,747.0 783.1286893008046,748.5 780.0,750.0" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="780,750 780,900" fill="none" stroke="black" stroke-width="2"/>
+<text x="735" y="636.94" fill="black" font-family="Arial, sans-serif" font-size="23" font-weight="400" text-anchor="end" dominant-baseline="central">L1</text>
+<text x="735" y="665.0" fill="black" font-family="Arial, sans-serif" font-size="23" font-weight="400" text-anchor="end" dominant-baseline="central">Electromagnet</text>
+<text x="735" y="693.06" fill="black" font-family="Arial, sans-serif" font-size="23" font-weight="400" text-anchor="end" dominant-baseline="central">12 V DC</text>
+<polyline points="1010,650 1010,678" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="990,678 1030,678" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="990,720 1010,678 1030,720 990,720" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="1010,720 1010,900 780,900" fill="none" stroke="black" stroke-width="2"/>
+<text x="1060" y="655.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="start" dominant-baseline="central">K</text>
+<text x="1060" y="735.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="start" dominant-baseline="central">A</text>
+<text x="1010" y="776.58" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">D1</text>
+<text x="1010" y="803.42" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">Flyback diode</text>
+<circle cx="780" cy="900" r="4" fill="black"/>
+<text x="825" y="915.0" fill="black" font-family="Arial, sans-serif" font-size="24" font-weight="400" text-anchor="middle" dominant-baseline="central">D</text>
+<polyline points="780,900 780,940 752,940" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="739,940 757,940" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="739,970 757,970" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="739,1000 757,1000" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="720,938 720,1003" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="752,1000 780,1000 780,1100" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="752,970 780,970 780,1000" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="771,970 751,970" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="762.0,975.0 751,970 762.0,965.0" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="780,940 815,940 815,958" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="805,958 825,958" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="805,982 815,958 825,982 805,982" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="815,982 815,1000 780,1000" fill="none" stroke="black" stroke-width="2"/>
+<text x="860" y="960.36" fill="black" font-family="Arial, sans-serif" font-size="24" font-weight="400" text-anchor="start" dominant-baseline="central">Q1</text>
+<text x="860" y="989.64" fill="black" font-family="Arial, sans-serif" font-size="24" font-weight="400" text-anchor="start" dominant-baseline="central">N-MOSFET</text>
+<text x="825" y="1065.0" fill="black" font-family="Arial, sans-serif" font-size="24" font-weight="400" text-anchor="middle" dominant-baseline="central">S</text>
+<polyline points="780,1100 780,1112" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="765.0,1112 795.0,1112" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="770.0,1119 790.0,1119" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="776.0,1126 784.0,1126" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="170,970 130,970" fill="none" stroke="black" stroke-width="2"/>
+<text x="124" y="970.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="end" dominant-baseline="central">PWM</text>
+<polyline points="170,970 350,970" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="350,970 370,970 370.0,978 380.0,962 390.0,978 400.0,962 410.0,978 420.0,962 430.0,978 440.0,962 450.0,978 450,970 470,970" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="470,970 720,970" fill="none" stroke="black" stroke-width="2"/>
+<text x="410" y="930.0" fill="black" font-family="Arial, sans-serif" font-size="23" font-weight="400" text-anchor="middle" dominant-baseline="central">R1  1 kΩ</text>
+<text x="685" y="930.0" fill="black" font-family="Arial, sans-serif" font-size="24" font-weight="400" text-anchor="middle" dominant-baseline="central">G</text>
+<circle cx="575" cy="970" r="4" fill="black"/>
+<polyline points="575,970 575,990 583,990.0 567,998.75 583,1007.5 567,1016.25 583,1025.0 567,1033.75 583,1042.5 567,1051.25 583,1060.0 575,1060 575,1080" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="575,1080 575,1092" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="560.0,1092 590.0,1092" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="565.0,1099 585.0,1099" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="571.0,1106 579.0,1106" fill="none" stroke="black" stroke-width="2"/>
+<text x="530" y="1015.97" fill="black" font-family="Arial, sans-serif" font-size="23" font-weight="400" text-anchor="end" dominant-baseline="central">R2</text>
+<text x="530" y="1044.03" fill="black" font-family="Arial, sans-serif" font-size="23" font-weight="400" text-anchor="end" dominant-baseline="central">47 kΩ</text>
+<text x="600" y="1190.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">The stripe on D1 marks the cathode connected to +12 V.</text>
+<text x="600" y="1230.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">The FPGA and coil supply share a ground reference.</text>
+<text x="600" y="1280.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="middle" dominant-baseline="central">MOSFET package pins and diode part number are not assigned in this drawing.</text></svg>
