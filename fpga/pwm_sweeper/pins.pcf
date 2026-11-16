@@ -3,4 +3,11 @@
 # Uploading the .zip this came in restores the pins, the board and the design top.
 # jacquard-board: upduino-v3.1
 # jacquard-top: top
+set_io -nowarn adc_clk 44
+set_io -nowarn adc_cs 13
+set_io -nowarn adc_miso 9
+set_io -nowarn adc_mosi 18
+set_io -nowarn mcu_clk 21
+set_io -nowarn mcu_cs 20
+set_io -nowarn mcu_miso 12
 set_io -nowarn pwm 10
