@@ -1,0 +1,58 @@
+{
+  "upper_port_floor_Z_mm": [
+    207.5,
+    215.5,
+    223.5,
+    231.5,
+    239.5
+  ],
+  "lower_port_floor_Z_mm": [
+    117.5,
+    125.5,
+    133.5,
+    141.5,
+    149.5
+  ],
+  "common_rod_travel_mm": [
+    -4,
+    4
+  ],
+  "physical_slot_half_travel_mm": 4.2974,
+  "fine_slot_mm": [
+    12.1,
+    4.1
+  ],
+  "rod_finished_mm": [
+    12.4,
+    10.4,
+    137
+  ],
+  "rod_stock_mm": [
+    13,
+    11,
+    137
+  ],
+  "rod_assembly_Y_shift_mm": -0.2,
+  "sensor_center_X_mm": 90,
+  "sensor_center_Y_mm": 44.625,
+  "upper_guide_mm": [
+    12.8,
+    10.8
+  ],
+  "lower_guide_mm": [
+    13.2,
+    11.2
+  ],
+  "clamp_bolt": "#6-32x3/4in",
+  "nut_track_AF_mm": 8.3,
+  "nut_track_depth_mm": 3.2,
+  "port_mm": {
+    "body_width": 4.3,
+    "height": 1.9,
+    "engagement_depth_finished": 2,
+    "pin_bay_width": 3.8,
+    "open_wire_escape_height": 3.0,
+    "open_wire_escape_side": "+X"
+  },
+  "magnet_configuration": "two DC1 bottom+two top simultaneously"
+}

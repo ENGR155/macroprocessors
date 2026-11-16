@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "scope": "Primary-agent STL winding and volume review. The rod print includes sanding stock; its volume exceeds the finished assembly rod by design.",
+  "parts": [
+    {
+      "part": "01_frame_base_upright_tray",
+      "triangles": 1916,
+      "signed_mesh_volume_mm3": 471789.048923671,
+      "opposite_face_normals": 0,
+      "mesh_over_assembly_volume": 1.0000009664044316,
+      "passed": true
+    },
+    {
+      "part": "02_head_common_rod_guide",
+      "triangles": 203032,
+      "signed_mesh_volume_mm3": 123068.25348646312,
+      "opposite_face_normals": 0,
+      "mesh_over_assembly_volume": 0.9999992425918673,
+      "passed": true
+    },
+    {
+      "part": "03_cassette_common_rod_guide",
+      "triangles": 36784,
+      "signed_mesh_volume_mm3": 24906.89743144728,
+      "opposite_face_normals": 0,
+      "mesh_over_assembly_volume": 1.0000051680994462,
+      "passed": true
+    },
+    {
+      "part": "04_D68_payload_carrier",
+      "triangles": 1184,
+      "signed_mesh_volume_mm3": 1123.2514070112577,
+      "opposite_face_normals": 0,
+      "mesh_over_assembly_volume": 0.9995146739520514,
+      "passed": true
+    },
+    {
+      "part": "05_common_direct_insert_rod",
+      "triangles": 8484,
+      "signed_mesh_volume_mm3": 16131.690919309758,
+      "opposite_face_normals": 0,
+      "mesh_over_assembly_volume": 1.1056570576176719,
+      "passed": true
+    }
+  ]
+}

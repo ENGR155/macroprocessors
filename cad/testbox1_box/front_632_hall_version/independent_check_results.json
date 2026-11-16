@@ -1,0 +1,1748 @@
+{
+  "complete": true,
+  "passed": true,
+  "check_count": 263,
+  "engine": "Autodesk Fusion native kernel; independently reimported STEP files",
+  "checks": [
+    {
+      "name": "Native Boolean diagnostic passed",
+      "passed": true,
+      "detail": "Empty disjoint/contact and nonempty intersections were exercised in this Fusion session"
+    },
+    {
+      "name": "01_frame_base_upright_tray reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          0.0,
+          0.0,
+          0.0,
+          180.0,
+          160.0,
+          190.0
+        ],
+        "volume_mm3": 471788.59298508393
+      }
+    },
+    {
+      "name": "02_head_common_rod_guide reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          45.0,
+          30.0,
+          160.0,
+          135.0,
+          142.0,
+          200.0
+        ],
+        "volume_mm3": 123068.34666522415
+      }
+    },
+    {
+      "name": "03_cassette_common_rod_guide reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          64.0,
+          30.0,
+          162.0,
+          129.0,
+          91.0,
+          170.0
+        ],
+        "volume_mm3": 24906.768710789813
+      }
+    },
+    {
+      "name": "04_D68_payload_carrier reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          82.14188317724901,
+          57.0,
+          140.3,
+          97.85811682275101,
+          73.0,
+          154.60000000000002
+        ],
+        "volume_mm3": 1123.7968148781197
+      }
+    },
+    {
+      "name": "05_common_direct_insert_rod reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          83.80000000000001,
+          34.6,
+          111.00000000000001,
+          96.20000000000002,
+          45.0,
+          248.0
+        ],
+        "volume_mm3": 14590.13968948767
+      }
+    },
+    {
+      "name": "REF_D68_N52_gap15 reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          85.2375,
+          60.2375,
+          142.3,
+          94.7625,
+          69.7625,
+          155.0
+        ],
+        "volume_mm3": 904.9478884506475
+      }
+    },
+    {
+      "name": "REF_DC1_bottom_disk_1 reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          80.475,
+          55.474999999999994,
+          163.0,
+          99.525,
+          74.525,
+          164.58750000000003
+        ],
+        "volume_mm3": 452.473944225367
+      }
+    },
+    {
+      "name": "REF_DC1_bottom_disk_2 reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          80.475,
+          55.474999999999994,
+          164.58750000000003,
+          99.525,
+          74.525,
+          166.17500000000004
+        ],
+        "volume_mm3": 452.473944225367
+      }
+    },
+    {
+      "name": "REF_DC1_top_disk_1 reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          80.475,
+          55.474999999999994,
+          193.0,
+          99.525,
+          74.525,
+          194.58750000000003
+        ],
+        "volume_mm3": 452.473944225367
+      }
+    },
+    {
+      "name": "REF_DC1_top_disk_2 reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          80.475,
+          55.474999999999994,
+          194.58750000000003,
+          99.525,
+          74.525,
+          196.17500000000004
+        ],
+        "volume_mm3": 452.473944225367
+      }
+    },
+    {
+      "name": "REF_EM_nominal_25x20 reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          77.5,
+          52.5,
+          170.0,
+          102.5,
+          77.5,
+          190.0
+        ],
+        "volume_mm3": 9817.477042468523
+      }
+    },
+    {
+      "name": "REF_lower_LPG_max_body reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          87.95,
+          43.0,
+          149.5,
+          92.05,
+          46.25,
+          151.12
+        ],
+        "volume_mm3": 21.586500000000125
+      }
+    },
+    {
+      "name": "REF_lower_native_pins reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 3,
+        "bbox_mm": [
+          88.455,
+          27.5,
+          150.005,
+          91.545,
+          43.0,
+          150.515
+        ],
+        "volume_mm3": 13.04324999999966
+      }
+    },
+    {
+      "name": "REF_lower_retaining_loop reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          83.0,
+          34.3,
+          149.05,
+          97.00000000000001,
+          47.05,
+          153.75
+        ],
+        "volume_mm3": 100.60000000000022
+      }
+    },
+    {
+      "name": "REF_NONPRINT_top_stack_retainer_strip reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          68.7867965644036,
+          43.78679656440361,
+          200.0,
+          111.21320343559601,
+          86.2132034355964,
+          201.0
+        ],
+        "volume_mm3": 473.59491374657387
+      }
+    },
+    {
+      "name": "REF_nylon_retaining_loop_envelope reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          83.10000000000001,
+          63.50000000000001,
+          140.3,
+          96.9,
+          66.5,
+          155.8
+        ],
+        "volume_mm3": 127.67999999997265
+      }
+    },
+    {
+      "name": "REF_upper_LPG_max_body reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          87.95,
+          43.0,
+          207.5,
+          92.05,
+          46.25,
+          209.12000000000003
+        ],
+        "volume_mm3": 21.586500000000367
+      }
+    },
+    {
+      "name": "REF_upper_native_pins reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 3,
+        "bbox_mm": [
+          88.455,
+          27.5,
+          208.005,
+          91.545,
+          43.0,
+          208.51500000000001
+        ],
+        "volume_mm3": 13.043250000000565
+      }
+    },
+    {
+      "name": "REF_upper_retaining_loop reimported solid validity",
+      "passed": true,
+      "detail": {
+        "solids": 1,
+        "bbox_mm": [
+          83.0,
+          34.3,
+          207.05,
+          97.00000000000001,
+          47.05,
+          211.75
+        ],
+        "volume_mm3": 100.60000000000022
+      }
+    },
+    {
+      "name": "Main components nonintersecting",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "Main STEP solid count agrees with individual files",
+      "passed": true,
+      "detail": {
+        "main": 23,
+        "individual_sum": 23
+      }
+    },
+    {
+      "name": "JOB01_PRINT.step preserved original bytes",
+      "passed": true,
+      "detail": "cc33979d194878eb557437c86a381c988663822fa9ffc512e86c151e0c942018"
+    },
+    {
+      "name": "JOB01_PRINT.stl preserved original bytes",
+      "passed": true,
+      "detail": "7772d721a772277db047f36b6c83a7329d7e0bf2c6fec431cca1e0c376881731"
+    },
+    {
+      "name": "01_frame_base_upright_tray_assembled.step preserved original bytes",
+      "passed": true,
+      "detail": "a41611e5e027cf212a4fb14d2d4a1bfa0921ad86d2bcaf583b209c707d7051b0"
+    },
+    {
+      "name": "01_frame_base_upright_tray_PRINT.step preserved original bytes",
+      "passed": true,
+      "detail": "30b034ab5bad8306c2fb8b4f4ef930ea390d91e37785261ed37f2ccf80df2af9"
+    },
+    {
+      "name": "01_frame_base_upright_tray_PRINT.stl preserved original bytes",
+      "passed": true,
+      "detail": "7772d721a772277db047f36b6c83a7329d7e0bf2c6fec431cca1e0c376881731"
+    },
+    {
+      "name": "04_D68_payload_carrier_assembled.step preserved original bytes",
+      "passed": true,
+      "detail": "afa1e402e5c523f16f81a44db1f992b58a2af45a638b0c85a77e722d8af10596"
+    },
+    {
+      "name": "04_D68_payload_carrier_PRINT.step preserved original bytes",
+      "passed": true,
+      "detail": "c623eae0578999aff0cca9479ce2149a795c8cd5ce7545b79dd5d678687f0972"
+    },
+    {
+      "name": "04_D68_payload_carrier_PRINT.stl preserved original bytes",
+      "passed": true,
+      "detail": "cf9ba6b45a38dcc32e62d268fcd499d72d0facbf825a2073f27a846990adabc4"
+    },
+    {
+      "name": "Payload retaining loop geometry preserved through native STEP translation",
+      "passed": true,
+      "detail": {
+        "symmetric_difference_mm3": 0,
+        "native_STEP_header_bytes_are_not_required_identical": true
+      }
+    },
+    {
+      "name": "Finished sanding target matches assembled rod",
+      "passed": true,
+      "detail": [
+        83.80000000000001,
+        34.6,
+        111.00000000000001,
+        96.20000000000002,
+        45.0,
+        248.0
+      ]
+    },
+    {
+      "name": "Sanding removes face stock without scaling sensor features",
+      "passed": true,
+      "detail": {
+        "stock_bbox": [
+          83.5,
+          34.5,
+          111.00000000000001,
+          96.5,
+          45.5,
+          248.0
+        ],
+        "finished_bbox": [
+          83.80000000000001,
+          34.6,
+          111.00000000000001,
+          96.20000000000002,
+          45.0,
+          248.0
+        ],
+        "remove_per_face_mm": 0.3
+      }
+    },
+    {
+      "name": "As-printed upper-guide interference is intentional",
+      "passed": true,
+      "detail": {
+        "interference_mm3": 36.43002920010072,
+        "do_not_force_unsanded_rod": true
+      }
+    },
+    {
+      "name": "Finished rod clears both guide bodies",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "01_frame_base_upright_tray fits central220 printer area",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        180.0,
+        160.0,
+        190.0
+      ]
+    },
+    {
+      "name": "01_frame_base_upright_tray_PRINT.stl closed manifold/count",
+      "passed": true,
+      "detail": {
+        "triangles": 1916,
+        "bad_edges": 0,
+        "degenerate": 0,
+        "components": 1
+      }
+    },
+    {
+      "name": "01_frame_base_upright_tray STL agrees with actual STEP bounds",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        180.0,
+        160.0,
+        190.0
+      ]
+    },
+    {
+      "name": "02_head_common_rod_guide fits central220 printer area",
+      "passed": true,
+      "detail": [
+        0.0,
+        -3.5527136788005e-14,
+        0.0,
+        90.0,
+        112.00000000000001,
+        40.0
+      ]
+    },
+    {
+      "name": "02_head_common_rod_guide_PRINT.stl closed manifold/count",
+      "passed": true,
+      "detail": {
+        "triangles": 203032,
+        "bad_edges": 0,
+        "degenerate": 0,
+        "components": 1
+      }
+    },
+    {
+      "name": "02_head_common_rod_guide STL agrees with actual STEP bounds",
+      "passed": true,
+      "detail": [
+        0.0,
+        -0.0,
+        -0.0,
+        90.0,
+        112.0,
+        40.0
+      ]
+    },
+    {
+      "name": "03_cassette_common_rod_guide fits central220 printer area",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        3.5527136788005e-14,
+        65.0,
+        61.00000000000001,
+        8.00000000000001
+      ]
+    },
+    {
+      "name": "03_cassette_common_rod_guide_PRINT.stl closed manifold/count",
+      "passed": true,
+      "detail": {
+        "triangles": 36784,
+        "bad_edges": 0,
+        "degenerate": 0,
+        "components": 1
+      }
+    },
+    {
+      "name": "03_cassette_common_rod_guide STL agrees with actual STEP bounds",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        65.0,
+        61.0,
+        8.0
+      ]
+    },
+    {
+      "name": "04_D68_payload_carrier fits central220 printer area",
+      "passed": true,
+      "detail": [
+        0.14188317724900001,
+        0.0,
+        0.0,
+        15.858116822751,
+        16.0,
+        14.3
+      ]
+    },
+    {
+      "name": "04_D68_payload_carrier_PRINT.stl closed manifold/count",
+      "passed": true,
+      "detail": {
+        "triangles": 1184,
+        "bad_edges": 0,
+        "degenerate": 0,
+        "components": 1
+      }
+    },
+    {
+      "name": "04_D68_payload_carrier STL agrees with actual STEP bounds",
+      "passed": true,
+      "detail": [
+        0.14188,
+        0.00346,
+        0.0,
+        15.85812,
+        15.99654,
+        14.3
+      ]
+    },
+    {
+      "name": "05_common_direct_insert_rod fits central220 printer area",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        137.0,
+        11.0,
+        13.0
+      ]
+    },
+    {
+      "name": "05_common_direct_insert_rod_PRINT.stl closed manifold/count",
+      "passed": true,
+      "detail": {
+        "triangles": 8484,
+        "bad_edges": 0,
+        "degenerate": 0,
+        "components": 1
+      }
+    },
+    {
+      "name": "05_common_direct_insert_rod STL agrees with actual STEP bounds",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        137.0,
+        11.0,
+        13.0
+      ]
+    },
+    {
+      "name": "JOB01 actual body count",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "name": "JOB01_PRINT.stl closed manifold/count",
+      "passed": true,
+      "detail": {
+        "triangles": 1916,
+        "bad_edges": 0,
+        "degenerate": 0,
+        "components": 1
+      }
+    },
+    {
+      "name": "JOB01 no internal part overlap",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        180.0,
+        160.0,
+        190.0
+      ]
+    },
+    {
+      "name": "JOB02 actual body count",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "name": "JOB02_PRINT.stl closed manifold/count",
+      "passed": true,
+      "detail": {
+        "triangles": 203032,
+        "bad_edges": 0,
+        "degenerate": 0,
+        "components": 1
+      }
+    },
+    {
+      "name": "JOB02 no internal part overlap",
+      "passed": true,
+      "detail": [
+        0.0,
+        -3.5527136788005e-14,
+        0.0,
+        90.0,
+        112.00000000000001,
+        40.0
+      ]
+    },
+    {
+      "name": "JOB03 actual body count",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "name": "JOB03_PRINT.stl closed manifold/count",
+      "passed": true,
+      "detail": {
+        "triangles": 47548,
+        "bad_edges": 0,
+        "degenerate": 0,
+        "components": 2
+      }
+    },
+    {
+      "name": "JOB03 no internal part overlap",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        97.85811682275101,
+        61.00000000000001,
+        14.3
+      ]
+    },
+    {
+      "name": "JOB04 actual body count",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "name": "JOB04_PRINT.stl closed manifold/count",
+      "passed": true,
+      "detail": {
+        "triangles": 8484,
+        "bad_edges": 0,
+        "degenerate": 0,
+        "components": 1
+      }
+    },
+    {
+      "name": "JOB04 no internal part overlap",
+      "passed": true,
+      "detail": [
+        0.0,
+        0.0,
+        0.0,
+        137.0,
+        11.0,
+        13.0
+      ]
+    },
+    {
+      "name": "long_shaft0 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "long_pan0 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower_washer0 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper_washer0 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper_nut0 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "long_shaft1 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "long_pan1 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower_washer1 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper_washer1 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper_nut1 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "long_shaft2 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "long_pan2 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower_washer2 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper_washer2 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper_nut2 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "long_shaft3 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "long_pan3 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower_washer3 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper_washer3 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper_nut3 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_shaft0 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_pan0 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_washer_front0 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_washer_rear0 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_nut0 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_shaft1 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_pan1 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_washer_front1 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_washer_rear1 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_nut1 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_shaft2 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_pan2 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_washer_front2 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_washer_rear2 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_nut2 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_shaft3 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_pan3 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_washer_front3 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_washer_rear3 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "rear_nut3 clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "clamp_shaft clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "clamp_pan clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "clamp_washer clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "clamp_nut clears finished assembly",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "Continuous finished rod sweep conservative \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "Actual clamp shaft/nut at delta -4.2",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "Actual clamp shaft/nut at delta 0",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "Actual clamp shaft/nut at delta 4.2",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "Closed #6 fine slot analytical usable travel",
+      "passed": true,
+      "detail": {
+        "rated_delta_mm": [
+          -4,
+          4
+        ],
+        "tested_hardware_delta_mm": [
+          -4.2,
+          4.2
+        ],
+        "physical_half_travel_mm": 4.2974,
+        "nut_end_margin_at_physical_stop_mm": 0.18379784648299324
+      }
+    },
+    {
+      "name": "Four tolerance-max DC1 stack at 163.1",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "Four tolerance-max DC1 stack at 193.1",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 207.5 max pitch shoulders and vertical pin allowance",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 207.5 both face orientations and body vertical play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 207.5 maximum pitch with full lateral seat play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 207.5 minimum case has positive rear shoulder",
+      "passed": true,
+      "detail": {
+        "blocked_backwards_overlap_mm3": 0.021300000000010897
+      }
+    },
+    {
+      "name": "upper port 207.5 LPG_max_body fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 207.5 LPG_max_body CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 207.5 native_pins fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 207.5 native_pins CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 207.5 retaining_loop fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 207.5 retaining_loop CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 207.5 wired removal LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 207.5 wired removal at ALL fine heights LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 207.5 wired removal native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 207.5 wired removal at ALL fine heights native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 215.5 max pitch shoulders and vertical pin allowance",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 215.5 both face orientations and body vertical play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 215.5 maximum pitch with full lateral seat play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 215.5 minimum case has positive rear shoulder",
+      "passed": true,
+      "detail": {
+        "blocked_backwards_overlap_mm3": 0.021300000000010897
+      }
+    },
+    {
+      "name": "upper port 215.5 LPG_max_body fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 215.5 LPG_max_body CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 215.5 native_pins fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 215.5 native_pins CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 215.5 retaining_loop fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 215.5 retaining_loop CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 215.5 wired removal LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 215.5 wired removal at ALL fine heights LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 215.5 wired removal native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 215.5 wired removal at ALL fine heights native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 223.5 max pitch shoulders and vertical pin allowance",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 223.5 both face orientations and body vertical play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 223.5 maximum pitch with full lateral seat play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 223.5 minimum case has positive rear shoulder",
+      "passed": true,
+      "detail": {
+        "blocked_backwards_overlap_mm3": 0.021300000000010897
+      }
+    },
+    {
+      "name": "upper port 223.5 LPG_max_body fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 223.5 LPG_max_body CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 223.5 native_pins fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 223.5 native_pins CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 223.5 retaining_loop fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 223.5 retaining_loop CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 223.5 wired removal LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 223.5 wired removal at ALL fine heights LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 223.5 wired removal native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 223.5 wired removal at ALL fine heights native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 231.5 max pitch shoulders and vertical pin allowance",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 231.5 both face orientations and body vertical play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 231.5 maximum pitch with full lateral seat play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 231.5 minimum case has positive rear shoulder",
+      "passed": true,
+      "detail": {
+        "blocked_backwards_overlap_mm3": 0.021300000000010897
+      }
+    },
+    {
+      "name": "upper port 231.5 LPG_max_body fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 231.5 LPG_max_body CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 231.5 native_pins fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 231.5 native_pins CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 231.5 retaining_loop fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 231.5 retaining_loop CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 231.5 wired removal LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 231.5 wired removal at ALL fine heights LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 231.5 wired removal native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 231.5 wired removal at ALL fine heights native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 239.5 max pitch shoulders and vertical pin allowance",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 239.5 both face orientations and body vertical play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 239.5 maximum pitch with full lateral seat play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 239.5 minimum case has positive rear shoulder",
+      "passed": true,
+      "detail": {
+        "blocked_backwards_overlap_mm3": 0.021300000000010897
+      }
+    },
+    {
+      "name": "upper port 239.5 LPG_max_body fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 239.5 LPG_max_body CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 239.5 native_pins fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 239.5 native_pins CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 239.5 retaining_loop fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 239.5 retaining_loop CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 239.5 wired removal LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 239.5 wired removal at ALL fine heights LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 239.5 wired removal native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "upper port 239.5 wired removal at ALL fine heights native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 117.5 max pitch shoulders and vertical pin allowance",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 117.5 both face orientations and body vertical play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 117.5 maximum pitch with full lateral seat play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 117.5 minimum case has positive rear shoulder",
+      "passed": true,
+      "detail": {
+        "blocked_backwards_overlap_mm3": 0.021300000000010363
+      }
+    },
+    {
+      "name": "lower port 117.5 LPG_max_body fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 117.5 LPG_max_body CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 117.5 native_pins fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 117.5 native_pins CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 117.5 retaining_loop fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 117.5 retaining_loop CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 117.5 wired removal LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 117.5 wired removal at ALL fine heights LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 117.5 wired removal native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 117.5 wired removal at ALL fine heights native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 125.5 max pitch shoulders and vertical pin allowance",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 125.5 both face orientations and body vertical play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 125.5 maximum pitch with full lateral seat play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 125.5 minimum case has positive rear shoulder",
+      "passed": true,
+      "detail": {
+        "blocked_backwards_overlap_mm3": 0.021300000000010363
+      }
+    },
+    {
+      "name": "lower port 125.5 LPG_max_body fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 125.5 LPG_max_body CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 125.5 native_pins fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 125.5 native_pins CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 125.5 retaining_loop fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 125.5 retaining_loop CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 125.5 wired removal LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 125.5 wired removal at ALL fine heights LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 125.5 wired removal native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 125.5 wired removal at ALL fine heights native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 133.5 max pitch shoulders and vertical pin allowance",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 133.5 both face orientations and body vertical play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 133.5 maximum pitch with full lateral seat play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 133.5 minimum case has positive rear shoulder",
+      "passed": true,
+      "detail": {
+        "blocked_backwards_overlap_mm3": 0.021300000000010363
+      }
+    },
+    {
+      "name": "lower port 133.5 LPG_max_body fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 133.5 LPG_max_body CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 133.5 native_pins fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 133.5 native_pins CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 133.5 retaining_loop fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 133.5 retaining_loop CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 133.5 wired removal LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 133.5 wired removal at ALL fine heights LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 133.5 wired removal native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 133.5 wired removal at ALL fine heights native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 141.5 max pitch shoulders and vertical pin allowance",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 141.5 both face orientations and body vertical play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 141.5 maximum pitch with full lateral seat play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 141.5 minimum case has positive rear shoulder",
+      "passed": true,
+      "detail": {
+        "blocked_backwards_overlap_mm3": 0.021300000000010363
+      }
+    },
+    {
+      "name": "lower port 141.5 LPG_max_body fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 141.5 LPG_max_body CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 141.5 native_pins fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 141.5 native_pins CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 141.5 retaining_loop fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 141.5 retaining_loop CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 141.5 wired removal LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 141.5 wired removal at ALL fine heights LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 141.5 wired removal native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 141.5 wired removal at ALL fine heights native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 149.5 max pitch shoulders and vertical pin allowance",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 149.5 both face orientations and body vertical play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 149.5 maximum pitch with full lateral seat play",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 149.5 minimum case has positive rear shoulder",
+      "passed": true,
+      "detail": {
+        "blocked_backwards_overlap_mm3": 0.021300000000010363
+      }
+    },
+    {
+      "name": "lower port 149.5 LPG_max_body fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 149.5 LPG_max_body CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 149.5 native_pins fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 149.5 native_pins CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 149.5 retaining_loop fits finished rod",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 149.5 retaining_loop CONTINUOUS \u00b14.30",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 149.5 wired removal LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 149.5 wired removal at ALL fine heights LPG_max_body",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 149.5 wired removal native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "lower port 149.5 wired removal at ALL fine heights native_pins",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "All25 upper/lower port pairs coexist for common fine shift",
+      "passed": true,
+      "detail": {
+        "issues": [],
+        "relative_geometry_constant_when_both_move_same_delta": true
+      }
+    },
+    {
+      "name": "Actual hex nut downward service-window insertion",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "Actual hex nut into rod from service window",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "D12 nutdriver access at long bolt0",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "D12 nutdriver access at long bolt1",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "D12 nutdriver access at long bolt2",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "D12 nutdriver access at long bolt3",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "Front clamp screwdriver access",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "Full D68 carrier loop10-20mm motion",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "Payload mass allowance retained",
+      "passed": true,
+      "detail": {
+        "carrier_estimate_g": 1.4609358593415556,
+        "remaining_g": 1.7490641406584444,
+        "must_weigh_payload": true
+      }
+    }
+  ],
+  "rod_detail_render_saved": true
+}

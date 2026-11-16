@@ -1,0 +1,17 @@
+# Hardware basis — front Hall holder revision
+
+User confirmed on November 14, 2026: use #6-32 Midwest Fastener 03748 hex machine screw nuts or similar, with ordinary small wire-to-lead solder joints. No connector or exact joint diameter is specified. The sensor body needs a close seat, while an open wire path permits removal without passing solder joints through a closed narrow tunnel.
+
+## Sources and design inputs
+
+- [User's nut listing](https://www.yourcommunityhardware.com/MACHINE-NUT-CRS-STL-ZN-NO6-32-p/4522033.htm): the exact page could not be retrieved by the browser tool. Search results identify the same listing family as Midwest Fastener 03748, #6-32, zinc-plated steel.
+- [Do it Best product identification](https://www.doitbest.com/product/K9JSCZ/midwest-fastener-6-32-zinc-plated-grade-2-steel-coarse-thread-hex-machine-screw-nuts-k9jscz/): model 03748, UPC 00738287037487, #6-32 zinc-plated steel hex machine screw nut. This identifies the item; it does not publish a toleranced nut drawing.
+- [Albany County Fasteners nut size chart](https://www.albanycountyfasteners.com/media/a8/bb/67/1754864221/us-machine-screw-hex-nut-size-chart.pdf?ts=1754864221): ordinary #6 machine screw hex nut nominal width across flats 5/16 in (7.9375 mm), nominal thickness 7/64 in (2.778125 mm), coarse thread 32 TPI.
+- [Bolt Depot US nut dimensions](https://boltdepot.com/fastener-information/nuts-washers/us-nut-dimensions): agrees with those nominal machine screw nut dimensions. The dimensions are a generic nut basis, not a measured or manufacturer-toleranced drawing of the user's 03748 batch.
+- [Bolt Depot #6-32 pan screw drawing](https://boltdepot.com/Product-Details?product=16802): thread major diameter 0.138 in (3.5052 mm), head diameter up to 0.270 in (6.858 mm), head height up to 0.097 in (2.4638 mm). Screw length is measured below a pan head. Use the actual head style and length in the assembly instructions; a countersunk screw is not interchangeable at a flat bearing seat.
+- [Bolt Depot #6 SAE washer dimensions](https://boltdepot.com/Product-Details?product=29194): outside diameter 0.370–0.390 in (9.398–9.906 mm), inside diameter 0.151–0.164 in (3.8354–4.1656 mm), thickness 0.036–0.065 in (0.9144–1.651 mm). Do not assume every washer is the nominal thickness.
+- [TI DRV5056 datasheet, Rev. C](https://www.ti.com/lit/ds/symlink/drv5056.pdf): LPG modified TO-92 body and native pins remain the sensor fit basis. The marked flat face stays horizontal for an axial sensing direction. The A3 and A4 parts respond to the south-pole field component and have different gains/ranges. Package fit does not establish useful signal headroom.
+
+The CAD uses inch hardware designations and millimetres for exported geometry. A 5/32 in (3.96875 mm) screw clearance is a practical printed-hole design choice, not a #6 screw's thread diameter or a claim of minimum standard clearance. Captive-nut pockets include print allowance; measure actual nuts and remove minor print artifacts as needed. The rod's deliberate sanding allowance is separate from screw-hole clearance.
+
+The specified 03748 nuts are steel. Their proximity can change measured magnetic fields; calibrate with the final hardware installed. Top and bottom magnet pockets provide placement options. Installing magnets in either or both pockets does not by itself establish reduced Hall saturation, adequate zero-current release, stable levitation or acceptable coil/PLA temperature.

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1440" viewBox="0 0 1200 1440"><rect width="100%" height="100%" fill="white"/>
+<text x="60" y="50.0" fill="black" font-family="Arial, sans-serif" font-size="29" font-weight="700" text-anchor="start" dominant-baseline="central">Hall sensors and ADC interface</text>
+<polyline points="50,1335 1150,1335" fill="none" stroke="black" stroke-width="2"/>
+<text x="60" y="1360.0" fill="black" font-family="Arial, sans-serif" font-size="20" font-weight="400" text-anchor="start" dominant-baseline="central">Stephen Kanti Mahanty   |   ENGR 155   |   15 Nov 2026</text>
+<text x="1140" y="1360.0" fill="black" font-family="Arial, sans-serif" font-size="20" font-weight="400" text-anchor="end" dominant-baseline="central">1 / 2</text>
+<text x="600" y="1400.0" fill="black" font-family="Arial, sans-serif" font-size="20" font-weight="400" text-anchor="middle" dominant-baseline="central">Matching net labels are connected. Board circuitry is omitted.</text>
+<rect x="200" y="180" width="300" height="210" fill="white" stroke="black" stroke-width="2"/>
+<text x="350" y="215.0" fill="black" font-family="Arial, sans-serif" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="central">U1  DRV5056</text>
+<text x="350" y="250.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="middle" dominant-baseline="central">TO-92</text>
+<polyline points="200,300 170,300" fill="none" stroke="black" stroke-width="2"/>
+<text x="212" y="300.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="start" dominant-baseline="central">1  VCC</text>
+<polyline points="170,300 130,300" fill="none" stroke="black" stroke-width="2"/>
+<text x="124" y="300.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="end" dominant-baseline="central">+3V3</text>
+<polyline points="200,355 170,355" fill="none" stroke="black" stroke-width="2"/>
+<text x="212" y="355.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="start" dominant-baseline="central">2  GND</text>
+<polyline points="170,355 130,355" fill="none" stroke="black" stroke-width="2"/>
+<text x="124" y="355.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="end" dominant-baseline="central">GND</text>
+<polyline points="500,325 530,325" fill="none" stroke="black" stroke-width="2"/>
+<text x="488" y="325.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="end" dominant-baseline="central">OUT  3</text>
+<polyline points="530,325 570,325" fill="none" stroke="black" stroke-width="2"/>
+<text x="576" y="325.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="start" dominant-baseline="central">HALL_A</text>
+<rect x="700" y="180" width="300" height="210" fill="white" stroke="black" stroke-width="2"/>
+<text x="850" y="215.0" fill="black" font-family="Arial, sans-serif" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="central">U2  DRV5056</text>
+<text x="850" y="250.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="middle" dominant-baseline="central">TO-92</text>
+<polyline points="700,300 670,300" fill="none" stroke="black" stroke-width="2"/>
+<text x="712" y="300.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="start" dominant-baseline="central">1  VCC</text>
+<polyline points="670,300 630,300" fill="none" stroke="black" stroke-width="2"/>
+<text x="624" y="300.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="end" dominant-baseline="central">+3V3</text>
+<polyline points="700,355 670,355" fill="none" stroke="black" stroke-width="2"/>
+<text x="712" y="355.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="start" dominant-baseline="central">2  GND</text>
+<polyline points="670,355 630,355" fill="none" stroke="black" stroke-width="2"/>
+<text x="624" y="355.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="end" dominant-baseline="central">GND</text>
+<polyline points="1000,325 1030,325" fill="none" stroke="black" stroke-width="2"/>
+<text x="988" y="325.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="end" dominant-baseline="central">OUT  3</text>
+<polyline points="1030,325 1070,325" fill="none" stroke="black" stroke-width="2"/>
+<text x="1076" y="325.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="start" dominant-baseline="central">HALL_B</text>
+<rect x="210" y="550" width="320" height="500" fill="white" stroke="black" stroke-width="2"/>
+<text x="370" y="585.0" fill="black" font-family="Arial, sans-serif" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="central">U3  MCP3204</text>
+<text x="370" y="620.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="middle" dominant-baseline="central">PDIP-14</text>
+<polyline points="210,690 180,690" fill="none" stroke="black" stroke-width="2"/>
+<text x="222" y="690.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="start" dominant-baseline="central">1  CH0</text>
+<polyline points="180,690 140,690" fill="none" stroke="black" stroke-width="2"/>
+<text x="134" y="690.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="end" dominant-baseline="central">HALL_A</text>
+<polyline points="210,765 180,765" fill="none" stroke="black" stroke-width="2"/>
+<text x="222" y="765.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="start" dominant-baseline="central">2  CH1</text>
+<polyline points="180,765 140,765" fill="none" stroke="black" stroke-width="2"/>
+<text x="134" y="765.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="end" dominant-baseline="central">HALL_B</text>
+<polyline points="210,840 180,840" fill="none" stroke="black" stroke-width="2"/>
+<text x="222" y="840.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="start" dominant-baseline="central">3  CH2</text>
+<polyline points="210,915 180,915" fill="none" stroke="black" stroke-width="2"/>
+<text x="222" y="915.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="start" dominant-baseline="central">4  CH3</text>
+<rect x="830" y="550" width="310" height="500" fill="white" stroke="black" stroke-width="2"/>
+<text x="985" y="585.0" fill="black" font-family="Arial, sans-serif" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="central">UPduino FPGA</text>
+<text x="985" y="625.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">ADC SPI port</text>
+<polyline points="530,690 560,690" fill="none" stroke="black" stroke-width="2"/>
+<text x="518" y="690.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="end" dominant-baseline="central">CLK  11</text>
+<polyline points="830,690 800,690" fill="none" stroke="black" stroke-width="2"/>
+<text x="842" y="690.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="start" dominant-baseline="central">SCLK</text>
+<polyline points="560,690 800,690" fill="none" stroke="black" stroke-width="2"/>
+<text x="680" y="670.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="middle" dominant-baseline="central">SCLK</text>
+<polyline points="530,765 560,765" fill="none" stroke="black" stroke-width="2"/>
+<text x="518" y="765.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="end" dominant-baseline="central">DIN  9</text>
+<polyline points="830,765 800,765" fill="none" stroke="black" stroke-width="2"/>
+<text x="842" y="765.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="start" dominant-baseline="central">MOSI</text>
+<polyline points="560,765 800,765" fill="none" stroke="black" stroke-width="2"/>
+<text x="680" y="745.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="middle" dominant-baseline="central">DIN</text>
+<polyline points="530,840 560,840" fill="none" stroke="black" stroke-width="2"/>
+<text x="518" y="840.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="end" dominant-baseline="central">DOUT  10</text>
+<polyline points="830,840 800,840" fill="none" stroke="black" stroke-width="2"/>
+<text x="842" y="840.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="start" dominant-baseline="central">MISO</text>
+<polyline points="560,840 800,840" fill="none" stroke="black" stroke-width="2"/>
+<text x="680" y="820.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="middle" dominant-baseline="central">DOUT</text>
+<polyline points="530,915 560,915" fill="none" stroke="black" stroke-width="2"/>
+<text x="518" y="915.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="end" dominant-baseline="central">CS_n  8</text>
+<polyline points="830,915 800,915" fill="none" stroke="black" stroke-width="2"/>
+<text x="842" y="915.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="start" dominant-baseline="central">CS_n</text>
+<polyline points="560,915 800,915" fill="none" stroke="black" stroke-width="2"/>
+<text x="680" y="895.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="middle" dominant-baseline="central">CS_n</text>
+<text x="370" y="985.0" fill="black" font-family="Arial, sans-serif" font-size="20" font-weight="400" text-anchor="middle" dominant-baseline="central">VDD 14, VREF 13 = +3V3</text>
+<text x="370" y="1020.0" fill="black" font-family="Arial, sans-serif" font-size="20" font-weight="400" text-anchor="middle" dominant-baseline="central">AGND 12, DGND 7 = GND</text>
+<text x="985" y="990.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="middle" dominant-baseline="central">GND = GND</text>
+<text x="985" y="1020.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="middle" dominant-baseline="central">3.3 V logic</text>
+<text x="600" y="1130.0" fill="black" font-family="Arial, sans-serif" font-size="23" font-weight="400" text-anchor="middle" dominant-baseline="central">FPGA pads used for the ADC: 44, 9, 18, 13.</text>
+<text x="600" y="1170.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="middle" dominant-baseline="central">The individual pad-to-signal assignments have not been specified.</text>
+<text x="600" y="1240.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="middle" dominant-baseline="central">U3 pins 5 and 6 are NC. CH2 and CH3 connections are not shown.</text>
+<text x="600" y="1285.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="middle" dominant-baseline="central">Hall A and Hall B are drawing labels for the two installed sensors.</text></svg>

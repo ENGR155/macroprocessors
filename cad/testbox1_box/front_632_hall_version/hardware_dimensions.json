@@ -1,0 +1,27 @@
+{
+  "screw_major_mm": 3.5052,
+  "clearance_hole_mm": 4.1,
+  "nut_nominal_AF_mm": 7.9375,
+  "nut_nominal_thickness_mm": 2.778125,
+  "nut_track_AF_mm": 8.3,
+  "nut_track_depth_mm": 3.2,
+  "nut_track_Z_length_mm": 18.2,
+  "pan_head_max_diameter_mm": 6.858,
+  "pan_head_max_height_mm": 2.4638,
+  "washer_max_diameter_mm": 9.906,
+  "washer_max_thickness_mm": 1.651,
+  "cassette_screws": "4 x #6-32 x2in (50.8mm)",
+  "rear_joint_screws": "4 x #6-32 x1.25in (31.75mm)",
+  "Hall_clamp_screw": "1 x #6-32 x0.75in (19.05mm)",
+  "rod_finished_mm": [
+    12.4,
+    10.4,
+    137
+  ],
+  "rod_stock_mm": [
+    13,
+    11,
+    137
+  ],
+  "status": "GEOMETRY_GENERATED_WITH_FUSION_NATIVE; actual hardware dimensions still require measurement"
+}

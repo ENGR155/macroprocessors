@@ -1,0 +1,132 @@
+{
+  "01_frame_base_upright_tray": {
+    "kind": "print",
+    "job": 1,
+    "assembly_bbox_mm": [
+      0.0,
+      0.0,
+      0.0,
+      180.0,
+      160.0,
+      190.0
+    ],
+    "print_bbox_mm": [
+      0.0,
+      0.0,
+      0.0,
+      180.0,
+      160.0,
+      190.0
+    ],
+    "valid": true,
+    "solid_count": 1,
+    "volume_mm3": 471788.59298508393,
+    "assembly_state": "as modeled",
+    "print_state": "as modeled",
+    "engine": "Autodesk Fusion native"
+  },
+  "02_head_common_rod_guide": {
+    "kind": "print",
+    "job": 2,
+    "assembly_bbox_mm": [
+      45.0,
+      30.0,
+      160.0,
+      135.0,
+      142.0,
+      200.0
+    ],
+    "print_bbox_mm": [
+      0.0,
+      -3.552713678800501e-14,
+      0.0,
+      90.0,
+      111.99999999999996,
+      40.000000000000014
+    ],
+    "valid": true,
+    "solid_count": 1,
+    "volume_mm3": 123068.34669942978,
+    "assembly_state": "as modeled",
+    "print_state": "as modeled",
+    "engine": "Autodesk Fusion native"
+  },
+  "03_cassette_common_rod_guide": {
+    "kind": "print",
+    "job": 3,
+    "assembly_bbox_mm": [
+      64.0,
+      30.0,
+      162.00000000000003,
+      129.0,
+      91.0,
+      170.0
+    ],
+    "print_bbox_mm": [
+      0.0,
+      0.0,
+      3.552713678800501e-14,
+      65.0,
+      61.0,
+      8.000000000000007
+    ],
+    "valid": true,
+    "solid_count": 1,
+    "volume_mm3": 24906.7687107897,
+    "assembly_state": "as modeled",
+    "print_state": "as modeled",
+    "engine": "Autodesk Fusion native"
+  },
+  "04_D68_payload_carrier": {
+    "kind": "print",
+    "job": 3,
+    "assembly_bbox_mm": [
+      82.14188317724901,
+      57.0,
+      140.3,
+      97.85811682275101,
+      73.0,
+      154.60000000000002
+    ],
+    "print_bbox_mm": [
+      0.14188317724901367,
+      -2.220446049250313e-15,
+      0.0,
+      15.858116822751018,
+      15.999999999999998,
+      14.299999999999997
+    ],
+    "valid": true,
+    "solid_count": 1,
+    "volume_mm3": 1123.7968148781197,
+    "assembly_state": "as modeled",
+    "print_state": "as modeled",
+    "engine": "Autodesk Fusion native"
+  },
+  "05_common_direct_insert_rod": {
+    "kind": "print",
+    "job": 4,
+    "assembly_bbox_mm": [
+      83.80000000000001,
+      34.6,
+      111.0,
+      96.19999999999999,
+      45.0,
+      247.99999999999997
+    ],
+    "print_bbox_mm": [
+      0.0,
+      0.0,
+      0.0,
+      137.0,
+      10.999999999999996,
+      13.000000000000007
+    ],
+    "valid": true,
+    "solid_count": 1,
+    "volume_mm3": 14590.139689487678,
+    "assembly_state": "FINISHED, SANDED",
+    "print_state": "OVERSIZE SANDING STOCK",
+    "engine": "Autodesk Fusion native"
+  }
+}

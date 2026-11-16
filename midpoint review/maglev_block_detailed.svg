@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"><rect width="100%" height="100%" fill="white"/>
+<text x="55" y="55.0" fill="black" font-family="Arial, sans-serif" font-size="30" font-weight="700" text-anchor="start" dominant-baseline="central">Magnetic levitation system interfaces</text>
+<rect x="50" y="180" width="200" height="100" fill="white" stroke="black" stroke-width="2"/>
+<text x="150.0" y="230.0" fill="black" font-family="Arial, sans-serif" font-size="27" font-weight="400" text-anchor="middle" dominant-baseline="central">Browser</text>
+<rect x="350" y="180" width="180" height="100" fill="white" stroke="black" stroke-width="2"/>
+<text x="440.0" y="230.0" fill="black" font-family="Arial, sans-serif" font-size="26" font-weight="400" text-anchor="middle" dominant-baseline="central">ESP8266</text>
+<rect x="650" y="180" width="260" height="100" fill="white" stroke="black" stroke-width="2"/>
+<text x="780.0" y="230.0" fill="black" font-family="Arial, sans-serif" font-size="26" font-weight="400" text-anchor="middle" dominant-baseline="central">STM32L432KC</text>
+<polyline points="250,230 350,230" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="339.0,225.0 350,230 339.0,235.0" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="261.0,235.0 250,230 261.0,225.0" fill="none" stroke="black" stroke-width="2"/>
+<text x="300" y="195.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">Wi-Fi</text>
+<polyline points="530,230 650,230" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="639.0,225.0 650,230 639.0,235.0" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="541.0,235.0 530,230 541.0,225.0" fill="none" stroke="black" stroke-width="2"/>
+<text x="590" y="195.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">UART</text>
+<text x="590" y="305.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="middle" dominant-baseline="central">TX, RX</text>
+<rect x="1070" y="130" width="450" height="300" fill="white" stroke="black" stroke-width="2"/>
+<text x="1295" y="155.0" fill="black" font-family="Arial, sans-serif" font-size="27" font-weight="400" text-anchor="middle" dominant-baseline="central">UPduino FPGA</text>
+<rect x="1090" y="185" width="200" height="65" fill="white" stroke="black" stroke-width="2"/>
+<text x="1190.0" y="217.5" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">MCU interface</text>
+<rect x="1090" y="295" width="200" height="65" fill="white" stroke="black" stroke-width="2"/>
+<text x="1190.0" y="327.5" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">ADC interface</text>
+<rect x="1320" y="225" width="180" height="135" fill="white" stroke="black" stroke-width="2"/>
+<text x="1410.0" y="278.47" fill="black" font-family="Arial, sans-serif" font-size="23" font-weight="400" text-anchor="middle" dominant-baseline="central">Control logic</text>
+<text x="1410.0" y="306.53" fill="black" font-family="Arial, sans-serif" font-size="23" font-weight="400" text-anchor="middle" dominant-baseline="central">and PWM</text>
+<polyline points="910,218 1090,218" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="1079.0,213.0 1090,218 1079.0,223.0" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="921.0,223.0 910,218 921.0,213.0" fill="none" stroke="black" stroke-width="2"/>
+<text x="990" y="180.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">SPI</text>
+<text x="990" y="267.19" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="middle" dominant-baseline="central">Commands /</text>
+<text x="990" y="292.81" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="middle" dominant-baseline="central">readings</text>
+<polyline points="1290,218 1305,218 1305,260 1320,260" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="1309.0,255.0 1320,260 1309.0,265.0" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="1301.0,223.0 1290,218 1301.0,213.0" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="1290,328 1320,328" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="1309.0,323.0 1320,328 1309.0,333.0" fill="none" stroke="black" stroke-width="2"/>
+<rect x="50" y="560" width="240" height="120" fill="white" stroke="black" stroke-width="2"/>
+<text x="170.0" y="604.14" fill="black" font-family="Arial, sans-serif" font-size="26" font-weight="400" text-anchor="middle" dominant-baseline="central">Hall A</text>
+<text x="170.0" y="635.86" fill="black" font-family="Arial, sans-serif" font-size="26" font-weight="400" text-anchor="middle" dominant-baseline="central">Hall B</text>
+<rect x="480" y="540" width="230" height="160" fill="white" stroke="black" stroke-width="2"/>
+<text x="595.0" y="603.53" fill="black" font-family="Arial, sans-serif" font-size="27" font-weight="400" text-anchor="middle" dominant-baseline="central">MCP3204</text>
+<text x="595.0" y="636.47" fill="black" font-family="Arial, sans-serif" font-size="27" font-weight="400" text-anchor="middle" dominant-baseline="central">12-bit ADC</text>
+<polyline points="290,620 480,620" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="469.0,615.0 480,620 469.0,625.0" fill="none" stroke="black" stroke-width="2"/>
+<text x="385" y="580.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">Analog outputs</text>
+<text x="385" y="660.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">CH0, CH1</text>
+<polyline points="595,540 595,470 1000,470 1000,328 1090,328" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="1079.0,323.0 1090,328 1079.0,333.0" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="600.0,529.0 595,540 590.0,529.0" fill="none" stroke="black" stroke-width="2"/>
+<text x="795" y="440.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">CS, SCLK, DIN, DOUT</text>
+<rect x="1260" y="550" width="280" height="140" fill="white" stroke="black" stroke-width="2"/>
+<text x="1400.0" y="604.75" fill="black" font-family="Arial, sans-serif" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="central">N-channel MOSFET</text>
+<text x="1400.0" y="635.25" fill="black" font-family="Arial, sans-serif" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="central">and flyback diode</text>
+<polyline points="1500,290 1565,290 1565,500 1400,500 1400,550" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="1405.0,539.0 1400,550 1395.0,539.0" fill="none" stroke="black" stroke-width="2"/>
+<text x="1400" y="500.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">PWM</text>
+<rect x="950" y="550" width="230" height="140" fill="white" stroke="black" stroke-width="2"/>
+<text x="1065.0" y="604.14" fill="black" font-family="Arial, sans-serif" font-size="26" font-weight="400" text-anchor="middle" dominant-baseline="central">12 V</text>
+<text x="1065.0" y="635.86" fill="black" font-family="Arial, sans-serif" font-size="26" font-weight="400" text-anchor="middle" dominant-baseline="central">electromagnet</text>
+<polyline points="1260,620 1180,620" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="1191.0,625.0 1180,620 1191.0,615.0" fill="none" stroke="black" stroke-width="2"/>
+<text x="1220" y="725.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="middle" dominant-baseline="central">Switched current</text>
+<rect x="950" y="760" width="230" height="90" fill="white" stroke="black" stroke-width="2"/>
+<text x="1065.0" y="805.0" fill="black" font-family="Arial, sans-serif" font-size="23" font-weight="400" text-anchor="middle" dominant-baseline="central">Suspended magnet</text>
+<polyline points="1065,690 1065,760" fill="none" stroke="black" stroke-width="2"/>
+<polyline points="1070.0,749.0 1065,760 1060.0,749.0" fill="none" stroke="black" stroke-width="2"/>
+<text x="1065" y="725.0" fill="black" font-family="Arial, sans-serif" font-size="21" font-weight="400" text-anchor="middle" dominant-baseline="central">Force</text>
+<polyline points="1065,850 1065,870 170,870 170,680" fill="none" stroke="black" stroke-width="2" stroke-dasharray="7 6"/>
+<polyline points="165.0,691.0 170,680 175.0,691.0" fill="none" stroke="black" stroke-width="2"/>
+<text x="580" y="870.0" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">Magnetic feedback</text>
+<text x="500" y="776.58" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">Printed frame and sensor mounts</text>
+<text x="500" y="803.42" fill="black" font-family="Arial, sans-serif" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="central">assembled around the electromagnet</text></svg>

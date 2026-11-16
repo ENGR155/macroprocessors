@@ -1,0 +1,26 @@
+{
+  "completed": true,
+  "engine": "Autodesk Fusion native TemporaryBRepManager",
+  "units": "mm files; cm API internals",
+  "printed_bodies": 5,
+  "reference_entries": 14,
+  "actual_reference_bodies": 18,
+  "main_total_bodies": 23,
+  "stock_rod_bbox_mm": [
+    83.5,
+    34.5,
+    111.0,
+    96.5,
+    45.5,
+    247.99999999999997
+  ],
+  "finished_rod_bbox_mm": [
+    83.80000000000001,
+    34.6,
+    111.0,
+    96.19999999999999,
+    45.0,
+    247.99999999999997
+  ],
+  "Fusion_API_executed": true
+}

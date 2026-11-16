@@ -1,0 +1,37 @@
+Magnetic levitation midpoint drawings
+Updated 15 November 2026
+
+Current source of truth
+These drawings use the team's corrections and current wiring. No proposal PDF is used as an architecture authority.
+
+Confirmed by Stephen
+- The Hall-sensor circuit is physically wired.
+- The two Hall outputs connect to ADC pins 1 and 2 (MCP3204 CH0 and CH1).
+- The ADC connects to the FPGA. The FPGA pads include 44, 9, 18, and 13.
+- The electromagnet and MOSFET PWM circuit is wired.
+- The 3D-printed frame and mounts are printed and assembled.
+
+Connections still needing explicit labeling
+The mapping of the four FPGA pads to CS, SCLK, DIN and DOUT was not supplied. The schematic lists the pads separately from the signal names rather than assigning an arbitrary map. Other ADC connections use manufacturer pin names. CH2/CH3 connections and support passives are not documented as installed. The schematic represents the stated connections, not a complete continuity audit of all breadboard wiring.
+
+Hall model
+Project hardware notes identify the TO-92 DRV5056 family, replacing the incorrect DRV5055 labels in the first drawings. The installed A3/A4 sensitivity variants and which physical sensor is Hall A/B have not been independently identified. A/B are drawing labels only.
+
+PWM circuit
+The current pwm_sweeper pins.pcf assigns PWM to FPGA pad 10. The documented gate network uses 1 kohm series and 47 kohm gate-to-source. The diode cathode connects to +12 V and its anode to the MOSFET drain. The schematic uses G, D and S because an installed MOSFET package/pinout has not been identified for this revision. Prior discussions used 2N7000 for the test electromagnet and selected AO3400A for a larger coil. No current shunt, INA240, gate driver, or shutdown comparator is asserted as present.
+
+Firmware scope
+The diagrams show the functional signal paths and ADC ownership. They do not claim that a particular PI algorithm, gap estimator, watchdog, acquisition rate, web interface, or complete closed-loop levitation has been implemented or validated. Existing proposal-derived MCU ADC/DMA ownership and rates have been removed. The FPGA's control/PWM block is a functional destination, not a 1:1 RTL hierarchy.
+
+Files
+maglev_block_simple.png and maglev_block_detailed.png are 16:9 images.
+maglev_schematic.docx contains the two portrait schematic sheets.
+Matching SVGs allow editing and lossless scaling.
+
+Pin references
+https://www.ti.com/lit/ds/symlink/drv5056.pdf
+https://ww1.microchip.com/downloads/en/DeviceDoc/21298e.pdf
+
+Third block diagram
+maglev_block_mcu_fpga_internal.png / .svg are a presentation view with seven grouped MCU/FPGA functions. It shows the two distinct SPI interfaces, ADC readings into FPGA control logic, and duty values into the PWM generator. Counter implementation and software routine details are omitted for presentation readability. This is a functional design diagram; it does not assert completed integration or a one-to-one RTL hierarchy.
+

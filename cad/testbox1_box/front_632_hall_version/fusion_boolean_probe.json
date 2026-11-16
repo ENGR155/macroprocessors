@@ -1,0 +1,82 @@
+[
+  {
+    "case": "disjoint",
+    "operation": "intersection",
+    "success": true,
+    "isValid": true,
+    "volume_mm3": 0.0,
+    "solid": false
+  },
+  {
+    "case": "disjoint",
+    "operation": "difference",
+    "success": true,
+    "isValid": true,
+    "volume_mm3": 1000.0,
+    "solid": true
+  },
+  {
+    "case": "touch",
+    "operation": "intersection",
+    "success": true,
+    "isValid": true,
+    "volume_mm3": 0.0,
+    "solid": false
+  },
+  {
+    "case": "touch",
+    "operation": "difference",
+    "success": true,
+    "isValid": true,
+    "volume_mm3": 1000.0,
+    "solid": true
+  },
+  {
+    "case": "overlap",
+    "operation": "intersection",
+    "success": true,
+    "isValid": true,
+    "volume_mm3": 500.0,
+    "solid": true
+  },
+  {
+    "case": "overlap",
+    "operation": "difference",
+    "success": true,
+    "isValid": true,
+    "volume_mm3": 500.0,
+    "solid": true
+  },
+  {
+    "case": "contained",
+    "operation": "intersection",
+    "success": true,
+    "isValid": true,
+    "volume_mm3": 8.000000000000004,
+    "solid": true
+  },
+  {
+    "case": "contained",
+    "operation": "difference",
+    "success": true,
+    "isValid": true,
+    "volume_mm3": 992.0,
+    "solid": true
+  },
+  {
+    "case": "equal",
+    "operation": "intersection",
+    "success": true,
+    "isValid": true,
+    "volume_mm3": 1000.0,
+    "solid": true
+  },
+  {
+    "case": "equal",
+    "operation": "difference",
+    "success": true,
+    "isValid": true,
+    "volume_mm3": 0.0,
+    "solid": false
+  }
+]
