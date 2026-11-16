@@ -4,10 +4,6 @@ set_io mcu_sck 23
 set_io mcu_cs_n 25
 set_io mcu_mosi 26
 set_io mcu_miso 27
-set_io adc_cs_n 32
-set_io adc_sck 35
-set_io adc_mosi 31
-set_io adc_miso 37
 set_io permit 34
 set_io fault_n 43
 set_io pwm 36

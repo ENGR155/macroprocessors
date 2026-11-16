@@ -1,4 +1,4 @@
-// Multi-cycle PI: ki includes the 100 us sample interval.
+// Multi-cycle PI: ki includes the 200 us sample interval (5 kHz).
 // Seven short registered stages complete in <0.3 us at 24 MHz.
 module current_pi #(parameter integer MAX_DUTY=1080) (
     input logic clk,rst,enable,sample,

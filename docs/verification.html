@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Verification record — 2026-10-15 – E155 Magnetic Levitation</title>
+<title>Earlier verification record - October 26, 2026 – E155 Magnetic Levitation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -98,6 +98,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../progress.html"> 
+<span class="menu-text">Progress Report</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Design</span>
@@ -149,10 +153,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#verification-record-2026-10-15" id="toc-verification-record-2026-10-15" class="nav-link active" data-scroll-target="#verification-record-2026-10-15">Verification record — 2026-10-15</a>
+  <li><a href="#verification-record---2026-10-26" id="toc-verification-record---2026-10-26" class="nav-link active" data-scroll-target="#verification-record---2026-10-26">Verification record - 2026-10-26</a>
   <ul class="collapse">
-  <li><a href="#executed-software-and-hdl-checks" id="toc-executed-software-and-hdl-checks" class="nav-link" data-scroll-target="#executed-software-and-hdl-checks">Executed software and HDL checks</a></li>
-  <li><a href="#limits-of-these-checks" id="toc-limits-of-these-checks" class="nav-link" data-scroll-target="#limits-of-these-checks">Limits of these checks</a></li>
+  <li><a href="#executed-checks" id="toc-executed-checks" class="nav-link" data-scroll-target="#executed-checks">Executed checks</a></li>
+  <li><a href="#limits" id="toc-limits" class="nav-link" data-scroll-target="#limits">Limits</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -164,7 +168,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Verification record — 2026-10-15</h1>
+<h1 class="title">Earlier verification record - October 26, 2026</h1>
 </div>
 
 
@@ -181,11 +185,25 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Earlier implementation reference
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This guide records the earlier MCU-position/FPGA-current design or its planning and tests. The revised proposal puts position PI in the FPGA and ADC/DMA in the MCU. See <a href="../design.html">current system design</a> and <a href="../results.html">current status</a>. Historical checks do not verify the revised controller.</p>
+</div>
+</div>
 <p><a href="../documentation.html">Documentation</a> / Technical guide</p>
-<section id="verification-record-2026-10-15" class="level1">
-<h1>Verification record — 2026-10-15</h1>
-<section id="executed-software-and-hdl-checks" class="level2">
-<h2 class="anchored" data-anchor-id="executed-software-and-hdl-checks">Executed software and HDL checks</h2>
+<section id="verification-record---2026-10-26" class="level1">
+<h1>Verification record - 2026-10-26</h1>
+<p>This record applies to the implementation of the updated Word proposal’s shared-control option 2. It supersedes the former FPGA-owned ADC/16-byte protocol measurements.</p>
+<section id="executed-checks" class="level2">
+<h2 class="anchored" data-anchor-id="executed-checks">Executed checks</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -199,70 +217,48 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td>Native C compile with warnings treated as errors</td>
-<td>Passed using Zig 0.16.0 / Clang on Windows</td>
+<td>Native C, warnings treated as errors</td>
+<td>Passed with Zig 0.16.0 / Clang on Windows</td>
 </tr>
 <tr class="even">
-<td>C behavior tests</td>
-<td>Passed: CRC known vector/corruption, packet packing, control direction, saturation/anti-windup, current ramp, derivative initialization, missed-update fault, rail/fault handling, exact web routes, HTML termination and buffer bounds</td>
+<td>Firmware behavior and runtime</td>
+<td>Passed: CRC known vector/corruption, 8-byte packet layout, retention of local ADC data, paired measured current, every-fifth-scan position updates, previous-command ACK, 8-bit sequence wrap, missed sample deadline, browser lease and timestamp wrap, stale-data arming refusal, direction, anti-windup, slew, velocity ceiling, one/two-Hall rails, 10 mm web bound, exact routes, and HTML bounds</td>
 </tr>
 <tr class="odd">
 <td>Cortex-M4F source compilation</td>
-<td>All seven C translation units compiled, using the course’s CMSIS device/core headers and installed embedded runtime headers</td>
+<td>All eight C translation units compiled with warnings as errors using the course STM32L432/CMSIS headers and installed embedded runtime headers</td>
 </tr>
 <tr class="even">
-<td>SystemVerilog elaboration</td>
-<td>Checked with slang and Icarus; final integration compiled with Icarus Verilog 13.0</td>
-</tr>
-<tr class="odd">
 <td>FPGA integration simulation</td>
-<td>Passed: actual mode-0 ADC commands/channel ordering, telemetry CRC, enabled regulation, malformed/short packets, frozen-ID timeout, immediate external gate removal, latched faults, sampled overcurrent, scan timeout, and permanently disabled uncommissioned build</td>
-</tr>
-<tr class="even">
-<td>Calibration tests</td>
-<td>Three Python/NumPy tests passed: recover an identifiable affine model, reject degenerate signals, expose an inadequate nonlinear fit through residuals</td>
+<td>Passed with Icarus Verilog 13.0: shared 1 MHz bus and separate ADC/FPGA chip selects, CH0/CH1/CH2 commands/data, one/two-Hall scans, 64-clock frames and telemetry CRC/ACK, paired-current PI/PWM, STOP, permit/external-fault gating, malformed/short/long/out-of-range frames, repeated IDs, sequence wrap, 50 ms watchdog, sampled overcurrent, safe fault clear, and default commissioning lockout</td>
 </tr>
 <tr class="odd">
-<td>FPGA implementation</td>
-<td>Active top-level design synthesized and routed for iCE40UP5K-SG48; final resource and timing summary below</td>
+<td>Current PI simulation</td>
+<td>Passed: exact Q8.8 arithmetic, accumulated integral, signed error, duty saturation, conditional anti-windup/unwinding, and disable/history reset</td>
+</tr>
+<tr class="even">
+<td>Calibration</td>
+<td>Five NumPy tests passed: two-Hall affine fit, one-Hall/current fit, one-Hall CSV without CH2, rejection of indistinguishable signals, and inadequate nonlinear residuals</td>
+</tr>
+<tr class="odd">
+<td>FPGA enabled top level</td>
+<td>Synthesized and routed for iCE40UP5K-SG48 with supplied constraints; 1099/5280 logic cells, 2/8 DSP blocks; routed internal clock estimate 46.59 MHz, passing the 24 MHz requirement</td>
+</tr>
+<tr class="even">
+<td>FPGA default disabled top level</td>
+<td>Synthesized and routed separately; 644/5280 logic cells, 0/8 DSP blocks; routed internal clock estimate 52.99 MHz, passing 24 MHz</td>
 </tr>
 </tbody>
 </table>
-<p>The final design uses the internal oscillator divided to nominal 24 MHz, while retaining nominal 20 kHz PWM and 10 kHz scans/current updates. Serial CRC and registered arithmetic/control paths avoid long combinational feedback paths. The ADC SPI clock is nominal 0.857 MHz to leave margin below its conservative 1 MHz limit.</p>
-<p>Implementation tools: YoWASP Yosys 0.70 and nextpnr-ice40 0.11.1. Resource/timing checks explicitly override <code>top.COMMISSIONED=1</code>; source defaults remain disabled. Reproduce by adding <code>chparam -set COMMISSIONED 1 top</code> before <code>synth_ice40 -dsp</code> in a verification build, then routing with the supplied PCF and <code>--freq 24</code>. Do not flash a verification build as authorization to skip bring-up.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Enabled top-level implementation</th>
-<th style="text-align: right;">Final result</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>UP5K logic cells</td>
-<td style="text-align: right;">1971 / 5280 (37%)</td>
-</tr>
-<tr class="even">
-<td>DSP blocks</td>
-<td style="text-align: right;">2 / 8 (25%)</td>
-</tr>
-<tr class="odd">
-<td>Routed maximum internal clock estimate</td>
-<td style="text-align: right;">45.79 MHz</td>
-</tr>
-<tr class="even">
-<td>Required nominal internal clock</td>
-<td style="text-align: right;">24.00 MHz — passed</td>
-</tr>
-</tbody>
-</table>
-<p>These are tool estimates for the checked source, pin map, and placement, not measured board performance. The divided internal clock leaves substantial margin beyond the 24 MHz nominal rate. The default disabled top-level was also built and routed separately; the active result above is the meaningful resource check.</p>
+<p>The enabled FPGA check overrides <code>top.COMMISSIONED=1</code>, <code>top.CURRENT_KP_Q8=256</code>, and <code>top.CURRENT_KI_Q8=16</code> before synthesis. These are verification gains, not calibrated plant settings. Shipped source defaults remain disabled with zero gains. The arithmetic simulation uses those same nonzero test gains. Tools: YoWASP Yosys 0.70 and nextpnr-ice40 0.11.1.</p>
+<p>Run <code>./tests/run.ps1</code> with GCC, Icarus/VVP, Python, and NumPy available; compiler/simulator paths can be supplied as parameters. The script runs firmware tests, both HDL benches, and calibration tests. The MCU source compilation additionally needs the course CMSIS/device headers and embedded C runtime. Build logs/tool downloads remain in ignored <code>build/</code>.</p>
 </section>
-<section id="limits-of-these-checks" class="level2">
-<h2 class="anchored" data-anchor-id="limits-of-these-checks">Limits of these checks</h2>
-<p>No boards or instruments were attached. No real lift, height accuracy, thermal behavior, analog bandwidth, wiring continuity, current-sense scale, gate-off time, or external serial timing has been measured. The full GNU Arm CMake executable/runtime link and programming workflow have not been executed in this environment; object compilation is not a verified flash image. The linker/build files are provided for the installed course toolchain workflow and need its final build/program check.</p>
-<p>Simulation uses ideal ADC values and a fixed clock, not a physical coil/field model. Static timing checks internal synchronous paths for the selected tool/device model; external interlock propagation and SPI setup/hold still require the scope tests in docs/bringup.md. Yosys reports its usual limited tri-state-support warning for MISO; the top-level pad is routed successfully and must be checked on the board.</p>
-<p>The report is rendered and local navigation checked as part of delivery. Course-final evidence remains outstanding: actual parts and quotes, CAD schematics, measured results, team biographies, photographs, demo video, instructor checkoff, and publication. See docs/checkoff.md for the proposed test matrix.</p>
+<section id="limits" class="level2">
+<h2 class="anchored" data-anchor-id="limits">Limits</h2>
+<p>No boards or instruments were attached. Source compilation is not a full GNU Arm runtime link or verified flash image. Timer/DMA interrupt execution, real SPI setup/hold, 200 us completion time including CRC and every-fifth-scan control work, ADC aperture skew, analog behavior, and physical shutdown latency require scope checks. Foreground HTML processing is separated from interrupt control, but actual interrupt execution time is not established by host tests.</p>
+<p>The HDL bench models an MCU performing ADC transactions on the shared bus and supplying the resulting current code. It does not execute the STM32 machine code or model the levitation plant. The 50 ms watchdog is checked against 1200000 FPGA clocks; physical tolerance depends on the actual oscillator. FPGA timing/resource figures are tool estimates with test gains. Yosys reports its limited internal tri-state support warning; the top-level MISO pad routes, and its bus release is tested in simulation and still needs hardware verification.</p>
+<p>No lift, indefinite suspension, visible motion, gap accuracy, coil heating, current calibration, or continuous-duty rating has been demonstrated. The example 8-10 mm interval, 1 mm/s slew, 10 mm/s filtered velocity ceiling, current limits, and control gains need measured validation. Complete <a href="bringup.html">bring-up</a> and <a href="checkoff.html">the evidence record</a> before commissioning.</p>
+<p>The requested <code>graphify update .</code> was attempted; the installed launcher fails with <code>uv trampoline failed to canonicalize script path</code>. No graph refresh is claimed. Project analysis and checks used the actual source files.</p>
 
 
 </section>

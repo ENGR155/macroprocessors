@@ -5,7 +5,7 @@ if(NOT DEFINED STM32_DEVICE_INCLUDE OR NOT DEFINED CMSIS_CORE_INCLUDE)
   message(FATAL_ERROR "Set STM32_DEVICE_INCLUDE and CMSIS_CORE_INCLUDE to your CMSIS include directories")
 endif()
 add_executable(maglev.elf src/startup.c src/main.c src/board_stm32l432.c
-  src/config.c src/control.c src/protocol.c src/web.c)
+  src/config.c src/control.c src/protocol.c src/runtime.c src/web.c)
 target_include_directories(maglev.elf PRIVATE include "${STM32_DEVICE_INCLUDE}" "${CMSIS_CORE_INCLUDE}")
 target_compile_definitions(maglev.elf PRIVATE STM32L432xx)
 target_compile_options(maglev.elf PRIVATE -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Communication contract v1 – E155 Magnetic Levitation</title>
+<title>Earlier communication contract v2 – E155 Magnetic Levitation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -98,6 +98,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../progress.html"> 
+<span class="menu-text">Progress Report</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Design</span>
@@ -149,10 +153,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#communication-contract-v1" id="toc-communication-contract-v1" class="nav-link active" data-scroll-target="#communication-contract-v1">Communication contract v1</a>
+  <li><a href="#communication-contract-v2" id="toc-communication-contract-v2" class="nav-link active" data-scroll-target="#communication-contract-v2">Communication contract v2</a>
   <ul class="collapse">
-  <li><a href="#mcu-fpga-spi" id="toc-mcu-fpga-spi" class="nav-link" data-scroll-target="#mcu-fpga-spi">MCU ↔︎ FPGA SPI</a></li>
-  <li><a href="#esp8266-mcu" id="toc-esp8266-mcu" class="nav-link" data-scroll-target="#esp8266-mcu">ESP8266 ↔︎ MCU</a></li>
+  <li><a href="#shared-mcu-spi-bus" id="toc-shared-mcu-spi-bus" class="nav-link" data-scroll-target="#shared-mcu-spi-bus">Shared MCU SPI bus</a></li>
+  <li><a href="#eight-byte-frames" id="toc-eight-byte-frames" class="nav-link" data-scroll-target="#eight-byte-frames">Eight-byte frames</a></li>
+  <li><a href="#esp8266-to-mcu" id="toc-esp8266-to-mcu" class="nav-link" data-scroll-target="#esp8266-to-mcu">ESP8266 to MCU</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -164,7 +169,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Communication contract v1</h1>
+<h1 class="title">Earlier communication contract v2</h1>
 </div>
 
 
@@ -181,13 +186,31 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Earlier implementation reference
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This guide records the earlier MCU-position/FPGA-current design or its planning and tests. The revised proposal puts position PI in the FPGA and ADC/DMA in the MCU. See <a href="../design.html">current system design</a> and <a href="../results.html">current status</a>. Historical checks do not verify the revised controller.</p>
+</div>
+</div>
 <p><a href="../documentation.html">Documentation</a> / Technical guide</p>
-<section id="communication-contract-v1" class="level1">
-<h1>Communication contract v1</h1>
-<section id="mcu-fpga-spi" class="level2">
-<h2 class="anchored" data-anchor-id="mcu-fpga-spi">MCU ↔︎ FPGA SPI</h2>
-<p>Separate bus from the ADC. Mode 0 (CPOL=0, CPHA=0), MSB first, 1 MHz maximum. CS leads the first rising SCK and follows the last falling SCK by at least 2 us. Clock exactly 128 bits under one CS. No bytes are read from MCU struct memory directly: the C codec packs explicit big-endian fields.</p>
-<p>CRC is CRC-16/CCITT-FALSE: polynomial <code>0x1021</code>, initial <code>0xffff</code>, no reflection, no final XOR, over bytes 0–13; stored high byte first at 14–15. Check vector <code>123456789 → 0x29b1</code>.</p>
+<section id="communication-contract-v2" class="level1">
+<h1>Communication contract v2</h1>
+<section id="shared-mcu-spi-bus" class="level2">
+<h2 class="anchored" data-anchor-id="shared-mcu-spi-bus">Shared MCU SPI bus</h2>
+<p>The STM32 owns SPI1 at 1 MHz, mode 0, MSB first. PA1 selects the MCP3204; PA4 selects the FPGA. PA5/PA7/PA6 are shared SCK/MOSI/MISO. Only one chip select may be low. The FPGA releases MISO when PA4 is high, including during ADC transactions.</p>
+<p>TIM6 releases one scan every 200 us (5 kHz). DMA1 channel 2/request 1 receives SPI1 data and channel 3/request 1 transmits it. Each ADC channel gets a separate 24-clock transaction: CH0 current, CH1 primary Hall, and optionally CH2 reference Hall. ADC CS is high for at least 1 us between conversions. These sequential readings belong to the same scan; they are not simultaneous. Then the MCU exchanges one 8-byte FPGA packet, with at least 2 us CS lead/trail guards. DMA completion interrupts advance the transactions. A DMA error, stalled SPI, or scan overrun removes permit and halts acquisition until reset.</p>
+<p>The FPGA consumes one new measured/requested-current pair per valid packet, nominally 5 kHz. The MCU estimates height and runs its position/motion controller every fifth completed ADC scan (1 kHz). The requested current computed on that scan is sent in the following FPGA transaction. HTML generation and UART traffic run in the foreground while acquisition/control runs in interrupts.</p>
+</section>
+<section id="eight-byte-frames" class="level2">
+<h2 class="anchored" data-anchor-id="eight-byte-frames">Eight-byte frames</h2>
+<p>Fields are explicitly packed big-endian. CRC-16/CCITT-FALSE uses polynomial <code>0x1021</code>, initial <code>0xffff</code>, no reflection/final XOR, over bytes 0-5, stored high byte first in bytes 6-7. Check vector: <code>123456789 -&gt; 0x29b1</code>. This wire format is incompatible with the old 16-byte design; rebuild both devices.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 40%">
@@ -204,68 +227,44 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">0</td>
-<td><code>0xa5</code></td>
-<td><code>0x5a</code></td>
+<td><code>0xa0</code> plus bit 0 enable, bit 1 clear</td>
+<td><code>0x50</code> plus bit 0 measurement ready, bit 1 enabled</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">1</td>
-<td>protocol <code>1</code></td>
-<td>protocol <code>1</code></td>
+<td>8-bit command sequence, increments every scan, wraps at 256</td>
+<td>last accepted command sequence</td>
 </tr>
 <tr class="odd">
-<td style="text-align: right;">2–3</td>
-<td>monotonically incrementing 16-bit command ID</td>
-<td>completed-scan sample ID, wraps at 65536</td>
+<td style="text-align: right;">2-3</td>
+<td>measured current ADC code, 0-4095</td>
+<td>active PWM duty, 0-1080 ticks</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
-<td>enable: 0 or 1</td>
-<td>Hall1 high byte</td>
+<td>requested current code high byte</td>
+<td>latched faults</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
-<td>clear fault: 0 or 1</td>
-<td>Hall1 low byte</td>
+<td>requested current code low byte</td>
+<td>reserved, zero</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">6–7</td>
-<td>current target ADC counts, 0…hard limit</td>
-<td>Hall2 counts</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">8–9</td>
-<td>current Kp Q8.8, 0…4096</td>
-<td>current counts</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">10–11</td>
-<td>current Ki Q8.8 per update, 0…1024</td>
-<td>active duty ticks, 0…1080</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">12</td>
-<td>current hard limit high byte</td>
-<td>latched fault bits</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">13</td>
-<td>current hard limit low byte</td>
-<td>flags: bit 0 scan ready; bit 1 enabled</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">14–15</td>
+<td style="text-align: right;">6-7</td>
 <td>CRC</td>
 <td>CRC</td>
 </tr>
 </tbody>
 </table>
-<p>Telemetry is the most recently prepared coherent scan/status snapshot, frozen at CS assertion; it is not the response to the command currently being transmitted. Status is rebuilt every 100 us. The command is accepted about 5 us after CS rises once its frame/CRC/bounds are valid. There is no command ACK field; confirm actual enable/fault state in subsequent telemetry. A rejected command cannot keep the output enabled indefinitely: the 20 ms watchdog still runs. MCU command IDs change every tick, including disabled packets; the FPGA rejects the immediately repeated ID. This detects frozen retransmission, not arbitrary network replay/security attacks.</p>
-<p>The accepted hard limit must be positive and no greater than the compiled FPGA ceiling. Targets use the ADC’s absolute code, including measured current zero offset. The hard limit also uses absolute counts; update both firmware and FPGA configuration together. Gain formats and fault bits are defined in docs/design.md. The MCU faults on invalid telemetry or on a sample ID unchanged for 3 ms. Flags indicate a completed scan, not electrical proof that an ADC is connected: a stuck but plausible MISO level cannot be fully diagnosed digitally.</p>
+<p>Measurement and target are absolute ADC codes, including current zero offset. The compiled FPGA ceiling is in <code>project_config.svh</code>; the firmware’s <code>hard_limit_counts</code> must agree. Current PI gains also live in that FPGA configuration, with Kp Q8.8 in 0-4096 and Ki Q8.8 in 0-1024; Ki includes the 200 us sample period. They no longer occupy packet fields. Example gains remain zero until measured and tuned.</p>
+<p>The reply is a coherent snapshot frozen at CS assertion, acknowledging the previous transaction. MCU feedback verifies that previous sequence after the first exchange; it does not interpret the reply as acknowledgment of the packet still on the wire. Local ADC data is retained separately and never overwritten by FPGA telemetry. A missing acknowledgment, CRC/bounds failure, or missed 200 us acquisition deadline trips MCU control.</p>
+<p>The FPGA rejects short/overlong packets, reserved flags, bad CRCs, out-of-range values, and immediately repeated sequence numbers. Rejected packets cannot update PI or refresh the watchdog. Every accepted packet updates the current PI once. Fifty milliseconds without a fresh command while enabled latches a timeout fault. This is an MCU-command watchdog, not independent proof of ADC electrical health. Frozen but plausible analog readings need physical diagnosis and the independent comparator/interlock.</p>
+<p>Fault bits: 0 external interlock, 1 measured overcurrent, 2 command timeout; bits 3-7 reserved. Clearing requires a fresh disabled packet, healthy external interlock, and measured current below the compiled limit. Clear and arm are separate actions. Permit and external fault directly remove gate permission without waiting for another serial packet.</p>
 </section>
-<section id="esp8266-mcu" class="level2">
-<h2 class="anchored" data-anchor-id="esp8266-mcu">ESP8266 ↔︎ MCU</h2>
-<p>Use the <a href="https://hmc-e155.github.io/lab/lab6/">course IoT server</a> at 125000 baud, 8 data bits, no parity, one stop bit. Its line format is <code>/REQ:&lt;route&gt;\n</code>. This implementation accepts CRLF too. Routes are short, exact strings: empty route reads the page; <code>arm</code>, <code>stop</code>, <code>clear</code>, <code>modegap</code>, <code>modeamp</code>, <code>up</code>, and <code>down</code> perform controls. Query parameters are unnecessary. Connect to the board’s existing SSID, then open <code>http://192.168.4.1/</code>.</p>
-<p>Each response is one HTML document from <code>&lt;!DOCTYPE html&gt;</code> through <code>&lt;/html&gt;</code>. The course bridge forwards HTML rather than a general JSON API. The page refreshes the <strong>root</strong> once per second so a refresh does not repeat an arm or increment command. Every recognized request renews the 5-second browser lease. A backgrounded browser or lost Wi-Fi therefore stops the system. The UART page path never blocks while waiting for bytes. Web STOP depends on communications and is distinct from the physical interlock.</p>
+<section id="esp8266-to-mcu" class="level2">
+<h2 class="anchored" data-anchor-id="esp8266-to-mcu">ESP8266 to MCU</h2>
+<p>The unchanged course bridge uses USART1, 125000 baud, 8N1, and <code>/REQ:&lt;route&gt;\n</code> (CRLF also accepted). Exact routes are empty/root, <code>arm</code>, <code>stop</code>, <code>clear</code>, <code>modegap</code>, <code>modeamp</code>, <code>up</code>, and <code>down</code>. The response is one complete HTML document. Refresh points at root once per second so commands are not repeated by refresh. A recognized request renews a 5-second browser lease; expiry is checked in the interrupt control path. Web STOP removes MCU permit immediately after parsing. Physical E-stop remains independent of communications.</p>
 
 
 </section>

@@ -99,6 +99,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link active" href="./index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./progress.html"> 
+<span class="menu-text">Progress Report</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Design</span>
@@ -175,25 +179,28 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>We are Stephen Kanti Mahanty and Ben Lertwachara, engineering and computer science students at Harvey Mudd College. For our ENGR 155 project, we are designing a magnetic levitation system using the STM32L432KC MCU and the UPduino FPGA.</p>
+<p>We are Stephen Kanti Mahanty and Ben Lertwachara at Harvey Mudd College. Our ENGR 155 project uses an STM32L432KC MCU and UPduino FPGA to control a suspended magnet and payload.</p>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>The goal of this project is to suspend a magnetic object below an electromagnet and control its height through a webpage. Two Hall sensors measure the magnetic field, and a current sensor measures the coil current. The MCU uses these readings to estimate the gap between the object and the coil and calculate the current needed to hold the object at the requested height. The FPGA reads the sensors and controls the coil current using PWM.</p>
-<p>We split the control between the MCU and FPGA so that the current controller can run faster than the position controller. The design uses a 1 kHz position loop, a 10 kHz current loop, and 20 kHz PWM. These are the intended operating rates and still need to be checked on hardware.</p>
+<p>Our target is a <strong>10 g total suspended mass</strong>, including magnet, carrier, and object, moving between <strong>10 and 20 mm surface gaps</strong> below a 12 V electromagnet. We have built a printed test setup, connected two Hall sensors to an ADC read by the FPGA, and tested the electromagnet with a MOSFET and sweeping PWM. The MCU receives data over a separate SPI link; reliable acquisition and feedback integration are in progress.</p>
+<p>The hardware webpage will graph requested and estimated gap in real time, display current and faults, accept PI gain changes, and provide Stop. This report website describes that interface; the hardware control page is served separately.</p>
 </section>
-<section id="project-status" class="level2">
-<h2 class="anchored" data-anchor-id="project-status">Project Status</h2>
-<p>The repository contains firmware, FPGA logic, tests, and a plan for building and testing the hardware. Software and HDL checks are documented in the <a href="./docs/verification.html">October 15, 2026 verification record</a>. The physical components have not been selected, assembled, or tested, and levitation has not been demonstrated.</p>
+<section id="project-status---november-15-2026" class="level2">
+<h2 class="anchored" data-anchor-id="project-status---november-15-2026">Project Status - November 15, 2026</h2>
+<p>Since the proposal, we have drafted and iterated CAD, printed and assembled the structure, received parts, tested Hall-sensor responses through the ADC, and exercised the MOSFET power stage with a PWM sweep. MCU and FPGA bring-up code, a basic design-review presentation, block diagrams, and an updated two-sheet schematic are also prepared.</p>
+<p><strong><a href="./progress.html">Read the new progress report</a></strong> for the build, tests, CAD iterations, schematics, source files, and next steps. The current wiring places ADC acquisition in the FPGA. Live 16-bit SPI readout is being debugged; calibrated position sensing and closed-loop levitation remain to be demonstrated.</p>
 </section>
 <section id="documentation" class="level2">
 <h2 class="anchored" data-anchor-id="documentation">Documentation</h2>
 <ul>
-<li><a href="./design.html">System Design</a>: system diagram, control loops, and calibration approach.</li>
-<li><a href="./mcu.html">MCU Design</a>: position estimation, control, and the webpage interface.</li>
-<li><a href="./fpga.html">FPGA Design</a>: sensor acquisition, current control, PWM, and fault handling.</li>
-<li><a href="./hardware.html">Hardware</a>: candidate components and proposed wiring.</li>
-<li><a href="./documentation.html">Technical Documentation</a>: build instructions, detailed notes, and source files.</li>
-<li><a href="./results.html">Results</a>: recorded tests and the measurements we still need to take.</li>
+<li><a href="./progress.html">Progress Report</a>: work completed since the proposal, with current diagrams and schematics.</li>
+<li><a href="./design.html">System Design</a>: current signal paths and planned feedback integration.</li>
+<li><a href="./mcu.html">MCU Design</a>: 16-bit SPI reception and planned hardware webpage.</li>
+<li><a href="./fpga.html">FPGA Design</a>: ADC interface, two-channel readout, SPI sender, and PWM.</li>
+<li><a href="./hardware.html">Hardware</a>: assembled parts, printed structure, and remaining characterization.</li>
+<li><a href="./docs/proposal.html">Proposal and Specifications</a>: commitments and proposal downloads.</li>
+<li><a href="./documentation.html">Documentation</a>: current sources and earlier engineering guides.</li>
+<li><a href="./results.html">Results</a>: dated evidence and measurements still needed.</li>
 </ul>
 </section>
 <section id="authors" class="level2">

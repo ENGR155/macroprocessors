@@ -1,0 +1,3 @@
+set_io sck 21
+set_io cs_n 20
+set_io miso 12

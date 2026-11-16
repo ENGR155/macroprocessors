@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Proposal working draft: Hall-sensed magnetic levitator – E155 Magnetic Levitation</title>
+<title>Proposal implementation reference – E155 Magnetic Levitation</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -98,6 +98,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../progress.html"> 
+<span class="menu-text">Progress Report</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Design</span>
@@ -149,7 +153,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#proposal-working-draft-hall-sensed-magnetic-levitator" id="toc-proposal-working-draft-hall-sensed-magnetic-levitator" class="nav-link active" data-scroll-target="#proposal-working-draft-hall-sensed-magnetic-levitator">Proposal working draft: Hall-sensed magnetic levitator</a></li>
+  <li><a href="#proposal-baseline-and-demonstration-specifications" id="toc-proposal-baseline-and-demonstration-specifications" class="nav-link active" data-scroll-target="#proposal-baseline-and-demonstration-specifications">Proposal baseline and demonstration specifications</a>
+  <ul class="collapse">
+  <li><a href="#committed-demonstration" id="toc-committed-demonstration" class="nav-link" data-scroll-target="#committed-demonstration">Committed demonstration</a></li>
+  <li><a href="#design-and-calculations" id="toc-design-and-calculations" class="nav-link" data-scroll-target="#design-and-calculations">Design and calculations</a></li>
+  <li><a href="#sources-and-planning" id="toc-sources-and-planning" class="nav-link" data-scroll-target="#sources-and-planning">Sources and planning</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -160,7 +169,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Proposal working draft: Hall-sensed magnetic levitator</h1>
+<h1 class="title">Proposal implementation reference</h1>
 </div>
 
 
@@ -178,17 +187,85 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p><a href="../documentation.html">Documentation</a> / Technical guide</p>
-<section id="proposal-working-draft-hall-sensed-magnetic-levitator" class="level1">
-<h1>Proposal working draft: Hall-sensed magnetic levitator</h1>
-<p><strong>Readiness:</strong> an implementation proposal for team review, not an already validated promise. First confirm the feasible object and gap interval; then replace candidate numerical specifications with the team’s committed values and paginate the prose to the course limit. Supporting diagrams, calculations, schedule, and BOM are linked below.</p>
-<p>We will build a single-axis magnetic suspension using the E155 STM32L432KC and UPduino v3.1. An overhead electromagnet will support an object containing a permanent magnet. Two linear Hall sensors and a measured coil-current signal will estimate its vertical gap. A local Wi-Fi webpage will select a bounded gap target, show estimated gap/current/fault status, and stop operation. A capped current-test mode will support calibration and debugging while the object is mechanically supported.</p>
-<p>The proposed acceptance specification is continuous suspension for 30 seconds, operation at three commanded gaps in a validated interval initially targeted at 8–14 mm, steady mean gap error no greater than 0.5 mm after settling, and recovery from a small recorded disturbance. A current cap, loss-of-command timeout, and physical interlock will remove drive when required. A separate reference measurement will evaluate actual height; the Hall estimate alone will not establish accuracy. Feasibility testing may require a narrower interval before this proposal is committed.</p>
-<p>The MCU will perform calibrated field compensation, filtered velocity estimation, 1 kHz PD/PID position control, target ramping, UART communication with the course ESP8266, and 1 MHz SPI exchanges with the FPGA. The FPGA will acquire current and both Hall channels through an MCP3204, run a fixed-point 10 kHz PI current controller, generate 20 kHz PWM, validate commands, and apply autonomous fault/watchdog supervision. These functions continue while the MCU formats and transmits pages.</p>
-<p>The largest technical risk is separating object position from coil field across changing current, temperature, and object orientation. We will test this first using known gaps and currents, then validate a local estimator on an independent sweep. If the estimator cannot meet the proposed error bound, the geometry/object/sensor arrangement must change before claiming a working height loop. A steel-only sphere requires explicit current-dependent characterization and is not assumed compatible with the initial estimator.</p>
-<p>The power circuit uses a separately supplied coil, low-side MOSFET and gate driver, an inline current shunt/amplifier inside the flyback loop, and a physical E-stop/current comparator interlock. Coil force across an air gap, current response, and continuous heating will determine final component ratings. Default firmware and HDL are disabled until bring-up gates pass.</p>
-<p>See <a href="design.html">system diagram, control equations, and performance calculations</a>, <a href="../hardware/bom.csv">candidate BOM</a>, and <a href="course.html">six-week division of work</a>. All non-course parts remain unpurchased; budget entries are allowances awaiting exact quotes and stockroom confirmation. Team names, confirmed budget, and the feasible operating interval must be settled before submission.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proposal baseline
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This page preserves the proposal and its assumptions. The <a href="../progress.html">November 15 progress report</a> documents the assembled setup, current FPGA-owned ADC connection, tests, and updated schematic.</p>
+</div>
+</div>
+<section id="proposal-baseline-and-demonstration-specifications" class="level1">
+<h1>Proposal baseline and demonstration specifications</h1>
+<p>The revised <a href="../overleaf_10mm/proposal.pdf">LaTeX proposal</a> and <a href="../overleaf_10mm/proposal.tex">source</a> describe FPGA position PI driving PWM directly, with MCU ADC/DMA, gap estimation, and web communication. These are proposal assumptions. The <a href="../progress.html">November 15 progress report</a> documents the later FPGA-owned ADC wiring, assembled hardware, and bench tests. The repository also contains the <a href="../MicroPEs_Proposal.pdf">MicroPEs proposal PDF</a>.</p>
+<section id="committed-demonstration" class="level2">
+<h2 class="anchored" data-anchor-id="committed-demonstration">Committed demonstration</h2>
+<p>The magnet, carrier, and object total <strong>10 g</strong>. Surface gap is measured downward from the electromagnet’s bottom face to the suspended magnet’s top face. The commanded range is <strong>10–20 mm</strong>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Category</th>
+<th>Level</th>
+<th>Proposal specification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Hardware and levitation</td>
+<td>Proficiency</td>
+<td>Use the webpage to move from 20 to 10 mm and back five times without contact</td>
+</tr>
+<tr class="even">
+<td>Hardware and levitation</td>
+<td>Excellence</td>
+<td>Complete five 20-to-10 mm round trips, reaching within ±5 mm of each requested gap</td>
+</tr>
+<tr class="odd">
+<td>Control and webpage</td>
+<td>Proficiency</td>
+<td>Show requested gap, estimated gap, coil current, and fault state on a real-time webpage graph, with no visible latency during demonstration</td>
+</tr>
+<tr class="even">
+<td>Control and webpage</td>
+<td>Proficiency</td>
+<td>Allow position PI constant updates from the webpage</td>
+</tr>
+<tr class="odd">
+<td>Control and webpage</td>
+<td>Excellence</td>
+<td>Demonstrate visibly noticeable webpage-controlled motion across the controllable range</td>
+</tr>
+</tbody>
+</table>
+<p>Excellence includes all proficiency checks. These are commitments from the proposal, not completed tests. Check them with a ruler, stopwatch, webpage, and scope or logic analyzer as appropriate. Record quantitative latency even though the graph criterion is phrased visually.</p>
+</section>
+<section id="design-and-calculations" class="level2">
+<h2 class="anchored" data-anchor-id="design-and-calculations">Design and calculations</h2>
+<p>Two Hall sensors are mounted above and below the electromagnet. The MCU reads them and current on separate ADC channels at 5 kHz using SPI DMA, estimates gap at 1 kHz, and serves the interface through the ESP8266. The FPGA runs 1 kHz position PI and 20 kHz PWM, with a proposed 50 ms command watchdog and independent external shutdown.</p>
+<p>The <a href="../overleaf_10mm/calculation_summary.pdf">calculation summary</a> distinguishes center distance from surface gap and identifies assumed coil parameters. The 10 mm example is a stability analysis point; it does not replace the proposal’s 10–20 mm surface-gap motion specification. The air-core example neither validates the selected electromagnet nor supplies safe controller gains.</p>
+</section>
+<section id="sources-and-planning" class="level2">
+<h2 class="anchored" data-anchor-id="sources-and-planning">Sources and planning</h2>
+<ul>
+<li><a href="../Magnetic_Levitation_Overleaf_10mm.zip">Complete Overleaf package</a></li>
+<li><a href="../overleaf_10mm/proposal.pdf">Revised proposal PDF</a> and <a href="../overleaf_10mm/proposal.tex">LaTeX</a></li>
+<li><a href="../overleaf_10mm/calculation_summary.pdf">Calculation PDF</a> and <a href="../overleaf_10mm/calculation_summary.tex">LaTeX</a></li>
+<li>Project discussions: “Create magnetic levitation textbook…” (architecture, position PI correction, selected hardware, and SPI bring-up); “Add lifting calculations and specs” (two sensors and physical checkoff); “Convert to LaTeX proposal” (position-resolution notes).</li>
+</ul>
+<p>The proposal retains a $49 budget allowance and six-week schedule. Weeks 1–2 cover force/driver/PWM and ADC/calibration; weeks 3–4 cover FPGA PI, frame, estimator, and timing; weeks 5–6 cover the webpage, shutdown, motion evidence, and report. These are planned assignments, not a completion record.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

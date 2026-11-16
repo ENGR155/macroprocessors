@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Candidate components and wiring for the magnetic levitation system.">
+<meta name="description" content="Printed test setup, received components, Hall wiring, and tested electromagnet drive.">
 
 <title>Hardware – E155 Magnetic Levitation</title>
 <style>
@@ -99,6 +99,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./progress.html"> 
+<span class="menu-text">Progress Report</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Design</span>
@@ -150,11 +154,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#current-status" id="toc-current-status" class="nav-link active" data-scroll-target="#current-status">Current Status</a></li>
-  <li><a href="#course-boards" id="toc-course-boards" class="nav-link" data-scroll-target="#course-boards">Course Boards</a></li>
-  <li><a href="#candidate-components" id="toc-candidate-components" class="nav-link" data-scroll-target="#candidate-components">Candidate Components</a></li>
-  <li><a href="#coil-and-suspended-object" id="toc-coil-and-suspended-object" class="nav-link" data-scroll-target="#coil-and-suspended-object">Coil and Suspended Object</a></li>
-  <li><a href="#wiring-and-initial-tests" id="toc-wiring-and-initial-tests" class="nav-link" data-scroll-target="#wiring-and-initial-tests">Wiring and Initial Tests</a></li>
+  <li><a href="#assembled-test-setup" id="toc-assembled-test-setup" class="nav-link active" data-scroll-target="#assembled-test-setup">Assembled test setup</a></li>
+  <li><a href="#components-in-the-current-work" id="toc-components-in-the-current-work" class="nav-link" data-scroll-target="#components-in-the-current-work">Components in the current work</a></li>
+  <li><a href="#current-schematic" id="toc-current-schematic" class="nav-link" data-scroll-target="#current-schematic">Current schematic</a></li>
+  <li><a href="#characterization-still-required" id="toc-characterization-still-required" class="nav-link" data-scroll-target="#characterization-still-required">Characterization still required</a></li>
   </ul>
 </nav>
     </div>
@@ -170,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    Candidate components and wiring for the magnetic levitation system.
+    Printed test setup, received components, Hall wiring, and tested electromagnet drive.
   </div>
 </div>
 
@@ -187,16 +190,13 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="current-status" class="level2">
-<h2 class="anchored" data-anchor-id="current-status">Current Status</h2>
-<p>We have not selected, assembled, or tested the physical components. The parts below are candidates, and the bill of materials contains estimated allowances.</p>
+<section id="assembled-test-setup" class="level2">
+<h2 class="anchored" data-anchor-id="assembled-test-setup">Assembled test setup</h2>
+<p>CAD parts have been drafted, iterated, printed, and assembled to hold the electromagnet and sensors in a testable setup. Revisions address actual component fit, sensor position adjustment, soldered-wire access, and mounting hardware. The <a href="./progress.html#mechanical-design-and-fabrication">progress report</a> shows CAD views of the adjustable-holder and front common-rod iterations.</p>
+<p>The CAD incorporates the D68-N52 moving magnet and DC1 helper disks. The final helper arrangement, moving mass, sensor positions, and polarity must be recorded with the calibration. The proposal’s 10 g mass and 10–20 mm gap remain demonstration targets.</p>
 </section>
-<section id="course-boards" class="level2">
-<h2 class="anchored" data-anchor-id="course-boards">Course Boards</h2>
-<p>The design uses the STM32L432KC for position estimation and control, the UPduino v3.1 for sensor acquisition and current control, and the course ESP8266 for the webpage interface. The existing ESP8266 firmware is used unchanged.</p>
-</section>
-<section id="candidate-components" class="level2">
-<h2 class="anchored" data-anchor-id="candidate-components">Candidate Components</h2>
+<section id="components-in-the-current-work" class="level2">
+<h2 class="anchored" data-anchor-id="components-in-the-current-work">Components in the current work</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -206,66 +206,70 @@ ul.task-list li input[type="checkbox"] {
 <thead>
 <tr class="header">
 <th>Function</th>
-<th>Candidate</th>
-<th>What we need to check</th>
+<th>Current hardware</th>
+<th>Evidence and next check</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Magnetic field sensing</td>
-<td>Two TI DRV5055 Hall sensors</td>
-<td>Choose A3/A4 sensitivity based on the measured field range</td>
+<td>MCU readout</td>
+<td>STM32L432KC</td>
+<td>Fixed-byte reception reported; 16-bit live readout in progress</td>
+</tr>
+<tr class="even">
+<td>ADC interface and PWM</td>
+<td>UPduino v3.1</td>
+<td>Connected to ADC and MOSFET test circuit</td>
+</tr>
+<tr class="odd">
+<td>Hall sensing</td>
+<td>Two DRV5056-family devices</td>
+<td>Wired and tested at different magnet positions; installed A3/A4 positions to be recorded</td>
 </tr>
 <tr class="even">
 <td>Analog conversion</td>
-<td>MCP3204-CI/P</td>
-<td>12-bit, 3.3 V operation with three channels</td>
+<td>MCP3204</td>
+<td>Hall outputs connected to CH0/CH1; read by FPGA</td>
 </tr>
 <tr class="odd">
-<td>Coil current sensing</td>
-<td>INA240A1 and 0.100 ohm shunt</td>
-<td>Offset, gain, and usable current range</td>
+<td>Electromagnet</td>
+<td>Heyiarbeit JF-XP2520-12V, nominal 25 mm × 20 mm</td>
+<td>Received and tested with MOSFET/PWM; force and thermal characterization pending</td>
 </tr>
 <tr class="even">
-<td>Gate driver</td>
-<td>UCC27511</td>
-<td>Compatibility with the selected MOSFET and supply</td>
+<td>Low-side switch</td>
+<td>2N7000 used in the small-electromagnet test</td>
+<td>AO3400A selected for a larger coil; identify the installed device for each run</td>
 </tr>
 <tr class="odd">
-<td>Power switching</td>
-<td>MOSFET and flyback diode or clamp</td>
-<td>Coil current, supply voltage, and switching transients</td>
+<td>Gate network and flyback</td>
+<td>Latest drawing: 1 kΩ series, 47 kΩ gate-to-source, diode across coil</td>
+<td>Circuit tested; final diode part number and switching measurements to be recorded</td>
 </tr>
 <tr class="even">
-<td>Mechanical support</td>
-<td>Nonmagnetic frame and catch tray</td>
-<td>Repeatable gap and object orientation</td>
-</tr>
-<tr class="odd">
-<td>Independent shutdown</td>
-<td>E-stop, current comparator, and output logic</td>
-<td>Shutdown delay and behavior when a connection is lost</td>
+<td>Structure</td>
+<td>Printed frame, head, cassette, and sensor mounts</td>
+<td>Physical setup assembled and CAD iterated</td>
 </tr>
 </tbody>
 </table>
-<p>With a 0.100 ohm shunt and a gain of 20, the ideal current-sense output is 2 V/A. A 3.3 V ADC reference gives approximately 0.403 mA per count. The actual offset and scale will need calibration.</p>
+<p>The DRV5056 identification and FPGA-owned ADC connection supersede the DRV5055/MCU-ADC descriptions on earlier pages. The latest schematic does not establish an installed INA240 current sensor, shunt, separate gate driver, or overcurrent comparator. Those proposal components should not be assumed present.</p>
 </section>
-<section id="coil-and-suspended-object" class="level2">
-<h2 class="anchored" data-anchor-id="coil-and-suspended-object">Coil and Suspended Object</h2>
-<p>A coil’s holding-force rating at contact does not tell us how much force it can produce across an air gap. We plan to start with an instructor-approved test coil and measure force versus current and gap, winding resistance, inductance, and temperature.</p>
-<p>The position estimate assumes that the object contains a permanent magnet with a repeatable orientation. We also need to check for rotation, attraction to the core, and gaps that produce similar Hall readings. A steel-only object would require a different characterization procedure.</p>
+<section id="current-schematic" class="level2">
+<h2 class="anchored" data-anchor-id="current-schematic">Current schematic</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/progress-report/maglev_schematic_2_power.svg" class="img-fluid figure-img" alt="Low-side MOSFET electromagnet switching circuit driven by FPGA pad 10 with a flyback diode."></p>
+<figcaption>Current low-side electromagnet switching schematic.</figcaption>
+</figure>
+</div>
+<p>The coil uses a 12 V supply; FPGA logic and supply share ground. The flyback diode cathode is on +12 V and its anode is at the MOSFET drain. The gate is driven from FPGA pad 10 through the series resistor. Earlier pad-36 experiments used a different test build.</p>
+<p>See the <a href="./progress.html#two-spi-interfaces">sensing sheet and ADC pin map</a>, download the <a href="assets/progress-report/maglev_schematic.docx">editable schematic document</a>, or open the <a href="assets/progress-report/maglev_diagrams.zip">diagram bundle</a>.</p>
 </section>
-<section id="wiring-and-initial-tests" class="level2">
-<h2 class="anchored" data-anchor-id="wiring-and-initial-tests">Wiring and Initial Tests</h2>
-<p>The proposed netlist uses separate SPI buses for MCU-to-FPGA communication and FPGA-to-ADC acquisition. The hardware guide lists the jumpers, voltage levels, power connections, and interlock wiring.</p>
-<p>The configuration values <code>power_stage_ready=false</code>, <code>calibration_ready=false</code>, and <code>LEV_COMMISSIONED=0</code> keep the output disabled until the corresponding bring-up checks are complete.</p>
-<ul>
-<li><a href="./docs/hardware.html">Hardware and Wiring Guide</a></li>
-<li><a href="./docs/bringup.html">Bring-up Procedure</a></li>
-<li><a href="hardware/bom.csv">Candidate Bill of Materials</a></li>
-<li><a href="hardware/netlist.md">Proposed Circuit Netlist</a></li>
-</ul>
-<p>CAD schematics, supplier quotes, assembly photographs, and measured component ratings still need to be added.</p>
+<section id="characterization-still-required" class="level2">
+<h2 class="anchored" data-anchor-id="characterization-still-required">Characterization still required</h2>
+<p>Record force versus gap and duty/current using the complete magnet assembly, together with coil resistance, operating temperature, Hall headroom, and repeated position measurements. Approximate supply readings during a sweep are useful observations but do not establish rated coil current or lift at the intended gap. Sustained operation also needs evaluation with the actual printed material and mounting arrangement.</p>
+<p>The <a href="hardware/bom.csv">candidate BOM</a>, <a href="hardware/netlist.md">earlier netlist</a>, and proposal budget are historical planning records. The current schematic and progress report document the bench revision; a final as-built parts list and purchase total remain to be compiled.</p>
 
 
 </section>

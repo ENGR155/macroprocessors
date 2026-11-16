@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="ADC acquisition, current control, PWM, and fault handling on the UPduino.">
+<meta name="description" content="ADC SPI acquisition, Hall-channel subtraction, MCU word transmission, and PWM testing.">
 
 <title>FPGA Design – E155 Magnetic Levitation</title>
 <style>
@@ -99,6 +99,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./progress.html"> 
+<span class="menu-text">Progress Report</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Design</span>
@@ -150,12 +154,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#reading-the-adc" id="toc-reading-the-adc" class="nav-link" data-scroll-target="#reading-the-adc">Reading the ADC</a></li>
-  <li><a href="#current-controller" id="toc-current-controller" class="nav-link" data-scroll-target="#current-controller">Current Controller</a></li>
-  <li><a href="#fault-handling" id="toc-fault-handling" class="nav-link" data-scroll-target="#fault-handling">Fault Handling</a></li>
-  <li><a href="#source-files" id="toc-source-files" class="nav-link" data-scroll-target="#source-files">Source Files</a></li>
-  <li><a href="#testing" id="toc-testing" class="nav-link" data-scroll-target="#testing">Testing</a></li>
+  <li><a href="#current-bench-implementation" id="toc-current-bench-implementation" class="nav-link active" data-scroll-target="#current-bench-implementation">Current bench implementation</a></li>
+  <li><a href="#data-path-and-integration" id="toc-data-path-and-integration" class="nav-link" data-scroll-target="#data-path-and-integration">Data path and integration</a></li>
+  <li><a href="#pwm-experiment" id="toc-pwm-experiment" class="nav-link" data-scroll-target="#pwm-experiment">PWM experiment</a></li>
+  <li><a href="#feedback-and-earlier-hdl" id="toc-feedback-and-earlier-hdl" class="nav-link" data-scroll-target="#feedback-and-earlier-hdl">Feedback and earlier HDL</a></li>
   </ul>
 </nav>
     </div>
@@ -171,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    ADC acquisition, current control, PWM, and fault handling on the UPduino.
+    ADC SPI acquisition, Hall-channel subtraction, MCU word transmission, and PWM testing.
   </div>
 </div>
 
@@ -188,105 +190,61 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>The UPduino FPGA reads the sensors and regulates the coil current. We placed the current controller on the FPGA so that it can run independently of the MCU’s position calculations and webpage communication.</p>
-</section>
-<section id="reading-the-adc" class="level2">
-<h2 class="anchored" data-anchor-id="reading-the-adc">Reading the ADC</h2>
-<p>The design uses a nominal 24 MHz internal clock and starts an ADC scan every 100 microseconds. The MCP3204 reads three channels in order: coil current on CH0, the primary Hall sensor on CH1, and the reference Hall sensor on CH2. The completed readings are stored together with a sample ID for the MCU.</p>
-<p>The ADC SPI clock is approximately 0.857 MHz. Three conversions and the chip-select gaps take approximately 87 microseconds. Sampling starts 2.5 microseconds after every other PWM period begins. The PWM falling edge can still occur during a scan, so filtering and oscilloscope measurements are needed to check for switching noise.</p>
-</section>
-<section id="current-controller" class="level2">
-<h2 class="anchored" data-anchor-id="current-controller">Current Controller</h2>
-<p>The PI controller calculates the PWM duty using ADC counts and PWM ticks. The gains use Q8.8 fixed-point values. Dividing <code>kp_q8</code> by 256 gives ticks per count, and dividing <code>ki_q8</code> by 256 gives ticks per count per 100 microseconds update.</p>
-<p>The calculation uses seven registered arithmetic stages and completes in less than 0.3 microseconds at the nominal clock rate. The integrator is limited to +/-1080 * 256. Disabling the controller clears its history.</p>
+<section id="current-bench-implementation" class="level2">
+<h2 class="anchored" data-anchor-id="current-bench-implementation">Current bench implementation</h2>
+<p>The UPduino reads the MCP3204 over SPI, forms a two-channel Hall readout, presents a measurement word to the MCU over a separate SPI interface, and generates a duty sweep for the electromagnet MOSFET. The current <a href="fpga/pwm_sweeper/top.sv">top module</a> connects these blocks. Acquisition and live-word transfer are still being debugged; the sweep operates without position feedback.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Parameter</th>
-<th>Design value</th>
+<th>Block</th>
+<th>Source</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Internal clock</td>
-<td>24 MHz nominal</td>
+<td>ADC SPI master</td>
+<td><a href="fpga/pwm_sweeper/adc_spi.sv">adc_spi.sv</a></td>
+<td>Channel selection, serial acquisition, and channel subtraction</td>
 </tr>
 <tr class="even">
-<td>Current update period</td>
-<td>2400 cycles, or 100 microseconds</td>
+<td>MCU-facing sender</td>
+<td><a href="fpga/pwm_sweeper/spi_byte_tx.sv">spi_byte_tx.sv</a></td>
+<td>Contains <code>spi_word_tx</code>, a 16-bit mode-0 measurement sender</td>
 </tr>
 <tr class="odd">
-<td>PWM period</td>
-<td>1200 cycles, or 50 microseconds</td>
+<td>Duty sweep</td>
+<td><a href="fpga/pwm_sweeper/sweep_8bit.sv">sweep_8bit.sv</a></td>
+<td>Varies an 8-bit duty command up and down</td>
 </tr>
 <tr class="even">
-<td>Maximum duty</td>
-<td>1080 ticks, or 90%</td>
+<td>PWM</td>
+<td><a href="fpga/pwm_sweeper/pwm.sv">pwm.sv</a> and <a href="fpga/pwm_sweeper/counter.sv">counter.sv</a></td>
+<td>Counter-based output generation</td>
 </tr>
 <tr class="odd">
-<td>Command timeout</td>
-<td>20 ms</td>
-</tr>
-<tr class="even">
-<td>ADC timeout</td>
-<td>250 microseconds</td>
+<td>Pin assignments</td>
+<td><a href="fpga/pwm_sweeper/pins.pcf">pins.pcf</a></td>
+<td>ADC pads 44/13/18/9, MCU pads 21/20/12, PWM pad 10</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="fault-handling" class="level2">
-<h2 class="anchored" data-anchor-id="fault-handling">Fault Handling</h2>
-<p>The FPGA checks command packets using a serial CRC. A malformed packet or repeated sequence number does not reset the command timeout. Validation finishes approximately 5 microseconds after chip select rises.</p>
-<p>Four conditions can latch a fault: loss of the external interlock, sampled overcurrent, command timeout, and ADC timeout. Clearing a fault requires a valid disabled command, a recent ADC scan, a healthy external input, and current below the requested hard limit. Arming the controller is a separate command.</p>
-<p>Normal PWM updates happen at period boundaries. A fault or loss of permission can stop a pulse immediately. The default build keeps the output disabled, and the proposed physical interlock still needs to be tested on the board.</p>
+<section id="data-path-and-integration" class="level2">
+<h2 class="anchored" data-anchor-id="data-path-and-integration">Data path and integration</h2>
+<p>Hall A and Hall B connect to MCP3204 CH0 and CH1. The acquisition code alternates channels and forms a difference. The ADC interface runs from the FPGA clock, while the measurement sender advances on the MCU’s SPI clock. A stable snapshot or equivalent coherent handoff is needed before treating a changing measurement as a reliable transferred word.</p>
+<p>The ADC result width is 12 bits, the MCU transfer is 16 bits, and the duty command is 8 bits. Subtraction sign, overflow, channel alignment, initialization, and sampling boundaries remain verification work. The latest no-magnet debug readings varied substantially, so raw output is not yet a calibrated position measurement.</p>
 </section>
-<section id="source-files" class="level2">
-<h2 class="anchored" data-anchor-id="source-files">Source Files</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>File</th>
-<th>Function</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="fpga/rtl/top.sv">top.sv</a></td>
-<td>Oscillator and board connections</td>
-</tr>
-<tr class="even">
-<td><a href="fpga/rtl/lev_core.sv">lev_core.sv</a></td>
-<td>Integration, timing, output gating, and faults</td>
-</tr>
-<tr class="odd">
-<td><a href="fpga/rtl/mcp3204_scan.sv">mcp3204_scan.sv</a></td>
-<td>Three-channel ADC sequencing</td>
-</tr>
-<tr class="even">
-<td><a href="fpga/rtl/current_pi.sv">current_pi.sv</a></td>
-<td>Fixed-point PI controller</td>
-</tr>
-<tr class="odd">
-<td><a href="fpga/rtl/spi_frame.sv">spi_frame.sv</a></td>
-<td>MCU SPI interface</td>
-</tr>
-<tr class="even">
-<td><a href="fpga/rtl/crc112.sv">crc112.sv</a></td>
-<td>Packet checksum</td>
-</tr>
-<tr class="odd">
-<td><a href="fpga/constraints/upduino.pcf">upduino.pcf</a></td>
-<td>Proposed pin assignments</td>
-</tr>
-</tbody>
-</table>
+<section id="pwm-experiment" class="level2">
+<h2 class="anchored" data-anchor-id="pwm-experiment">PWM experiment</h2>
+<p>The PWM block compares an 8-bit counter against the duty command. Its prescaler and 256-count cycle give a nominal period of <strong>2304 FPGA clock ticks</strong>. At an assumed 48 MHz input this corresponds to approximately <strong>20.8 kHz</strong>; this is a calculation from the source, not a measured scope result. The oscillator setting and actual output frequency must be checked for the programmed build.</p>
+<p>The current sweeper output is pad 10. Earlier fixed-frequency pad-36 tests are separate experiments. See the <a href="./progress.html#electromagnet-and-pwm-testing">power-stage schematic</a> and <a href="./results.html">reported bench observations</a>.</p>
 </section>
-<section id="testing" class="level2">
-<h2 class="anchored" data-anchor-id="testing">Testing</h2>
-<p>The recorded enabled build uses 1971 of 5280 logic cells and 2 of 8 DSP blocks. The routed maximum clock estimate is 45.79 MHz, which is above the 24 MHz design requirement. These values come from the implementation tools and have not been measured on a board.</p>
-<p><a href="./results.html">Results</a> | <a href="./docs/design.html#fpga-pipeline">Detailed Timing Calculations</a></p>
+<section id="feedback-and-earlier-hdl" class="level2">
+<h2 class="anchored" data-anchor-id="feedback-and-earlier-hdl">Feedback and earlier HDL</h2>
+<p>Position estimation, a validated control law, duty limits, and measured fault/shutdown behavior remain system integration work. The present duty sweep is an open-loop actuation test.</p>
+<p><a href="fpga/rtl/lev_core.sv">lev_core.sv</a>, <a href="fpga/rtl/current_pi.sv">current_pi.sv</a>, and <a href="fpga/rtl/spi_frame.sv">spi_frame.sv</a> implement the earlier full application. Their <a href="./docs/verification.html">October 26 verification</a> does not establish the behavior or resource use of the current ADC/PWM build. The separate <a href="simple_byte/spi_byte.sv">fixed-byte sender</a> and <a href="simple_byte/tb_spi_byte.sv">testbench</a> record the earlier communication experiment.</p>
+<p><a href="./progress.html">Progress report</a> | <a href="./mcu.html">MCU readout</a> | <a href="./results.html">Results</a></p>
 
 
 </section>

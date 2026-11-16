@@ -98,6 +98,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../progress.html"> 
+<span class="menu-text">Progress Report</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Design</span>
@@ -182,6 +186,19 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Earlier implementation reference
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This guide records the earlier MCU-position/FPGA-current design or its planning and tests. The revised proposal puts position PI in the FPGA and ADC/DMA in the MCU. See <a href="../design.html">current system design</a> and <a href="../results.html">current status</a>. Historical checks do not verify the revised controller.</p>
+</div>
+</div>
 <p><a href="../documentation.html">Documentation</a> / Technical guide</p>
 <section id="candidate-hardware-and-proposed-wiring" class="level1">
 <h1>Candidate hardware and proposed wiring</h1>
@@ -189,14 +206,15 @@ ul.task-list li input[type="checkbox"] {
 <section id="parts-and-early-decision" class="level2">
 <h2 class="anchored" data-anchor-id="parts-and-early-decision">Parts and early decision</h2>
 <ul>
-<li>Two <strong>TI DRV5055 linear analog Hall sensors</strong>, initially evaluate A3 or A4 sensitivity. Choose the full ordering code/package after measuring field range. These are analog sensors, not magnetic switches. Power them at 3.3 V with local 100 nF bypassing; use the same quiet rail for the ADC reference. The <a href="https://www.ti.com/lit/ds/symlink/drv5055.pdf">manufacturer datasheet</a> specifies the transfer range, orientation, and bandwidth. Verify package pin numbering; TO-92 and SOT-23 differ.</li>
-<li>One <strong>MCP3204-CI/P</strong> 12-bit ADC at 3.3 V, with CH0 current, CH1 primary Hall, CH2 reference Hall, and unused CH3 tied to analog ground. See the <a href="https://ww1.microchip.com/downloads/en/DeviceDoc/21298e.pdf">MCP3204 datasheet</a>. The FPGA drives this bus independently of the MCU bus.</li>
+<li>One or two <strong>TI DRV5055 linear analog Hall sensors</strong>, initially evaluate A3 or A4 sensitivity. Set <code>hall_sensors</code> in firmware to match the installed count; an absent CH2 should be grounded. Choose the full ordering code/package after measuring field range. These are analog sensors, not magnetic switches. Power them at 3.3 V with local 100 nF bypassing; use the same quiet rail for the ADC reference. The <a href="https://www.ti.com/lit/ds/symlink/drv5055.pdf">manufacturer datasheet</a> specifies the transfer range, orientation, and bandwidth. Verify package pin numbering; TO-92 and SOT-23 differ.</li>
+<li>One <strong>MCP3204-CI/P</strong> 12-bit ADC at 3.3 V, with CH0 current, CH1 primary Hall, CH2 reference Hall, and unused CH3 tied to analog ground. See the <a href="https://ww1.microchip.com/downloads/en/DeviceDoc/21298e.pdf">MCP3204 datasheet</a>. The MCU drives this ADC on SPI1, sharing clock/data lines with the FPGA and using a separate chip select.</li>
 <li>One <strong>INA240A1</strong> amplifier, gain 20, and a <strong>0.100 ohm precision shunt</strong> in series with the coil. At 3.3 V, ground both REF inputs for unidirectional measurement. Account for zero-current output headroom/offset in calibration. Its <a href="https://www.ti.com/lit/ds/symlink/ina240.pdf">datasheet</a> describes common-mode behavior and PWM rejection. An SOIC adapter or assembled board is needed if using a bare IC.</li>
 <li>A MOSFET with verified on-resistance at the actual gate voltage, a gate driver such as <strong>UCC27511</strong>, and a flyback diode rated above coil current and supply/transient voltage. Driver inputs, supply bypassing, and gate discharge follow its <a href="https://www.ti.com/lit/ds/symlink/ucc27511.pdf">datasheet</a>. A 5 V driver supply is a candidate, subject to the selected MOSFET.</li>
 <li>A separate current-limited coil supply, fuse, physical E-stop, current comparator, output logic, and a nonmagnetic frame with a catch tray. Coil voltage/current, fuse, diode/clamp, MOSFET, threshold circuit, and thermal ratings remain contingent on the coil.</li>
 </ul>
 <p>Start with an instructor-approved stockroom coil or one inexpensive test coil. Determine the usable gap with a force measurement and temperature test. A manufacturer’s holding force at contact does not establish levitation capacity. Check whether a permanent-magnet object rotates, sticks to the core, or produces ambiguous Hall readings. A steel-only object requires a different field identification experiment before this estimator can be adopted.</p>
 <p>The <a href="../hardware/bom.csv">candidate BOM</a> contains budget allowances, not live supplier quotes. Replace all allowance values with dated quotes, full ordering numbers, stockroom availability, shipping, and tax before submitting or purchasing. The course currently marks the purchasing policy as under construction; confirm it with the instructors.</p>
+<p>The MCP3204 pseudo-differential IN- input must remain within 100 mV of ground; do not directly connect two mid-supply Hall outputs as a differential pair. This design combines separate single-ended measurements digitally.</p>
 </section>
 <section id="logic-wiring" class="level2">
 <h2 class="anchored" data-anchor-id="logic-wiring">Logic wiring</h2>
@@ -218,97 +236,80 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td>Host SCK</td>
+<td>Shared SCK</td>
 <td>PA5 / A4</td>
 <td style="text-align: right;">23</td>
-<td>—</td>
+<td>MCP3204 CLK pin 11</td>
 </tr>
 <tr class="even">
-<td>Host CS active low</td>
+<td>FPGA CS active low</td>
 <td>PA4 / A3</td>
 <td style="text-align: right;">25</td>
 <td>10k pull-up to 3.3 V</td>
 </tr>
 <tr class="odd">
-<td>Host MOSI</td>
+<td>Shared MOSI</td>
 <td>PA7 / A6</td>
 <td style="text-align: right;">26</td>
-<td>—</td>
+<td>MCP3204 DIN pin 9</td>
 </tr>
 <tr class="even">
-<td>Host MISO</td>
+<td>Shared MISO</td>
 <td>PA6 / A5</td>
 <td style="text-align: right;">27</td>
-<td>—</td>
+<td>MCP3204 DOUT pin 10</td>
 </tr>
 <tr class="odd">
+<td>ADC CS active low</td>
+<td>PA1 / A1</td>
+<td style="text-align: right;">-</td>
+<td>MCP3204 CS pin 8; 10k pull-up</td>
+</tr>
+<tr class="even">
 <td>MCU permit active high</td>
 <td>PA0 / A0</td>
 <td style="text-align: right;">34</td>
 <td>hardware interlock; external 10k pulldown</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>UART TX</td>
 <td>PA9 / D1</td>
-<td style="text-align: right;">—</td>
+<td style="text-align: right;">-</td>
 <td>ESP RX (3.3 V)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>UART RX</td>
 <td>PA10 / D0</td>
-<td style="text-align: right;">—</td>
+<td style="text-align: right;">-</td>
 <td>ESP TX (3.3 V)</td>
 </tr>
-<tr class="even">
-<td>ADC CS</td>
-<td>—</td>
-<td style="text-align: right;">32</td>
-<td>MCP3204 pin 8; 10k pull-up</td>
-</tr>
 <tr class="odd">
-<td>ADC CLK</td>
-<td>—</td>
-<td style="text-align: right;">35</td>
-<td>MCP3204 pin 11</td>
-</tr>
-<tr class="even">
-<td>ADC DIN</td>
-<td>—</td>
-<td style="text-align: right;">31</td>
-<td>MCP3204 pin 9</td>
-</tr>
-<tr class="odd">
-<td>ADC DOUT</td>
-<td>—</td>
-<td style="text-align: right;">37</td>
-<td>MCP3204 pin 10</td>
-</tr>
-<tr class="even">
 <td>External healthy / fault_n</td>
-<td>—</td>
+<td>-</td>
 <td style="text-align: right;">43</td>
-<td>hardware interlock status, active high healthy</td>
+<td>hardware interlock, active high healthy</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>PWM</td>
-<td>—</td>
+<td>-</td>
 <td style="text-align: right;">36</td>
 <td>output logic then gate driver</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>FPGA gate enable</td>
-<td>—</td>
+<td>-</td>
 <td style="text-align: right;">42</td>
 <td>output logic</td>
 </tr>
-<tr class="odd">
-<td>Scan complete debug</td>
-<td>—</td>
+<tr class="even">
+<td>Accepted current packet debug</td>
+<td>-</td>
 <td style="text-align: right;">38</td>
-<td>scope/logic analyzer</td>
+<td>scope/logic analyzer, nominal 5 kHz</td>
 </tr>
 </tbody>
 </table>
+<p>Former FPGA ADC pads 31, 32, 35, and 37 are unused. Rewire the ADC to MCU SPI1 before using this revision. Both unselected peripherals must release MISO.</p>
 <p>All signal grounds share a reference; keep coil current out of ADC/sensor ground wiring. Logic is 3.3 V. Verify the Nucleo A4/A5 solder-bridge arrangement and I2C pull-up/loading on your board; no I2C is used here. The mikroBUS socket may already route the course ESP UART correctly; check RX/TX labels and the board’s TX selection jumper rather than adding duplicate wiring.</p>
 <p>MCP3204 DIP: CH0 pin 1, CH1 pin 2, CH2 pin 3, CH3 pin 4, NC pins 5/6, DGND 7, CS 8, DIN 9, DOUT 10, CLK 11, AGND 12, VREF 13, VDD 14. Bypass VDD and VREF near the IC. Add only an RC network that settles within the ADC acquisition time; choose it from the source-impedance calculation and measured bandwidth. Pin numbers follow Table 3-1 of the manufacturer datasheet; MCP3208 has a different pinout.</p>
 </section>

@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Recorded software and FPGA checks and the remaining hardware tests.">
+<meta name="description" content="Current assembly and bench progress, SPI development, historical checks, and remaining measurements.">
 
 <title>Results – E155 Magnetic Levitation</title>
 <style>
@@ -99,6 +99,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./progress.html"> 
+<span class="menu-text">Progress Report</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Design</span>
@@ -150,11 +154,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#fpga-implementation" id="toc-fpga-implementation" class="nav-link" data-scroll-target="#fpga-implementation">FPGA Implementation</a></li>
-  <li><a href="#software-and-simulation-tests" id="toc-software-and-simulation-tests" class="nav-link" data-scroll-target="#software-and-simulation-tests">Software and Simulation Tests</a></li>
-  <li><a href="#remaining-hardware-tests" id="toc-remaining-hardware-tests" class="nav-link" data-scroll-target="#remaining-hardware-tests">Remaining Hardware Tests</a></li>
-  <li><a href="#demonstration" id="toc-demonstration" class="nav-link" data-scroll-target="#demonstration">Demonstration</a></li>
+  <li><a href="#status---november-15-2026" id="toc-status---november-15-2026" class="nav-link active" data-scroll-target="#status---november-15-2026">Status - November 15, 2026</a></li>
+  <li><a href="#spi-bring-up-november-7" id="toc-spi-bring-up-november-7" class="nav-link" data-scroll-target="#spi-bring-up-november-7">SPI Bring-up — November 7</a></li>
+  <li><a href="#earlier-application-verification-october-26" id="toc-earlier-application-verification-october-26" class="nav-link" data-scroll-target="#earlier-application-verification-october-26">Earlier Application Verification — October 26</a></li>
+  <li><a href="#calculations-and-measurements" id="toc-calculations-and-measurements" class="nav-link" data-scroll-target="#calculations-and-measurements">Calculations and Measurements</a></li>
   </ul>
 </nav>
     </div>
@@ -170,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    Recorded software and FPGA checks and the remaining hardware tests.
+    Current assembly and bench progress, SPI development, historical checks, and remaining measurements.
   </div>
 </div>
 
@@ -187,43 +190,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>The following results summarize the <a href="./docs/verification.html">verification record from October 15, 2026</a>. Software and HDL checks have been recorded, but the hardware has not been assembled or tested. We have not demonstrated levitation or measured its performance.</p>
-</section>
-<section id="fpga-implementation" class="level2">
-<h2 class="anchored" data-anchor-id="fpga-implementation">FPGA Implementation</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Resource or timing check</th>
-<th>Recorded result</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Logic cells</td>
-<td>1971 / 5280 (37%)</td>
-</tr>
-<tr class="even">
-<td>DSP blocks</td>
-<td>2 / 8 (25%)</td>
-</tr>
-<tr class="odd">
-<td>Routed maximum clock estimate</td>
-<td>45.79 MHz</td>
-</tr>
-<tr class="even">
-<td>Required clock</td>
-<td>24 MHz; passed</td>
-</tr>
-</tbody>
-</table>
-<p>These results were recorded with YoWASP Yosys 0.70 and nextpnr-ice40 0.11.1. The verification build sets <code>top.COMMISSIONED=1</code> so that the tools include the active design. The source defaults keep the output disabled, and that version was built separately as well.</p>
-<p>The timing result is an implementation-tool estimate. We still need to check the clock and external signals on the board.</p>
-</section>
-<section id="software-and-simulation-tests" class="level2">
-<h2 class="anchored" data-anchor-id="software-and-simulation-tests">Software and Simulation Tests</h2>
+<section id="status---november-15-2026" class="level2">
+<h2 class="anchored" data-anchor-id="status---november-15-2026">Status - November 15, 2026</h2>
+<p>The printed setup is assembled, components have been received, Hall sensors are wired to the ADC and tested, and the electromagnet has been exercised with MOSFET-driven sweeping PWM. The current wiring puts ADC acquisition in the FPGA, with a separate MCU–FPGA SPI readout. The <a href="./progress.html">progress report</a> includes the CAD iterations, code links, diagrams, and updated schematic.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -232,110 +201,135 @@ ul.task-list li input[type="checkbox"] {
 </colgroup>
 <thead>
 <tr class="header">
-<th>Check</th>
-<th>Recorded result</th>
+<th>Work</th>
+<th>Reported result</th>
 <th>Scope</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Native C compilation</td>
-<td>Passed</td>
-<td>Host compilation with warnings treated as errors</td>
+<td>CAD and fabrication</td>
+<td>Structure and mounts drafted, revised, printed, and assembled</td>
+<td>Physical test setup; CAD views included in the report</td>
 </tr>
 <tr class="even">
-<td>C behavior tests</td>
-<td>Passed</td>
-<td>CRC, packets, controller direction, limits, ramps, faults, and webpage handling</td>
+<td>Hall sensors and ADC</td>
+<td>Sensor responses read at different magnet positions and data widths</td>
+<td>Raw magnetic-field-dependent readings; calibrated field/distance not established</td>
 </tr>
 <tr class="odd">
-<td>Cortex-M4F compilation</td>
-<td>Seven C files compiled</td>
-<td>Source compatibility with the checked headers and runtime</td>
+<td>Two-channel readout</td>
+<td>FPGA ADC/subtraction and MCU 16-bit reception code written</td>
+<td>End-to-end repeatability and representation still being debugged</td>
 </tr>
 <tr class="even">
-<td>HDL elaboration</td>
-<td>Checked with slang and Icarus</td>
-<td>SystemVerilog elaboration</td>
+<td>MOSFET/PWM</td>
+<td>Electromagnet exercised with an up/down duty sweep, diode, and gate components</td>
+<td>Approximate supply-current maximum around 28 mA and power around 0.34 W reported during the sweep</td>
 </tr>
 <tr class="odd">
-<td>FPGA integration simulation</td>
-<td>Passed</td>
-<td>ADC sequencing, telemetry, regulation, timeouts, faults, and disabled defaults</td>
-</tr>
-<tr class="even">
-<td>Calibration tests</td>
-<td>Three tests passed</td>
-<td>Model recovery, degenerate-signal rejection, and nonlinear-fit residuals</td>
-</tr>
-<tr class="odd">
-<td>FPGA synthesis and routing</td>
-<td>Passed at 24 MHz</td>
-<td>Estimated internal synchronous timing</td>
+<td>Design review</td>
+<td>Basic presentation and revised block diagrams/schematic prepared</td>
+<td>Documents the current setup and intended integration</td>
 </tr>
 </tbody>
 </table>
-<p>The full GNU Arm executable link and board programming have not been verified. The simulation uses ideal ADC readings and a fixed clock. It does not include a validated model of the physical coil.</p>
+<p>The supply observations are approximate bench reports, not rated coil measurements. Recent no-magnet ADC output varied substantially, so stable readout, framing, and noise remain active work. Stable levitation, measured position accuracy, continuous thermal performance, and shutdown latency have not yet been demonstrated.</p>
 </section>
-<section id="remaining-hardware-tests" class="level2">
-<h2 class="anchored" data-anchor-id="remaining-hardware-tests">Remaining Hardware Tests</h2>
+<section id="spi-bring-up-november-7" class="level2">
+<h2 class="anchored" data-anchor-id="spi-bring-up-november-7">SPI Bring-up — November 7</h2>
+<p>The project chat reported a received MCU value of <strong>165</strong>, which equals <strong>0xA5</strong>. This supports reception of the expected byte in the standalone FPGA-to-MCU test. The proposed second pattern, <code>0x3B</code> (59), was a follow-up check; success has not been recorded.</p>
+<p>The <a href="simple_byte/README.md">standalone guide</a> records HDL simulation across all 256 bytes, MISO release on deselection, partial-byte restart, synthesis/routing using 8 logic cells, and Cortex-M4 compilation in Watch-only mode. These are recorded checks, not rerun measurements. They do not establish MOSI command reception, ADC sampling, DMA execution, the full application link, or levitation.</p>
+</section>
+<section id="earlier-application-verification-october-26" class="level2">
+<h2 class="anchored" data-anchor-id="earlier-application-verification-october-26">Earlier Application Verification — October 26</h2>
+<p>The <a href="./docs/verification.html">verification record</a> covers MCU position control and FPGA current PI. It supersedes the site’s former October 15 figures, but it does not validate the later FPGA-position design.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Measurement</th>
-<th>Current status</th>
-<th>Planned test</th>
+<th>Check</th>
+<th>Recorded result and scope</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Levitation duration</td>
-<td>Not measured</td>
-<td>Record a continuous suspension trial</td>
+<td>Firmware behavior</td>
+<td>Passed host checks for packets, scheduling, bounds, faults, and web handling</td>
 </tr>
 <tr class="even">
-<td>Gap accuracy and repeatability</td>
-<td>Not measured</td>
-<td>Compare the estimate with an independent position measurement</td>
+<td>MCU source compilation</td>
+<td>Eight C translation units; full executable link and programming unverified</td>
 </tr>
 <tr class="odd">
-<td>Settling and disturbance response</td>
-<td>Not measured</td>
-<td>Record target steps and disturbances</td>
+<td>HDL tests</td>
+<td>Shared-bus integration and current-PI arithmetic simulations passed</td>
 </tr>
 <tr class="even">
-<td>Hall estimate during current changes</td>
-<td>Not measured</td>
-<td>Hold the object at known gaps and vary the current</td>
+<td>Calibration</td>
+<td>Five algorithm tests passed; no measured calibration dataset</td>
 </tr>
 <tr class="odd">
-<td>External timing and shutdown delay</td>
-<td>Not measured</td>
-<td>Capture SPI, PWM, and interlock signals on an oscilloscope</td>
+<td>Enabled FPGA build</td>
+<td>1099/5280 logic cells; 2/8 DSP blocks; 46.59 MHz routed estimate</td>
 </tr>
 <tr class="even">
-<td>Coil and power-stage temperature</td>
-<td>Not measured</td>
-<td>Log temperature at the intended operating point</td>
+<td>Disabled FPGA build</td>
+<td>644/5280 logic cells; 0/8 DSP blocks; 52.99 MHz routed estimate</td>
 </tr>
 </tbody>
 </table>
-<p>The first test is to check whether the Hall readings can distinguish changes in object position from changes in coil current. We plan to collect readings at known gaps, fit the calibration model, and validate it with separate data. Current-step tests with a fixed object will check whether the estimate also works during transients.</p>
-<p><a href="./docs/calibration.html">Calibration Procedure</a></p>
+<p>The required clock was 24 MHz. Tool timing is an estimate. The enabled build used nonzero test gains; shipped commissioning defaults remained disabled.</p>
 </section>
-<section id="demonstration" class="level2">
-<h2 class="anchored" data-anchor-id="demonstration">Demonstration</h2>
-<p>There are no prototype photographs or demonstration videos yet. We will add these after assembling and testing the hardware.</p>
-<ul>
-<li><a href="data/results/measurements.csv">Blank Measurement Log</a></li>
-<li><a href="./docs/checkoff.html">Planned Checkoff Tests</a></li>
-<li><a href="./docs/verification.html">Full Verification Record</a></li>
-</ul>
+<section id="calculations-and-measurements" class="level2">
+<h2 class="anchored" data-anchor-id="calculations-and-measurements">Calculations and Measurements</h2>
+<p>The proposal’s air-core sizing example cannot support 10 g at 20 mm center distance from a 12 V, 8 ohm coil. Its illustrative 10 mm position-PI model is unstable under the assumed inductance and damping. Neither calculation characterizes the selected electromagnet. See <a href="./design.html#stability-calculation">System Design</a>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Demonstration test</th>
+<th>Evidence still needed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Five 20-to-10 mm round trips without contact</td>
+<td>Video, ruler reference, moving mass, and actual gaps</td>
+</tr>
+<tr class="even">
+<td>±5 mm endpoint position band</td>
+<td>Independent position readings alongside the estimate</td>
+</tr>
+<tr class="odd">
+<td>Requested/estimated gap graph, current, and faults</td>
+<td>Hardware webpage demonstration and display latency</td>
+</tr>
+<tr class="even">
+<td>PI constants changed from webpage</td>
+<td>Accepted gains, application boundary, and resulting response</td>
+</tr>
+<tr class="odd">
+<td>Position resolution</td>
+<td>Local voltage slope, noise, repeatability, and holdout errors</td>
+</tr>
+<tr class="even">
+<td>Timing and independent shutdown</td>
+<td>Scope/logic-analyzer captures under web traffic</td>
+</tr>
+<tr class="odd">
+<td>Continuous operation</td>
+<td>Temperature/current logs through thermal equilibrium</td>
+</tr>
+</tbody>
+</table>
+<p>CAD illustrations and current wiring drawings are now included in the <a href="./progress.html">progress report</a>. A levitation demonstration video, calibrated traces, and a populated <a href="data/results/measurements.csv">measurement log</a> remain to be added. See the <a href="./docs/checkoff.html">checkoff record</a>.</p>
 
 
 </section>

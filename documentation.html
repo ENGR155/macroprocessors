@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Technical notes, build instructions, and source files for the project.">
+<meta name="description" content="Current progress report, schematics, bench sources, and proposal history.">
 
 <title>Documentation – E155 Magnetic Levitation</title>
 <style>
@@ -99,6 +99,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./progress.html"> 
+<span class="menu-text">Progress Report</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Design</span>
@@ -150,9 +154,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#technical-guides" id="toc-technical-guides" class="nav-link active" data-scroll-target="#technical-guides">Technical Guides</a></li>
-  <li><a href="#testing-and-course-documents" id="toc-testing-and-course-documents" class="nav-link" data-scroll-target="#testing-and-course-documents">Testing and Course Documents</a></li>
-  <li><a href="#source-files" id="toc-source-files" class="nav-link" data-scroll-target="#source-files">Source Files</a></li>
+  <li><a href="#current-build-and-progress" id="toc-current-build-and-progress" class="nav-link active" data-scroll-target="#current-build-and-progress">Current build and progress</a></li>
+  <li><a href="#current-bench-source" id="toc-current-bench-source" class="nav-link" data-scroll-target="#current-bench-source">Current bench source</a></li>
+  <li><a href="#proposal-baseline-and-review-material" id="toc-proposal-baseline-and-review-material" class="nav-link" data-scroll-target="#proposal-baseline-and-review-material">Proposal baseline and review material</a></li>
+  <li><a href="#earlier-implementation-guides" id="toc-earlier-implementation-guides" class="nav-link" data-scroll-target="#earlier-implementation-guides">Earlier implementation guides</a></li>
   </ul>
 </nav>
     </div>
@@ -168,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    Technical notes, build instructions, and source files for the project.
+    Current progress report, schematics, bench sources, and proposal history.
   </div>
 </div>
 
@@ -185,46 +190,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>The following pages contain the detailed project documentation. Start with the system design, then read the hardware and bring-up notes before testing the coil.</p>
-<section id="technical-guides" class="level2">
-<h2 class="anchored" data-anchor-id="technical-guides">Technical Guides</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Guide</th>
-<th>Contents</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="./docs/design.html">Implementation and Timing</a></td>
-<td>Control equations, system diagram, and timing calculations</td>
-</tr>
-<tr class="even">
-<td><a href="./docs/hardware.html">Hardware and Wiring</a></td>
-<td>Candidate parts, pin assignments, and power connections</td>
-</tr>
-<tr class="odd">
-<td><a href="./docs/build.html">Build and Programming</a></td>
-<td>Required tools, compilation, and programming steps</td>
-</tr>
-<tr class="even">
-<td><a href="./docs/protocol.html">Packet Protocol</a></td>
-<td>Commands, telemetry, checksums, and fault bits</td>
-</tr>
-<tr class="odd">
-<td><a href="./docs/bringup.html">Bench Bring-up</a></td>
-<td>Initial checks, current tests, and shutdown tests</td>
-</tr>
-<tr class="even">
-<td><a href="./docs/calibration.html">Hall Calibration</a></td>
-<td>Measurements, model fitting, and validation</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="testing-and-course-documents" class="level2">
-<h2 class="anchored" data-anchor-id="testing-and-course-documents">Testing and Course Documents</h2>
+<section id="current-build-and-progress" class="level2">
+<h2 class="anchored" data-anchor-id="current-build-and-progress">Current build and progress</h2>
+<p>The <strong><a href="./progress.html">November 15 progress report</a></strong> covers the printed setup, CAD iterations, received parts, Hall/ADC tests, MCU–FPGA SPI work, electromagnet PWM tests, and design-review preparation.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -234,47 +202,136 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="./docs/verification.html">Verification Record</a></td>
-<td>Recorded software and HDL checks</td>
+<td><a href="./progress.html">Progress report</a></td>
+<td>Work since the proposal, results, and next integration steps</td>
 </tr>
 <tr class="even">
-<td><a href="./docs/checkoff.html">Checkoff Matrix</a></td>
-<td>Planned measurements and acceptance criteria</td>
+<td><a href="./design.html">System design</a></td>
+<td>FPGA ADC acquisition, separate MCU SPI readout, and PWM signal paths</td>
 </tr>
 <tr class="odd">
-<td><a href="./docs/course.html">Course Requirements</a></td>
-<td>Required deliverables and supporting files</td>
+<td><a href="./mcu.html">MCU</a> / <a href="./fpga.html">FPGA</a> / <a href="./hardware.html">Hardware</a></td>
+<td>Current subsystem implementation and remaining checks</td>
 </tr>
 <tr class="even">
-<td><a href="./docs/proposal.html">Project Proposal</a></td>
-<td>Project scope and initial plan</td>
+<td><a href="assets/progress-report/maglev_schematic.docx">Updated schematic</a></td>
+<td>Hall/ADC wiring and electromagnet drive, dated November 15</td>
 </tr>
 <tr class="odd">
-<td><a href="./docs/design-review.html">Design Review</a></td>
-<td>Design decisions and review notes</td>
+<td><a href="assets/progress-report/maglev_diagrams.zip">Diagram bundle</a></td>
+<td>System and internal diagrams, schematic sheets, and editable SVGs</td>
 </tr>
 <tr class="even">
-<td><a href="./docs/midpoint.html">Midpoint Report</a></td>
-<td>Progress and remaining work</td>
+<td><a href="./results.html">Results</a></td>
+<td>Dated bench observations and earlier software evidence</td>
+</tr>
+</tbody>
+</table>
+<p>The latest schematic and bench sources supersede proposal assumptions about MCU-owned ADC/DMA acquisition and installed support hardware.</p>
+</section>
+<section id="current-bench-source" class="level2">
+<h2 class="anchored" data-anchor-id="current-bench-source">Current bench source</h2>
+<ul>
+<li><a href="simple_byte/main.c">MCU 16-bit SPI receiver</a></li>
+<li><a href="fpga/pwm_sweeper/top.sv">FPGA top</a> and <a href="fpga/pwm_sweeper/pins.pcf">pin constraints</a></li>
+<li><a href="fpga/pwm_sweeper/adc_spi.sv">ADC SPI interface</a></li>
+<li><a href="fpga/pwm_sweeper/spi_byte_tx.sv">16-bit word sender</a></li>
+<li><a href="fpga/pwm_sweeper/sweep_8bit.sv">Duty sweep</a>, <a href="fpga/pwm_sweeper/pwm.sv">PWM</a>, and <a href="fpga/pwm_sweeper/counter.sv">counter</a></li>
+</ul>
+<p>The <a href="simple_byte/README.md">one-byte test guide</a>, <a href="simple_byte/spi_byte.sv">original FPGA sender</a>, and <a href="simple_byte/tb_spi_byte.sv">testbench</a> preserve the earlier fixed-pattern experiment. The guide’s embedded MCU listing is 8-bit; the current downloadable MCU source is the later 16-bit experiment.</p>
+</section>
+<section id="proposal-baseline-and-review-material" class="level2">
+<h2 class="anchored" data-anchor-id="proposal-baseline-and-review-material">Proposal baseline and review material</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Document</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="./docs/proposal.html">Proposal and specifications</a></td>
+<td>Proposal commitments and source history</td>
+</tr>
+<tr class="even">
+<td><a href="overleaf_10mm/proposal.pdf">Proposal PDF</a> / <a href="overleaf_10mm/proposal.tex">LaTeX</a></td>
+<td>Earlier architecture and design rationale</td>
 </tr>
 <tr class="odd">
-<td><a href="./docs/references.html">Technical References</a></td>
+<td><a href="overleaf_10mm/calculation_summary.pdf">Calculation PDF</a> / <a href="overleaf_10mm/calculation_summary.tex">LaTeX</a></td>
+<td>Illustrative lift and stability models</td>
+</tr>
+<tr class="even">
+<td><a href="Magnetic_Levitation_Overleaf_10mm.zip">Overleaf ZIP</a></td>
+<td>Editable proposal, calculations, and figures</td>
+</tr>
+<tr class="odd">
+<td><a href="./docs/checkoff.html">Checkoff record</a></td>
+<td>Demonstration commitments and evidence</td>
+</tr>
+<tr class="even">
+<td><a href="./docs/midpoint.html">Midpoint report</a></td>
+<td>Entry point to the current report and earlier framework</td>
+</tr>
+</tbody>
+</table>
+<p>A basic design-review presentation has been prepared. Current diagrams and schematics are available above; proposal calculations remain a design record rather than measurements of the assembled plant.</p>
+</section>
+<section id="earlier-implementation-guides" class="level2">
+<h2 class="anchored" data-anchor-id="earlier-implementation-guides">Earlier implementation guides</h2>
+<p>These guides record the earlier MCU-position/FPGA-current application. Their acquisition ownership, packet protocol, and hardware assumptions need reconciliation before reuse.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Guide</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="./docs/design.html">Implementation and timing</a></td>
+<td>Earlier equations and timing</td>
+</tr>
+<tr class="even">
+<td><a href="./docs/hardware.html">Hardware and wiring</a></td>
+<td>Earlier proposed connections</td>
+</tr>
+<tr class="odd">
+<td><a href="./docs/build.html">Build and programming</a></td>
+<td>Full-application build</td>
+</tr>
+<tr class="even">
+<td><a href="./docs/protocol.html">Packet protocol</a></td>
+<td>Earlier measured/requested-current contract</td>
+</tr>
+<tr class="odd">
+<td><a href="./docs/bringup.html">Bench bring-up</a></td>
+<td>Earlier staged procedures</td>
+</tr>
+<tr class="even">
+<td><a href="./docs/calibration.html">Hall calibration</a></td>
+<td>Calibration tools</td>
+</tr>
+<tr class="odd">
+<td><a href="./docs/verification.html">October 26 verification</a></td>
+<td>Historical software/HDL checks</td>
+</tr>
+<tr class="even">
+<td><a href="./docs/course.html">Course requirements</a></td>
+<td>Deliverable planning</td>
+</tr>
+<tr class="odd">
+<td><a href="./docs/design-review.html">Design-review framework</a></td>
+<td>Earlier presentation planning</td>
+</tr>
+<tr class="even">
+<td><a href="./docs/references.html">Technical references</a></td>
 <td>Course materials and datasheets</td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="source-files" class="level2">
-<h2 class="anchored" data-anchor-id="source-files">Source Files</h2>
-<p>The links below open individual files from the repository. To build the project, use the full repository checkout and follow the <a href="./docs/build.html">build guide</a>.</p>
-<ul>
-<li><a href="firmware/src/control.c">MCU estimation and control</a> (C)</li>
-<li><a href="fpga/rtl/lev_core.sv">FPGA integration core</a> (SystemVerilog)</li>
-<li><a href="fpga/tb/tb_system.sv">FPGA integration testbench</a> (SystemVerilog)</li>
-<li><a href="tools/calibrate.py">Hall calibration tool</a> (Python)</li>
-<li><a href="hardware/bom.csv">Candidate bill of materials</a> (CSV)</li>
-<li><a href="data/results/measurements.csv">Blank measurement log</a> (CSV)</li>
-</ul>
+<p>The <a href="hardware/bom.csv">candidate BOM</a>, <a href="tools/calibrate.py">calibration tool</a>, and <a href="data/results/measurements.csv">blank measurement log</a> remain available. This website update documents the current build; it does not migrate or validate the older controller.</p>
 
 
 </section>

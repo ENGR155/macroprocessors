@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Position estimation, control, and communication on the STM32L432KC.">
+<meta name="description" content="Current 16-bit FPGA readout and remaining control and web integration.">
 
 <title>MCU Design – E155 Magnetic Levitation</title>
 <style>
@@ -99,6 +99,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./progress.html"> 
+<span class="menu-text">Progress Report</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-design" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Design</span>
@@ -150,13 +154,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#control-update" id="toc-control-update" class="nav-link" data-scroll-target="#control-update">Control Update</a></li>
-  <li><a href="#position-controller" id="toc-position-controller" class="nav-link" data-scroll-target="#position-controller">Position Controller</a></li>
-  <li><a href="#webpage-interface" id="toc-webpage-interface" class="nav-link" data-scroll-target="#webpage-interface">Webpage Interface</a></li>
-  <li><a href="#timing-and-fault-handling" id="toc-timing-and-fault-handling" class="nav-link" data-scroll-target="#timing-and-fault-handling">Timing and Fault Handling</a></li>
-  <li><a href="#source-files" id="toc-source-files" class="nav-link" data-scroll-target="#source-files">Source Files</a></li>
-  <li><a href="#testing" id="toc-testing" class="nav-link" data-scroll-target="#testing">Testing</a></li>
+  <li><a href="#current-bench-role" id="toc-current-bench-role" class="nav-link active" data-scroll-target="#current-bench-role">Current bench role</a></li>
+  <li><a href="#bring-up-progress" id="toc-bring-up-progress" class="nav-link" data-scroll-target="#bring-up-progress">Bring-up progress</a></li>
+  <li><a href="#position-estimation-and-hardware-webpage" id="toc-position-estimation-and-hardware-webpage" class="nav-link" data-scroll-target="#position-estimation-and-hardware-webpage">Position estimation and hardware webpage</a></li>
+  <li><a href="#earlier-application-sources" id="toc-earlier-application-sources" class="nav-link" data-scroll-target="#earlier-application-sources">Earlier application sources</a></li>
   </ul>
 </nav>
     </div>
@@ -172,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    Position estimation, control, and communication on the STM32L432KC.
+    Current 16-bit FPGA readout and remaining control and web integration.
   </div>
 </div>
 
@@ -189,83 +190,52 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>The STM32L432KC estimates the gap between the object and the coil and calculates the current needed to reach the target gap. It also communicates with the FPGA over SPI and the ESP8266 over UART.</p>
-</section>
-<section id="control-update" class="level2">
-<h2 class="anchored" data-anchor-id="control-update">Control Update</h2>
-<p>The board driver configures a nominal 16 MHz HSI clock, 1 MHz SPI1, 125000-baud USART1, a 1 MHz TIM2 timestamp, and a 1 ms SysTick. Each control update exchanges a 16-byte packet with the FPGA.</p>
-<p>The update has four main steps:</p>
-<ol type="1">
-<li>Send the previous current request and receive the sensor readings. Check the checksum, fault bits, and sample ID.</li>
-<li>Convert the sensor readings to current and gap using the configured scaling and calibration. Calculate and filter the downward velocity.</li>
-<li>Update the target gap and calculate the next current request.</li>
-<li>Handle webpage requests and transmit the response over UART without blocking the next control update.</li>
-</ol>
-</section>
-<section id="position-controller" class="level2">
-<h2 class="anchored" data-anchor-id="position-controller">Position Controller</h2>
-<p>The current request is calculated using the gap error, filtered velocity, and an integral term:</p>
-<pre class="text"><code>error = measured_gap - ramped_target
-current_request = clamp(
-    hover_current + Kp*error + Kd*filtered_velocity + integral,
-    0, maximum_current
-)</code></pre>
-<p>The derivative term uses the measured velocity so that changing the target does not cause a derivative kick. The integral updates only when the current request is within its limits or the error would bring it back within those limits.</p>
-<p>The default gains and hover current are zero. We still need to measure the sensor scaling, fit the gap model, and tune the gains. The current-test mode uses a separate current ramp with the object supported.</p>
-</section>
-<section id="webpage-interface" class="level2">
-<h2 class="anchored" data-anchor-id="webpage-interface">Webpage Interface</h2>
-<p>We use the existing ESP8266 firmware from the course. The MCU sends the HTML over UART and handles the returned commands. The interface includes height and current-test modes, arm, clear, and stop controls, and sensor readings. If the browser stops renewing its five-second lease, the controller stops the output.</p>
-<p>This website documents the project. The hardware control page is served separately by the MCU and ESP8266.</p>
-</section>
-<section id="timing-and-fault-handling" class="level2">
-<h2 class="anchored" data-anchor-id="timing-and-fault-handling">Timing and Fault Handling</h2>
-<p>A missed update, invalid telemetry, stalled sample ID, or reported fault stops the coil. At 1 MHz, a 128-clock SPI exchange with chip-select guards takes at least 132 microseconds before software delays. The estimated worst-case delay from measurement to output is roughly 2-3 ms, including ADC scanning, scheduling, SPI transfer, and PWM updates.</p>
-<p>We still need to measure these delays on hardware. Formatting and sending the webpage also need to fit around the control updates.</p>
-</section>
-<section id="source-files" class="level2">
-<h2 class="anchored" data-anchor-id="source-files">Source Files</h2>
+<section id="current-bench-role" class="level2">
+<h2 class="anchored" data-anchor-id="current-bench-role">Current bench role</h2>
+<p>The STM32L432KC is SPI master on the MCU–FPGA link. The FPGA has a separate SPI master for the MCP3204 ADC. ADC ownership therefore differs from the earlier proposal’s MCU ADC/DMA plan.</p>
+<p>The current <a href="simple_byte/main.c">MCU receive program</a> configures SPI1 for <strong>16-bit frames, mode 0, MSB first, at a nominal 125 kHz</strong>. It drives chip select low, writes a dummy word to produce 16 clocks, reads the FPGA word, and releases chip select. The result is stored in <code>fpga_word</code>, with <code>read_count</code> tracking transactions. Debug printing and a 500 ms delay make this an inspection program rather than a real-time control loop.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>File</th>
-<th>Function</th>
+<th>Signal</th>
+<th>MCU pin</th>
+<th style="text-align: right;">FPGA pad</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="firmware/src/main.c">main.c</a></td>
-<td>Scheduler and system state</td>
+<td>SCK</td>
+<td>PB3</td>
+<td style="text-align: right;">21</td>
 </tr>
 <tr class="even">
-<td><a href="firmware/src/control.c">control.c</a></td>
-<td>Position estimate, filtering, and control</td>
+<td>Manual CS</td>
+<td>PA11</td>
+<td style="text-align: right;">20</td>
 </tr>
 <tr class="odd">
-<td><a href="firmware/src/board_stm32l432.c">board_stm32l432.c</a></td>
-<td>CMSIS board driver</td>
-</tr>
-<tr class="even">
-<td><a href="firmware/src/protocol.c">protocol.c</a></td>
-<td>Packet encoding and checksum</td>
-</tr>
-<tr class="odd">
-<td><a href="firmware/src/web.c">web.c</a></td>
-<td>Webpage and request handling</td>
-</tr>
-<tr class="even">
-<td><a href="firmware/src/config.c">config.c</a></td>
-<td>Scaling, calibration, limits, and gains</td>
+<td>MISO</td>
+<td>PB4</td>
+<td style="text-align: right;">12</td>
 </tr>
 </tbody>
 </table>
+<p>PB5 is configured as SPI1 MOSI in the MCU program, but the present FPGA measurement sender has no MCU-command input. The dummy transmit word supplies clocks; bidirectional commands have not been established by this readout test.</p>
 </section>
-<section id="testing" class="level2">
-<h2 class="anchored" data-anchor-id="testing">Testing</h2>
-<p>The <a href="./docs/verification.html">October 15 verification record</a> reports passing host-side behavior tests and Cortex-M4F compilation of all seven C source files. The full GNU Arm executable link and board programming have not been verified. Compiling the source files alone does not confirm that the firmware can be flashed and run.</p>
-<p><a href="./docs/build.html">Build Instructions</a> | <a href="./docs/protocol.html">Packet Protocol</a></p>
+<section id="bring-up-progress" class="level2">
+<h2 class="anchored" data-anchor-id="bring-up-progress">Bring-up progress</h2>
+<p>The November 7 standalone experiment reported <strong>0xA5 / 165</strong> received from the FPGA. Work has since extended to transporting ADC-derived values in 16-bit frames and inspecting two-channel subtraction. Repeatability, framing, stable transfer of a changing word, and signed result interpretation remain under test. A 16-bit SPI container preserves the ADC’s 12-bit result; it does not increase conversion resolution.</p>
+<p>The <a href="simple_byte/README.md">one-byte guide</a> records the earlier test and carrier switch routing. Its embedded 8-bit code is historical; the linked <code>main.c</code> now contains the 16-bit experiment. Use matching MCU and FPGA sources when reproducing a test.</p>
+</section>
+<section id="position-estimation-and-hardware-webpage" class="level2">
+<h2 class="anchored" data-anchor-id="position-estimation-and-hardware-webpage">Position estimation and hardware webpage</h2>
+<p>After reliable acquisition, collect both raw Hall readings at independently measured positions, establish the final sensor geometry, and validate an estimator against separate measurements. The division of estimator and controller work must be finalized with the integrated FPGA path.</p>
+<p>The intended hardware webpage will accept a target gap, show requested and estimated position, expose operating status, and support tuning and Stop through the course ESP8266. These remain integration goals. This Quarto report site is separate from that embedded interface.</p>
+</section>
+<section id="earlier-application-sources" class="level2">
+<h2 class="anchored" data-anchor-id="earlier-application-sources">Earlier application sources</h2>
+<p><a href="firmware/src/main.c">main.c</a>, <a href="firmware/src/control.c">control.c</a>, <a href="firmware/src/board_stm32l432.c">board_stm32l432.c</a>, <a href="firmware/src/protocol.c">protocol.c</a>, and <a href="firmware/src/web.c">web.c</a> belong to the earlier full application. Their ADC/DMA ownership and current-command packet should not be treated as the current bench contract.</p>
+<p><a href="./progress.html">Progress report</a> | <a href="./design.html">Current signal paths</a> | <a href="./results.html">Recorded results</a></p>
 
 
 </section>
