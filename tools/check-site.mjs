@@ -5,8 +5,12 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../_site/', import.meta.url));
 const pages = [];
+const unpublishedFolders = new Set(['build', 'cad', 'graphify-out', '.git', '.quarto', '.venv', '.uv-cache', 'node_modules', '__pycache__']);
 async function collect(folder) {
   for (const entry of await readdir(folder, { withFileTypes: true })) {
+    if (entry.isDirectory() && unpublishedFolders.has(entry.name)) {
+      throw new Error(`Unexpected local-only directory in site output: ${path.relative(root, path.join(folder, entry.name))}`);
+    }
     if (['site_libs', 'assets', 'firmware', 'fpga', 'tests', 'tools', 'hardware', 'data'].includes(entry.name)) continue;
     const target = path.join(folder, entry.name);
     if (entry.isDirectory()) await collect(target);
@@ -14,6 +18,7 @@ async function collect(folder) {
   }
 }
 await collect(root);
+if (!pages.length) throw new Error('No rendered HTML pages found; run quarto render before checking the site.');
 const content = new Map(await Promise.all(pages.map(async p => [p, await readFile(p, 'utf8')])));
 const issues = [];
 let checked = 0;

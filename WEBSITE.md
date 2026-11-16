@@ -20,6 +20,22 @@ Open the local URL printed by Quarto. Rendered output is in `_site/` (ignored by
 The site uses relative resource URLs and can be hosted beneath a GitHub Pages
 repository path. No hosting configuration or publication is performed automatically.
 
+## Publishing
+
+After a successful render and link check, run `quarto publish gh-pages` to update
+the existing GitHub Pages publication.
+
+Resource and render globs in `_quarto.yml` start with `/` to anchor them to the
+project root. Quarto otherwise searches recursively: `tests/**` and `assets/**`
+also match folders inside local CAD/Python dependencies. Publishing those caches
+can fail on Windows with `Filename too long`. Keep the leading slashes when
+editing the lists. The site checker rejects local-only output folders and an
+empty render.
+
+If a previous failed publish left caches in `_site` or a
+`.quarto/quarto-publish-worktree-*` folder, remove only those generated folders
+before rendering again. Source CAD files and the CAD environment stay in place.
+
 ## Edit the site
 
 | File | Content |

@@ -2,30 +2,32 @@ project:
   type: website
   output-dir: _site
   render:
-    - '*.qmd'
-    - 'docs/*.qmd'
+    - '/*.qmd'
+    - '/docs/*.qmd'
   resources:
-    - assets/**
-    - hardware/**
-    - firmware/**
-    - fpga/rtl/**
-    - fpga/tb/**
-    - fpga/constraints/**
-    - fpga/pwm_sweeper/*.sv
-    - fpga/pwm_sweeper/*.pcf
-    - data/results/**
-    - tools/calibrate.py
-    - tests/**
-    - MicroPEs_Proposal.pdf
-    - Magnetic_Levitation_Overleaf_10mm.zip
-    - overleaf_10mm/*.pdf
-    - overleaf_10mm/*.tex
-    - overleaf_10mm/assets/**
-    - simple_byte/README.md
-    - simple_byte/main.c
-    - simple_byte/spi_byte.sv
-    - simple_byte/spi_byte.pcf
-    - simple_byte/tb_spi_byte.sv
+    # Anchor globs to the project root; otherwise nested dependency folders
+    # named assets or tests also match and are copied into the published site.
+    - /assets/**
+    - /hardware/**
+    - /firmware/**
+    - /fpga/rtl/**
+    - /fpga/tb/**
+    - /fpga/constraints/**
+    - /fpga/pwm_sweeper/*.sv
+    - /fpga/pwm_sweeper/*.pcf
+    - /data/results/**
+    - /tools/calibrate.py
+    - /tests/**
+    - /MicroPEs_Proposal.pdf
+    - /Magnetic_Levitation_Overleaf_10mm.zip
+    - /overleaf_10mm/*.pdf
+    - /overleaf_10mm/*.tex
+    - /overleaf_10mm/assets/**
+    - /simple_byte/README.md
+    - /simple_byte/main.c
+    - /simple_byte/spi_byte.sv
+    - /simple_byte/spi_byte.pcf
+    - /simple_byte/tb_spi_byte.sv
 website:
   title: 'E155 Magnetic Levitation'
   description: 'Magnetic levitation project for ENGR 155 by Stephen Kanti Mahanty and Ben Lertwachara.'
