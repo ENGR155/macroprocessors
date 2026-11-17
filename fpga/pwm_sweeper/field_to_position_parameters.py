@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.optimize import curve_fit
 # Define the target file path
+desired_resolution_mm = 0.1
 position_range_mm=[25, 70]
 position_exp = -0.213
 position_mm_coefficient = 165
@@ -28,6 +29,6 @@ popt, _ = curve_fit(reciprocal_model, x_seg, y_seg)
 a_opt, b_opt, c_opt = popt
 
 print(f"Fitted Segment: y = {a_opt:.4f} + ({b_opt:.4f} / (x + {c_opt:.4f}))")
-shifts = (int)(16-np.ceil(np.log2(b_opt+1)))
-scalar =2**shifts
+# shifts = (int)(16-np.ceil(np.log2(b_opt+1)))
+scalar = b_opt/(2**13)/desired_resolution_mm
 print(f"Scalar: {scalar}, uint equation: y = {(int)(a_opt*scalar)} + ({(int)(b_opt*scalar)} / (x + {(int)(c_opt)}))")

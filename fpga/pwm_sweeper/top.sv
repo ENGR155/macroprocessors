@@ -7,10 +7,12 @@ module top(input logic adc_miso,
 	logic[11:0] v_diff;
 	// logic[7:0] trunc_v_diff;
 	// assign trunc_v_diff = v_diff[11:4];
+	logic[15:0] pos_mm;
+	field_to_position f_to_p(v_diff, pos_mm);
 	HSOSC hf_osc (.CLKHFPU(1'b1), .CLKHFEN(1'b1), .CLKHF(int_osc));
 	sweep_8bit sweep(int_osc,1'b1, duty );
   pwm pwm_gen(int_osc, 1'b1, duty, pwm);
 	adc_spi adc(int_osc, 1'b1, adc_miso, adc_mosi, adc_cs, adc_clk, v_diff);
-	spi_word_tx send_word(mcu_clk, mcu_cs,v_diff, mcu_miso);
+	spi_word_tx send_word(mcu_clk, mcu_cs,pos_mm, mcu_miso);
 
 endmodule
