@@ -163,18 +163,21 @@ int main(void) {
         uint16_t reading = read_fpga_word();
         fpga_word = reading;
         uint16_t pos = (reading*100)/25;
+        uint16_t pos_cm = pos/1000U;
+        uint16_t pos_mm = pos%1000U;
         ++read_count;
         update_average(pos);
 
 #if PRINT_TO_SEGGER
-        printf("Raw = %u, Pos = %u, average = %u\n",
+        printf("Raw = %u, Pos = %u.%ucm, average = %u\n",
                (unsigned)fpga_word,
-               (unsigned)pos,
+               (unsigned)pos_cm,
+               (unsigned)pos_mm,
                (unsigned)fpga_average
               );
         fflush(stdout);
 #endif
 
-        delay_ms(100);
+        delay_ms(25);
     }
 }

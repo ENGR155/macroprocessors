@@ -4,12 +4,12 @@ module adc_spi(
 output logic mosi, output logic n_cs, output logic n_spi_clk,  output logic [11:0] v_diff
 );
 logic channel, next_channel;
-logic [4:0] prescale_count;
+logic [6:0] prescale_count;
 logic spi_tick;
 logic [1:0] [11:0] channel_v;
 // logic [3:0] control_bits = 4'b0000
 logic frame_start;
-counter #(24, 5) prescale_counter(clk, n_reset, 1'b1, prescale_count);
+counter #(128, 7) prescale_counter(clk, n_reset, 1'b1, prescale_count);
 assign n_spi_clk = prescale_count>11;
 assign spi_tick = prescale_count==0;
 logic [4:0] bit_count;

@@ -2,7 +2,7 @@ import numpy as np
 from scipy.optimize import curve_fit
 # Define the target file path
 desired_resolution_mm = 0.1
-position_range_mm=[25, 70]
+position_range_mm=[30, 80]
 position_exp = -0.213
 position_mm_coefficient = 165
 field_range =[]
