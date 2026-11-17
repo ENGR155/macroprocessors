@@ -16,8 +16,8 @@
 
 volatile uint16_t fpga_word = 0;
 volatile uint32_t read_count = 0;
-#define AVERAGE_WINDOW 50u
-#define MAX_SAMPLE_DELTA 10000u  // Maximum change between accepted readings.
+#define AVERAGE_WINDOW 10u
+#define MAX_SAMPLE_DELTA 1000u  // Maximum change between accepted readings.
 //#define MAX_VALID_READING 3900u
 
 volatile uint16_t fpga_average = 0;
@@ -175,6 +175,6 @@ int main(void) {
         fflush(stdout);
 #endif
 
-        delay_ms(50);
+        delay_ms(100);
     }
 }
