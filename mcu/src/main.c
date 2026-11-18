@@ -16,9 +16,9 @@
 
 volatile uint16_t fpga_word = 0;
 volatile uint32_t read_count = 0;
-#define AVERAGE_WINDOW 50u
-#define MAX_SAMPLE_DELTA 500u  // Maximum change between accepted readings.
-#define MAX_VALID_READING 3900u
+#define AVERAGE_WINDOW 10u
+#define MAX_SAMPLE_DELTA 1000u  // Maximum change between accepted readings.
+//#define MAX_VALID_READING 3900u
 
 volatile uint16_t fpga_average = 0;
 volatile uint32_t rejected_count = 0;
@@ -30,10 +30,10 @@ static unsigned next_sample = 0;
 static uint16_t previous_sample = 0;
 
 static void update_average(uint16_t reading) {
-    if (reading > MAX_VALID_READING) {
-        ++rejected_count;
-        return;
-    }
+    //if (reading > MAX_VALID_READING) {
+    //    ++rejected_count;
+    //    return;
+    //}
 
     if (sample_count > 0u) {
         uint32_t delta = (reading >= previous_sample)
@@ -162,17 +162,22 @@ int main(void) {
     for (;;) {
         uint16_t reading = read_fpga_word();
         fpga_word = reading;
+        uint16_t pos = (reading*100)/25;
+        uint16_t pos_cm = pos/1000U;
+        uint16_t pos_mm = pos%1000U;
         ++read_count;
-        update_average(reading);
+        update_average(pos);
 
 #if PRINT_TO_SEGGER
-        printf("Raw = %u, average = %u, rejected = %lu\n",
+        printf("Raw = %u, Pos = %u.%ucm, average = %u\n",
                (unsigned)fpga_word,
-               (unsigned)fpga_average,
-               (unsigned long)rejected_count);
+               (unsigned)pos_cm,
+               (unsigned)pos_mm,
+               (unsigned)fpga_average
+              );
         fflush(stdout);
 #endif
 
-        delay_ms(50);
+        delay_ms(25);
     }
 }
