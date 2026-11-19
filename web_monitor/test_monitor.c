@@ -1,6 +1,6 @@
 /* Portable protocol tests: cc -std=c11 -Wall -Wextra -Werror
  * web_monitor/test_monitor.c -o test_monitor */
-#ifdef MAGLEV_TEST_NOV18
+#ifdef MAGLEV_TEST_SPI_DMA
 /* Substitute RAM registers for the SPI/DMA state machine in the ARM simulator. */
 #include "stm32l432xx.h"
 static RCC_TypeDef test_rcc;
@@ -24,11 +24,12 @@ static DMA_Channel_TypeDef test_dma1_ch2, test_dma1_ch3;
 #define DMA1_Channel2 (&test_dma1_ch2)
 #define DMA1_Channel3 (&test_dma1_ch3)
 #define main maglev_firmware_main
-#include "../mcu/src/main_nov18.c"
-#undef main
 #else
 #define MAGLEV_MONITOR_TEST
+#endif
 #include "../mcu/src/main.c"
+#ifdef MAGLEV_TEST_SPI_DMA
+#undef main
 #endif
 #include <stdio.h>
 #include <stdlib.h>
@@ -63,7 +64,7 @@ static const char *request(const char *line) {
     while (*line) maglev_monitor_feed(&m, *line++, now_ms);
     return drain();
 }
-#ifdef MAGLEV_TEST_NOV18
+#ifdef MAGLEV_TEST_SPI_DMA
 static void test_spi_dma(void) {
     spi_reset();
     spi_dma_init();
@@ -190,7 +191,7 @@ int main(void) {
     CHECK(strstr(request("@M1 4294967295 GET\n"), "@M1 4294967295 "));
     CHECK(strstr(output, "\"seq\":4294967295"));
     CHECK(strstr(output, "-2147483648"));
-#ifdef MAGLEV_TEST_NOV18
+#ifdef MAGLEV_TEST_SPI_DMA
     test_spi_dma();
 #endif
     printf("PASS monitor protocol: %u assertions\n", assertions);

@@ -39,21 +39,21 @@ Keep the existing ADC and PWM wiring and the three SPI connections below. Leave 
 
 Opening **http://192.168.4.1/api/status** directly requests a fresh telemetry snapshot as JSON. For an offline preview, open the local `dashboard.html` with `?demo=1` appended to its URL. The page labels demo data as simulated.
 
-## STM32 DMA variant
+## STM32 SPI and DMA
 
-Open [maglev_dma_nov18.emProject](../mcu/maglev_dma_nov18.emProject) in SEGGER to build [main_nov18.c](../mcu/src/main_nov18.c). This project selects the DMA entry point on its own. If adding the file to another SEGGER project, select one application main for the build.
+The full [finalprojectsp.emProject](../mcu/finalprojectsp.emProject) application builds [main.c](../mcu/src/main.c) with SPI DMA and UART telemetry. For the standalone polling bench program, open [maglev_spi_nov18.emProject](../mcu/maglev_spi_nov18.emProject) to build [main_nov18.c](../mcu/src/main_nov18.c). Each project selects its own application main.
 
 DMA1 channel 3 sends a zero halfword over SPI1 to generate 16 clocks. Channel 2 copies the FPGA reply into RAM. The firmware starts one read every 25 ms and can service the ESP8266 while the transfer runs. It releases PA11 after both DMA channels complete and SPI finishes. A transfer error or timeout increments `spi_failures` and the next read can retry.
 
-Use the SPI and UART wiring above. SEGGER RTT output is enabled in this variant. For Watch or JS Scope, `fpga_word` retains the raw bits, `fpga_average` holds the signed moving average in 10 µm units, and `read_count` advances after a completed transfer. The position conversion treats the FPGA word as signed, as in the bench code. The dashboard's raw view shows the original unsigned bits.
+Use the SPI and UART wiring above. For Watch or JS Scope, `fpga_word` retains the raw bits, `fpga_average` holds the signed moving average in 10 µm units, and `read_count` advances after a completed transfer. The position conversion treats the FPGA word as signed. The dashboard's raw view shows the original unsigned bits. Set `PRINT_TO_SEGGER` to 1 for RTT output in `main.c`. The standalone program enables RTT output by default.
 
 For the bench check, verify that each PA11 low pulse encloses 16 clocks at 125 kHz. Observe `read_count` advancing, `spi_failures` staying at zero, and the dashboard updating when the magnet moves.
 
 ## Position and PID
 
-The STM32 reads the FPGA every **25 ms** and services UART between reads. Both are in `mcu/src/main.c`. The FPGA sets its own ADC timing. The browser polls 100 ms after each response and plots new sequence numbers. CSV includes the displayed history.
+The FPGA sets its own ADC timing. The browser polls 100 ms after each response and plots new sequence numbers. CSV includes the displayed history.
 
-The default position conversion is **40 µm per FPGA word**, matching the bench calculation. The dashboard labels it as provisional. Compare readings against known gaps, then set the scale and offset in `main.c` and set `MAGLEV_POSITION_CALIBRATED` to 1 after validating the result. Watch `fpga_word`, `fpga_average`, `read_count`, and `rejected_count` in SEGGER or JS Scope. The dashboard uses the latest SPI reading. The 10-reading debugger average still uses 10 µm units. Set `PRINT_TO_SEGGER` to 1 in `main.c` for optional RTT output.
+The default position conversion is **40 µm per FPGA word**, matching the bench calculation. The dashboard labels it as provisional. Compare readings against known gaps, then set the scale and offset in `main.c` and set `MAGLEV_POSITION_CALIBRATED` to 1 after validating the result. The dashboard uses the latest SPI reading. `rejected_count` counts readings excluded from the 10-reading debugger average.
 
 The current bench FPGA sweeps PWM and the STM32 has no active PID loop. The dashboard shows **PID not connected** until a controller publishes its actual gains. In the foreground, copy a coherent snapshot of those gains into the monitor:
 
@@ -86,7 +86,7 @@ $ses = 'C:/Program Files/SEGGER/SEGGER Embedded Studio 8.30a/bin'
 & "$ses/emBuild.exe" -config Release mcu/finalprojectsp.emProject
 & "$ses/emBuild.exe" -config Debug mcu/maglev_web_tests.emProject
 & "$ses/emSim.exe" mcu/Output/Debug/Exe/maglev_web_tests.elf -end maglev_tests_pass -max 20000000
-& "$ses/emBuild.exe" -config Debug mcu/maglev_dma_nov18.emProject
+& "$ses/emBuild.exe" -config Debug mcu/maglev_spi_nov18.emProject
 & "$ses/emBuild.exe" -config 'Debug DMA' mcu/maglev_web_tests.emProject
 & "$ses/emSim.exe" 'mcu/Output/Debug DMA/Exe/maglev_web_tests.elf' -end maglev_tests_pass -max 20000000
 ```

@@ -534,9 +534,9 @@
     "semantic_hash": ""
   },
   "fpga/pwm_sweeper/adc_spi.sv": {
-    "mtime": 1794961572.7906637,
-    "seen": 1794967781.3137865,
-    "ast_hash": "b809056dfed0031b2626a2d5bd1dcb2a",
+    "mtime": 1795106350.0418336,
+    "seen": 1795106982.9094608,
+    "ast_hash": "87fb9e724e76daca2e7f5be709b58e1c",
     "semantic_hash": ""
   },
   "fpga/pwm_sweeper/counter.sv": {
@@ -564,9 +564,9 @@
     "semantic_hash": ""
   },
   "fpga/pwm_sweeper/top.sv": {
-    "mtime": 1794961572.7916696,
-    "seen": 1794967781.3137941,
-    "ast_hash": "e85a34966338f97001f63c90467fbc48",
+    "mtime": 1795106350.047835,
+    "seen": 1795106982.9094994,
+    "ast_hash": "528ffa8c85ec78662ff9fdb5d42dd0dc",
     "semantic_hash": ""
   },
   "fpga/pwm_test/build.ps1": {
@@ -1758,9 +1758,9 @@
     "semantic_hash": ""
   },
   "mcu/src/main.c": {
-    "mtime": 1795058769.972591,
-    "seen": 1795070514.6868753,
-    "ast_hash": "db0985812a62bd3d641e9a9323f32307",
+    "mtime": 1795106930.775108,
+    "seen": 1795106982.9097042,
+    "ast_hash": "7b232de314d21a33e48ab2d3398b0340",
     "semantic_hash": ""
   },
   "web_monitor/build_dashboard.mjs": {
@@ -1776,15 +1776,15 @@
     "semantic_hash": ""
   },
   "web_monitor/test_monitor.c": {
-    "mtime": 1795070416.522881,
-    "seen": 1795070514.68689,
-    "ast_hash": "49dd845aaad2de5e271bb319702ff602",
+    "mtime": 1795106933.504013,
+    "seen": 1795106982.9097507,
+    "ast_hash": "7198f639461f5428ef39a045866fb930",
     "semantic_hash": ""
   },
   "web_monitor/README.md": {
-    "mtime": 1795070453.8552363,
-    "seen": 1795070514.6869452,
-    "ast_hash": "1b37496e655b7d5fe53f27859313d49a",
+    "mtime": 1795106934.183783,
+    "seen": 1795106982.9099622,
+    "ast_hash": "3d10525a1d7dde8d64dd4a71408f00da",
     "semantic_hash": ""
   },
   "web_monitor/dashboard.html": {
@@ -1806,9 +1806,39 @@
     "semantic_hash": ""
   },
   "mcu/src/main_nov18.c": {
-    "mtime": 1795070499.5707345,
-    "seen": 1795070514.6868768,
-    "ast_hash": "8fafee93c65ca9fc3e433dbbd6965272",
+    "mtime": 1795106891.4969993,
+    "seen": 1795106982.9097073,
+    "ast_hash": "e0cffc354cca059eb5f7d0b2848e9a98",
+    "semantic_hash": ""
+  },
+  "fpga/pwm_sweeper/accumulator.sv": {
+    "mtime": 1795106350.0398347,
+    "seen": 1795106982.9094555,
+    "ast_hash": "50cb68c9a025398b1c300b2b8a904625",
+    "semantic_hash": ""
+  },
+  "fpga/pwm_sweeper/dsp_addsub.sv": {
+    "mtime": 1795106350.0428326,
+    "seen": 1795106982.9094675,
+    "ast_hash": "1f282a3d791aac46b1594d5211f9577c",
+    "semantic_hash": ""
+  },
+  "fpga/pwm_sweeper/dsp_mac.sv": {
+    "mtime": 1795106350.0438335,
+    "seen": 1795106982.9094706,
+    "ast_hash": "976b80812f0c4ff74a175a73ea64ad25",
+    "semantic_hash": ""
+  },
+  "fpga/pwm_sweeper/dsp_mac_tb.sv": {
+    "mtime": 1795106350.0448332,
+    "seen": 1795106982.9094734,
+    "ast_hash": "90985f635a69efbcbe4332054eed0149",
+    "semantic_hash": ""
+  },
+  "fpga/pwm_sweeper/pid_controller.sv": {
+    "mtime": 1795106350.0458317,
+    "seen": 1795106982.9094834,
+    "ast_hash": "c568b4d8d362821a86c93ac4a06b4585",
     "semantic_hash": ""
   }
 }

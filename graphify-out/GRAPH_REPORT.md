@@ -1,17 +1,17 @@
-# Graph Report - macroprocessors  (2026-11-18)
+# Graph Report - macroprocessors  (2026-11-19)
 
 ## Corpus Check
-- 248 files · ~3,171,210 words
+- 253 files · ~3,170,689 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 316 file(s) not represented in the graph (top: .step 175, .stl 67, .sat 32)
 
 ## Summary
-- 2016 nodes · 4257 edges · 103 communities (75 shown, 28 thin omitted)
-- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 251 edges (avg confidence: 0.85)
+- 2013 nodes · 4241 edges · 107 communities (78 shown, 29 thin omitted)
+- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 258 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `a9dfe9f6`
+- Built from commit: `2c96eaaa`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -33,7 +33,7 @@
 - index.qmd
 - tb_system
 - progress.qmd
-- core_cm7.h
+- cmsis_compiler.h
 - test_dashboard.mjs
 - build_three_print.py
 - hardware.qmd
@@ -47,7 +47,7 @@
 - Direct-insertion common Hall rod — one holder print
 - counter
 - Independent CAD review — 10 November 2026
-- __DSB
+- core_starmc1.h
 - CAD input evidence — November 10, 2026
 - Independent review — purchased-parts version
 - Magnetic levitation stand — testbox1 box
@@ -84,19 +84,20 @@
 - core_armv8mml.h
 - core_cm33.h
 - core_cm35p.h
-- main_nov18.c
+- mcu/src/main.c
 - core_armv8mbl.h
 - core_cm23.h
 - independent_adjustable_check.py
 - calibrate.py
 - cmsis_armcc.h
 - core_cm3.h
-- core_sc300.h
+- __DSB
 - Communication contract v2
 - core_cm1.h
 - pmu_armv8.h
 - build_direct.py
 - direct_insert_hall_version/purchased_geometry.py
+- mpu_armv8.h
 - control.c
 - lev_web_request
 - check_direct.py
@@ -108,8 +109,11 @@
 - spi_word_tx.sv
 - T_UINT32
 - T_UINT32
+- core_cm0plus.h
 - web_server.cpp
 - MicroPEs live position and PID monitor
+- mpu_armv7.h
+- accumulator.sv
 
 ## God Nodes (most connected - your core abstractions)
 1. `__DSB()` - 96 edges
@@ -138,7 +142,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (103 total, 28 thin omitted)
+## Communities (107 total, 29 thin omitted)
 
 ### Community 0 - "math"
 Cohesion: 0.13
@@ -208,9 +212,9 @@ Nodes (8): top, lev_core, top, tb_system, command, read_adc, rejected, transfer
 Cohesion: 0.11
 Nodes (16): Current progress report — November 15, 2026, Earlier planning framework, Committed demonstration, Design and calculations, Proposal baseline and demonstration specifications, Sources and planning, Code written and next integration steps, Electromagnet and PWM testing (+8 more)
 
-### Community 17 - "core_cm7.h"
-Cohesion: 0.19
-Nodes (21): ITM_CheckChar(), ITM_ReceiveChar(), ITM_SendChar(), __NVIC_ClearPendingIRQ(), NVIC_DecodePriority(), __NVIC_DisableIRQ(), __NVIC_EnableIRQ(), NVIC_EncodePriority() (+13 more)
+### Community 17 - "cmsis_compiler.h"
+Cohesion: 0.07
+Nodes (47): T_UINT16_READ(), T_UINT16_WRITE(), T_UINT32(), T_UINT32_READ(), T_UINT32_WRITE(), ITM_CheckChar(), ITM_ReceiveChar(), ITM_SendChar() (+39 more)
 
 ### Community 18 - "test_dashboard.mjs"
 Cohesion: 0.07
@@ -257,16 +261,16 @@ Cohesion: 0.25
 Nodes (7): Coarse positions and coupled movement, Direct-insertion common Hall rod — one holder print, How the sensor slides into the rod, Install and lock the common rod, Print files, Sensor retention without pinching the leads, Wiring, magnets and limits
 
 ### Community 29 - "counter"
-Cohesion: 0.25
-Nodes (4): adc_spi, counter, pwm, sweep_8bit
+Cohesion: 0.12
+Nodes (8): adc_spi, counter, dsp_addsub, dsp_mac, dsp_mac_tb, pid_controller, pwm, sweep_8bit
 
 ### Community 30 - "Independent CAD review — 10 November 2026"
 Cohesion: 0.29
 Nodes (6): Assembly and fabrication observations, Corrections required and verified during review, Independent CAD review — 10 November 2026, Independently verified geometry, Remaining limits that affect a one-shot build, Sources and interpretation
 
-### Community 31 - "__DSB"
-Cohesion: 0.05
-Nodes (97): SCB_CleanDCache(), SCB_CleanDCache_by_Addr(), SCB_CleanInvalidateDCache(), SCB_CleanInvalidateDCache_by_Addr(), SCB_DisableDCache(), SCB_DisableICache(), SCB_EnableDCache(), SCB_EnableICache() (+89 more)
+### Community 31 - "core_starmc1.h"
+Cohesion: 0.10
+Nodes (43): DCB_GetAuthCtrl(), DIB_GetAuthStatus(), ITM_CheckChar(), ITM_ReceiveChar(), ITM_SendChar(), __NVIC_ClearPendingIRQ(), NVIC_ClearTargetState(), NVIC_DecodePriority() (+35 more)
 
 ### Community 32 - "CAD input evidence — November 10, 2026"
 Cohesion: 0.33
@@ -305,8 +309,8 @@ Cohesion: 0.05
 Nodes (67): __CLZ(), __disable_fault_irq(), __disable_irq(), __enable_fault_irq(), __enable_irq(), __get_APSR(), __get_BASEPRI(), __get_CONTROL() (+59 more)
 
 ### Community 41 - "cmsis_compiler.h"
-Cohesion: 0.07
-Nodes (48): T_UINT16_READ(), T_UINT16_WRITE(), T_UINT32(), T_UINT32_READ(), T_UINT32_WRITE(), __NVIC_ClearPendingIRQ(), NVIC_DecodePriority(), __NVIC_DisableIRQ() (+40 more)
+Cohesion: 0.13
+Nodes (28): __NVIC_ClearPendingIRQ(), NVIC_DecodePriority(), __NVIC_DisableIRQ(), __NVIC_EnableIRQ(), NVIC_EncodePriority(), __NVIC_GetEnableIRQ(), __NVIC_GetPendingIRQ(), __NVIC_GetPriority() (+20 more)
 
 ### Community 42 - "Exported-file check report — direct-insertion common Hall rod"
 Cohesion: 0.50
@@ -317,8 +321,8 @@ Cohesion: 0.50
 Nodes (3): Assembly interpretation, Confirmed purchased parts — November 11, 2026, Hall-sensor primary reference
 
 ### Community 44 - "stdint"
-Cohesion: 0.10
-Nodes (20): ITM_CheckChar(), ITM_ReceiveChar(), ITM_SendChar(), __NVIC_ClearPendingIRQ(), NVIC_DecodePriority(), __NVIC_EnableIRQ(), NVIC_EncodePriority(), __NVIC_GetActive() (+12 more)
+Cohesion: 0.08
+Nodes (28): ITM_CheckChar(), ITM_ReceiveChar(), ITM_SendChar(), __NVIC_ClearPendingIRQ(), NVIC_DecodePriority(), __NVIC_EnableIRQ(), NVIC_EncodePriority(), __NVIC_GetActive() (+20 more)
 
 ### Community 45 - "Overleaf package"
 Cohesion: 0.50
@@ -356,9 +360,9 @@ Nodes (44): DCB_GetAuthCtrl(), DCB_SetAuthCtrl(), DIB_GetAuthStatus(), ITM_Check
 Cohesion: 0.10
 Nodes (44): DCB_GetAuthCtrl(), DCB_SetAuthCtrl(), DIB_GetAuthStatus(), ITM_CheckChar(), ITM_ReceiveChar(), ITM_SendChar(), __NVIC_ClearPendingIRQ(), NVIC_ClearTargetState() (+36 more)
 
-### Community 75 - "main_nov18.c"
-Cohesion: 0.07
-Nodes (43): board_init(), format_status(), handle_uart_request(), maglev_monitor_feed(), maglev_monitor_init(), maglev_monitor_pid(), maglev_monitor_tx_pending(), main() (+35 more)
+### Community 75 - "mcu/src/main.c"
+Cohesion: 0.14
+Nodes (24): board_init(), format_status(), handle_uart_request(), maglev_monitor_feed(), maglev_monitor_init(), maglev_monitor_pid(), maglev_monitor_tx_pending(), main() (+16 more)
 
 ### Community 76 - "core_armv8mbl.h"
 Cohesion: 0.12
@@ -384,9 +388,9 @@ Nodes (21): __get_APSR(), __get_BASEPRI(), __get_CONTROL(), __get_FAULTMASK(), _
 Cohesion: 0.19
 Nodes (21): ITM_CheckChar(), ITM_ReceiveChar(), ITM_SendChar(), __NVIC_ClearPendingIRQ(), NVIC_DecodePriority(), __NVIC_DisableIRQ(), __NVIC_EnableIRQ(), NVIC_EncodePriority() (+13 more)
 
-### Community 82 - "core_sc300.h"
-Cohesion: 0.19
-Nodes (21): ITM_CheckChar(), ITM_ReceiveChar(), ITM_SendChar(), __NVIC_ClearPendingIRQ(), NVIC_DecodePriority(), __NVIC_DisableIRQ(), __NVIC_EnableIRQ(), NVIC_EncodePriority() (+13 more)
+### Community 82 - "__DSB"
+Cohesion: 0.17
+Nodes (30): SCB_CleanDCache(), SCB_CleanDCache_by_Addr(), SCB_CleanInvalidateDCache(), SCB_CleanInvalidateDCache_by_Addr(), SCB_DisableDCache(), SCB_DisableICache(), SCB_EnableDCache(), SCB_EnableICache() (+22 more)
 
 ### Community 83 - "Communication contract v2"
 Cohesion: 0.50
@@ -407,6 +411,10 @@ Nodes (8): bounds(), export(), flat(), loop(), pins(), preserve(), ribbon(), slo
 ### Community 87 - "direct_insert_hall_version/purchased_geometry.py"
 Cohesion: 0.28
 Nodes (12): add(), bed_transform(), bounds(), box(), build(), cyl(), export(), hall_ref() (+4 more)
+
+### Community 88 - "mpu_armv8.h"
+Cohesion: 0.23
+Nodes (18): __DMB(), ARM_MPU_ClrRegion(), ARM_MPU_ClrRegion_NS(), ARM_MPU_ClrRegionEx(), ARM_MPU_Disable(), ARM_MPU_Disable_NS(), ARM_MPU_Enable(), ARM_MPU_Enable_NS() (+10 more)
 
 ### Community 89 - "control.c"
 Cohesion: 0.22
@@ -432,32 +440,40 @@ Nodes (4): T_UINT16_READ(), T_UINT16_WRITE(), T_UINT32_READ(), T_UINT32_WRITE()
 Cohesion: 0.40
 Nodes (5): __ROR(), __SXTAB16(), __SXTAB16_RORn(), __SXTB16(), __SXTB16_RORn()
 
+### Community 102 - "core_cm0plus.h"
+Cohesion: 0.25
+Nodes (15): __NVIC_ClearPendingIRQ(), NVIC_DecodePriority(), __NVIC_DisableIRQ(), __NVIC_EnableIRQ(), NVIC_EncodePriority(), __NVIC_GetEnableIRQ(), __NVIC_GetPendingIRQ(), __NVIC_GetPriority() (+7 more)
+
 ### Community 103 - "web_server.cpp"
 Cohesion: 0.26
 Nodes (5): exchange(), handlePid(), isWireNumber(), sendJson(), setup()
 
 ### Community 104 - "MicroPEs live position and PID monitor"
 Cohesion: 0.22
-Nodes (8): Flash the ESP8266, HTTP and UART, MicroPEs live position and PID monitor, Position and PID, Run it, STM32 DMA variant, Verification, Wire the boards
+Nodes (8): Flash the ESP8266, HTTP and UART, MicroPEs live position and PID monitor, Position and PID, Run it, STM32 SPI and DMA, Verification, Wire the boards
+
+### Community 105 - "mpu_armv7.h"
+Cohesion: 0.36
+Nodes (7): ARM_MPU_ClrRegion(), ARM_MPU_Disable(), ARM_MPU_Enable(), ARM_MPU_Load(), ARM_MPU_OrderedMemcpy(), ARM_MPU_SetRegion(), ARM_MPU_SetRegionEx()
 
 ## Knowledge Gaps
-- **16 isolated node(s):** `field_to_position`, `spi_word_tx`, `spi_word_tx`, `check_frames`, `crc48` (+11 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 413 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **28 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **17 isolated node(s):** `accumulator`, `field_to_position`, `spi_word_tx`, `spi_word_tx`, `check_frames` (+12 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 416 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **29 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `MCU: SEGGER project integration` connect `board_stm32l432.c` to `Build, simulate, and program`?**
-  _High betweenness centrality (0.164) - this node is a cross-community bridge._
+  _High betweenness centrality (0.141) - this node is a cross-community bridge._
 - **Are the 94 inferred relationships involving `__DSB()` (e.g. with `board_init()` and `SCB_CleanDCache()`) actually correct?**
   _`__DSB()` has 94 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `field_to_position`, `spi_word_tx`, `spi_word_tx` to the rest of the system?**
-  _16 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **What connects `accumulator`, `field_to_position`, `spi_word_tx` to the rest of the system?**
+  _17 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `math` be split into smaller, more focused modules?**
   _Cohesion score 0.13012477718360071 - nodes in this community are weakly interconnected._
 - **Why does `Build, simulate, and program` connect `Build, simulate, and program` to `board_stm32l432.c`?**
-  _High betweenness centrality (0.164) - this node is a cross-community bridge._
+  _High betweenness centrality (0.141) - this node is a cross-community bridge._
 - **Are the 71 inferred relationships involving `__ISB()` (e.g. with `board_init()` and `SCB_CleanDCache()`) actually correct?**
   _`__ISB()` has 71 INFERRED edges - model-reasoned connections that need verification._
 - **Should `cadquery` be split into smaller, more focused modules?**

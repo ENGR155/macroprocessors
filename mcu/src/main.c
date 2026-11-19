@@ -1,6 +1,6 @@
 /* MicroPEs STM32L432KC application.
- * Reads the FPGA's 16-bit position over SPI1 and serves telemetry to the
- * ESP8266 over USART1. The ESP8266 hosts the HTTP server and dashboard.
+ * Uses DMA1 to read the FPGA's 16-bit position over SPI1. Sends telemetry over
+ * USART1 to the ESP8266, which hosts the HTTP server and dashboard.
  */
 #include <stdbool.h>
 #include <stdint.h>
@@ -21,58 +21,25 @@
 #define PRINT_TO_SEGGER 0    /* Set to 1 for optional RTT debug output. */
 #endif
 
-<<<<<<< Updated upstream
-=======
-volatile int16_t fpga_word = 0;
-volatile uint32_t read_count = 0;
->>>>>>> Stashed changes
 #define AVERAGE_WINDOW 10u
 #define MAX_SAMPLE_DELTA 1000u
 
-<<<<<<< Updated upstream
 /* Debugger/JS Scope variables. The average retains the bench code's 10 um units. */
 volatile uint16_t fpga_word;
-volatile uint32_t fpga_average, read_count, rejected_count, spi_failures;
-static uint32_t samples[AVERAGE_WINDOW];
-static uint32_t sample_sum, previous_sample;
+volatile int32_t fpga_average;
+volatile uint32_t read_count, rejected_count, spi_failures;
+static int32_t samples[AVERAGE_WINDOW];
+static int32_t sample_sum, previous_sample;
 static unsigned sample_count, next_sample;
 
-static void update_average(uint16_t word) {
-    uint32_t reading = (uint32_t)word * 4u;
+static void update_average(int16_t word) {
+    int32_t reading = (int32_t)word * 4;
     if (sample_count) {
-        uint32_t delta = reading >= previous_sample ? reading - previous_sample
-                                                     : previous_sample - reading;
-        if (delta > MAX_SAMPLE_DELTA) {
+        int32_t delta = reading - previous_sample;
+        if (delta > (int32_t)MAX_SAMPLE_DELTA || delta < -(int32_t)MAX_SAMPLE_DELTA) {
             rejected_count++;
             return;
         }
-=======
-#define AVERAGE_WINDOW 10u
-#define MAX_SAMPLE_DELTA 1000  // Signed constant.
-
-volatile int16_t fpga_average = 0;
-volatile uint32_t rejected_count = 0;
-
-static int16_t samples[AVERAGE_WINDOW];
-static int32_t sample_sum = 0;
-static unsigned sample_count = 0;
-static unsigned next_sample = 0;
-static int16_t previous_sample = 0;
-
-static void update_average(int16_t reading) {
-    // Calculate in 32 bits: two int16_t values can differ by 65535.
-    if (sample_count > 0u) {
-        int32_t delta = (int32_t)reading - (int32_t)previous_sample;
-
-        if (delta < 0)
-            delta = -delta;
-
-        // Uncomment to enable rejection of large changes.
-        // if (delta > MAX_SAMPLE_DELTA) {
-        //     ++rejected_count;
-        //     return;
-        // }
->>>>>>> Stashed changes
     }
 
     if (sample_count == AVERAGE_WINDOW) {
@@ -82,22 +49,11 @@ static void update_average(int16_t reading) {
     }
     samples[next_sample] = reading;
     sample_sum += reading;
-
     next_sample = (next_sample + 1u) % AVERAGE_WINDOW;
     previous_sample = reading;
-<<<<<<< Updated upstream
-    fpga_average = (sample_sum + sample_count / 2u) / sample_count;
-=======
-
-    // Round to nearest integer; exact halves round away from zero.
-    // Keep the divisor signed to avoid unsigned arithmetic.
     int32_t count = (int32_t)sample_count;
-    int32_t rounded_sum = sample_sum >= 0
-        ? sample_sum + count / 2
-        : sample_sum - count / 2;
-
-    fpga_average = (int16_t)(rounded_sum / count);
->>>>>>> Stashed changes
+    int32_t half = count / 2;
+    fpga_average = (sample_sum + (sample_sum < 0 ? -half : half)) / count;
 }
 
 /* ESP8266 UART telemetry and configuration protocol. */
@@ -128,10 +84,11 @@ static void maglev_monitor_init(maglev_monitor_t *m, bool calibrated) {
 static void record_fpga_reading(maglev_monitor_t *m, uint16_t word, uint32_t now_ms) {
     fpga_word = word;
     read_count++;
-    update_average(word);
+    int16_t reading = (int16_t)word;
+    update_average(reading);
 
     m->word = word;
-    m->position_um = (int32_t)word * MAGLEV_POSITION_UM_PER_WORD + MAGLEV_POSITION_OFFSET_UM;
+    m->position_um = (int32_t)reading * MAGLEV_POSITION_UM_PER_WORD + MAGLEV_POSITION_OFFSET_UM;
     m->sample_ms = now_ms;
     m->sequence++;
     m->have_sample = true;
@@ -259,8 +216,24 @@ static volatile unsigned rx_head, rx_tail;
 static volatile uint32_t rx_errors, rx_dropped;
 static volatile char rx_ring[256];
 
-/* Interrupt reception buffers UART bytes while the 128 us SPI transfer runs.
- * The foreground parses commands and formats responses. */
+/* DMA1 moves one halfword in each direction per FPGA chip-select pulse. */
+#define FPGA_CS_HIGH (1u << 11)
+#define FPGA_CS_LOW  (1u << (11 + 16))
+#define SPI_DMA_WIDTH (DMA_CCR_PSIZE_0 | DMA_CCR_MSIZE_0)
+#define SPI_DMA_TIMEOUT_MS 2u
+/* The SEGGER linker calls the 0x20000000 SRAM1 region RAM2.
+ * Place the DMA buffers there explicitly so DMA uses system-bus addresses. */
+#if defined(__SES_ARM)
+#define SPI_DMA_BUFFER __attribute__((section(".RAM2.spi_dma")))
+#else
+#define SPI_DMA_BUFFER
+#endif
+static uint16_t spi_dma_dummy SPI_DMA_BUFFER;
+static volatile uint16_t spi_dma_word SPI_DMA_BUFFER;
+static bool spi_dma_active;
+static uint32_t spi_dma_started_ms;
+
+/* The interrupt buffers UART RX. The foreground parses and answers requests. */
 void USART1_IRQHandler(void) {
     uint32_t flags = USART1->ISR;
     const bool error = (flags & (USART_ISR_ORE | USART_ISR_FE | USART_ISR_NE)) != 0;
@@ -304,7 +277,23 @@ static void spi_reset(void) {
     SPI1->CR1 = SPI_CR1_MSTR | SPI_CR1_SSM | SPI_CR1_SSI |
                 (6u << SPI_CR1_BR_Pos); /* 16 MHz / 128 = 125 kHz */
     SPI1->CR2 = 15u << SPI_CR2_DS_Pos; /* 16-bit frame / FIFO threshold */
-    SPI1->CR1 |= SPI_CR1_SPE;
+}
+
+static void spi_dma_init(void) {
+    DMA1_Channel2->CCR = 0;
+    DMA1_Channel3->CCR = 0;
+    DMA1->IFCR = DMA_IFCR_CGIF2 | DMA_IFCR_CGIF3;
+    spi_dma_dummy = 0;
+
+    /* RM0394 Table 45: request 1 maps SPI1_RX to CH2 and SPI1_TX to CH3. */
+    DMA1_CSELR->CSELR = (DMA1_CSELR->CSELR & ~(DMA_CSELR_C2S | DMA_CSELR_C3S)) |
+                      (1u << DMA_CSELR_C2S_Pos) | (1u << DMA_CSELR_C3S_Pos);
+    DMA1_Channel2->CPAR = (uint32_t)(uintptr_t)&SPI1->DR;
+    DMA1_Channel2->CMAR = (uint32_t)(uintptr_t)&spi_dma_word;
+    DMA1_Channel3->CPAR = (uint32_t)(uintptr_t)&SPI1->DR;
+    DMA1_Channel3->CMAR = (uint32_t)(uintptr_t)&spi_dma_dummy;
+    DMA1_Channel2->CCR = SPI_DMA_WIDTH | DMA_CCR_PL_1;
+    DMA1_Channel3->CCR = SPI_DMA_WIDTH | DMA_CCR_DIR;
 }
 static void board_init(void) {
     RCC->CR |= RCC_CR_HSION;
@@ -313,6 +302,8 @@ static void board_init(void) {
     while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_HSI) {}
     RCC->CFGR &= ~(RCC_CFGR_HPRE | RCC_CFGR_PPRE1 | RCC_CFGR_PPRE2);
     SystemCoreClock = 16000000u;
+    RCC->AHB1ENR |= RCC_AHB1ENR_DMA1EN;
+    (void)RCC->AHB1ENR;
     RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN | RCC_AHB2ENR_GPIOBEN;
     RCC->APB1ENR1 |= RCC_APB1ENR1_TIM2EN;
     RCC->APB2ENR |= RCC_APB2ENR_SPI1EN | RCC_APB2ENR_USART1EN;
@@ -321,7 +312,7 @@ static void board_init(void) {
     /* Free-running 32-bit millisecond counter, wraps after about 49 days. */
     TIM2->CR1 = 0; TIM2->PSC = 16000u - 1u; TIM2->ARR = UINT32_MAX;
     TIM2->EGR = TIM_EGR_UG; TIM2->CNT = 0; TIM2->CR1 = TIM_CR1_CEN;
-    GPIOA->BSRR = 1u << 11;
+    GPIOA->BSRR = FPGA_CS_HIGH;
     GPIOA->OTYPER &= ~(1u << 11);
     GPIOA->MODER = (GPIOA->MODER & ~(3u << 22)) | (1u << 22);
     GPIOA->PUPDR = (GPIOA->PUPDR & ~(3u << 22)) | (1u << 22);
@@ -331,8 +322,9 @@ static void board_init(void) {
         GPIOB->OTYPER &= ~(1u << p); GPIOB->OSPEEDR |= 3u << (2*p);
         GPIOB->PUPDR &= ~(3u << (2*p));
     }
-    GPIOB->PUPDR |= 1u << 8;
+    GPIOB->PUPDR |= (1u << 8) | (2u << 6); /* MISO pull-up, mode 0 SCK pull-down. */
     spi_reset();
+    spi_dma_init();
     for (unsigned p = 9; p <= 10; p++) {
         GPIOA->MODER = (GPIOA->MODER & ~(3u << (2*p))) | (2u << (2*p));
         GPIOA->AFR[1] = (GPIOA->AFR[1] & ~(15u << (4*(p-8)))) | (7u << (4*(p-8)));
@@ -350,40 +342,72 @@ static void board_init(void) {
     NVIC_SetPriority(USART1_IRQn, 2); NVIC_EnableIRQ(USART1_IRQn);
     __enable_irq();
 }
-static bool read_fpga_word(uint16_t *word) {
-    uint32_t start = TIM2->CNT;
-    GPIOA->BSRR = 1u << (11 + 16);
+static void start_spi_dma(uint32_t now_ms) {
+    DMA1_Channel2->CNDTR = 1;
+    DMA1_Channel3->CNDTR = 1;
+    DMA1->IFCR = DMA_IFCR_CGIF2 | DMA_IFCR_CGIF3;
+    spi_dma_started_ms = now_ms;
+    spi_dma_active = true;
+
+    GPIOA->BSRR = FPGA_CS_LOW;
+    /* Preserve the original chip-select setup time before generating clocks. */
     for (volatile unsigned n = 0; n < 100; n++) __NOP();
-    while (!(SPI1->SR & SPI_SR_TXE)) if ((uint32_t)(TIM2->CNT - start) >= 2) goto failed;
-    *(volatile uint16_t *)&SPI1->DR = 0;
-    while (!(SPI1->SR & SPI_SR_RXNE)) if ((uint32_t)(TIM2->CNT - start) >= 2) goto failed;
-    *word = *(volatile uint16_t *)&SPI1->DR;
-    while (SPI1->SR & SPI_SR_BSY) if ((uint32_t)(TIM2->CNT - start) >= 2) goto failed;
-    for (volatile unsigned n = 0; n < 100; n++) __NOP();
-    GPIOA->BSRR = 1u << 11; return true;
-failed:
-    GPIOA->BSRR = 1u << 11; spi_reset(); return false;
+
+    /* Arm RX first. TX DMA supplies the zero word that clocks the FPGA. */
+    __DMB();
+    SPI1->CR2 |= SPI_CR2_RXDMAEN;
+    DMA1_Channel2->CCR |= DMA_CCR_EN;
+    DMA1_Channel3->CCR |= DMA_CCR_EN;
+    SPI1->CR2 |= SPI_CR2_TXDMAEN;
+    SPI1->CR1 |= SPI_CR1_SPE;
 }
+
+static void stop_spi_dma(void) {
+    GPIOA->BSRR = FPGA_CS_HIGH;
+    DMA1_Channel3->CCR &= ~DMA_CCR_EN;
+    DMA1_Channel2->CCR &= ~DMA_CCR_EN;
+    SPI1->CR1 &= ~SPI_CR1_SPE;
+    SPI1->CR2 &= ~(SPI_CR2_RXDMAEN | SPI_CR2_TXDMAEN);
+    DMA1->IFCR = DMA_IFCR_CGIF2 | DMA_IFCR_CGIF3;
+    spi_dma_active = false;
+}
+
+static void service_spi_dma(uint32_t now_ms) {
+    if (!spi_dma_active) return;
+
+    uint32_t dma_flags = DMA1->ISR;
+    uint32_t spi_status = SPI1->SR;
+    const uint32_t complete = DMA_ISR_TCIF2 | DMA_ISR_TCIF3;
+    bool error = (dma_flags & (DMA_ISR_TEIF2 | DMA_ISR_TEIF3)) ||
+                 (spi_status & (SPI_SR_OVR | SPI_SR_MODF | SPI_SR_FRE));
+    if (!error && (dma_flags & complete) == complete &&
+        !(spi_status & (SPI_SR_FTLVL | SPI_SR_BSY))) {
+        __DMB(); /* Read the DMA-written halfword after observing completion. */
+        uint16_t word = spi_dma_word;
+        for (volatile unsigned n = 0; n < 100; n++) __NOP(); /* CS hold. */
+        stop_spi_dma();
+        record_fpga_reading(&monitor, word, spi_dma_started_ms);
+    } else if (error || (uint32_t)(now_ms - spi_dma_started_ms) >= SPI_DMA_TIMEOUT_MS) {
+        stop_spi_dma();
+        spi_reset(); /* Flush an incomplete transaction before the next sample. */
+        monitor.failures = ++spi_failures;
+    }
+}
+
 int main(void) {
-<<<<<<< Updated upstream
     maglev_monitor_init(&monitor, MAGLEV_POSITION_CALIBRATED != 0);
     board_init();
     uint32_t last_sample = TIM2->CNT - MAGLEV_SAMPLE_PERIOD_MS;
 #if PRINT_TO_SEGGER
-    uint32_t last_print = TIM2->CNT;
+    uint32_t last_printed_read = 0;
 #endif
     for (;;) {
-        /* No inter-sample delay: service USART1 on every pass through the loop. */
         uint32_t now = TIM2->CNT;
-        if ((uint32_t)(now - last_sample) >= MAGLEV_SAMPLE_PERIOD_MS) {
+        /* Check the DMA once per pass so UART processing continues during SPI. */
+        service_spi_dma(now);
+        if (!spi_dma_active && (uint32_t)(now - last_sample) >= MAGLEV_SAMPLE_PERIOD_MS) {
             last_sample = now;
-            uint16_t word;
-            if (read_fpga_word(&word)) {
-                record_fpga_reading(&monitor, word, TIM2->CNT);
-            } else {
-                spi_failures++;
-                monitor.failures = spi_failures;
-            }
+            start_spi_dma(now);
         }
         /* Add maglev_monitor_pid() here once a real controller exists.
          * See README.md for readback and atomic-apply integration. */
@@ -396,32 +420,16 @@ int main(void) {
             USART1->TDR = (uint8_t)monitor.reply[monitor.tx_pos++];
         }
 #if PRINT_TO_SEGGER
-        if (!maglev_monitor_tx_pending(&monitor) && (uint32_t)(now - last_print) >= 250u) {
-            last_print = now;
-            printf("Raw = %u, Position = %ld um, average = %lu (10 um units)\n",
-                   (unsigned)fpga_word, (long)monitor.position_um, (unsigned long)fpga_average);
+        if (!spi_dma_active && !maglev_monitor_tx_pending(&monitor) &&
+            read_count != last_printed_read) {
+            last_printed_read = read_count;
+            long pos = (long)monitor.position_um / 10;
+            unsigned long magnitude = (unsigned long)(pos < 0 ? -pos : pos);
+            printf("Signed = %d, Unsigned = %u, Pos = %s%lu.%03lu cm, average = %ld\n",
+                   (int)(int16_t)fpga_word, (unsigned)fpga_word, pos < 0 ? "-" : "",
+                   magnitude / 1000u, magnitude % 1000u, (long)fpga_average);
         }
 #endif
-=======
-    init_spi();
-
-    for (;;) {
-      uint16_t reading = read_fpga_word();
-      fpga_word = (int16_t)reading;
-
-      ++read_count;
-      update_average(fpga_word);
-
-#if PRINT_TO_SEGGER
-printf("Signed = %d, Unsigned = %u, average = %d\n",
-       (int)fpga_word,
-       (unsigned)reading,
-       (int)fpga_average);
-        fflush(stdout);
-#endif
-
-        delay_ms(50);
->>>>>>> Stashed changes
     }
 }
 

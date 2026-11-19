@@ -1,5 +1,5 @@
 <!DOCTYPE CrossStudio_Project_File>
-<solution Name="maglev_dma_nov18" target="8" version="2">
+<solution Name="maglev_spi_nov18" target="8" version="2">
   <configuration
     Name="Debug"
     c_preprocessor_definitions="DEBUG"
@@ -13,7 +13,7 @@
     gcc_omit_frame_pointer="Yes"
     gcc_optimization_level="Level 2 balanced"
     link_dedupe_code="Yes" />
-  <project Name="maglev_dma_nov18">
+  <project Name="maglev_spi_nov18">
     <configuration
       LIBRARY_IO_TYPE="RTT"
       Name="Common"
