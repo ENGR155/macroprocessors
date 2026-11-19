@@ -39,6 +39,16 @@ Keep the existing ADC and PWM wiring and the three SPI connections below. Leave 
 
 Opening **http://192.168.4.1/api/status** directly requests a fresh telemetry snapshot as JSON. For an offline preview, open the local `dashboard.html` with `?demo=1` appended to its URL. The page labels demo data as simulated.
 
+## STM32 DMA variant
+
+Open [maglev_dma_nov18.emProject](../mcu/maglev_dma_nov18.emProject) in SEGGER to build [main_nov18.c](../mcu/src/main_nov18.c). This project selects the DMA entry point on its own. If adding the file to another SEGGER project, select one application main for the build.
+
+DMA1 channel 3 sends a zero halfword over SPI1 to generate 16 clocks. Channel 2 copies the FPGA reply into RAM. The firmware starts one read every 25 ms and can service the ESP8266 while the transfer runs. It releases PA11 after both DMA channels complete and SPI finishes. A transfer error or timeout increments `spi_failures` and the next read can retry.
+
+Use the SPI and UART wiring above. SEGGER RTT output is enabled in this variant. For Watch or JS Scope, `fpga_word` retains the raw bits, `fpga_average` holds the signed moving average in 10 µm units, and `read_count` advances after a completed transfer. The position conversion treats the FPGA word as signed, as in the bench code. The dashboard's raw view shows the original unsigned bits.
+
+For the bench check, verify that each PA11 low pulse encloses 16 clocks at 125 kHz. Observe `read_count` advancing, `spi_failures` staying at zero, and the dashboard updating when the magnet moves.
+
 ## Position and PID
 
 The STM32 reads the FPGA every **25 ms** and services UART between reads. Both are in `mcu/src/main.c`. The FPGA sets its own ADC timing. The browser polls 100 ms after each response and plots new sequence numbers. CSV includes the displayed history.
@@ -76,6 +86,9 @@ $ses = 'C:/Program Files/SEGGER/SEGGER Embedded Studio 8.30a/bin'
 & "$ses/emBuild.exe" -config Release mcu/finalprojectsp.emProject
 & "$ses/emBuild.exe" -config Debug mcu/maglev_web_tests.emProject
 & "$ses/emSim.exe" mcu/Output/Debug/Exe/maglev_web_tests.elf -end maglev_tests_pass -max 20000000
+& "$ses/emBuild.exe" -config Debug mcu/maglev_dma_nov18.emProject
+& "$ses/emBuild.exe" -config 'Debug DMA' mcu/maglev_web_tests.emProject
+& "$ses/emSim.exe" 'mcu/Output/Debug DMA/Exe/maglev_web_tests.elf' -end maglev_tests_pass -max 20000000
 ```
 
 Hardware references include the [E155 Lab 6 board information](https://hmc-e155.github.io/lab/lab6/), [E155 v4 carrier schematic](https://hmc-e155.github.io/assets/doc/E155%20Development%20Board%20Schematic.pdf), [MikroE WiFi ESP Click schematic](https://download.mikroe.com/documents/add-on-boards/click/wifi-esp/wifi-esp-click-schematic-v100.pdf), and [ESP8266 Arduino board guide](https://arduino-esp8266.readthedocs.io/en/3.1.2/boards.html).

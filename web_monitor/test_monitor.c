@@ -1,7 +1,35 @@
 /* Portable protocol tests: cc -std=c11 -Wall -Wextra -Werror
  * web_monitor/test_monitor.c -o test_monitor */
+#ifdef MAGLEV_TEST_NOV18
+/* Substitute RAM registers for the SPI/DMA state machine in the ARM simulator. */
+#include "stm32l432xx.h"
+static RCC_TypeDef test_rcc;
+static SPI_TypeDef test_spi1;
+static GPIO_TypeDef test_gpioa;
+static DMA_TypeDef test_dma1;
+static DMA_Request_TypeDef test_dma1_selector;
+static DMA_Channel_TypeDef test_dma1_ch2, test_dma1_ch3;
+#undef RCC
+#undef SPI1
+#undef GPIOA
+#undef DMA1
+#undef DMA1_CSELR
+#undef DMA1_Channel2
+#undef DMA1_Channel3
+#define RCC (&test_rcc)
+#define SPI1 (&test_spi1)
+#define GPIOA (&test_gpioa)
+#define DMA1 (&test_dma1)
+#define DMA1_CSELR (&test_dma1_selector)
+#define DMA1_Channel2 (&test_dma1_ch2)
+#define DMA1_Channel3 (&test_dma1_ch3)
+#define main maglev_firmware_main
+#include "../mcu/src/main_nov18.c"
+#undef main
+#else
 #define MAGLEV_MONITOR_TEST
 #include "../mcu/src/main.c"
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -35,6 +63,58 @@ static const char *request(const char *line) {
     while (*line) maglev_monitor_feed(&m, *line++, now_ms);
     return drain();
 }
+#ifdef MAGLEV_TEST_NOV18
+static void test_spi_dma(void) {
+    spi_reset();
+    spi_dma_init();
+    CHECK(DMA1_CSELR->CSELR == ((1u << DMA_CSELR_C2S_Pos) | (1u << DMA_CSELR_C3S_Pos)));
+    CHECK(DMA1_Channel2->CPAR == (uint32_t)(uintptr_t)&SPI1->DR);
+    CHECK(DMA1_Channel3->CPAR == (uint32_t)(uintptr_t)&SPI1->DR);
+    CHECK(DMA1_Channel2->CMAR == (uint32_t)(uintptr_t)&spi_dma_word);
+    CHECK(DMA1_Channel3->CMAR == (uint32_t)(uintptr_t)&spi_dma_dummy);
+    CHECK(DMA1_Channel2->CCR == (SPI_DMA_WIDTH | DMA_CCR_PL_1));
+    CHECK(DMA1_Channel3->CCR == (SPI_DMA_WIDTH | DMA_CCR_DIR));
+
+    start_spi_dma(2000);
+    CHECK(DMA1_Channel2->CNDTR == 1 && DMA1_Channel3->CNDTR == 1);
+    CHECK(spi_dma_active && GPIOA->BSRR == FPGA_CS_LOW);
+    CHECK((SPI1->CR2 & (SPI_CR2_RXDMAEN | SPI_CR2_TXDMAEN)) ==
+          (SPI_CR2_RXDMAEN | SPI_CR2_TXDMAEN));
+    uint32_t before = read_count;
+    DMA1->ISR = DMA_ISR_TCIF3; /* TX DMA is done before SPI clocks the word. */
+    service_spi_dma(2000);
+    CHECK(spi_dma_active && read_count == before);
+    DMA1->ISR |= DMA_ISR_TCIF2;
+    SPI1->SR = SPI_SR_BSY;
+    service_spi_dma(2000);
+    CHECK(spi_dma_active && GPIOA->BSRR == FPGA_CS_LOW && read_count == before);
+    SPI1->SR = 0;
+    spi_dma_word = UINT16_MAX; /* Raw bits stay unsigned. Position preserves sign. */
+    service_spi_dma(2001);
+    CHECK(!spi_dma_active && GPIOA->BSRR == FPGA_CS_HIGH);
+    CHECK(read_count == before + 1 && fpga_word == UINT16_MAX);
+    CHECK(monitor.position_um == -MAGLEV_POSITION_UM_PER_WORD + MAGLEV_POSITION_OFFSET_UM);
+    CHECK(!(DMA1_Channel2->CCR & DMA_CCR_EN) && !(DMA1_Channel3->CCR & DMA_CCR_EN));
+    CHECK(!(SPI1->CR2 & (SPI_CR2_RXDMAEN | SPI_CR2_TXDMAEN)));
+
+    start_spi_dma(UINT32_MAX);
+    DMA1->ISR = 0;
+    service_spi_dma(1); /* Timeout across a millisecond counter wrap. */
+    CHECK(!spi_dma_active && GPIOA->BSRR == FPGA_CS_HIGH);
+    CHECK(spi_failures == 1 && read_count == before + 1);
+
+    start_spi_dma(2200);
+    DMA1->ISR = DMA_ISR_TEIF3;
+    service_spi_dma(2200);
+    CHECK(!spi_dma_active && spi_failures == 2 && read_count == before + 1);
+
+    start_spi_dma(2300);
+    DMA1->ISR = DMA_ISR_TCIF2 | DMA_ISR_TCIF3;
+    spi_dma_word = 440;
+    service_spi_dma(2300);
+    CHECK(!spi_dma_active && read_count == before + 2 && fpga_word == 440);
+}
+#endif
 int main(void) {
     maglev_monitor_init(&m, false);
     CHECK(strstr(request("@M1 41 GET\n"), "@M1 41 {\"result\":\"ok\""));
@@ -110,6 +190,9 @@ int main(void) {
     CHECK(strstr(request("@M1 4294967295 GET\n"), "@M1 4294967295 "));
     CHECK(strstr(output, "\"seq\":4294967295"));
     CHECK(strstr(output, "-2147483648"));
+#ifdef MAGLEV_TEST_NOV18
+    test_spi_dma();
+#endif
     printf("PASS monitor protocol: %u assertions\n", assertions);
     maglev_tests_pass();
     return 0;

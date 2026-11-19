@@ -1,17 +1,17 @@
-# Graph Report - macroprocessors  (2026-11-17)
+# Graph Report - macroprocessors  (2026-11-18)
 
 ## Corpus Check
-- 251 files · ~3,169,086 words
+- 248 files · ~3,171,210 words
 - Verdict: corpus is large enough that graph structure adds value.
-- Unclassified: 315 file(s) not represented in the graph (top: .step 175, .stl 67, .sat 32)
+- Unclassified: 316 file(s) not represented in the graph (top: .step 175, .stl 67, .sat 32)
 
 ## Summary
-- 2001 nodes · 4225 edges · 105 communities (76 shown, 29 thin omitted)
-- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 260 edges (avg confidence: 0.85)
+- 2016 nodes · 4257 edges · 103 communities (75 shown, 28 thin omitted)
+- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 251 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `77892990`
+- Built from commit: `a9dfe9f6`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -33,7 +33,7 @@
 - index.qmd
 - tb_system
 - progress.qmd
-- Hall-sensed magnetic levitation — ENGR 155
+- core_cm7.h
 - test_dashboard.mjs
 - build_three_print.py
 - hardware.qmd
@@ -84,7 +84,7 @@
 - core_armv8mml.h
 - core_cm33.h
 - core_cm35p.h
-- monitor.c
+- main_nov18.c
 - core_armv8mbl.h
 - core_cm23.h
 - independent_adjustable_check.py
@@ -92,12 +92,11 @@
 - cmsis_armcc.h
 - core_cm3.h
 - core_sc300.h
-- core_cm0plus.h
+- Communication contract v2
 - core_cm1.h
 - pmu_armv8.h
 - build_direct.py
 - direct_insert_hall_version/purchased_geometry.py
-- board_permit
 - control.c
 - lev_web_request
 - check_direct.py
@@ -109,7 +108,6 @@
 - spi_word_tx.sv
 - T_UINT32
 - T_UINT32
-- core_cm0.h
 - web_server.cpp
 - MicroPEs live position and PID monitor
 
@@ -140,15 +138,15 @@
 ## Import Cycles
 - None detected.
 
-## Communities (105 total, 29 thin omitted)
+## Communities (103 total, 28 thin omitted)
 
 ### Community 0 - "math"
 Cohesion: 0.13
 Nodes (16): key(), norm(), repair(), key(), norm(), repair(), key(), norm() (+8 more)
 
 ### Community 1 - "main"
-Cohesion: 0.19
-Nodes (12): get16(), lev_crc16(), lev_pack(), lev_unpack(), put16(), lev_runtime_feedback(), cfg(), main() (+4 more)
+Cohesion: 0.20
+Nodes (11): get16(), lev_crc16(), lev_pack(), lev_unpack(), put16(), cfg(), main(), request() (+3 more)
 
 ### Community 2 - "cadquery"
 Cohesion: 0.12
@@ -163,8 +161,8 @@ Cohesion: 0.08
 Nodes (50): run(), norm(), scan(), add_temp_component(), all_bodies(), baseline(), bb(), belt() (+42 more)
 
 ### Community 5 - "board_stm32l432.c"
-Cohesion: 0.22
-Nodes (18): MCU: SEGGER project integration, adc_start(), af(), board_init(), board_lock(), board_rx(), board_tx(), board_unlock() (+10 more)
+Cohesion: 0.18
+Nodes (20): MCU: SEGGER project integration, adc_start(), af(), board_init(), board_lock(), board_permit(), board_rx(), board_start_sampling() (+12 more)
 
 ### Community 6 - "MCU-FPGA SPI wiring, communication, and debugging"
 Cohesion: 0.07
@@ -210,9 +208,9 @@ Nodes (8): top, lev_core, top, tb_system, command, read_adc, rejected, transfer
 Cohesion: 0.11
 Nodes (16): Current progress report — November 15, 2026, Earlier planning framework, Committed demonstration, Design and calculations, Proposal baseline and demonstration specifications, Sources and planning, Code written and next integration steps, Electromagnet and PWM testing (+8 more)
 
-### Community 17 - "Hall-sensed magnetic levitation — ENGR 155"
-Cohesion: 0.50
-Nodes (4): Earlier application implementation, Hall-sensed magnetic levitation — ENGR 155, Repository map, Start here
+### Community 17 - "core_cm7.h"
+Cohesion: 0.19
+Nodes (21): ITM_CheckChar(), ITM_ReceiveChar(), ITM_SendChar(), __NVIC_ClearPendingIRQ(), NVIC_DecodePriority(), __NVIC_DisableIRQ(), __NVIC_EnableIRQ(), NVIC_EncodePriority() (+13 more)
 
 ### Community 18 - "test_dashboard.mjs"
 Cohesion: 0.07
@@ -307,8 +305,8 @@ Cohesion: 0.05
 Nodes (67): __CLZ(), __disable_fault_irq(), __disable_irq(), __enable_fault_irq(), __enable_irq(), __get_APSR(), __get_BASEPRI(), __get_CONTROL() (+59 more)
 
 ### Community 41 - "cmsis_compiler.h"
-Cohesion: 0.08
-Nodes (39): T_UINT16_READ(), T_UINT16_WRITE(), T_UINT32(), T_UINT32_READ(), T_UINT32_WRITE(), ITM_CheckChar(), ITM_ReceiveChar(), ITM_SendChar() (+31 more)
+Cohesion: 0.07
+Nodes (48): T_UINT16_READ(), T_UINT16_WRITE(), T_UINT32(), T_UINT32_READ(), T_UINT32_WRITE(), __NVIC_ClearPendingIRQ(), NVIC_DecodePriority(), __NVIC_DisableIRQ() (+40 more)
 
 ### Community 42 - "Exported-file check report — direct-insertion common Hall rod"
 Cohesion: 0.50
@@ -319,8 +317,8 @@ Cohesion: 0.50
 Nodes (3): Assembly interpretation, Confirmed purchased parts — November 11, 2026, Hall-sensor primary reference
 
 ### Community 44 - "stdint"
-Cohesion: 0.08
-Nodes (29): ITM_CheckChar(), ITM_ReceiveChar(), ITM_SendChar(), __NVIC_ClearPendingIRQ(), NVIC_DecodePriority(), __NVIC_EnableIRQ(), NVIC_EncodePriority(), __NVIC_GetActive() (+21 more)
+Cohesion: 0.10
+Nodes (20): ITM_CheckChar(), ITM_ReceiveChar(), ITM_SendChar(), __NVIC_ClearPendingIRQ(), NVIC_DecodePriority(), __NVIC_EnableIRQ(), NVIC_EncodePriority(), __NVIC_GetActive() (+12 more)
 
 ### Community 45 - "Overleaf package"
 Cohesion: 0.50
@@ -358,9 +356,9 @@ Nodes (44): DCB_GetAuthCtrl(), DCB_SetAuthCtrl(), DIB_GetAuthStatus(), ITM_Check
 Cohesion: 0.10
 Nodes (44): DCB_GetAuthCtrl(), DCB_SetAuthCtrl(), DIB_GetAuthStatus(), ITM_CheckChar(), ITM_ReceiveChar(), ITM_SendChar(), __NVIC_ClearPendingIRQ(), NVIC_ClearTargetState() (+36 more)
 
-### Community 75 - "monitor.c"
-Cohesion: 0.12
-Nodes (21): board_init(), main(), read_fpga_word(), spi_reset(), uart_receive(), gain(), maglev_monitor_feed(), maglev_monitor_init() (+13 more)
+### Community 75 - "main_nov18.c"
+Cohesion: 0.07
+Nodes (43): board_init(), format_status(), handle_uart_request(), maglev_monitor_feed(), maglev_monitor_init(), maglev_monitor_pid(), maglev_monitor_tx_pending(), main() (+35 more)
 
 ### Community 76 - "core_armv8mbl.h"
 Cohesion: 0.12
@@ -390,9 +388,9 @@ Nodes (21): ITM_CheckChar(), ITM_ReceiveChar(), ITM_SendChar(), __NVIC_ClearPend
 Cohesion: 0.19
 Nodes (21): ITM_CheckChar(), ITM_ReceiveChar(), ITM_SendChar(), __NVIC_ClearPendingIRQ(), NVIC_DecodePriority(), __NVIC_DisableIRQ(), __NVIC_EnableIRQ(), NVIC_EncodePriority() (+13 more)
 
-### Community 83 - "core_cm0plus.h"
-Cohesion: 0.25
-Nodes (15): __NVIC_ClearPendingIRQ(), NVIC_DecodePriority(), __NVIC_DisableIRQ(), __NVIC_EnableIRQ(), NVIC_EncodePriority(), __NVIC_GetEnableIRQ(), __NVIC_GetPendingIRQ(), __NVIC_GetPriority() (+7 more)
+### Community 83 - "Communication contract v2"
+Cohesion: 0.50
+Nodes (4): Communication contract v2, Eight-byte frames, ESP8266 to MCU, Shared MCU SPI bus
 
 ### Community 84 - "core_cm1.h"
 Cohesion: 0.25
@@ -410,17 +408,17 @@ Nodes (8): bounds(), export(), flat(), loop(), pins(), preserve(), ribbon(), slo
 Cohesion: 0.28
 Nodes (12): add(), bed_transform(), bounds(), box(), build(), cyl(), export(), hall_ref() (+4 more)
 
-### Community 88 - "board_permit"
-Cohesion: 0.29
-Nodes (4): board_permit(), board_start_sampling(), on_adc(), on_reply()
-
 ### Community 89 - "control.c"
-Cohesion: 0.25
-Nodes (8): clampf(), lev_arm(), lev_control_init(), lev_control_step(), lev_stop(), slew(), lev_runtime_init(), lev_runtime_sample()
+Cohesion: 0.22
+Nodes (9): clampf(), lev_arm(), lev_control_init(), lev_control_step(), lev_stop(), slew(), lev_runtime_feedback(), lev_runtime_init() (+1 more)
 
 ### Community 91 - "check_direct.py"
 Cohesion: 0.31
 Nodes (6): b(), box(), ck(), cyl(), mesh(), sweep()
+
+### Community 93 - "board.h"
+Cohesion: 0.15
+Nodes (4): on_adc(), on_reply(), Default_Handler(), Reset_Handler()
 
 ### Community 94 - "__PACKED_STRUCT"
 Cohesion: 0.40
@@ -434,28 +432,24 @@ Nodes (4): T_UINT16_READ(), T_UINT16_WRITE(), T_UINT32_READ(), T_UINT32_WRITE()
 Cohesion: 0.40
 Nodes (5): __ROR(), __SXTAB16(), __SXTAB16_RORn(), __SXTB16(), __SXTB16_RORn()
 
-### Community 102 - "core_cm0.h"
-Cohesion: 0.25
-Nodes (15): __NVIC_ClearPendingIRQ(), NVIC_DecodePriority(), __NVIC_DisableIRQ(), __NVIC_EnableIRQ(), NVIC_EncodePriority(), __NVIC_GetEnableIRQ(), __NVIC_GetPendingIRQ(), __NVIC_GetPriority() (+7 more)
-
 ### Community 103 - "web_server.cpp"
-Cohesion: 0.23
+Cohesion: 0.26
 Nodes (5): exchange(), handlePid(), isWireNumber(), sendJson(), setup()
 
 ### Community 104 - "MicroPEs live position and PID monitor"
-Cohesion: 0.25
-Nodes (7): Flash the ESP8266, HTTP and UART, MicroPEs live position and PID monitor, Position and PID, Run it, Verification, Wire the boards
+Cohesion: 0.22
+Nodes (8): Flash the ESP8266, HTTP and UART, MicroPEs live position and PID monitor, Position and PID, Run it, STM32 DMA variant, Verification, Wire the boards
 
 ## Knowledge Gaps
 - **16 isolated node(s):** `field_to_position`, `spi_word_tx`, `spi_word_tx`, `check_frames`, `crc48` (+11 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 409 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **29 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 413 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **28 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `MCU: SEGGER project integration` connect `board_stm32l432.c` to `Build, simulate, and program`?**
-  _High betweenness centrality (0.151) - this node is a cross-community bridge._
+  _High betweenness centrality (0.164) - this node is a cross-community bridge._
 - **Are the 94 inferred relationships involving `__DSB()` (e.g. with `board_init()` and `SCB_CleanDCache()`) actually correct?**
   _`__DSB()` has 94 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `field_to_position`, `spi_word_tx`, `spi_word_tx` to the rest of the system?**
@@ -463,7 +457,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `math` be split into smaller, more focused modules?**
   _Cohesion score 0.13012477718360071 - nodes in this community are weakly interconnected._
 - **Why does `Build, simulate, and program` connect `Build, simulate, and program` to `board_stm32l432.c`?**
-  _High betweenness centrality (0.150) - this node is a cross-community bridge._
+  _High betweenness centrality (0.164) - this node is a cross-community bridge._
 - **Are the 71 inferred relationships involving `__ISB()` (e.g. with `board_init()` and `SCB_CleanDCache()`) actually correct?**
   _`__ISB()` has 71 INFERRED edges - model-reasoned connections that need verification._
 - **Should `cadquery` be split into smaller, more focused modules?**

@@ -7,6 +7,12 @@
     gcc_omit_frame_pointer="Yes"
     gcc_optimization_level="None" />
   <configuration
+    Name="Debug DMA"
+    c_preprocessor_definitions="DEBUG;MAGLEV_TEST_NOV18"
+    gcc_debugging_level="Level 3"
+    gcc_omit_frame_pointer="Yes"
+    gcc_optimization_level="None" />
+  <configuration
     Name="Release"
     c_preprocessor_definitions="NDEBUG"
     gcc_debugging_level="Level 2"
