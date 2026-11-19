@@ -2,6 +2,8 @@
 
 **Report update - November 15, 2026:** CAD has been iterated, the printed setup assembled, parts received, Hall sensors wired to the MCP3204 and tested, and the electromagnet exercised with MOSFET-driven sweeping PWM. The current bench setup uses FPGA-owned ADC SPI and a separate MCU-to-FPGA SPI readout; 16-bit live readout and feedback integration remain in progress. See the new [progress report](progress.qmd), [current design](design.qmd), [hardware](hardware.qmd), and [results](results.qmd), including updated schematics and CAD illustrations. The full application described below is an earlier implementation and is not the current bench configuration.
 
+**Live bench monitor.** The STM32 supplies FPGA position data over UART to the ESP8266, which serves the JavaScript dashboard. The [wiring and setup guide](web_monitor/README.md) covers flashing both boards, the position scale, CSV export, and connecting a PID controller.
+
 ## Earlier application implementation
 
 Earlier shared-control option 2, for one overhead electromagnet and a suspended permanent magnet with ballast, using the **STM32L432KC + UPduino v3.1** course boards. The browser changes a downward gap setpoint; the MCU estimates gap and runs a 1 kHz position controller; the MCU samples current and one or two Hall channels at 5 kHz with SPI DMA; the FPGA runs a 5 kHz current PI loop, generates 20 kHz PWM, and supervises output independently. The original Word proposal is absent from this checkout; see the [available proposal record](docs/proposal.qmd).
