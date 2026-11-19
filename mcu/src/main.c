@@ -21,9 +21,15 @@
 #define PRINT_TO_SEGGER 0    /* Set to 1 for optional RTT debug output. */
 #endif
 
+<<<<<<< Updated upstream
+=======
+volatile int16_t fpga_word = 0;
+volatile uint32_t read_count = 0;
+>>>>>>> Stashed changes
 #define AVERAGE_WINDOW 10u
 #define MAX_SAMPLE_DELTA 1000u
 
+<<<<<<< Updated upstream
 /* Debugger/JS Scope variables. The average retains the bench code's 10 um units. */
 volatile uint16_t fpga_word;
 volatile uint32_t fpga_average, read_count, rejected_count, spi_failures;
@@ -40,6 +46,33 @@ static void update_average(uint16_t word) {
             rejected_count++;
             return;
         }
+=======
+#define AVERAGE_WINDOW 10u
+#define MAX_SAMPLE_DELTA 1000  // Signed constant.
+
+volatile int16_t fpga_average = 0;
+volatile uint32_t rejected_count = 0;
+
+static int16_t samples[AVERAGE_WINDOW];
+static int32_t sample_sum = 0;
+static unsigned sample_count = 0;
+static unsigned next_sample = 0;
+static int16_t previous_sample = 0;
+
+static void update_average(int16_t reading) {
+    // Calculate in 32 bits: two int16_t values can differ by 65535.
+    if (sample_count > 0u) {
+        int32_t delta = (int32_t)reading - (int32_t)previous_sample;
+
+        if (delta < 0)
+            delta = -delta;
+
+        // Uncomment to enable rejection of large changes.
+        // if (delta > MAX_SAMPLE_DELTA) {
+        //     ++rejected_count;
+        //     return;
+        // }
+>>>>>>> Stashed changes
     }
 
     if (sample_count == AVERAGE_WINDOW) {
@@ -49,9 +82,22 @@ static void update_average(uint16_t word) {
     }
     samples[next_sample] = reading;
     sample_sum += reading;
+
     next_sample = (next_sample + 1u) % AVERAGE_WINDOW;
     previous_sample = reading;
+<<<<<<< Updated upstream
     fpga_average = (sample_sum + sample_count / 2u) / sample_count;
+=======
+
+    // Round to nearest integer; exact halves round away from zero.
+    // Keep the divisor signed to avoid unsigned arithmetic.
+    int32_t count = (int32_t)sample_count;
+    int32_t rounded_sum = sample_sum >= 0
+        ? sample_sum + count / 2
+        : sample_sum - count / 2;
+
+    fpga_average = (int16_t)(rounded_sum / count);
+>>>>>>> Stashed changes
 }
 
 /* ESP8266 UART telemetry and configuration protocol. */
@@ -319,6 +365,7 @@ failed:
     GPIOA->BSRR = 1u << 11; spi_reset(); return false;
 }
 int main(void) {
+<<<<<<< Updated upstream
     maglev_monitor_init(&monitor, MAGLEV_POSITION_CALIBRATED != 0);
     board_init();
     uint32_t last_sample = TIM2->CNT - MAGLEV_SAMPLE_PERIOD_MS;
@@ -355,6 +402,26 @@ int main(void) {
                    (unsigned)fpga_word, (long)monitor.position_um, (unsigned long)fpga_average);
         }
 #endif
+=======
+    init_spi();
+
+    for (;;) {
+      uint16_t reading = read_fpga_word();
+      fpga_word = (int16_t)reading;
+
+      ++read_count;
+      update_average(fpga_word);
+
+#if PRINT_TO_SEGGER
+printf("Signed = %d, Unsigned = %u, average = %d\n",
+       (int)fpga_word,
+       (unsigned)reading,
+       (int)fpga_average);
+        fflush(stdout);
+#endif
+
+        delay_ms(50);
+>>>>>>> Stashed changes
     }
 }
 
