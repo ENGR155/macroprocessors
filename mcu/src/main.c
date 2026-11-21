@@ -18,7 +18,7 @@
 #define MAGLEV_POSITION_OFFSET_UM 0
 #define MAGLEV_POSITION_CALIBRATED 0
 #ifndef PRINT_TO_SEGGER
-#define PRINT_TO_SEGGER 0    /* Set to 1 for optional RTT debug output. */
+#define PRINT_TO_SEGGER 1    /* Set to 1 for optional RTT debug output. */
 #endif
 
 #define AVERAGE_WINDOW 10u
@@ -33,7 +33,7 @@ static int32_t sample_sum, previous_sample;
 static unsigned sample_count, next_sample;
 
 static void update_average(int16_t word) {
-    int32_t reading = (int32_t)word * 4;
+    int32_t reading = (int32_t)word;
     if (sample_count) {
         int32_t delta = reading - previous_sample;
         if (delta > (int32_t)MAX_SAMPLE_DELTA || delta < -(int32_t)MAX_SAMPLE_DELTA) {

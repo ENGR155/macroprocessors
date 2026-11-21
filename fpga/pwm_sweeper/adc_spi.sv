@@ -51,7 +51,7 @@ end
           if(frame_start_tick)
           begin
               channel<=next_channel;
-              v_diff<= channel_v[0]-channel_v[1];
+              v_diff<= 4096-(channel_v[0]-channel_v[1]);
               // v_diff<=channel_v[0];
           end
         end

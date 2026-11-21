@@ -10,4 +10,5 @@ set_io -nowarn adc_mosi 18
 set_io -nowarn mcu_clk 21
 set_io -nowarn mcu_cs 20
 set_io -nowarn mcu_miso 12
+set_io -nowarn -pullup yes -pullup_resistor 10K n_reset 43
 set_io -nowarn pwm 48

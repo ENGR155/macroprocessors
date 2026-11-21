@@ -4,11 +4,11 @@ module dsp_mac #(parameter ACCUMULATE_ENABLE = 1'b1, parameter SIGNED_ENABLE = 1
   input logic enable,
   input logic [15:0] in_a,
   input logic [15:0] in_b,
-  output logic [15:0] out
+  output logic [31:0] out
 );
 logic [31:0] full_result;
 
-assign out = full_result[15:0];
+assign out = full_result;
  SB_MAC16 #(
         .NEG_TRIGGER(1'b0),
 
